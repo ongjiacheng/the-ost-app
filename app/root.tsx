@@ -42,8 +42,8 @@ const theme = createTheme({
                 root: {
                     paddingTop: 8,
                     paddingBottom: 8,
-                    paddingLeft: 0,
-                    paddingRight: 0,
+                    paddingLeft: 4,
+                    paddingRight: 4,
                     textAlign: "center",
                     whiteSpace: "pre-line"
                 }

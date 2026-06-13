@@ -144,7 +144,7 @@ export async function loader({ params }: Route.LoaderArgs) {
     const master: MasterType = {
         operator: operator[service.at(0)!.Operator],
         category: (service.at(0) !== undefined && service.at(0)!.ServiceNo >= 451 && service.at(0)!.ServiceNo <= 500)
-            ? "LIMITED-STOP"
+            ? "Limited-Stop"
             : category[service.at(0)!.Category],
         service: params.ServiceNo,
         direction: service.at(0)!.Direction

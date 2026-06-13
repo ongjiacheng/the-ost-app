@@ -26,7 +26,7 @@ function BusTable(props: {table: (number | string | null)[][]}) {
                     {props.table.map((row, rowNo) => (
                         <TableRow key={rowNo}>
                             {row.map((col, colNo) => (
-                                <TableCell key={colNo} sx={{fontSize: {xs: "0.8rem", sm: "0.9rem", md: "1rem"}}}>
+                                <TableCell key={colNo} sx={{fontSize: {xs: "0.6rem", sm: "0.8rem", md: "1rem"}}}>
                                     {col
                                         ? (<MuiLink component={Link} to={`${col}`} color="primary.light" underline="hover">{col}</MuiLink>)
                                         : ""}
