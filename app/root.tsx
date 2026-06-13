@@ -25,6 +25,28 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 
 const theme = createTheme({
+    components: {
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    paddingTop: 20,
+                    paddingBottom: 20,
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    textAlign: "center"
+                }
+            }
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                    textAlign: "center"
+                }
+            }
+        }
+    },
     typography: { fontFamily: '"Inter", sans-serif' },
     palette: {
         primary: {
@@ -45,7 +67,7 @@ function Header() {
     return (
         <AppBar position="relative">
             <Toolbar sx={{bgcolor: "primary.dark"}}>
-                <Container sx={{px: {xs: 1, sm: 2}}}>
+                <Container sx={{px: {xs: 1, sm: 2}, py: 0}}>
                     <Box component="header" sx={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
                         <IconButton component={Link} to="/" aria-label="Home">
                             <Box component="img" src={logo} alt="OST Logo" sx={{ width: 90, height: 24 }}/>
@@ -77,7 +99,7 @@ function Header() {
 function Footer() {
     return (
         <Box component="footer" sx={{ bgcolor: "primary.dark", color: "white", py: 3 }}>
-            <Container sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 }}}>
+            <Container sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 }, py: 0}}>
                 <List sx={{ p: 0 }}>
                     <ListItem disableGutters>
                         <ListItemText sx={{color:"white"}} primary="©2026 One Stop Transport" />

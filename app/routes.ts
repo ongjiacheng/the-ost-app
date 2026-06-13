@@ -8,6 +8,6 @@ export default [
 
     ...prefix("bus", [
         index("./buses.tsx"),
-        route(":id", "./bus.tsx"),
+        route(":ServiceNo", "./bus.tsx"),
     ]),
 ] satisfies RouteConfig;
