@@ -29,8 +29,8 @@ const theme = createTheme({
         MuiContainer: {
             styleOverrides: {
                 root: {
-                    paddingTop: 20,
-                    paddingBottom: 20,
+                    paddingTop: 16,
+                    paddingBottom: 16,
                     paddingLeft: 0,
                     paddingRight: 0,
                     textAlign: "center"
@@ -40,9 +40,12 @@ const theme = createTheme({
         MuiTableCell: {
             styleOverrides: {
                 root: {
+                    paddingTop: 8,
+                    paddingBottom: 8,
                     paddingLeft: 0,
                     paddingRight: 0,
-                    textAlign: "center"
+                    textAlign: "center",
+                    whiteSpace: "pre-line"
                 }
             }
         }

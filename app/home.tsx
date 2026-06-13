@@ -10,7 +10,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export default function Home() {
     return (
-        <Box sx={{ minHeight: "77vh", py: 10, textAlign: "center" }}>
+        <Box sx={{ minHeight: "74vh", py: 10, textAlign: "center" }}>
             <Typography variant="h3" sx={{ py: 2 }}>
                 Welcome to One Stop Transport!
             </Typography>
