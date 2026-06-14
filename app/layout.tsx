@@ -7,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
 
 import { Link, Outlet } from "react-router";
 
@@ -26,21 +27,36 @@ function Header() {
                         <Box component="img" src={logo} alt="OST Logo" sx={{ width: 90, height: 24 }} />
                     </IconButton>
                     <Box>
-                        <IconButton component={Link} to="/walk" aria-label="Walk">
-                            <Box component="img" src={walk} alt="Walk" sx={{ width: 28, height: 28 }} />
-                        </IconButton>
-                        <IconButton component={Link} to="/cycle" aria-label="Cycle">
-                            <Box component="img" src={cycle} alt="Cycle" sx={{ width: 28, height: 28 }} />
-                        </IconButton>
-                        <IconButton component={Link} to="/mrt" aria-label="MRT">
-                            <Box component="img" src={mrt} alt="MRT" sx={{ width: 28, height: 28 }} />
-                        </IconButton>
-                        <IconButton component={Link} to="/bus" aria-label="Bus">
-                            <Box component="img" src={bus} alt="Bus" sx={{ width: 28, height: 28 }} />
-                        </IconButton>
-                        <IconButton component={Link} to="/lrt" aria-label="LRT">
-                            <Box component="img" src={lrt} alt="LRT" sx={{ width: 28, height: 28 }} />
-                        </IconButton>
+                        <Tooltip title="Walk">
+                            <IconButton component={Link} to="/walk" aria-label="Walk">
+                                <Box component="img" src={walk} alt="Walk" sx={{ width: 28, height: 28 }} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Cycle">
+                            <IconButton component={Link} to="/cycle" aria-label="Cycle">
+                                <Box component="img" src={cycle} alt="Cycle" sx={{ width: 28, height: 28 }} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="MRT">
+                            <IconButton component={Link} to="/mrt" aria-label="MRT">
+                                <Box component="img" src={mrt} alt="MRT" sx={{ width: 28, height: 28 }} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Bus">
+                            <IconButton component={Link} to="/bus" aria-label="Bus">
+                                <Box component="img" src={bus} alt="Bus" sx={{ width: 28, height: 28 }} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="LRT">
+                            <IconButton component={Link} to="/lrt" aria-label="LRT">
+                                <Box component="img" src={lrt} alt="LRT" sx={{ width: 28, height: 28 }} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Data">
+                            <IconButton component={Link} to="/lrt" aria-label="LRT">
+                                <Box component="img" src={lrt} alt="LRT" sx={{ width: 28, height: 28 }} />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 </Box>
             </Toolbar>

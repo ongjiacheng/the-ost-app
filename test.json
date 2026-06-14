@@ -1,0 +1,15 @@
+[
+    {
+        "name": "Adiel",
+        "age": 24,
+        "course": "CNM"
+    },
+    {
+        "name": "Jia Cheng",
+        "age": 23,
+        "course": [
+            "CS",
+            "DSA"
+        ]
+    }
+]

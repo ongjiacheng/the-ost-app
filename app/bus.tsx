@@ -1,3 +1,5 @@
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Table from '@mui/material/Table';
@@ -53,12 +55,12 @@ type BusStopType = {
     RoadName: string
 }
 
-type HyperlapseType = {
+type VideoType = {
     channelTitle: string,
     description: string,
     Direction: number,
     position: number,
-    publishedAt: number,
+    publishedAt: string,
     ServiceNo: number,
     ServiceSuffix: string,
     thumbnails: string,
@@ -99,6 +101,7 @@ export async function loader({ params }: Route.LoaderArgs) {
             const busStop: BusStopType = stopQuery.docs.at(0)?.data() as BusStopType;
             return {
                 ...stop,
+                Distance: Number(stop.Distance.toFixed(1)),
                 BusStopName: busStop.Description,
                 RoadName: busStop.RoadName
             };
@@ -130,14 +133,24 @@ export async function loader({ params }: Route.LoaderArgs) {
         })
     );
 
-    const hyperlapseQuery = await db.collection("hyperlapse")
+    const videoQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction").get();
-    const hyperlapse = hyperlapseQuery.docs.map(doc => ({
+    let videos: VideoType[] = videoQuery.docs.map(doc => ({
         id: doc.id,
-        ...doc.data() as HyperlapseType
+        ...doc.data() as VideoType
     }));
+    videos = videos.map(video => {
+        const date = new Date(video.publishedAt);
+        const dateString = new Intl.DateTimeFormat("en-GB", {
+            day: "numeric", month: "long", year: "numeric"
+        }).format(date);
+        return {
+            ...video,
+            publishedAt: dateString
+        }
+    })
 
     const category: Record<string, string> = { "CITY_LINK": "City Direct", "EXPRESS": "Express", "FEEDER": "Feeder", "INDUSTRIAL": "Industrial", "TRUNK": "Trunk" };
     const operator: Record<string, string> = { "SBST": "SBS Transit", "SMRT": "SMRT Buses", "TTS": "Tower Transit", "GAS": "Go-Ahead" };
@@ -150,7 +163,7 @@ export async function loader({ params }: Route.LoaderArgs) {
         direction: service.at(0)!.Direction
     }
 
-    return { master, route, service, hyperlapse };
+    return { master, route, service, videos };
 }
 
 function BusHours({ route }: { route: BusRouteType[] }) {
@@ -192,6 +205,24 @@ function BusHours({ route }: { route: BusRouteType[] }) {
     );
 }
 
+function BusVideos({ videos }: { videos: VideoType[] }) {
+    return (
+        <Container>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
+                {videos.map(video => (
+                    <Card key={video.videoId} sx={{ flex: 1 }}>
+                        <CardMedia
+                            component="iframe"
+                            src={`https://www.youtube.com/embed/${video.videoId}`}
+                            sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
+                        />
+                    </Card>
+                ))}
+            </Stack>
+        </Container>
+    );
+}
+
 function BusFrequency({ service }: { service: BusServiceType[] }) {
     return (
         <Container>
@@ -220,7 +251,7 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
                 </TableBody>
             </Table>
         </Container>
-    )
+    );
 }
 
 function BusJourney({ route }: { route: BusRouteType[] }) {
@@ -230,7 +261,7 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
 
     return (
         <Container>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{alignItems: "flex-start"}}>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
                 {directions.map(direction =>
                     <Table key={direction.at(0)?.Direction}>
                         <TableHead>
@@ -249,7 +280,7 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                             {direction.map(stop => (
                                 <TableRow key={stop.StopSequence}>
                                     <TableCell>{stop.StopSequence}</TableCell>
-                                    <TableCell>{stop.Distance.toFixed(1)}</TableCell>
+                                    <TableCell>{stop.Distance}</TableCell>
                                     <TableCell>{stop.BusStopCode}</TableCell>
                                     <TableCell>{stop.BusStopName}</TableCell>
                                     <TableCell>{stop.RoadName}</TableCell>
@@ -260,23 +291,19 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                 )}
             </Stack>
         </Container>
-    )
-}
-
-function Hyperlapse({ hyperlapse }: { hyperlapse: HyperlapseType[] }) {
-    return <></>
+    );
 }
 
 export default function Bus({
-    loaderData: { master, route, service, hyperlapse }
+    loaderData: { master, route, service, videos }
 }: Route.ComponentProps) {
     return (
         <Container>
-            <Typography variant="h6">{master.operator} {master.category} Bus Service {master.service}</Typography>
+            <Typography variant="h4">{master.operator} {master.category} Service {master.service}</Typography>
+            <BusVideos videos={videos} />
             <BusHours route={route} />
             <BusFrequency service={service} />
             <BusJourney route={route} />
-            <Hyperlapse hyperlapse={hyperlapse} />
         </Container>
     );
 }
