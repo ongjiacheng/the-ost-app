@@ -208,9 +208,9 @@ function BusHours({ route }: { route: BusRouteType[] }) {
 function BusVideos({ videos }: { videos: VideoType[] }) {
     return (
         <Container>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
                 {videos.map(video => (
-                    <Card key={video.videoId} sx={{ flex: 1 }}>
+                    <Card key={video.videoId} sx={{ flex: 1, width: "100%" }}>
                         <CardMedia
                             component="iframe"
                             src={`https://www.youtube.com/embed/${video.videoId}`}
