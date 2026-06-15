@@ -240,8 +240,18 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
                     {service.map(direction => (
                         <TableRow key={direction.Direction}>
                             <TableCell>
-                                <Typography variant="body1">Direction {direction.Direction}</Typography>
-                                {direction.OriginName} → {direction.DestinationName}</TableCell>
+                                {direction.LoopDesc ? (
+                                    <>
+                                        <Typography variant="body1">Loop</Typography>
+                                        {direction.OriginName} ↺ {direction.LoopDesc}
+                                    </>
+                                ) : (
+                                    <>
+                                        <Typography variant="body1">Direction {direction.Direction}</Typography>
+                                        {direction.OriginName} → {direction.DestinationName}
+                                    </>
+                                )}
+                            </TableCell>
                             <TableCell>{direction.AM_Peak_Freq}</TableCell>
                             <TableCell>{direction.AM_Offpeak_Freq}</TableCell>
                             <TableCell>{direction.PM_Peak_Freq}</TableCell>
