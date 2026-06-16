@@ -173,7 +173,7 @@ function BusHours({ route }: { route: BusRouteType[] }) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2} rowSpan={2}></TableCell>
+                        <TableCell colSpan={2} rowSpan={2}>Timings</TableCell>
                         <TableCell colSpan={2}>Weekdays</TableCell>
                         <TableCell colSpan={2}>Saturdays</TableCell>
                         <TableCell colSpan={2}>Sundays / PHs</TableCell>
@@ -229,7 +229,7 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell></TableCell>
+                        <TableCell>Frequency</TableCell>
                         <TableCell>AM Peak</TableCell>
                         <TableCell>AM Off Peak</TableCell>
                         <TableCell>PM Peak</TableCell>
@@ -276,7 +276,11 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                     <Table key={direction.at(0)?.Direction}>
                         <TableHead>
                             <TableRow>
-                                <TableCell colSpan={5}>Direction {direction.at(0)?.Direction}</TableCell>
+                                <TableCell colSpan={5}>
+                                    <Typography variant="body1">
+                                        {directions.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
+                                    </Typography>
+                                </TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>#</TableCell>
@@ -287,9 +291,9 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {direction.map(stop => (
+                            {direction.map((stop, stopNo) => (
                                 <TableRow key={stop.StopSequence}>
-                                    <TableCell>{stop.StopSequence}</TableCell>
+                                    <TableCell>{stopNo + 1}</TableCell>
                                     <TableCell>{stop.Distance}</TableCell>
                                     <TableCell>{stop.BusStopCode}</TableCell>
                                     <TableCell>{stop.BusStopName}</TableCell>
