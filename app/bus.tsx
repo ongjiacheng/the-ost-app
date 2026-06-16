@@ -137,20 +137,10 @@ export async function loader({ params }: Route.LoaderArgs) {
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction").get();
-    let videos: VideoType[] = videoQuery.docs.map(doc => ({
+    const videos: VideoType[] = videoQuery.docs.map(doc => ({
         id: doc.id,
         ...doc.data() as VideoType
     }));
-    videos = videos.map(video => {
-        const date = new Date(video.publishedAt);
-        const dateString = new Intl.DateTimeFormat("en-GB", {
-            day: "numeric", month: "long", year: "numeric"
-        }).format(date);
-        return {
-            ...video,
-            publishedAt: dateString
-        }
-    })
 
     const category: Record<string, string> = { "CITY_LINK": "City Direct", "EXPRESS": "Express", "FEEDER": "Feeder", "INDUSTRIAL": "Industrial", "TRUNK": "Trunk" };
     const operator: Record<string, string> = { "SBST": "SBS Transit", "SMRT": "SMRT Buses", "TTS": "Tower Transit", "GAS": "Go-Ahead" };
