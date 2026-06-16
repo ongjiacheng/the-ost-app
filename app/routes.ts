@@ -9,5 +9,5 @@ export default [
     ...prefix("bus", [
         index("./buses.tsx"),
         route(":ServiceNo", "./bus.tsx"),
-    ]),
+    ])
 ] satisfies RouteConfig;
