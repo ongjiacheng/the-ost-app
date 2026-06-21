@@ -47,14 +47,6 @@ type BusServiceType = {
     ServiceSuffix: string
 }
 
-type BusStopType = {
-    BusStopCode: string,
-    Description: string,
-    Latitude: number,
-    Longitude: number,
-    RoadName: string
-}
-
 type VideoType = {
     channelTitle: string,
     description: string,
@@ -90,48 +82,17 @@ export async function loader({ params }: Route.LoaderArgs) {
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction")
         .orderBy("StopSequence").get();
-    let route: BusRouteType[] = routeQuery.docs.map(doc => ({
+    const route: BusRouteType[] = routeQuery.docs.map(doc => ({
         ...doc.data() as BusRouteType
     }));
-    route = await Promise.all(
-        route.map(async stop => {
-            const stopQuery = await db.collection("bus_stops")
-                .where("BusStopCode", "==", stop.BusStopCode)
-                .get();
-            const busStop: BusStopType = stopQuery.docs.at(0)?.data() as BusStopType;
-            return {
-                ...stop,
-                Distance: Number(stop.Distance.toFixed(1)),
-                BusStopName: busStop.Description,
-                RoadName: busStop.RoadName
-            };
-        })
-    );
 
     const serviceQuery = await db.collection("bus_services")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction").get();
-    let service: BusServiceType[] = serviceQuery.docs.map(doc => ({
+    const service: BusServiceType[] = serviceQuery.docs.map(doc => ({
         ...doc.data() as BusServiceType
     }));
-    service = await Promise.all(
-        service.map(async direction => {
-            const originQuery = await db.collection("bus_stops")
-                .where("BusStopCode", "==", direction.OriginCode)
-                .get();
-            const destinationQuery = await db.collection("bus_stops")
-                .where("BusStopCode", "==", direction.DestinationCode)
-                .get();
-            const origin: BusStopType = originQuery.docs.at(0)?.data() as BusStopType;
-            const destination: BusStopType = destinationQuery.docs.at(0)?.data() as BusStopType;
-            return {
-                ...direction,
-                OriginName: origin.Description,
-                DestinationName: destination.Description
-            };
-        })
-    );
 
     const videoQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
