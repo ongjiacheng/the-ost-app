@@ -69,27 +69,27 @@ const theme = createTheme({
 function Header() {
     return (
         <AppBar position="relative">
-            <Toolbar sx={{bgcolor: "primary.dark"}}>
-                <Container sx={{px: {xs: 1, sm: 2}, py: 0}}>
-                    <Box component="header" sx={{display: "flex", justifyContent: "space-between", alignItems:"center"}}>
+            <Toolbar sx={{ bgcolor: "primary.dark" }}>
+                <Container sx={{ px: { xs: 1, sm: 2 }, py: 0 }}>
+                    <Box component="header" sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <IconButton component={Link} to="/" aria-label="Home">
-                            <Box component="img" src={logo} alt="OST Logo" sx={{ width: 90, height: 24 }}/>
+                            <Box component="img" src={logo} alt="OST Logo" sx={{ width: 90, height: 24 }} />
                         </IconButton>
                         <Box>
                             <IconButton component={Link} to="/walk" aria-label="Walk">
-                                <Box component="img" src={walk} alt="Walk" sx={{ width: 28, height: 28 }}/>
+                                <Box component="img" src={walk} alt="Walk" sx={{ width: 28, height: 28 }} />
                             </IconButton>
                             <IconButton component={Link} to="/cycle" aria-label="Cycle">
-                                <Box component="img" src={cycle} alt="Cycle" sx={{ width: 28, height: 28 }}/>
+                                <Box component="img" src={cycle} alt="Cycle" sx={{ width: 28, height: 28 }} />
                             </IconButton>
                             <IconButton component={Link} to="/mrt" aria-label="MRT">
-                                <Box component="img" src={mrt} alt="MRT" sx={{ width: 28, height: 28 }}/>
+                                <Box component="img" src={mrt} alt="MRT" sx={{ width: 28, height: 28 }} />
                             </IconButton>
                             <IconButton component={Link} to="/bus" aria-label="Bus">
-                                <Box component="img" src={bus} alt="Bus" sx={{ width: 28, height: 28 }}/>
+                                <Box component="img" src={bus} alt="Bus" sx={{ width: 28, height: 28 }} />
                             </IconButton>
                             <IconButton component={Link} to="/lrt" aria-label="LRT">
-                                <Box component="img" src={lrt} alt="LRT" sx={{ width: 28, height: 28 }}/>
+                                <Box component="img" src={lrt} alt="LRT" sx={{ width: 28, height: 28 }} />
                             </IconButton>
                         </Box>
                     </Box>
@@ -102,10 +102,10 @@ function Header() {
 function Footer() {
     return (
         <Box component="footer" sx={{ bgcolor: "primary.dark", color: "white", py: 3 }}>
-            <Container sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 }, py: 0}}>
+            <Container sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 }, py: 0 }}>
                 <List sx={{ p: 0 }}>
                     <ListItem disableGutters>
-                        <ListItemText sx={{color:"white"}} primary="©2026 One Stop Transport" />
+                        <ListItemText sx={{ color: "white" }} primary="©2026 One Stop Transport" />
                     </ListItem>
                     <ListItem disableGutters>
                         <ListItemText primary="onestoptransportsg@gmail.com" />
@@ -114,28 +114,34 @@ function Footer() {
                 <List sx={{ p: 0 }}>
                     <ListItem disablePadding>
                         <ListItemButton component="a" href="https://www.youtube.com/@3449Hyperlapses" sx={{ py: 0 }}>
-                            <ListItemText sx={{color:"white"}} primary="3449 Hyperlapses" />
+                            <ListItemText sx={{ color: "white" }} primary="3449 Hyperlapses" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton component="a" href="https://www.youtube.com/@AlvetorTransport" sx={{ py: 0 }}>
-                            <ListItemText sx={{color:"white"}} primary="Alvetor Transport" />
+                            <ListItemText sx={{ color: "white" }} primary="Alvetor Transport" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton component="a" href="https://www.youtube.com/@themaintrainost" sx={{ py: 0 }}>
-                            <ListItemText sx={{color:"white"}} primary="TheMainTrain" />
+                            <ListItemText sx={{ color: "white" }} primary="TheMainTrain" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton component="a" href="https://www.youtube.com/@transitevolution" sx={{ py: 0 }}>
-                            <ListItemText sx={{color:"white"}} primary="Transit Evolution" />
+                            <ListItemText sx={{ color: "white" }} primary="Transit Evolution" />
                         </ListItemButton>
                     </ListItem>
                 </List>
             </Container>
         </Box>
     );
+}
+
+export function links() {
+    return [
+        { rel: "icon", href: "/favicon.png", type: "image/png" },
+    ];
 }
 
 export function Layout({

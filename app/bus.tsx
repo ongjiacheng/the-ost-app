@@ -1,3 +1,4 @@
+import { Firestore, Pipelines } from "@google-cloud/firestore";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
@@ -10,7 +11,11 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 
 import type { Route } from "./+types/bus";
-import { db } from "./services/firestore";
+
+const db = new Firestore({
+    projectId: "the-ost-app",
+    databaseId: "the-ost-app"
+});
 
 type BusRouteType = {
     BusStopCode: string,
@@ -77,23 +82,53 @@ export async function loader({ params }: Route.LoaderArgs) {
         serviceNo = Number(params.ServiceNo);
     }
 
-    const routeQuery = await db.collection("bus_routes")
-        .where("ServiceNo", "==", serviceNo)
-        .where("ServiceSuffix", "==", serviceSuffix)
-        .orderBy("Direction")
-        .orderBy("StopSequence").get();
-    const route: BusRouteType[] = routeQuery.docs.map(doc => ({
-        ...doc.data() as BusRouteType
-    }));
+    const routeQuery = await db.pipeline()
+        .collection("bus_routes")
+        .where(Pipelines.field("ServiceNo").equal(serviceNo))
+        .where(Pipelines.field("ServiceSuffix").equal(serviceSuffix))
+        .sort(Pipelines.field("Direction").ascending(), Pipelines.field("StopSequence").ascending())
+        .define(Pipelines.field("BusStopCode").as("BusStopCode"))
+        .addFields(
+            db.pipeline()
+                .collection("bus_stops")
+                .where(Pipelines.field("BusStopCode").equal(Pipelines.variable("BusStopCode")))
+                .select("Description", "RoadName")
+                .toScalarExpression()
+                .as("BusStopInfo")
+        )
+        .execute();
+    const route: BusRouteType[] = routeQuery.results.map(doc => {
+        const { BusStopInfo, ...RouteData } = doc.data();
+        return {
+            BusStopName: BusStopInfo.Description,
+            RoadName: BusStopInfo.RoadName,
+            ...RouteData
+        } as BusRouteType;
+    });
 
-    const serviceQuery = await db.collection("bus_services")
-        .where("ServiceNo", "==", serviceNo)
-        .where("ServiceSuffix", "==", serviceSuffix)
-        .orderBy("Direction").get();
-    const service: BusServiceType[] = serviceQuery.docs.map(doc => ({
-        ...doc.data() as BusServiceType
-    }));
-
+    const serviceQuery = await db.pipeline()
+        .collection("bus_services")
+        .where(Pipelines.field("ServiceNo").equal(serviceNo))
+        .where(Pipelines.field("ServiceSuffix").equal(serviceSuffix))
+        .sort(Pipelines.field("Direction").ascending())
+        .define(Pipelines.field("OriginCode").as("OriginCode"), Pipelines.field("DestinationCode").as("DestinationCode"))
+        .addFields(
+            db.pipeline()
+                .collection("bus_stops")
+                .where(Pipelines.field("BusStopCode").equal(Pipelines.variable("OriginCode")))
+                .select("Description")
+                .toScalarExpression()
+                .as("OriginName"),
+            db.pipeline()
+                .collection("bus_stops")
+                .where(Pipelines.field("BusStopCode").equal(Pipelines.variable("DestinationCode")))
+                .select("Description")
+                .toScalarExpression()
+                .as("DestinationName")
+        )
+        .execute();
+    const service: BusServiceType[] = serviceQuery.results.map(doc => doc.data() as BusServiceType);
+    console.log(service)
     const videoQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
@@ -124,7 +159,7 @@ function BusHours({ route }: { route: BusRouteType[] }) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2} rowSpan={2}>Timings</TableCell>
+                        <TableCell colSpan={2} rowSpan={2}>Timings (Hrs)</TableCell>
                         <TableCell colSpan={2}>Weekdays</TableCell>
                         <TableCell colSpan={2}>Saturdays</TableCell>
                         <TableCell colSpan={2}>Sundays / PHs</TableCell>
