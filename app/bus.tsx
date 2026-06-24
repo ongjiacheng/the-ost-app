@@ -1,7 +1,14 @@
-import { Firestore, Pipelines } from "@google-cloud/firestore";
+import { Firestore } from "@google-cloud/firestore";
+import { field, variable } from "@google-cloud/firestore/pipelines";
+
+import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
+import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +16,8 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+
+import { useState } from "react";
 
 import type { Route } from "./+types/bus";
 
@@ -84,14 +93,14 @@ export async function loader({ params }: Route.LoaderArgs) {
 
     const routeQuery = await db.pipeline()
         .collection("bus_routes")
-        .where(Pipelines.field("ServiceNo").equal(serviceNo))
-        .where(Pipelines.field("ServiceSuffix").equal(serviceSuffix))
-        .sort(Pipelines.field("Direction").ascending(), Pipelines.field("StopSequence").ascending())
-        .define(Pipelines.field("BusStopCode").as("BusStopCode"))
+        .where(field("ServiceNo").equal(serviceNo))
+        .where(field("ServiceSuffix").equal(serviceSuffix))
+        .sort(field("Direction").ascending(), field("StopSequence").ascending())
+        .define(field("BusStopCode").as("BusStopCode"))
         .addFields(
             db.pipeline()
                 .collection("bus_stops")
-                .where(Pipelines.field("BusStopCode").equal(Pipelines.variable("BusStopCode")))
+                .where(field("BusStopCode").equal(variable("BusStopCode")))
                 .select("Description", "RoadName")
                 .toScalarExpression()
                 .as("BusStopInfo")
@@ -108,27 +117,26 @@ export async function loader({ params }: Route.LoaderArgs) {
 
     const serviceQuery = await db.pipeline()
         .collection("bus_services")
-        .where(Pipelines.field("ServiceNo").equal(serviceNo))
-        .where(Pipelines.field("ServiceSuffix").equal(serviceSuffix))
-        .sort(Pipelines.field("Direction").ascending())
-        .define(Pipelines.field("OriginCode").as("OriginCode"), Pipelines.field("DestinationCode").as("DestinationCode"))
+        .where(field("ServiceNo").equal(serviceNo))
+        .where(field("ServiceSuffix").equal(serviceSuffix))
+        .sort(field("Direction").ascending())
+        .define(field("OriginCode").as("OriginCode"), field("DestinationCode").as("DestinationCode"))
         .addFields(
             db.pipeline()
                 .collection("bus_stops")
-                .where(Pipelines.field("BusStopCode").equal(Pipelines.variable("OriginCode")))
+                .where(field("BusStopCode").equal(variable("OriginCode")))
                 .select("Description")
                 .toScalarExpression()
                 .as("OriginName"),
             db.pipeline()
                 .collection("bus_stops")
-                .where(Pipelines.field("BusStopCode").equal(Pipelines.variable("DestinationCode")))
+                .where(field("BusStopCode").equal(variable("DestinationCode")))
                 .select("Description")
                 .toScalarExpression()
                 .as("DestinationName")
         )
         .execute();
     const service: BusServiceType[] = serviceQuery.results.map(doc => doc.data() as BusServiceType);
-    console.log(service)
     const videoQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
@@ -262,13 +270,14 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                     <Table key={direction.at(0)?.Direction}>
                         <TableHead>
                             <TableRow>
-                                <TableCell colSpan={5}>
+                                <TableCell colSpan={6}>
                                     <Typography variant="body1">
                                         {directions.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
                                     </Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow>
+                                <TableCell></TableCell>
                                 <TableCell>#</TableCell>
                                 <TableCell>km</TableCell>
                                 <TableCell>Code</TableCell>
@@ -277,14 +286,8 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {direction.map((stop, stopNo) => (
-                                <TableRow key={stop.StopSequence}>
-                                    <TableCell>{stopNo + 1}</TableCell>
-                                    <TableCell>{stop.Distance}</TableCell>
-                                    <TableCell>{stop.BusStopCode}</TableCell>
-                                    <TableCell>{stop.BusStopName}</TableCell>
-                                    <TableCell>{stop.RoadName}</TableCell>
-                                </TableRow>
+                            {direction.map(stop => (
+                                <BusSequence key={stop.StopSequence} stop={stop} />
                             ))}
                         </TableBody>
                     </Table>
@@ -292,6 +295,32 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
             </Stack>
         </Container>
     );
+}
+
+function BusSequence({ stop }: { stop: BusRouteType }) {
+    const [open, setOpen] = useState(false);
+
+    return (<>
+        <TableRow>
+            <TableCell>
+                <IconButton aria-label="Expand" size="small" onClick={() => setOpen(!open)}>
+                    {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                </IconButton>
+            </TableCell>
+            <TableCell>{stop.StopSequence}</TableCell>
+            <TableCell>{stop.Distance}</TableCell>
+            <TableCell>{stop.BusStopCode}</TableCell>
+            <TableCell>{stop.BusStopName}</TableCell>
+            <TableCell>{stop.RoadName}</TableCell>
+        </TableRow>
+        <TableRow>
+            <TableCell colSpan={6} sx={{ p: 0 }}>
+                <Collapse in={open}>
+                    
+                </Collapse>
+            </TableCell>
+        </TableRow>
+    </>);
 }
 
 export default function Bus({
