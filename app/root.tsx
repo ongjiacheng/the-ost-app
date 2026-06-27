@@ -12,11 +12,9 @@ import Toolbar from "@mui/material/Toolbar";
 
 import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
+import am from './assets/am.png';
 import bus from './assets/bus.png';
-import cycle from './assets/cycle.png';
-import lrt from './assets/lrt.png';
-import mrt from './assets/mrt.png';
-import walk from './assets/walk.png';
+import train from './assets/train.png';
 import logo from './assets/ost_logo.png';
 
 import '@fontsource/inter/300.css';
@@ -48,6 +46,16 @@ const theme = createTheme({
                     whiteSpace: "pre-line"
                 }
             }
+        },
+        MuiTypography: {
+            styleOverrides: {
+                h1: { paddingTop: 16, paddingBottom: 16 },
+                h2: { paddingTop: 16, paddingBottom: 16 },
+                h3: { paddingTop: 16, paddingBottom: 16 },
+                h4: { paddingTop: 16, paddingBottom: 16 },
+                h5: { paddingTop: 16, paddingBottom: 16 },
+                h6: { paddingTop: 16, paddingBottom: 16 },
+            }
         }
     },
     typography: { fontFamily: '"Inter", sans-serif' },
@@ -73,23 +81,17 @@ function Header() {
                 <Container sx={{ px: { xs: 1, sm: 2 }, py: 0 }}>
                     <Box component="header" sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <IconButton component={Link} to="/" aria-label="Home">
-                            <Box component="img" src={logo} alt="OST Logo" sx={{ width: 90, height: 24 }} />
+                            <Box component="img" src={logo} alt="OST Logo" sx={{ width: 120, height: 32 }} />
                         </IconButton>
                         <Box>
-                            <IconButton component={Link} to="/walk" aria-label="Walk">
-                                <Box component="img" src={walk} alt="Walk" sx={{ width: 28, height: 28 }} />
+                            <IconButton component={Link} to="/walk-cycle" aria-label="Active Mobility">
+                                <Box component="img" src={am} alt="Active Mobility" sx={{ width: 36, height: 36 }} />
                             </IconButton>
-                            <IconButton component={Link} to="/cycle" aria-label="Cycle">
-                                <Box component="img" src={cycle} alt="Cycle" sx={{ width: 28, height: 28 }} />
-                            </IconButton>
-                            <IconButton component={Link} to="/mrt" aria-label="MRT">
-                                <Box component="img" src={mrt} alt="MRT" sx={{ width: 28, height: 28 }} />
+                            <IconButton component={Link} to="/train" aria-label="Train">
+                                <Box component="img" src={train} alt="Train" sx={{ width: 36, height: 36 }} />
                             </IconButton>
                             <IconButton component={Link} to="/bus" aria-label="Bus">
-                                <Box component="img" src={bus} alt="Bus" sx={{ width: 28, height: 28 }} />
-                            </IconButton>
-                            <IconButton component={Link} to="/lrt" aria-label="LRT">
-                                <Box component="img" src={lrt} alt="LRT" sx={{ width: 28, height: 28 }} />
+                                <Box component="img" src={bus} alt="Bus" sx={{ width: 36, height: 36 }} />
                             </IconButton>
                         </Box>
                     </Box>

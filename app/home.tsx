@@ -11,16 +11,16 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 export default function Home() {
     return (
         <Box sx={{ minHeight: "74vh", py: 10, textAlign: "center" }}>
-            <Typography variant="h3" sx={{ py: 2 }}>
+            <Typography variant="h3">
                 Welcome to One Stop Transport!
             </Typography>
-            <Typography variant="h5" sx={{ py: 2 }}>
+            <Typography variant="h5">
                 Founded in 2015, One Stop Transport is an interest group about all things transportation, comprising of alumni from the School of Science and Technology, Singapore.
             </Typography>
-            <Typography variant="h5" sx={{ py: 2 }}>
+            <Typography variant="h5">
                 We are best known for our video works about the walk-cycle-ride travel modes, uploaded on 4 YouTube channels: 3449 Hyperlapses, Alvetor Transport, TheMainTrain, and Transit Evolution.
             </Typography>
-            <Typography variant="h5" sx={{ py: 2}}>
+            <Typography variant="h5">
                 From the well-received bus service route visuals and park connector bikethroughs, to rides in Singapore and abroad, there is truly something for everyone!
             </Typography>
             <Stack direction="row" sx={{ justifyContent: "center", py: 2 }}>
