@@ -11,8 +11,8 @@ import Typography from '@mui/material/Typography';
 import { useState } from "react";
 import { Link } from "react-router";
 
-import busPackage from "./assets/bus_package.json";
-import busType from "./assets/bus_type.json";
+import busPackage from "../assets/bus_package.json";
+import busType from "../assets/bus_type.json";
 
 export default function Buses() {
     const [view, setView] = useState("type");

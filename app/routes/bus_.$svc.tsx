@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 
 import { useState } from "react";
 
-import type { Route } from "./+types/bus";
+import type { Route } from "./+types/bus_.$svc";
 
 const db = new Firestore({
     projectId: "the-ost-app",
@@ -83,12 +83,12 @@ type MasterType = {
 
 export async function loader({ params }: Route.LoaderArgs) {
     let serviceNo: number, serviceSuffix: string;
-    if (/[^0-9]/.test(params.ServiceNo)) {
-        serviceSuffix = String(params.ServiceNo.at(-1));
-        serviceNo = Number(params.ServiceNo.slice(0, -1));
+    if (/[^0-9]/.test(params.svc)) {
+        serviceSuffix = String(params.svc.at(-1));
+        serviceNo = Number(params.svc.slice(0, -1));
     } else {
         serviceSuffix = "";
-        serviceNo = Number(params.ServiceNo);
+        serviceNo = Number(params.svc);
     }
 
     const routeQuery = await db.pipeline()
@@ -153,7 +153,7 @@ export async function loader({ params }: Route.LoaderArgs) {
         category: (service.at(0) !== undefined && service.at(0)!.ServiceNo >= 451 && service.at(0)!.ServiceNo <= 500)
             ? "Limited-Stop"
             : category[service.at(0)!.Category],
-        service: params.ServiceNo,
+        service: params.svc,
         direction: service.at(0)!.Direction
     }
 
