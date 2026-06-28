@@ -167,7 +167,9 @@ function BusHours({ route }: { route: BusRouteType[] }) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2} rowSpan={2}>Timings (Hrs)</TableCell>
+                        <TableCell colSpan={2} rowSpan={2}>
+                            <Typography variant="body1">Operating Time (hours)</Typography>
+                        </TableCell>
                         <TableCell colSpan={2}>Weekdays</TableCell>
                         <TableCell colSpan={2}>Saturdays</TableCell>
                         <TableCell colSpan={2}>Sundays / PHs</TableCell>
@@ -184,13 +186,37 @@ function BusHours({ route }: { route: BusRouteType[] }) {
                 <TableBody>
                     {origin.map(direction => (
                         <TableRow key={direction.Direction}>
-                            <TableCell colSpan={2}>From {direction.BusStopName}</TableCell>
-                            <TableCell>{direction.WD_FirstBus}</TableCell>
-                            <TableCell>{direction.WD_LastBus}</TableCell>
-                            <TableCell>{direction.SAT_FirstBus}</TableCell>
-                            <TableCell>{direction.SAT_LastBus}</TableCell>
-                            <TableCell>{direction.SUN_FirstBus}</TableCell>
-                            <TableCell>{direction.SUN_LastBus}</TableCell>
+                            <TableCell colSpan={2}>
+                                {origin.length === 1 ? (
+                                    <>
+                                        <Typography variant="body1">Loop</Typography>
+                                        From {direction.BusStopName}
+                                    </>
+                                ) : (
+                                    <>
+                                        <Typography variant="body1">Direction {direction.Direction}</Typography>
+                                        From {direction.BusStopName}
+                                    </>
+                                )}
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.WD_FirstBus}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.WD_LastBus}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.SAT_FirstBus}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.SAT_LastBus}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.SUN_FirstBus}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.SUN_LastBus}</Typography>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -223,7 +249,9 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Frequency</TableCell>
+                        <TableCell>
+                            <Typography variant="body1">Frequency (minutes)</Typography>
+                        </TableCell>
                         <TableCell>AM Peak</TableCell>
                         <TableCell>AM Off Peak</TableCell>
                         <TableCell>PM Peak</TableCell>
@@ -246,10 +274,18 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
                                     </>
                                 )}
                             </TableCell>
-                            <TableCell>{direction.AM_Peak_Freq}</TableCell>
-                            <TableCell>{direction.AM_Offpeak_Freq}</TableCell>
-                            <TableCell>{direction.PM_Peak_Freq}</TableCell>
-                            <TableCell>{direction.PM_Offpeak_Freq}</TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.AM_Peak_Freq}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.AM_Offpeak_Freq}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.PM_Peak_Freq}</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant="body1">{direction.PM_Offpeak_Freq}</Typography>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -270,8 +306,8 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                     <Table key={direction.at(0)?.Direction}>
                         <TableHead>
                             <TableRow>
-                                <TableCell colSpan={6}>
-                                    <Typography variant="body1">
+                                <TableCell colSpan={5}>
+                                    <Typography variant="h5">
                                         {directions.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
                                     </Typography>
                                 </TableCell>
@@ -281,13 +317,12 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                                 <TableCell>#</TableCell>
                                 <TableCell>km</TableCell>
                                 <TableCell>Code</TableCell>
-                                <TableCell>Bus Stop Name</TableCell>
-                                <TableCell>Road Name</TableCell>
+                                <TableCell>Name</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {direction.map(stop => (
-                                <BusSequence key={stop.StopSequence} stop={stop} />
+                            {direction.map((stop, index) => (
+                                <BusSequence key={stop.StopSequence} currentStop={stop} previousStop={direction[index - 1]} />
                             ))}
                         </TableBody>
                     </Table>
@@ -297,26 +332,50 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
     );
 }
 
-function BusSequence({ stop }: { stop: BusRouteType }) {
+function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType, previousStop: BusRouteType }) {
     const [open, setOpen] = useState(false);
 
     return (<>
+        {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
+            <TableRow>
+                <TableCell colSpan={5}>
+                    <Typography variant="body1">{currentStop.RoadName}</Typography>
+                </TableCell>
+            </TableRow>}
         <TableRow>
             <TableCell>
                 <IconButton aria-label="Expand" size="small" onClick={() => setOpen(!open)}>
                     {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </IconButton>
             </TableCell>
-            <TableCell>{stop.StopSequence}</TableCell>
-            <TableCell>{stop.Distance}</TableCell>
-            <TableCell>{stop.BusStopCode}</TableCell>
-            <TableCell>{stop.BusStopName}</TableCell>
-            <TableCell>{stop.RoadName}</TableCell>
+            <TableCell>{currentStop.StopSequence}</TableCell>
+            <TableCell>{currentStop.Distance}</TableCell>
+            <TableCell>{currentStop.BusStopCode}</TableCell>
+            <TableCell>{currentStop.BusStopName}</TableCell>
         </TableRow>
         <TableRow>
-            <TableCell colSpan={6} sx={{ p: 0 }}>
+            <TableCell colSpan={6} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open}>
-                    
+                    <Table>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>WD First</TableCell>
+                                <TableCell>WD Last</TableCell>
+                                <TableCell>Sat First</TableCell>
+                                <TableCell>Sat Last</TableCell>
+                                <TableCell>Sun First</TableCell>
+                                <TableCell>Sun Last</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>{currentStop.WD_FirstBus}</TableCell>
+                                <TableCell>{currentStop.WD_LastBus}</TableCell>
+                                <TableCell>{currentStop.SAT_FirstBus}</TableCell>
+                                <TableCell>{currentStop.SAT_LastBus}</TableCell>
+                                <TableCell>{currentStop.SUN_FirstBus}</TableCell>
+                                <TableCell>{currentStop.SUN_LastBus}</TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
                 </Collapse>
             </TableCell>
         </TableRow>
@@ -328,7 +387,7 @@ export default function Bus({
 }: Route.ComponentProps) {
     return (
         <Container>
-            <Typography variant="h4">{master.operator} {master.category} Service {master.service}</Typography>
+            <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
             <BusVideos videos={videos} />
             <BusHours route={route} />
             <BusFrequency service={service} />
