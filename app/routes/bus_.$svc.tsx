@@ -399,7 +399,7 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
             <TableCell colSpan={6} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open}>
                     <BusFirstLast stop={currentStop} />
-                    {arrival && <BusArrival arrival={arrival} />}
+                    {arrival?.Services[0] && <BusArrival arrival={arrival} />}
                 </Collapse>
             </TableCell>
         </TableRow>
@@ -445,7 +445,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
                     {timing3 && <TableCell>{timing3.EstimatedArrival.slice(11, 19)}</TableCell>}
                 </TableRow>
                 <TableRow>
-                    <TableCell>Bus Occupacy</TableCell>
+                    <TableCell>Bus Occupancy</TableCell>
                     {timing1 && <TableCell>{timing1.Load}</TableCell>}
                     {timing2 && <TableCell>{timing2.Load}</TableCell>}
                     {timing3 && <TableCell>{timing3.Load}</TableCell>}
