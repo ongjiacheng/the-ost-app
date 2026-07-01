@@ -26,6 +26,29 @@ const db = new Firestore({
     databaseId: "the-ost-app"
 });
 
+type BusArrivalType = {
+    "odata.metadata": string,
+    BusStopCode: string,
+    Services: {
+        ServiceNo: string,
+        Operator: string,
+        NextBus: {
+            OriginCode: string,
+            DestinationCode: string,
+            EstimatedArrival: string,
+            Monitored: number,
+            Latitude: string,
+            Longitude: string,
+            VisitNumber: string,
+            Load: string,
+            Feature: string,
+            Type: string
+        },
+        NextBus2: BusArrivalType["Services"][number]["NextBus"],
+        NextBus3: BusArrivalType["Services"][number]["NextBus"]
+    }[];
+}
+
 type BusRouteType = {
     BusStopCode: string,
     BusStopName: string,
@@ -334,6 +357,20 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
 
 function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType, previousStop: BusRouteType }) {
     const [open, setOpen] = useState(false);
+    const [arrival, setArrival] = useState<BusArrivalType | null>(null);
+
+    async function handleClick(stop: BusRouteType) {
+        if (!open) {
+            const params = new URLSearchParams({
+                BusStopCode: stop.BusStopCode,
+                ServiceNo: `${stop.ServiceNo}${stop.ServiceSuffix}`
+            });
+            const response = await fetch(`/api/bus-arrival?${params}`);
+            const data = await response.json() as BusArrivalType;
+            setArrival(data);
+        }
+        setOpen(!open);
+    }
 
     return (<>
         {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
@@ -344,7 +381,12 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
             </TableRow>}
         <TableRow>
             <TableCell>
-                <IconButton aria-label="Expand" size="small" onClick={() => setOpen(!open)}>
+                <IconButton
+                    aria-label="Expand"
+                    size="small"
+                    type="button"
+                    onClick={() => handleClick(currentStop)}
+                >
                     {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </IconButton>
             </TableCell>
@@ -356,30 +398,67 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
         <TableRow>
             <TableCell colSpan={6} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open}>
-                    <Table>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>WD First</TableCell>
-                                <TableCell>WD Last</TableCell>
-                                <TableCell>Sat First</TableCell>
-                                <TableCell>Sat Last</TableCell>
-                                <TableCell>Sun First</TableCell>
-                                <TableCell>Sun Last</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>{currentStop.WD_FirstBus}</TableCell>
-                                <TableCell>{currentStop.WD_LastBus}</TableCell>
-                                <TableCell>{currentStop.SAT_FirstBus}</TableCell>
-                                <TableCell>{currentStop.SAT_LastBus}</TableCell>
-                                <TableCell>{currentStop.SUN_FirstBus}</TableCell>
-                                <TableCell>{currentStop.SUN_LastBus}</TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                    <BusFirstLast stop={currentStop} />
+                    {arrival && <BusArrival arrival={arrival} />}
                 </Collapse>
             </TableCell>
         </TableRow>
     </>);
+}
+
+function BusFirstLast({ stop }: { stop: BusRouteType }) {
+    return (
+        <Table>
+            <TableBody>
+                <TableRow>
+                    <TableCell>WD First</TableCell>
+                    <TableCell>WD Last</TableCell>
+                    <TableCell>Sat First</TableCell>
+                    <TableCell>Sat Last</TableCell>
+                    <TableCell>Sun First</TableCell>
+                    <TableCell>Sun Last</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>{stop.WD_FirstBus}</TableCell>
+                    <TableCell>{stop.WD_LastBus}</TableCell>
+                    <TableCell>{stop.SAT_FirstBus}</TableCell>
+                    <TableCell>{stop.SAT_LastBus}</TableCell>
+                    <TableCell>{stop.SUN_FirstBus}</TableCell>
+                    <TableCell>{stop.SUN_LastBus}</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+    )
+}
+
+function BusArrival({ arrival }: { arrival: BusArrivalType }) {
+    const timing1 = arrival.Services[0].NextBus;
+    const timing2 = arrival.Services[0].NextBus2;
+    const timing3 = arrival.Services[0].NextBus3;
+    return (arrival && (
+        <Table>
+            <TableBody>
+                <TableRow>
+                    <TableCell>Next Bus</TableCell>
+                    {timing1 && <TableCell>{timing1.EstimatedArrival.slice(11, 19)}</TableCell>}
+                    {timing2 && <TableCell>{timing2.EstimatedArrival.slice(11, 19)}</TableCell>}
+                    {timing3 && <TableCell>{timing3.EstimatedArrival.slice(11, 19)}</TableCell>}
+                </TableRow>
+                <TableRow>
+                    <TableCell>Bus Occupacy</TableCell>
+                    {timing1 && <TableCell>{timing1.Load}</TableCell>}
+                    {timing2 && <TableCell>{timing2.Load}</TableCell>}
+                    {timing3 && <TableCell>{timing3.Load}</TableCell>}
+                </TableRow>
+                <TableRow>
+                    <TableCell>Bus Type</TableCell>
+                    {timing1 && <TableCell>{timing1.Type}</TableCell>}
+                    {timing2 && <TableCell>{timing2.Type}</TableCell>}
+                    {timing3 && <TableCell>{timing3.Type}</TableCell>}
+                </TableRow>
+            </TableBody>
+        </Table>
+    ))
 }
 
 export default function Bus({
