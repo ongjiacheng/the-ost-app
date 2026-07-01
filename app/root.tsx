@@ -43,7 +43,7 @@ const theme = createTheme({
                     paddingLeft: 4,
                     paddingRight: 4,
                     textAlign: "center",
-                    whiteSpace: "pre-line"
+                    whiteSpace: "pre-wrap"
                 }
             }
         },

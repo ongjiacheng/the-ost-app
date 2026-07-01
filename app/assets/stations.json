@@ -1,3197 +1,641 @@
 {
-    "01012": [
-        "CC2",
-        "Bras Basah",
-        "A"
-    ],
-    "01059": [
-        "EW12 DT14",
-        "Bugis",
-        "B"
-    ],
-    "01112": [
-        "EW12 DT14",
-        "Bugis",
-        "C"
-    ],
-    "01113": [
-        "EW12 DT14",
-        "Bugis",
-        "A"
-    ],
-    "01119": [
-        "EW12 DT14",
-        "Bugis",
-        "C"
-    ],
-    "01139": [
-        "EW12 DT14",
-        "Bugis",
-        "E"
-    ],
-    "01311": [
-        "EW11",
-        "Lavender",
-        "B"
-    ],
-    "01319": [
-        "EW11",
-        "Lavender",
-        "A"
-    ],
-    "01541": [
-        "EW12 DT14",
-        "Bugis",
-        "D"
-    ],
-    "01611": [
-        "CC3",
-        "Esplanade",
-        "F"
-    ],
-    "01619": [
-        "CC3",
-        "Esplanade",
-        "F"
-    ],
-    "02029": [
-        "CC3",
-        "Esplanade",
-        "D"
-    ],
-    "02049": [
-        "EW13 NS25|CC3",
-        "City Hall|Esplanade",
-        "A|F"
-    ],
-    "02089": [
-        "CC4 DT15",
-        "Promenade",
-        "A"
-    ],
-    "02111": [
-        "CC3",
-        "Esplanade",
-        "C/D"
-    ],
-    "02119": [
-        "CC3",
-        "Esplanade",
-        "C/D"
-    ],
-    "02151": [
-        "CC3",
-        "Esplanade",
-        "A"
-    ],
-    "02161": [
-        "CC4 DT15",
-        "Promenade",
-        "C"
-    ],
-    "02169": [
-        "CC4 DT15",
-        "Promenade",
-        "B"
-    ],
-    "02171": [
-        "CC4 DT15",
-        "Promenade",
-        "A"
-    ],
-    "03011": [
-        "EW14 NS26",
-        "Raffles Place",
-        "B"
-    ],
-    "03019": [
-        "EW14 NS26",
-        "Raffles Place",
-        "B"
-    ],
-    "03021": [
-        "EW14 NS26|DT18",
-        "Raffles Place|Telok Ayer",
-        "F|B"
-    ],
-    "03031": [
-        "EW14 NS26",
-        "Raffles Place",
-        "F"
-    ],
-    "03041": [
-        "DT18",
-        "Telok Ayer",
-        "A"
-    ],
-    "03111": [
-        "EW15",
-        "Tanjong Pagar",
-        "F"
-    ],
-    "03129": [
-        "TE19",
-        "Shenton Way",
-        "6"
-    ],
-    "03151": [
-        "EW15",
-        "Tanjong Pagar",
-        "G"
-    ],
-    "03217": [
-        "EW15",
-        "Tanjong Pagar",
-        "D"
-    ],
-    "03218": [
-        "EW15|CC32",
-        "Tanjong Pagar|Cantonment",
-        "H|2"
-    ],
-    "03222": [
-        "EW15",
-        "Tanjong Pagar",
-        "C"
-    ],
-    "03223": [
-        "EW15",
-        "Tanjong Pagar",
-        "C"
-    ],
-    "03241": [
-        "EW15|CC32",
-        "Tanjong Pagar|Cantonment",
-        "C|1"
-    ],
-    "03361": [
-        "TE22",
-        "Gardens by the Bay",
-        "2"
-    ],
-    "03369": [
-        "TE22",
-        "Gardens by the Bay",
-        "1"
-    ],
-    "03391": [
-        "NS27 CC33 TE20|DT17",
-        "Marina Bay|Downtown",
-        "1|C"
-    ],
-    "03411": [
-        "NS28",
-        "Marina South Pier",
-        "A/B"
-    ],
-    "03419": [
-        "NS28",
-        "Marina South Pier",
-        "A/B"
-    ],
-    "03509": [
-        "CC34 DT16",
-        "Bayfront",
-        "B"
-    ],
-    "03511": [
-        "CC34 DT16",
-        "Bayfront",
-        "D/E"
-    ],
-    "03519": [
-        "CC34 DT16",
-        "Bayfront",
-        "A"
-    ],
-    "03529": [
-        "DT17",
-        "Downtown",
-        "E"
-    ],
-    "03539": [
-        "NS27 CC33 TE20",
-        "Marina Bay",
-        "1"
-    ],
-    "03541": [
-        "TE19",
-        "Shenton Way",
-        "3"
-    ],
-    "03549": [
-        "TE19",
-        "Shenton Way",
-        "3"
-    ],
-    "03551": [
-        "NS27 CC33 TE20",
-        "Marina Bay",
-        "2"
-    ],
-    "03559": [
-        "NS27 CC33 TE20",
-        "Marina Bay",
-        "3"
-    ],
-    "03561": [
-        "NS27 CC33 TE20",
-        "Marina Bay",
-        "2"
-    ],
-    "03569": [
-        "NS27 CC33 TE20",
-        "Marina Bay",
-        "5"
-    ],
-    "03579": [
-        "DT17",
-        "Downtown",
-        "D"
-    ],
-    "04019": [
-        "CC2|DT21",
-        "Bras Basah|Bencoolen",
-        "D|A"
-    ],
-    "04029": [
-        "DT21",
-        "Bencoolen",
-        "A"
-    ],
-    "04111": [
-        "EW13 NS25",
-        "City Hall",
-        "B/D"
-    ],
-    "04121": [
-        "CC2",
-        "Bras Basah",
-        "B"
-    ],
-    "04151": [
-        "EW13 NS25|CC2",
-        "City Hall|Bras Basah",
-        "A|B"
-    ],
-    "04167": [
-        "EW13 NS25",
-        "City Hall",
-        "B"
-    ],
-    "04168": [
-        "EW13 NS25",
-        "City Hall",
-        "B"
-    ],
-    "04179": [
-        "CC2",
-        "Bras Basah",
-        "A"
-    ],
-    "04222": [
-        "NE5",
-        "Clarke Quay",
-        "E"
-    ],
-    "04239": [
-        "NE5",
-        "Clarke Quay",
-        "E"
-    ],
-    "04331": [
-        "DT20",
-        "Fort Canning",
-        "A"
-    ],
-    "04339": [
-        "DT20",
-        "Fort Canning",
-        "B"
-    ],
-    "05012": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "3"
-    ],
-    "05013": [
-        "NE4 DT19",
-        "Chinatown",
-        "C"
-    ],
-    "05019": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "4"
-    ],
-    "05022": [
-        "NE4 DT19",
-        "Chinatown",
-        "D"
-    ],
-    "05049": [
-        "NE4 DT19",
-        "Chinatown",
-        "E"
-    ],
-    "05059": [
-        "NE5",
-        "Clarke Quay",
-        "A"
-    ],
-    "05069": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "4"
-    ],
-    "05129": [
-        "NE4 DT19",
-        "Chinatown",
-        "E"
-    ],
-    "05131": [
-        "NE4 DT19",
-        "Chinatown",
-        "F"
-    ],
-    "05199": [
-        "NE4 DT19",
-        "Chinatown",
-        "F"
-    ],
-    "05189": [
-        "TE18",
-        "Maxwell",
-        "2"
-    ],
-    "05241": [
-        "TE18",
-        "Maxwell",
-        "2"
-    ],
-    "05259": [
-        "TE18",
-        "Maxwell",
-        "3"
-    ],
-    "05269": [
-        "TE18",
-        "Maxwell",
-        "2"
-    ],
-    "05319": [
-        "EW14 NS26|DT18",
-        "Raffles Place|Telok Ayer",
-        "A|B"
-    ],
-    "05421": [
-        "EW15",
-        "Tanjong Pagar",
-        "A"
-    ],
-    "05429": [
-        "EW15",
-        "Tanjong Pagar",
-        "A"
-    ],
-    "06011": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "7"
-    ],
-    "06029": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "1"
-    ],
-    "06071": [
-        "TE16",
-        "Havelock",
-        "2"
-    ],
-    "06081": [
-        "TE16",
-        "Havelock",
-        "3"
-    ],
-    "06129": [
-        "TE16",
-        "Havelock",
-        "4"
-    ],
-    "06131": [
-        "TE15",
-        "Great World",
-        "2"
-    ],
-    "06141": [
-        "TE16",
-        "Havelock",
-        "5"
-    ],
-    "06149": [
-        "TE16",
-        "Havelock",
-        "4"
-    ],
-    "07211": [
-        "NE8",
-        "Farrer Park",
-        "G"
-    ],
-    "07529": [
-        "DT22",
-        "Jalan Besar",
-        "A"
-    ],
-    "07531": [
-        "DT13",
-        "Rochor",
-        "A"
-    ],
-    "07539": [
-        "DT13",
-        "Rochor",
-        "B"
-    ],
-    "07551": [
-        "EW12 DT14",
-        "Bugis",
-        "A"
-    ],
-    "08031": [
-        "NS24 NE6 CC1",
-        "Dhoby Ghaut",
-        "B"
-    ],
-    "08057": [
-        "NS24 NE6 CC1",
-        "Dhoby Ghaut",
-        "E/F"
-    ],
-    "08058": [
-        "NS24 NE6 CC1",
-        "Dhoby Ghaut",
-        "E/F"
-    ],
-    "08069": [
-        "DT21",
-        "Bencoolen",
-        "B"
-    ],
-    "08121": [
-        "NS23",
-        "Somerset",
-        "A"
-    ],
-    "09022": [
-        "NS22 TE14",
-        "Orchard",
-        "13"
-    ],
-    "09023": [
-        "NS22 TE14",
-        "Orchard",
-        "7"
-    ],
-    "09037": [
-        "NS23",
-        "Somerset",
-        "B"
-    ],
-    "09038": [
-        "NS23",
-        "Somerset",
-        "B"
-    ],
-    "09047": [
-        "NS22 TE14",
-        "Orchard",
-        "1"
-    ],
-    "09048": [
-        "NS22 TE14",
-        "Orchard",
-        "1"
-    ],
-    "09111": [
-        "NS22 TE14",
-        "Orchard",
-        "11"
-    ],
-    "09121": [
-        "TE13",
-        "Orchard Boulevard",
-        "2"
-    ],
-    "09131": [
-        "TE13",
-        "Orchard Boulevard",
-        "1"
-    ],
-    "09139": [
-        "TE13",
-        "Orchard Boulevard",
-        "1"
-    ],
-    "10017": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "6"
-    ],
-    "10018": [
-        "EW16 NE3 TE17",
-        "Outram Park",
-        "6"
-    ],
-    "10041": [
-        "CC31",
-        "Cantonment",
-        "2"
-    ],
-    "10161": [
-        "EW17",
-        "Tiong Bahru",
-        "A"
-    ],
-    "10169": [
-        "EW17",
-        "Tiong Bahru",
-        "B"
-    ],
-    "10201": [
-        "EW18",
-        "Redhill",
-        "A"
-    ],
-    "10209": [
-        "EW18",
-        "Redhill",
-        "A"
-    ],
-    "11111": [
-        "CC20",
-        "Farrer Road",
-        "B"
-    ],
-    "11119": [
-        "CC20",
-        "Farrer Road",
-        "A"
-    ],
-    "11141": [
-        "EW19",
-        "Queenstown",
-        "A/D"
-    ],
-    "11149": [
-        "EW19",
-        "Queenstown",
-        "B/C"
-    ],
-    "11161": [
-        "EW20",
-        "Commonwealth",
-        "A/D"
-    ],
-    "11169": [
-        "EW20",
-        "Commonwealth",
-        "B/C"
-    ],
-    "11181": [
-        "EW21 CC22",
-        "Buona Vista",
-        "B/D"
-    ],
-    "11189": [
-        "EW21 CC22",
-        "Buona Vista",
-        "B/D"
-    ],
-    "11191": [
-        "EW21 CC22",
-        "Buona Vista",
-        "A"
-    ],
-    "11199": [
-        "EW21 CC22",
-        "Buona Vista",
-        "A"
-    ],
-    "11261": [
-        "CC21",
-        "Holland Village",
-        "B"
-    ],
-    "11269": [
-        "CC21",
-        "Holland Village",
-        "B"
-    ],
-    "11361": [
-        "EW21 CC22",
-        "Buona Vista",
-        "B/C"
-    ],
-    "11369": [
-        "EW21 CC22",
-        "Buona Vista",
-        "D"
-    ],
-    "11401": [
-        "CC21",
-        "Holland Village",
-        "C"
-    ],
-    "11419": [
-        "CC21",
-        "Holland Village",
-        "A"
-    ],
-    "13011": [
-        "TE12",
-        "Napier",
-        "2"
-    ],
-    "13019": [
-        "TE12",
-        "Napier",
-        "1"
-    ],
-    "13071": [
-        "TE15",
-        "Great World",
-        "5"
-    ],
-    "13079": [
-        "TE15",
-        "Great World",
-        "4"
-    ],
-    "13119": [
-        "TE15",
-        "Great World",
-        "1"
-    ],
-    "13181": [
-        "TE13",
-        "Orchard Boulevard",
-        "2"
-    ],
-    "13189": [
-        "TE13",
-        "Orchard Boulevard",
-        "2"
-    ],
-    "13191": [
-        "NS22 TE14",
-        "Orchard",
-        "12"
-    ],
-    "13199": [
-        "NS22 TE14",
-        "Orchard",
-        "12"
-    ],
-    "14009": [
-        "NE1 CC29",
-        "HarbourFront",
-        "A"
-    ],
-    "14061": [
-        "CC31",
-        "Cantonment",
-        "1"
-    ],
-    "14069": [
-        "CC31",
-        "Cantonment",
-        "4"
-    ],
-    "14071": [
-        "CC31",
-        "Cantonment",
-        "1"
-    ],
-    "14081": [
-        "CC30",
-        "Keppel",
-        "3"
-    ],
-    "14089": [
-        "CC30",
-        "Keppel",
-        "2"
-    ],
-    "14119": [
-        "NE1 CC29",
-        "HarbourFront",
-        "D"
-    ],
-    "14121": [
-        "NE1 CC29",
-        "HarbourFront",
-        "B"
-    ],
-    "14129": [
-        "NE1 CC29",
-        "HarbourFront",
-        "A"
-    ],
-    "14141": [
-        "NE1 CC29",
-        "HarbourFront",
-        "C"
-    ],
-    "14161": [
-        "CC28",
-        "Telok Blangah",
-        "A"
-    ],
-    "14169": [
-        "CC28",
-        "Telok Blangah",
-        "A"
-    ],
-    "14189": [
-        "CC27",
-        "Labrador Park",
-        "A"
-    ],
-    "15041": [
-        "CC27",
-        "Labrador Park",
-        "A"
-    ],
-    "15049": [
-        "CC27",
-        "Labrador Park",
-        "A"
-    ],
-    "15131": [
-        "CC24",
-        "Kent Ridge",
-        "B"
-    ],
-    "15139": [
-        "CC24",
-        "Kent Ridge",
-        "B"
-    ],
-    "15141": [
-        "CC27",
-        "Labrador Park",
-        "A"
-    ],
-    "15149": [
-        "CC27",
-        "Labrador Park",
-        "A"
-    ],
-    "15191": [
-        "CC26",
-        "Pasir Panjang",
-        "A"
-    ],
-    "15199": [
-        "CC26",
-        "Pasir Panjang",
-        "A"
-    ],
-    "15201": [
-        "CC26",
-        "Pasir Panjang",
-        "A"
-    ],
-    "15209": [
-        "CC26",
-        "Pasir Panjang",
-        "A"
-    ],
-    "16011": [
-        "CC25",
-        "Haw Par Villa",
-        "A"
-    ],
-    "16019": [
-        "CC25",
-        "Haw Par Villa",
-        "A"
-    ],
-    "16221": [
-        "CC25",
-        "Haw Par Villa",
-        "A"
-    ],
-    "16229": [
-        "CC25",
-        "Haw Par Villa",
-        "A"
-    ],
-    "17009": [
-        "EW23",
-        "Clementi",
-        "A"
-    ],
-    "17171": [
-        "EW23",
-        "Clementi",
-        "A"
-    ],
-    "17179": [
-        "EW23",
-        "Clementi",
-        "B"
-    ],
-    "18051": [
-        "CC23",
-        "one-north",
-        "A"
-    ],
-    "18059": [
-        "CC23",
-        "one-north",
-        "A"
-    ],
-    "18151": [
-        "CC23",
-        "one-north",
-        "B"
-    ],
-    "18159": [
-        "CC23",
-        "one-north",
-        "B"
-    ],
-    "18331": [
-        "CC24",
-        "Kent Ridge",
-        "A"
-    ],
-    "18339": [
-        "CC24",
-        "Kent Ridge",
-        "A"
-    ],
-    "19031": [
-        "EW22",
-        "Dover",
-        "A"
-    ],
-    "19039": [
-        "EW22",
-        "Dover",
-        "B"
-    ],
-    "22009": [
-        "EW27",
-        "Boon Lay",
-        "C/D"
-    ],
-    "22491": [
-        "EW27",
-        "Boon Lay",
-        "A"
-    ],
-    "22499": [
-        "EW27",
-        "Boon Lay",
-        "A"
-    ],
-    "22521": [
-        "EW28",
-        "Pioneer",
-        "A"
-    ],
-    "22529": [
-        "EW28",
-        "Pioneer",
-        "B"
-    ],
-    "22571": [
-        "EW27",
-        "Boon Lay",
-        "B"
-    ],
-    "22579": [
-        "EW27",
-        "Boon Lay",
-        "B"
-    ],
-    "23371": [
-        "EW29",
-        "Joo Koon",
-        "A"
-    ],
-    "23379": [
-        "EW29",
-        "Joo Koon",
-        "A"
-    ],
-    "23491": [
-        "EW29",
-        "Joo Koon",
-        "B"
-    ],
-    "23499": [
-        "EW29",
-        "Joo Koon",
-        "A"
-    ],
-    "23519": [
-        "EW29",
-        "Joo Koon",
-        "A"
-    ],
-    "24009": [
-        "EW29",
-        "Joo Koon",
-        "A"
-    ],
-    "24511": [
-        "EW30",
-        "Gul Circle",
-        "A"
-    ],
-    "24519": [
-        "EW30",
-        "Gul Circle",
-        "B"
-    ],
-    "24701": [
-        "EW31",
-        "Tuas Crescent",
-        "B"
-    ],
-    "24709": [
-        "EW31",
-        "Tuas Crescent",
-        "A"
-    ],
-    "24711": [
-        "EW32",
-        "Tuas West Road",
-        "B"
-    ],
-    "24719": [
-        "EW32",
-        "Tuas West Road",
-        "A"
-    ],
-    "25399": [
-        "EW32",
-        "Tuas West Road",
-        "A"
-    ],
-    "25421": [
-        "EW33",
-        "Tuas Link",
-        "A"
-    ],
-    "25429": [
-        "EW33",
-        "Tuas Link",
-        "B"
-    ],
-    "25691": [
-        "EW32",
-        "Tuas West Road",
-        "A"
-    ],
-    "28009": [
-        "EW24 NS1",
-        "Jurong East",
-        "B"
-    ],
-    "28061": [
-        "EW24 NS1",
-        "Jurong East",
-        "A"
-    ],
-    "28069": [
-        "EW24 NS1",
-        "Jurong East",
-        "D"
-    ],
-    "28091": [
-        "EW26",
-        "Lakeside",
-        "A"
-    ],
-    "28099": [
-        "EW26",
-        "Lakeside",
-        "A"
-    ],
-    "28199": [
-        "EW24 NS1",
-        "Jurong East",
-        "B"
-    ],
-    "28201": [
-        "EW24 NS1",
-        "Jurong East",
-        "B"
-    ],
-    "28211": [
-        "EW24 NS1",
-        "Jurong East",
-        "A"
-    ],
-    "28241": [
-        "EW24 NS1",
-        "Jurong East",
-        "A"
-    ],
-    "28249": [
-        "EW24 NS1",
-        "Jurong East",
-        "A"
-    ],
-    "28271": [
-        "EW25",
-        "Chinese Garden",
-        "C"
-    ],
-    "28279": [
-        "EW25",
-        "Chinese Garden",
-        "C"
-    ],
-    "28341": [
-        "EW25",
-        "Chinese Garden",
-        "A"
-    ],
-    "28349": [
-        "EW25",
-        "Chinese Garden",
-        "A"
-    ],
-    "29009": [
-        "EW24 NS1",
-        "Jurong East",
-        "B"
-    ],
-    "40011": [
-        "NE7 DT12",
-        "Little India",
-        "A"
-    ],
-    "40019": [
-        "NE7 DT12",
-        "Little India",
-        "B/D"
-    ],
-    "40041": [
-        "NS21 DT11",
-        "Newton",
-        "C"
-    ],
-    "40049": [
-        "NS21 DT11",
-        "Newton",
-        "C"
-    ],
-    "40081": [
-        "DT10 TE11",
-        "Stevens",
-        "1"
-    ],
-    "40089": [
-        "DT10 TE11",
-        "Stevens",
-        "5"
-    ],
-    "40181": [
-        "NS21 DT11",
-        "Newton",
-        "A"
-    ],
-    "40189": [
-        "NS21 DT11",
-        "Newton",
-        "B"
-    ],
-    "40221": [
-        "DT10 TE11",
-        "Stevens",
-        "3"
-    ],
-    "40229": [
-        "DT10 TE11",
-        "Stevens",
-        "2"
-    ],
-    "40231": [
-        "DT10 TE11",
-        "Stevens",
-        "4"
-    ],
-    "40239": [
-        "DT10 TE11",
-        "Stevens",
-        "4"
-    ],
-    "41021": [
-        "CC19 DT9",
-        "Botanic Gardens",
-        "A/B"
-    ],
-    "41029": [
-        "CC19 DT9",
-        "Botanic Gardens",
-        "A/B"
-    ],
-    "41051": [
-        "DT8",
-        "Tan Kah Kee",
-        "A"
-    ],
-    "41069": [
-        "DT8",
-        "Tan Kah Kee",
-        "B"
-    ],
-    "41081": [
-        "DT7",
-        "Sixth Avenue",
-        "A"
-    ],
-    "42019": [
-        "DT7",
-        "Sixth Avenue",
-        "B"
-    ],
-    "42051": [
-        "DT6",
-        "King Albert Park",
-        "A"
-    ],
-    "42059": [
-        "DT6",
-        "King Albert Park",
-        "B"
-    ],
-    "42091": [
-        "DT5",
-        "Beauty World",
-        "B"
-    ],
-    "42099": [
-        "DT5",
-        "Beauty World",
-        "A"
-    ],
-    "42109": [
-        "DT5",
-        "Beauty World",
-        "A"
-    ],
-    "42151": [
-        "DT5",
-        "Beauty World",
-        "C"
-    ],
-    "42159": [
-        "DT5",
-        "Beauty World",
-        "C"
-    ],
-    "42259": [
-        "DT5",
-        "Beauty World",
-        "A"
-    ],
-    "42991": [
-        "DT3",
-        "Hillview",
-        "B"
-    ],
-    "43009": [
-        "NS2",
-        "Bukit Batok",
-        "A"
-    ],
-    "43061": [
-        "DT3",
-        "Hillview",
-        "B"
-    ],
-    "43069": [
-        "DT3",
-        "Hillview",
-        "A"
-    ],
-    "43091": [
-        "DT2",
-        "Cashew",
-        "A"
-    ],
-    "43109": [
-        "DT2",
-        "Cashew",
-        "A"
-    ],
-    "43271": [
-        "DT3",
-        "Hillview",
-        "B"
-    ],
-    "43279": [
-        "DT3",
-        "Hillview",
-        "B"
-    ],
-    "43381": [
-        "NS2",
-        "Bukit Batok",
-        "D"
-    ],
-    "43389": [
-        "NS2",
-        "Bukit Batok",
-        "D"
-    ],
-    "43411": [
-        "NS2",
-        "Bukit Batok",
-        "A/B"
-    ],
-    "43419": [
-        "NS2",
-        "Bukit Batok",
-        "A/B"
-    ],
-    "43571": [
-        "NS3",
-        "Bukit Gombak",
-        "C"
-    ],
-    "43579": [
-        "NS3",
-        "Bukit Gombak",
-        "C"
-    ],
-    "44009": [
-        "NS4 BP1",
-        "Choa Chu Kang",
-        "A"
-    ],
-    "44021": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "B"
-    ],
-    "44029": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "A"
-    ],
-    "44031": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "A"
-    ],
-    "44131": [
-        "BP4",
-        "Teck Whye",
-        "A"
-    ],
-    "44139": [
-        "BP4",
-        "Teck Whye",
-        "A"
-    ],
-    "44141": [
-        "BP5",
-        "Phoenix",
-        "A"
-    ],
-    "44149": [
-        "BP5",
-        "Phoenix",
-        "A"
-    ],
-    "44201": [
-        "BP7",
-        "Petir",
-        "A"
-    ],
-    "44209": [
-        "BP7",
-        "Petir",
-        "A"
-    ],
-    "44221": [
-        "BP8",
-        "Pending",
-        "A"
-    ],
-    "44229": [
-        "BP8",
-        "Pending",
-        "A"
-    ],
-    "44251": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "C"
-    ],
-    "44259": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "A"
-    ],
-    "44321": [
-        "BP9",
-        "Bangkit",
-        "A"
-    ],
-    "44329": [
-        "BP9",
-        "Bangkit",
-        "A"
-    ],
-    "44441": [
-        "BP3",
-        "Keat Hong",
-        "A"
-    ],
-    "44449": [
-        "BP3",
-        "Keat Hong",
-        "A"
-    ],
-    "44451": [
-        "BP2",
-        "South View",
-        "A"
-    ],
-    "44459": [
-        "BP2",
-        "South View",
-        "A"
-    ],
-    "44531": [
-        "NS4 BP1",
-        "Choa Chu Kang",
-        "B"
-    ],
-    "44539": [
-        "NS4 BP1",
-        "Choa Chu Kang",
-        "B"
-    ],
-    "44641": [
-        "BP13",
-        "Senja",
-        "A"
-    ],
-    "44649": [
-        "BP13",
-        "Senja",
-        "A"
-    ],
-    "44701": [
-        "BP11",
-        "Segar",
-        "A"
-    ],
-    "44709": [
-        "BP11",
-        "Segar",
-        "A"
-    ],
-    "44721": [
-        "BP12",
-        "Jelapang",
-        "A"
-    ],
-    "44729": [
-        "BP12",
-        "Jelapang",
-        "A"
-    ],
-    "44771": [
-        "BP10",
-        "Fajar",
-        "A"
-    ],
-    "44779": [
-        "BP10",
-        "Fajar",
-        "A"
-    ],
-    "44821": [
-        "BP12",
-        "Jelapang",
-        "A"
-    ],
-    "44829": [
-        "BP12",
-        "Jelapang",
-        "A"
-    ],
-    "44859": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "A"
-    ],
-    "44909": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "A"
-    ],
-    "45009": [
-        "DT1 BP6",
-        "Bukit Panjang",
-        "A/C"
-    ],
-    "45131": [
-        "NS7",
-        "Kranji",
-        "C"
-    ],
-    "45139": [
-        "NS7",
-        "Kranji",
-        "C"
-    ],
-    "45321": [
-        "NS5",
-        "Yew Tee",
-        "C"
-    ],
-    "45329": [
-        "NS5",
-        "Yew Tee",
-        "C"
-    ],
-    "46008": [
-        "NS9 TE2",
-        "Woodlands",
-        "3"
-    ],
-    "46009": [
-        "NS9 TE2",
-        "Woodlands",
-        "3"
-    ],
-    "46321": [
-        "NS9 TE2",
-        "Woodlands",
-        "7"
-    ],
-    "46329": [
-        "NS9 TE2",
-        "Woodlands",
-        "7"
-    ],
-    "46331": [
-        "NS9 TE2",
-        "Woodlands",
-        "7"
-    ],
-    "46339": [
-        "NS9 TE2",
-        "Woodlands",
-        "7"
-    ],
-    "46521": [
-        "NS8",
-        "Marsiling",
-        "C"
-    ],
-    "46529": [
-        "NS8",
-        "Marsiling",
-        "C"
-    ],
-    "46631": [
-        "NS9 TE2",
-        "Woodlands",
-        "5"
-    ],
-    "46639": [
-        "NS9 TE2",
-        "Woodlands",
-        "4"
-    ],
-    "46641": [
-        "NS9 TE2",
-        "Woodlands",
-        "6"
-    ],
-    "46649": [
-        "NS9 TE2",
-        "Woodlands",
-        "6"
-    ],
-    "46771": [
-        "NS10",
-        "Admiralty",
-        "C"
-    ],
-    "46779": [
-        "NS10",
-        "Admiralty",
-        "C"
-    ],
-    "46981": [
-        "TE3",
-        "Woodlands South",
-        "2"
-    ],
-    "46989": [
-        "TE3",
-        "Woodlands South",
-        "1"
-    ],
-    "46991": [
-        "TE3",
-        "Woodlands South",
-        "3"
-    ],
-    "46999": [
-        "TE3",
-        "Woodlands South",
-        "4"
-    ],
-    "47009": [
-        "NS9 TE2",
-        "Woodlands",
-        "1"
-    ],
-    "47201": [
-        "TE1",
-        "Woodlands North",
-        "1"
-    ],
-    "47591": [
-        "NS10",
-        "Admiralty",
-        "D"
-    ],
-    "47749": [
-        "TE3",
-        "Woodlands South",
-        "5"
-    ],
-    "50021": [
-        "NS20",
-        "Novena",
-        "B"
-    ],
-    "50031": [
-        "NS20",
-        "Novena",
-        "B"
-    ],
-    "50037": [
-        "NS20",
-        "Novena",
-        "B"
-    ],
-    "50038": [
-        "NS20",
-        "Novena",
-        "B"
-    ],
-    "50251": [
-        "NE8",
-        "Farrer Park",
-        "A"
-    ],
-    "50259": [
-        "NE8",
-        "Farrer Park",
-        "G"
-    ],
-    "50279": [
-        "NE8",
-        "Farrer Park",
-        "D"
-    ],
-    "52009": [
-        "NS19",
-        "Toa Payoh",
-        "A/B"
-    ],
-    "52161": [
-        "NS18",
-        "Braddell",
-        "A"
-    ],
-    "52171": [
-        "NS18",
-        "Braddell",
-        "A"
-    ],
-    "52179": [
-        "NS18",
-        "Braddell",
-        "C"
-    ],
-    "52181": [
-        "NS19",
-        "Toa Payoh",
-        "D"
-    ],
-    "52189": [
-        "NS19",
-        "Toa Payoh",
-        "C"
-    ],
-    "52211": [
-        "CC17 TE9",
-        "Caldecott",
-        "2"
-    ],
-    "52219": [
-        "CC17 TE9",
-        "Caldecott",
-        "3"
-    ],
-    "52241": [
-        "CC17 TE9",
-        "Caldecott",
-        "1"
-    ],
-    "52249": [
-        "CC17 TE9",
-        "Caldecott",
-        "1"
-    ],
-    "52551": [
-        "CC17 TE9",
-        "Caldecott",
-        "4"
-    ],
-    "52559": [
-        "CC17 TE9",
-        "Caldecott",
-        "1"
-    ],
-    "52581": [
-        "CC17 TE9",
-        "Caldecott",
-        "4"
-    ],
-    "53009": [
-        "NS17 CC15",
-        "Bishan",
-        "A/D"
-    ],
-    "53041": [
-        "TE8",
-        "Upper Thomson",
-        "4"
-    ],
-    "53049": [
-        "TE8",
-        "Upper Thomson",
-        "3"
-    ],
-    "53051": [
-        "TE8",
-        "Upper Thomson",
-        "5"
-    ],
-    "53059": [
-        "TE8",
-        "Upper Thomson",
-        "2"
-    ],
-    "53121": [
-        "CC16",
-        "Marymount",
-        "A"
-    ],
-    "53129": [
-        "CC16",
-        "Marymount",
-        "A"
-    ],
-    "53231": [
-        "NS17 CC15",
-        "Bishan",
-        "A/B/C"
-    ],
-    "53239": [
-        "NS17 CC15",
-        "Bishan",
-        "A/B/C"
-    ],
-    "53311": [
-        "CC16",
-        "Marymount",
-        "B"
-    ],
-    "53319": [
-        "CC16",
-        "Marymount",
-        "B"
-    ],
-    "53341": [
-        "TE7",
-        "Bright Hill",
-        "2"
-    ],
-    "53349": [
-        "TE7",
-        "Bright Hill",
-        "1"
-    ],
-    "53351": [
-        "TE7",
-        "Bright Hill",
-        "3"
-    ],
-    "53359": [
-        "TE7",
-        "Bright Hill",
-        "4"
-    ],
-    "54009": [
-        "NS16",
-        "Ang Mo Kio",
-        "C"
-    ],
-    "54181": [
-        "TE6",
-        "Mayflower",
-        "6"
-    ],
-    "54189": [
-        "TE6",
-        "Mayflower",
-        "5"
-    ],
-    "54191": [
-        "TE6",
-        "Mayflower",
-        "2"
-    ],
-    "54199": [
-        "TE6",
-        "Mayflower",
-        "3"
-    ],
-    "54261": [
-        "NS16",
-        "Ang Mo Kio",
-        "A"
-    ],
-    "54269": [
-        "NS16",
-        "Ang Mo Kio",
-        "A"
-    ],
-    "54391": [
-        "NS16",
-        "Ang Mo Kio",
-        "B"
-    ],
-    "54399": [
-        "NS16",
-        "Ang Mo Kio",
-        "B"
-    ],
-    "55011": [
-        "TE5",
-        "Lentor",
-        "5"
-    ],
-    "55019": [
-        "TE5",
-        "Lentor",
-        "4"
-    ],
-    "55021": [
-        "TE5",
-        "Lentor",
-        "3"
-    ],
-    "55029": [
-        "TE5",
-        "Lentor",
-        "4"
-    ],
-    "55301": [
-        "NS15",
-        "Yio Chu Kang",
-        "C"
-    ],
-    "55309": [
-        "NS15",
-        "Yio Chu Kang",
-        "C"
-    ],
-    "55509": [
-        "NS15",
-        "Yio Chu Kang",
-        "C"
-    ],
-    "55181": [
-        "NS15",
-        "Yio Chu Kang",
-        "C"
-    ],
-    "55189": [
-        "NS15",
-        "Yio Chu Kang",
-        "C"
-    ],
-    "55341": [
-        "TE5",
-        "Lentor",
-        "3"
-    ],
-    "55349": [
-        "TE5",
-        "Lentor",
-        "5"
-    ],
-    "56091": [
-        "TE4",
-        "Springleaf",
-        "3"
-    ],
-    "56099": [
-        "TE4",
-        "Springleaf",
-        "2"
-    ],
-    "58009": [
-        "NS11",
-        "Sembawang",
-        "A"
-    ],
-    "58151": [
-        "NS11",
-        "Sembawang",
-        "D"
-    ],
-    "58159": [
-        "NS11",
-        "Sembawang",
-        "D"
-    ],
-    "58211": [
-        "NS11",
-        "Sembawang",
-        "C"
-    ],
-    "58219": [
-        "NS11",
-        "Sembawang",
-        "C"
-    ],
-    "58241": [
-        "NS11",
-        "Sembawang",
-        "A"
-    ],
-    "58249": [
-        "NS11",
-        "Sembawang",
-        "A"
-    ],
-    "58251": [
-        "NS11",
-        "Sembawang",
-        "B"
-    ],
-    "58259": [
-        "NS11",
-        "Sembawang",
-        "B"
-    ],
-    "58541": [
-        "NS12",
-        "Canberra",
-        "E"
-    ],
-    "58549": [
-        "NS12",
-        "Canberra",
-        "B"
-    ],
-    "59009": [
-        "NS13",
-        "Yishun",
-        "D"
-    ],
-    "59041": [
-        "NS14",
-        "Khatib",
-        "A"
-    ],
-    "59049": [
-        "NS14",
-        "Khatib",
-        "A"
-    ],
-    "59061": [
-        "NS13",
-        "Yishun",
-        "D"
-    ],
-    "59069": [
-        "NS13",
-        "Yishun",
-        "D"
-    ],
-    "59072": [
-        "NS13",
-        "Yishun",
-        "E"
-    ],
-    "59073": [
-        "NS13",
-        "Yishun",
-        "E"
-    ],
-    "59079": [
-        "NS13",
-        "Yishun",
-        "C"
-    ],
-    "59091": [
-        "NS13",
-        "Yishun",
-        "C"
-    ],
-    "59159": [
-        "NS13",
-        "Yishun",
-        "B"
-    ],
-    "59161": [
-        "NS13",
-        "Yishun",
-        "E"
-    ],
-    "59561": [
-        "NS14",
-        "Khatib",
-        "D"
-    ],
-    "59569": [
-        "NS14",
-        "Khatib",
-        "D"
-    ],
-    "59671": [
-        "NS13",
-        "Yishun",
-        "D"
-    ],
-    "60011": [
-        "DT23",
-        "Bendemeer",
-        "A"
-    ],
-    "60019": [
-        "DT23",
-        "Bendemeer",
-        "B"
-    ],
-    "60031": [
-        "DT24",
-        "Geylang Bahru",
-        "A"
-    ],
-    "60039": [
-        "DT24",
-        "Geylang Bahru",
-        "B"
-    ],
-    "60061": [
-        "DT24",
-        "Geylang Bahru",
-        "A"
-    ],
-    "60069": [
-        "DT24",
-        "Geylang Bahru",
-        "A"
-    ],
-    "60119": [
-        "NE9",
-        "Boon Keng",
-        "B"
-    ],
-    "60121": [
-        "NE9",
-        "Boon Keng",
-        "A"
-    ],
-    "60199": [
-        "NE9",
-        "Boon Keng",
-        "C"
-    ],
-    "60221": [
-        "DT24",
-        "Geylang Bahru",
-        "A"
-    ],
-    "60229": [
-        "DT24",
-        "Geylang Bahru",
-        "A"
-    ],
-    "60261": [
-        "NE10",
-        "Potong Pasir",
-        "C"
-    ],
-    "60269": [
-        "NE10",
-        "Potong Pasir",
-        "B"
-    ],
-    "60299": [
-        "NE11",
-        "Woodleigh",
-        "C"
-    ],
-    "61031": [
-        "NE11",
-        "Woodleigh",
-        "B"
-    ],
-    "61039": [
-        "NE11",
-        "Woodleigh",
-        "A"
-    ],
-    "61069": [
-        "NE10",
-        "Potong Pasir",
-        "A"
-    ],
-    "62071": [
-        "CC12",
-        "Bartley",
-        "A"
-    ],
-    "62079": [
-        "CC12",
-        "Bartley",
-        "B"
-    ],
-    "62131": [
-        "NE12 CC13",
-        "Serangoon",
-        "B/H"
-    ],
-    "62139": [
-        "NE12 CC13",
-        "Serangoon",
-        "A"
-    ],
-    "62189": [
-        "NE12 CC13",
-        "Serangoon",
-        "D"
-    ],
-    "63009": [
-        "NE15",
-        "Buangkok",
-        "A"
-    ],
-    "63031": [
-        "NE13",
-        "Kovan",
-        "B"
-    ],
-    "63039": [
-        "NE13",
-        "Kovan",
-        "C"
-    ],
-    "64009": [
-        "NE14",
-        "Hougang",
-        "A"
-    ],
-    "64381": [
-        "NE14",
-        "Hougang",
-        "C"
-    ],
-    "64389": [
-        "NE14",
-        "Hougang",
-        "C"
-    ],
-    "64541": [
-        "NE14",
-        "Hougang",
-        "A"
-    ],
-    "64549": [
-        "NE14",
-        "Hougang",
-        "C"
-    ],
-    "65009": [
-        "NE17 PTC",
-        "Punggol",
-        "C"
-    ],
-    "65141": [
-        "PW7",
-        "Soo Teck",
-        "B"
-    ],
-    "65149": [
-        "PW7",
-        "Soo Teck",
-        "A"
-    ],
-    "65151": [
-        "PE1",
-        "Cove",
-        "B"
-    ],
-    "65159": [
-        "PE1",
-        "Cove",
-        "A"
-    ],
-    "65161": [
-        "PE2",
-        "Meridian",
-        "B"
-    ],
-    "65169": [
-        "PE2",
-        "Meridian",
-        "A"
-    ],
-    "65171": [
-        "PE3",
-        "Coral Edge",
-        "B"
-    ],
-    "65179": [
-        "PE3",
-        "Coral Edge",
-        "A"
-    ],
-    "65211": [
-        "NE17 PTC",
-        "Punggol",
-        "C"
-    ],
-    "65219": [
-        "NE17 PTC",
-        "Punggol",
-        "C"
-    ],
-    "65231": [
-        "PE4",
-        "Riviera",
-        "B"
-    ],
-    "65239": [
-        "PE4",
-        "Riviera",
-        "A"
-    ],
-    "65251": [
-        "NE17 PTC",
-        "Punggol",
-        "B"
-    ],
-    "65259": [
-        "NE17 PTC",
-        "Punggol",
-        "D"
-    ],
-    "65301": [
-        "PE7",
-        "Damai",
-        "B"
-    ],
-    "65309": [
-        "PE7",
-        "Damai",
-        "A"
-    ],
-    "65311": [
-        "PE6",
-        "Oasis",
-        "B"
-    ],
-    "65319": [
-        "PE6",
-        "Oasis",
-        "A"
-    ],
-    "65321": [
-        "PE5",
-        "Kadaloor",
-        "B"
-    ],
-    "65329": [
-        "PE5",
-        "Kadaloor",
-        "A"
-    ],
-    "65461": [
-        "PW5",
-        "Nibong",
-        "B"
-    ],
-    "65469": [
-        "PW5",
-        "Nibong",
-        "B"
-    ],
-    "65481": [
-        "PW1",
-        "Sam Kee",
-        "A/B"
-    ],
-    "65489": [
-        "PW1",
-        "Sam Kee",
-        "A/B"
-    ],
-    "65601": [
-        "PW6",
-        "Sumang",
-        "B"
-    ],
-    "65609": [
-        "PW6",
-        "Sumang",
-        "A"
-    ],
-    "65611": [
-        "PW5",
-        "Nibong",
-        "B"
-    ],
-    "65619": [
-        "PW5",
-        "Nibong",
-        "A"
-    ],
-    "65621": [
-        "PW4",
-        "Samudera",
-        "B"
-    ],
-    "65629": [
-        "PW4",
-        "Samudera",
-        "A"
-    ],
-    "65631": [
-        "PW3",
-        "Punggol Point",
-        "B"
-    ],
-    "65639": [
-        "PW3",
-        "Punggol Point",
-        "A"
-    ],
-    "65721": [
-        "NE18",
-        "Punggol Coast",
-        "2"
-    ],
-    "65729": [
-        "NE18",
-        "Punggol Coast",
-        "2"
-    ],
-    "65731": [
-        "PW2",
-        "Teck Lee",
-        "B"
-    ],
-    "65739": [
-        "PW2",
-        "Teck Lee",
-        "A"
-    ],
-    "66009": [
-        "NE12 CC13",
-        "Serangoon",
-        "F/G/H"
-    ],
-    "66351": [
-        "NE12 CC13",
-        "Serangoon",
-        "B/E"
-    ],
-    "66359": [
-        "NE12 CC13",
-        "Serangoon",
-        "C"
-    ],
-    "66381": [
-        "NE12 CC13",
-        "Serangoon",
-        "F"
-    ],
-    "66389": [
-        "NE12 CC13",
-        "Serangoon",
-        "F"
-    ],
-    "66391": [
-        "CC14",
-        "Lorong Chuan",
-        "A"
-    ],
-    "66399": [
-        "CC14",
-        "Lorong Chuan",
-        "B"
-    ],
-    "67009": [
-        "NE16 STC",
-        "Sengkang",
-        "B"
-    ],
-    "67131": [
-        "SE3",
-        "Bakau",
-        "B"
-    ],
-    "67139": [
-        "SE3",
-        "Bakau",
-        "A"
-    ],
-    "67151": [
-        "SE4",
-        "Kangkar",
-        "B"
-    ],
-    "67159": [
-        "SE4",
-        "Kangkar",
-        "A"
-    ],
-    "67181": [
-        "NE16 STC",
-        "Sengkang",
-        "B"
-    ],
-    "67189": [
-        "NE16 STC",
-        "Sengkang",
-        "B"
-    ],
-    "67211": [
-        "SE5",
-        "Ranggung",
-        "A"
-    ],
-    "67219": [
-        "SE5",
-        "Ranggung",
-        "B"
-    ],
-    "67221": [
-        "SE2",
-        "Rumbia",
-        "B"
-    ],
-    "67229": [
-        "SE2",
-        "Rumbia",
-        "A"
-    ],
-    "67251": [
-        "SE1",
-        "Compassvale",
-        "A"
-    ],
-    "67259": [
-        "SE1",
-        "Compassvale",
-        "B"
-    ],
-    "67291": [
-        "SW8",
-        "Renjong",
-        "B"
-    ],
-    "67299": [
-        "SW8",
-        "Renjong",
-        "A"
-    ],
-    "67301": [
-        "SW7",
-        "Tongkang",
-        "B"
-    ],
-    "67309": [
-        "SW7",
-        "Tongkang",
-        "A"
-    ],
-    "67311": [
-        "SW2",
-        "Farmway",
-        "B"
-    ],
-    "67319": [
-        "SW2",
-        "Farmway",
-        "A"
-    ],
-    "67401": [
-        "NE16 STC",
-        "Sengkang",
-        "D"
-    ],
-    "67409": [
-        "NE16 STC",
-        "Sengkang",
-        "D"
-    ],
-    "67421": [
-        "SW1",
-        "Cheng Lim",
-        "B"
-    ],
-    "67429": [
-        "SW1",
-        "Cheng Lim",
-        "A"
-    ],
-    "67441": [
-        "NE16 STC",
-        "Sengkang",
-        "A"
-    ],
-    "67449": [
-        "NE16 STC",
-        "Sengkang",
-        "A"
-    ],
-    "67471": [
-        "SW6",
-        "Layar",
-        "A"
-    ],
-    "67479": [
-        "SW6",
-        "Layar",
-        "B"
-    ],
-    "67481": [
-        "SW5",
-        "Fernvale",
-        "A"
-    ],
-    "67489": [
-        "SW5",
-        "Fernvale",
-        "A"
-    ],
-    "67601": [
-        "NE15",
-        "Buangkok",
-        "B"
-    ],
-    "67609": [
-        "NE15",
-        "Buangkok",
-        "A"
-    ],
-    "67631": [
-        "SW5",
-        "Fernvale",
-        "A"
-    ],
-    "67639": [
-        "SW5",
-        "Fernvale",
-        "A"
-    ],
-    "67741": [
-        "SW4",
-        "Thanggam",
-        "B"
-    ],
-    "67749": [
-        "SW4",
-        "Thanggam",
-        "A"
-    ],
-    "68009": [
-        "NE11",
-        "Woodleigh",
-        "C"
-    ],
-    "69009": [
-        "NE18",
-        "Punggol Coast",
-        "1"
-    ],
-    "70161": [
-        "DT25",
-        "Mattar",
-        "A"
-    ],
-    "70191": [
-        "CC10 DT26",
-        "MacPherson",
-        "E"
-    ],
-    "70201": [
-        "CC10 DT26",
-        "MacPherson",
-        "D"
-    ],
-    "70231": [
-        "DT25",
-        "Mattar",
-        "B"
-    ],
-    "70251": [
-        "CC10 DT26",
-        "MacPherson",
-        "C"
-    ],
-    "70259": [
-        "CC10 DT26",
-        "MacPherson",
-        "B"
-    ],
-    "70281": [
-        "CC11",
-        "Tai Seng",
-        "A"
-    ],
-    "70289": [
-        "CC11",
-        "Tai Seng",
-        "C"
-    ],
-    "70371": [
-        "CC10 DT26",
-        "MacPherson",
-        "A"
-    ],
-    "70379": [
-        "CC10 DT26",
-        "MacPherson",
-        "A"
-    ],
-    "71121": [
-        "DT27",
-        "Ubi",
-        "B"
-    ],
-    "71129": [
-        "DT27",
-        "Ubi",
-        "A"
-    ],
-    "72031": [
-        "DT28",
-        "Kaki Bukit",
-        "B"
-    ],
-    "72039": [
-        "DT28",
-        "Kaki Bukit",
-        "A"
-    ],
-    "72041": [
-        "DT28",
-        "Kaki Bukit",
-        "B"
-    ],
-    "72049": [
-        "DT28",
-        "Kaki Bukit",
-        "B"
-    ],
-    "75009": [
-        "EW2 DT32",
-        "Tampines",
-        "A/D/F/G"
-    ],
-    "75019": [
-        "EW2 DT32",
-        "Tampines",
-        "A/E"
-    ],
-    "75051": [
-        "DT31",
-        "Tampines West",
-        "B"
-    ],
-    "75059": [
-        "DT31",
-        "Tampines West",
-        "B"
-    ],
-    "75221": [
-        "DT31",
-        "Tampines West",
-        "A"
-    ],
-    "75229": [
-        "DT31",
-        "Tampines West",
-        "A"
-    ],
-    "76031": [
-        "DT33",
-        "Tampines East",
-        "B"
-    ],
-    "76039": [
-        "DT33",
-        "Tampines East",
-        "C"
-    ],
-    "76141": [
-        "EW2 DT32",
-        "Tampines",
-        "B"
-    ],
-    "76149": [
-        "EW2 DT32",
-        "Tampines",
-        "B"
-    ],
-    "76221": [
-        "DT33",
-        "Tampines East",
-        "A"
-    ],
-    "76229": [
-        "DT33",
-        "Tampines East",
-        "A"
-    ],
-    "76281": [
-        "DT31",
-        "Tampines West",
-        "B"
-    ],
-    "76289": [
-        "DT31",
-        "Tampines West",
-        "A"
-    ],
-    "76311": [
-        "DT33",
-        "Tampines East",
-        "A"
-    ],
-    "76319": [
-        "DT33",
-        "Tampines East",
-        "D"
-    ],
-    "76551": [
-        "EW2 DT32",
-        "Tampines",
-        "A/D"
-    ],
-    "76559": [
-        "EW2 DT32",
-        "Tampines",
-        "A/E"
-    ],
-    "77009": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],
-    "77031": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],
-    "77039": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],
-    "77171": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],
-    "77179": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],
-    "77321": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],  
-    "77329": [
-        "EW1",
-        "Pasir Ris",
-        "A"
-    ],
-    "80009": [
-        "EW10",
-        "Kallang",
-        "A"
-    ],
-    "80031": [
-        "EW10",
-        "Kallang",
-        "A"
-    ],
-    "80039": [
-        "EW10",
-        "Kallang",
-        "A"
-    ],
-    "80101": [
-        "EW10",
-        "Kallang",
-        "B"
-    ],
-    "80109": [
-        "EW10",
-        "Kallang",
-        "B"
-    ],
-    "80141": [
-        "CC7",
-        "Mountbatten",
-        "A"
-    ],
-    "80149": [
-        "CC7",
-        "Mountbatten",
-        "A"
-    ],
-    "80161": [
-        "CC5",
-        "Nicoll Highway",
-        "A"
-    ],
-    "80169": [
-        "CC5",
-        "Nicoll Highway",
-        "A"
-    ],
-    "80191": [
-        "CC6",
-        "Stadium",
-        "A"
-    ],
-    "80199": [
-        "CC6",
-        "Stadium",
-        "A"
-    ],
-    "80271": [
-        "CC7",
-        "Mountbatten",
-        "A"
-    ],
-    "80279": [
-        "CC7",
-        "Mountbatten",
-        "B"
-    ],
-    "80291": [
-        "DT24",
-        "Geylang Bahru",
-        "B"
-    ],
-    "80299": [
-        "DT24",
-        "Geylang Bahru",
-        "B"
-    ],
-    "81011": [
-        "EW9",
-        "Aljunied",
-        "A"
-    ],
-    "81081": [
-        "EW9",
-        "Aljunied",
-        "B"
-    ],
-    "81089": [
-        "EW9",
-        "Aljunied",
-        "B"
-    ],
-    "81111": [
-        "EW8 CC9",
-        "Paya Lebar",
-        "A/B"
-    ],
-    "81119": [
-        "EW8 CC9",
-        "Paya Lebar",
-        "C"
-    ],
-    "81129": [
-        "EW8 CC9",
-        "Paya Lebar",
-        "D"
-    ],
-    "81171": [
-        "CC7",
-        "Mountbatten",
-        "A"
-    ],
-    "81179": [
-        "CC7",
-        "Mountbatten",
-        "B"
-    ],
-    "81181": [
-        "CC8",
-        "Dakota",
-        "A"
-    ],
-    "81189": [
-        "CC8",
-        "Dakota",
-        "B"
-    ],
-    "82009": [
-        "EW7",
-        "Eunos",
-        "B"
-    ],
-    "82011": [
-        "EW8 CC9",
-        "Paya Lebar",
-        "E"
-    ],
-    "82051": [
-        "TE25",
-        "Tanjong Katong",
-        "2"
-    ],
-    "82059": [
-        "TE25",
-        "Tanjong Katong",
-        "3"
-    ],
-    "82061": [
-        "EW7",
-        "Eunos",
-        "B"
-    ],
-    "83059": [
-        "EW6",
-        "Kembangan",
-        "A"
-    ],
-    "83062": [
-        "EW6",
-        "Kembangan",
-        "A"
-    ],
-    "83101": [
-        "EW7",
-        "Eunos",
-        "C"
-    ],
-    "83109": [
-        "EW7",
-        "Eunos",
-        "C"
-    ],
-    "83321": [
-        "EW6",
-        "Kembangan",
-        "B"
-    ],
-    "83329": [
-        "EW6",
-        "Kembangan",
-        "B"
-    ],
-    "84009": [
-        "EW5",
-        "Bedok",
-        "B"
-    ],
-    "84031": [
-        "EW5",
-        "Bedok",
-        "B"
-    ],
-    "84039": [
-        "EW5",
-        "Bedok",
-        "A"
-    ],
-    "84201": [
-        "DT30",
-        "Bedok Reservoir",
-        "A"
-    ],
-    "84209": [
-        "DT30",
-        "Bedok Reservoir",
-        "B"
-    ],
-    "84451": [
-        "DT29",
-        "Bedok North",
-        "A"
-    ],
-    "84459": [
-        "DT29",
-        "Bedok North",
-        "B"
-    ],
-    "84539": [
-        "DT29",
-        "Bedok North",
-        "B"
-    ],
-    "85091": [
-        "EW4 CG",
-        "Tanah Merah",
-        "B"
-    ],
-    "85099": [
-        "EW4 CG",
-        "Tanah Merah",
-        "A"
-    ],
-    "90041": [
-        "TE23",
-        "Tanjong Rhu",
-        "2"
-    ],
-    "90049": [
-        "TE23",
-        "Tanjong Rhu",
-        "1"
-    ],
-    "91081": [
-        "TE24",
-        "Katong Park",
-        "2"
-    ],
-    "91089": [
-        "TE24",
-        "Katong Park",
-        "2"
-    ],
-    "92041": [
-        "TE26",
-        "Marine Parade",
-        "2"
-    ],
-    "92049": [
-        "TE26",
-        "Marine Parade",
-        "1"
-    ],
-    "92051": [
-        "TE26",
-        "Marine Parade",
-        "4"
-    ],
-    "92059": [
-        "TE26",
-        "Marine Parade",
-        "6"
-    ],
-    "92061": [
-        "TE27",
-        "Marine Terrace",
-        "3"
-    ],
-    "92069": [
-        "TE27",
-        "Marine Terrace",
-        "2"
-    ],
-    "92071": [
-        "TE27",
-        "Marine Terrace",
-        "4"
-    ],
-    "92079": [
-        "TE27",
-        "Marine Terrace",
-        "1"
-    ],
-    "92081": [
-        "TE27",
-        "Marine Terrace",
-        "5"
-    ],
-    "92089": [
-        "TE27",
-        "Marine Terrace",
-        "6"
-    ],
-    "92211": [
-        "TE27",
-        "Marine Terrace",
-        "6"
-    ],
-    "92219": [
-        "TE27",
-        "Marine Terrace",
-        "6"
-    ],
-    "93031": [
-        "TE28",
-        "Siglap",
-        "2"
-    ],
-    "93039": [
-        "TE28",
-        "Siglap",
-        "2/4"
-    ],
-    "93201": [
-        "TE28",
-        "Siglap",
-        "1"
-    ],
-    "94031": [
-        "TE29",
-        "Bayshore",
-        "3"
-    ],
-    "94039": [
-        "TE29",
-        "Bayshore",
-        "3"
-    ],
-    "94101": [
-        "TE29",
-        "Bayshore",
-        "3"
-    ],
-    "94109": [
-        "TE29",
-        "Bayshore",
-        "3"
-    ],
-    "95109": [
-        "CG2",
-        "Changi Airport",
-        "B"
-    ],
-    "95129": [
-        "CG2",
-        "Changi Airport",
-        "A"
-    ],
-    "96021": [
-        "CG1 DT35",
-        "Expo",
-        "A"
-    ],
-    "96029": [
-        "CG1 DT35",
-        "Expo",
-        "A"
-    ],
-    "96031": [
-        "CG1 DT35",
-        "Expo",
-        "A"
-    ],
-    "96039": [
-        "CG1 DT35",
-        "Expo",
-        "A"
-    ],
-    "96041": [
-        "DT34",
-        "Upper Changi",
-        "A"
-    ],
-    "96049": [
-        "DT34",
-        "Upper Changi",
-        "B"
-    ],
-    "96141": [
-        "EW3",
-        "Simei",
-        "A"
-    ],
-    "96149": [
-        "EW3",
-        "Simei",
-        "A"
-    ],
-    "96161": [
-        "EW3",
-        "Simei",
-        "A"
-    ],
-    "96169": [
-        "EW3",
-        "Simei",
-        "A"
-    ],
-    "96221": [
-        "CG1 DT35",
-        "Expo",
-        "A/B"
-    ],
-    "96229": [
-        "CG1 DT35",
-        "Expo",
-        "A/B"
-    ],
-    "96301": [
-        "CG1 DT35",
-        "Expo",
-        "B"
-    ],
-    "96309": [
-        "CG1 DT35",
-        "Expo",
-        "E"
-    ],
-    "96311": [
-        "CG1 DT35",
-        "Expo",
-        "B"
-    ],
-    "96319": [
-        "CG1 DT35",
-        "Expo",
-        "B"
-    ],
-    "96381": [
-        "CG1 DT35",
-        "Expo",
-        "A"
-    ],
-    "96389": [
-        "CG1 DT35",
-        "Expo",
-        "A"
-    ]
+    "01012": [["CC2", "Bras Basah", "A"]],
+    "01059": [["EW12 DT14", "Bugis", "B"]],
+    "01112": [["EW12 DT14", "Bugis", "C"]],
+    "01113": [["EW12 DT14", "Bugis", "A"]],
+    "01119": [["EW12 DT14", "Bugis", "C"]],
+    "01139": [["EW12 DT14", "Bugis", "E"]],
+    "01311": [["EW11", "Lavender", "B"]],
+    "01319": [["EW11", "Lavender", "A"]],
+    "01541": [["EW12 DT14", "Bugis", "D"]],
+    "01611": [["CC3", "Esplanade", "F"]],
+    "01619": [["CC3", "Esplanade", "F"]],
+    "02029": [["CC3", "Esplanade", "D"]],
+    "02049": [["EW13 NS25", "City Hall", "A"], ["CC3", "Esplanade", "F"]],
+    "02089": [["CC4 DT15", "Promenade", "A"]],
+    "02111": [["CC3", "Esplanade", "C/D"]],
+    "02119": [["CC3", "Esplanade", "C/D"]],
+    "02151": [["CC3", "Esplanade", "A"]],
+    "02161": [["CC4 DT15", "Promenade", "C"]],
+    "02169": [["CC4 DT15", "Promenade", "B"]],
+    "02171": [["CC4 DT15", "Promenade", "A"]],
+    "03011": [["EW14 NS26", "Raffles Place", "B"]],
+    "03019": [["EW14 NS26", "Raffles Place", "B"]],
+    "03021": [["EW14 NS26", "Raffles Place", "F"], ["DT18", "Telok Ayer", "B"]],
+    "03031": [["EW14 NS26", "Raffles Place", "F"]],
+    "03041": [["DT18", "Telok Ayer", "A"]],
+    "03111": [["EW15", "Tanjong Pagar", "F"]],
+    "03129": [["TE19", "Shenton Way", "6"]],
+    "03151": [["EW15", "Tanjong Pagar", "G"]],
+    "03217": [["EW15", "Tanjong Pagar", "D"]],
+    "03218": [["EW15", "Tanjong Pagar", "H"], ["CC32", "Cantonment", "2"]],
+    "03222": [["EW15", "Tanjong Pagar", "C"]],
+    "03223": [["EW15", "Tanjong Pagar", "C"]],
+    "03241": [["EW15", "Tanjong Pagar", "C"], ["CC32", "Cantonment", "1"]],
+    "03361": [["TE22", "Gardens by the Bay", "2"]],
+    "03369": [["TE22", "Gardens by the Bay", "1"]],
+    "03391": [["NS27 CC33 TE20", "Marina Bay", "1"], ["DT17", "Downtown", "C"]],
+    "03411": [["NS28", "Marina South Pier", "A/B"]],
+    "03419": [["NS28", "Marina South Pier", "A/B"]],
+    "03509": [["CC34 DT16", "Bayfront", "B"]],
+    "03511": [["CC34 DT16", "Bayfront", "D/E"]],
+    "03519": [["CC34 DT16", "Bayfront", "A"]],
+    "03529": [["DT17", "Downtown", "E"]],
+    "03539": [["NS27 CC33 TE20", "Marina Bay", "1"]],
+    "03541": [["TE19", "Shenton Way", "3"]],
+    "03549": [["TE19", "Shenton Way", "3"]],
+    "03551": [["NS27 CC33 TE20", "Marina Bay", "2"]],
+    "03559": [["NS27 CC33 TE20", "Marina Bay", "3"]],
+    "03561": [["NS27 CC33 TE20", "Marina Bay", "2"]],
+    "03569": [["NS27 CC33 TE20", "Marina Bay", "5"]],
+    "03579": [["DT17", "Downtown", "D"]],
+    "04019": [["CC2", "Bras Basah", "D"], ["DT21", "Bencoolen", "A"]],
+    "04029": [["DT21", "Bencoolen", "A"]],
+    "04111": [["EW13 NS25", "City Hall", "B/D"]],
+    "04121": [["CC2", "Bras Basah", "B"]],
+    "04151": [["EW13 NS25", "City Hall", "A"], ["CC2", "Bras Basah", "B"]],
+    "04167": [["EW13 NS25", "City Hall", "B"]],
+    "04168": [["EW13 NS25", "City Hall", "B"]],
+    "04179": [["CC2", "Bras Basah", "A"]],
+    "04222": [["NE5", "Clarke Quay", "E"]],
+    "04239": [["NE5", "Clarke Quay", "E"]],
+    "04331": [["DT20", "Fort Canning", "A"]],
+    "04339": [["DT20", "Fort Canning", "B"]],
+    "05012": [["EW16 NE3 TE17", "Outram Park", "3"]],
+    "05013": [["NE4 DT19", "Chinatown", "C"]],
+    "05019": [["EW16 NE3 TE17", "Outram Park", "4"]],
+    "05022": [["NE4 DT19", "Chinatown", "D"]],
+    "05049": [["NE4 DT19", "Chinatown", "E"]],
+    "05059": [["NE5", "Clarke Quay", "A"]],
+    "05069": [["EW16 NE3 TE17", "Outram Park", "4"]],
+    "05129": [["NE4 DT19", "Chinatown", "E"]],
+    "05131": [["NE4 DT19", "Chinatown", "F"]],
+    "05199": [["NE4 DT19", "Chinatown", "F"]],
+    "05189": [["TE18", "Maxwell", "2"]],
+    "05241": [["TE18", "Maxwell", "2"]],
+    "05259": [["TE18", "Maxwell", "3"]],
+    "05269": [["TE18", "Maxwell", "2"]],
+    "05319": [["EW14 NS26", "Raffles Place", "A"], ["DT18", "Telok Ayer", "B"]],
+    "05421": [["EW15", "Tanjong Pagar", "A"]],
+    "05429": [["EW15", "Tanjong Pagar", "A"]],
+    "06011": [["EW16 NE3 TE17", "Outram Park", "7"]],
+    "06029": [["EW16 NE3 TE17", "Outram Park", "1"]],
+    "06071": [["TE16", "Havelock", "2"]],
+    "06081": [["TE16", "Havelock", "3"]],
+    "06129": [["TE16", "Havelock", "4"]],
+    "06131": [["TE15", "Great World", "2"]],
+    "06141": [["TE16", "Havelock", "5"]],
+    "06149": [["TE16", "Havelock", "4"]],
+    "07211": [["NE8", "Farrer Park", "G"]],
+    "07529": [["DT22", "Jalan Besar", "A"]],
+    "07531": [["DT13", "Rochor", "A"]],
+    "07539": [["DT13", "Rochor", "B"]],
+    "07551": [["EW12 DT14", "Bugis", "A"]],
+    "08031": [["NS24 NE6 CC1", "Dhoby Ghaut", "B"]],
+    "08057": [["NS24 NE6 CC1", "Dhoby Ghaut", "E/F"]],
+    "08058": [["NS24 NE6 CC1", "Dhoby Ghaut", "E/F"]],
+    "08069": [["DT21", "Bencoolen", "B"]],
+    "08121": [["NS23", "Somerset", "A"]],
+    "09022": [["NS22 TE14", "Orchard", "13"]],
+    "09023": [["NS22 TE14", "Orchard", "7"]],
+    "09037": [["NS23", "Somerset", "B"]],
+    "09038": [["NS23", "Somerset", "B"]],
+    "09047": [["NS22 TE14", "Orchard", "1"]],
+    "09048": [["NS22 TE14", "Orchard", "1"]],
+    "09111": [["NS22 TE14", "Orchard", "11"]],
+    "09121": [["TE13", "Orchard Boulevard", "2"]],
+    "09131": [["TE13", "Orchard Boulevard", "1"]],
+    "09139": [["TE13", "Orchard Boulevard", "1"]],
+    "10017": [["EW16 NE3 TE17", "Outram Park", "6"]],
+    "10018": [["EW16 NE3 TE17", "Outram Park", "6"]],
+    "10041": [["CC31", "Cantonment", "2"]],
+    "10161": [["EW17", "Tiong Bahru", "A"]],
+    "10169": [["EW17", "Tiong Bahru", "B"]],
+    "10201": [["EW18", "Redhill", "A"]],
+    "10209": [["EW18", "Redhill", "A"]],
+    "11111": [["CC20", "Farrer Road", "B"]],
+    "11119": [["CC20", "Farrer Road", "A"]],
+    "11141": [["EW19", "Queenstown", "A/D"]],
+    "11149": [["EW19", "Queenstown", "B/C"]],
+    "11161": [["EW20", "Commonwealth", "A/D"]],
+    "11169": [["EW20", "Commonwealth", "B/C"]],
+    "11181": [["EW21 CC22", "Buona Vista", "B/D"]],
+    "11189": [["EW21 CC22", "Buona Vista", "B/D"]],
+    "11191": [["EW21 CC22", "Buona Vista", "A"]],
+    "11199": [["EW21 CC22", "Buona Vista", "A"]],
+    "11261": [["CC21", "Holland Village", "B"]],
+    "11269": [["CC21", "Holland Village", "B"]],
+    "11361": [["EW21 CC22", "Buona Vista", "B/C"]],
+    "11369": [["EW21 CC22", "Buona Vista", "D"]],
+    "11401": [["CC21", "Holland Village", "C"]],
+    "11419": [["CC21", "Holland Village", "A"]],
+    "13011": [["TE12", "Napier", "2"]],
+    "13019": [["TE12", "Napier", "1"]],
+    "13071": [["TE15", "Great World", "5"]],
+    "13079": [["TE15", "Great World", "4"]],
+    "13119": [["TE15", "Great World", "1"]],
+    "13181": [["TE13", "Orchard Boulevard", "2"]],
+    "13189": [["TE13", "Orchard Boulevard", "2"]],
+    "13191": [["NS22 TE14", "Orchard", "12"]],
+    "13199": [["NS22 TE14", "Orchard", "12"]],
+    "14009": [["NE1 CC29", "HarbourFront", "A"]],
+    "14061": [["CC31", "Cantonment", "1"]],
+    "14069": [["CC31", "Cantonment", "4"]],
+    "14071": [["CC31", "Cantonment", "1"]],
+    "14081": [["CC30", "Keppel", "3"]],
+    "14089": [["CC30", "Keppel", "2"]],
+    "14119": [["NE1 CC29", "HarbourFront", "D"]],
+    "14121": [["NE1 CC29", "HarbourFront", "B"]],
+    "14129": [["NE1 CC29", "HarbourFront", "A"]],
+    "14141": [["NE1 CC29", "HarbourFront", "C"]],
+    "14161": [["CC28", "Telok Blangah", "A"]],
+    "14169": [["CC28", "Telok Blangah", "A"]],
+    "14189": [["CC27", "Labrador Park", "A"]],
+    "15041": [["CC27", "Labrador Park", "A"]],
+    "15049": [["CC27", "Labrador Park", "A"]],
+    "15131": [["CC24", "Kent Ridge", "B"]],
+    "15139": [["CC24", "Kent Ridge", "B"]],
+    "15141": [["CC27", "Labrador Park", "A"]],
+    "15149": [["CC27", "Labrador Park", "A"]],
+    "15191": [["CC26", "Pasir Panjang", "A"]],
+    "15199": [["CC26", "Pasir Panjang", "A"]],
+    "15201": [["CC26", "Pasir Panjang", "A"]],
+    "15209": [["CC26", "Pasir Panjang", "A"]],
+    "16011": [["CC25", "Haw Par Villa", "A"]],
+    "16019": [["CC25", "Haw Par Villa", "A"]],
+    "16221": [["CC25", "Haw Par Villa", "A"]],
+    "16229": [["CC25", "Haw Par Villa", "A"]],
+    "17009": [["EW23", "Clementi", "A"]],
+    "17171": [["EW23", "Clementi", "A"]],
+    "17179": [["EW23", "Clementi", "B"]],
+    "18051": [["CC23", "one-north", "A"]],
+    "18059": [["CC23", "one-north", "A"]],
+    "18151": [["CC23", "one-north", "B"]],
+    "18159": [["CC23", "one-north", "B"]],
+    "18331": [["CC24", "Kent Ridge", "A"]],
+    "18339": [["CC24", "Kent Ridge", "A"]],
+    "19031": [["EW22", "Dover", "A"]],
+    "19039": [["EW22", "Dover", "B"]],
+    "22009": [["EW27", "Boon Lay", "C/D"]],
+    "22491": [["EW27", "Boon Lay", "A"]],
+    "22499": [["EW27", "Boon Lay", "A"]],
+    "22521": [["EW28", "Pioneer", "A"]],
+    "22529": [["EW28", "Pioneer", "B"]],
+    "22571": [["EW27", "Boon Lay", "B"]],
+    "22579": [["EW27", "Boon Lay", "B"]],
+    "23371": [["EW29", "Joo Koon", "A"]],
+    "23379": [["EW29", "Joo Koon", "A"]],
+    "23491": [["EW29", "Joo Koon", "B"]],
+    "23499": [["EW29", "Joo Koon", "A"]],
+    "23519": [["EW29", "Joo Koon", "A"]],
+    "24009": [["EW29", "Joo Koon", "A"]],
+    "24511": [["EW30", "Gul Circle", "A"]],
+    "24519": [["EW30", "Gul Circle", "B"]],
+    "24701": [["EW31", "Tuas Crescent", "B"]],
+    "24709": [["EW31", "Tuas Crescent", "A"]],
+    "24711": [["EW32", "Tuas West Road", "B"]],
+    "24719": [["EW32", "Tuas West Road", "A"]],
+    "25399": [["EW32", "Tuas West Road", "A"]],
+    "25421": [["EW33", "Tuas Link", "A"]],
+    "25429": [["EW33", "Tuas Link", "B"]],
+    "25691": [["EW32", "Tuas West Road", "A"]],
+    "28009": [["EW24 NS1", "Jurong East", "B"]],
+    "28061": [["EW24 NS1", "Jurong East", "A"]],
+    "28069": [["EW24 NS1", "Jurong East", "D"]],
+    "28091": [["EW26", "Lakeside", "A"]],
+    "28099": [["EW26", "Lakeside", "A"]],
+    "28199": [["EW24 NS1", "Jurong East", "B"]],
+    "28201": [["EW24 NS1", "Jurong East", "B"]],
+    "28211": [["EW24 NS1", "Jurong East", "A"]],
+    "28241": [["EW24 NS1", "Jurong East", "A"]],
+    "28249": [["EW24 NS1", "Jurong East", "A"]],
+    "28271": [["EW25", "Chinese Garden", "C"]],
+    "28279": [["EW25", "Chinese Garden", "C"]],
+    "28341": [["EW25", "Chinese Garden", "A"]],
+    "28349": [["EW25", "Chinese Garden", "A"]],
+    "29009": [["EW24 NS1", "Jurong East", "B"]],
+    "40011": [["NE7 DT12", "Little India", "A"]],
+    "40019": [["NE7 DT12", "Little India", "B/D"]],
+    "40041": [["NS21 DT11", "Newton", "C"]],
+    "40049": [["NS21 DT11", "Newton", "C"]],
+    "40081": [["DT10 TE11", "Stevens", "1"]],
+    "40089": [["DT10 TE11", "Stevens", "5"]],
+    "40181": [["NS21 DT11", "Newton", "A"]],
+    "40189": [["NS21 DT11", "Newton", "B"]],
+    "40221": [["DT10 TE11", "Stevens", "3"]],
+    "40229": [["DT10 TE11", "Stevens", "2"]],
+    "40231": [["DT10 TE11", "Stevens", "4"]],
+    "40239": [["DT10 TE11", "Stevens", "4"]],
+    "41021": [["CC19 DT9", "Botanic Gardens", "A/B"]],
+    "41029": [["CC19 DT9", "Botanic Gardens", "A/B"]],
+    "41051": [["DT8", "Tan Kah Kee", "A"]],
+    "41069": [["DT8", "Tan Kah Kee", "B"]],
+    "41081": [["DT7", "Sixth Avenue", "A"]],
+    "42019": [["DT7", "Sixth Avenue", "B"]],
+    "42051": [["DT6", "King Albert Park", "A"]],
+    "42059": [["DT6", "King Albert Park", "B"]],
+    "42091": [["DT5", "Beauty World", "B"]],
+    "42099": [["DT5", "Beauty World", "A"]],
+    "42109": [["DT5", "Beauty World", "A"]],
+    "42151": [["DT5", "Beauty World", "C"]],
+    "42159": [["DT5", "Beauty World", "C"]],
+    "42259": [["DT5", "Beauty World", "A"]],
+    "42991": [["DT3", "Hillview", "B"]],
+    "43009": [["NS2", "Bukit Batok", "A"]],
+    "43061": [["DT3", "Hillview", "B"]],
+    "43069": [["DT3", "Hillview", "A"]],
+    "43091": [["DT2", "Cashew", "A"]],
+    "43109": [["DT2", "Cashew", "A"]],
+    "43271": [["DT3", "Hillview", "B"]],
+    "43279": [["DT3", "Hillview", "B"]],
+    "43381": [["NS2", "Bukit Batok", "D"]],
+    "43389": [["NS2", "Bukit Batok", "D"]],
+    "43411": [["NS2", "Bukit Batok", "A/B"]],
+    "43419": [["NS2", "Bukit Batok", "A/B"]],
+    "43571": [["NS3", "Bukit Gombak", "C"]],
+    "43579": [["NS3", "Bukit Gombak", "C"]],
+    "44009": [["NS4 BP1", "Choa Chu Kang", "A"]],
+    "44021": [["DT1 BP6", "Bukit Panjang", "B"]],
+    "44029": [["DT1 BP6", "Bukit Panjang", "A"]],
+    "44031": [["DT1 BP6", "Bukit Panjang", "A"]],
+    "44131": [["BP4", "Teck Whye", "A"]],
+    "44139": [["BP4", "Teck Whye", "A"]],
+    "44141": [["BP5", "Phoenix", "A"]],
+    "44149": [["BP5", "Phoenix", "A"]],
+    "44201": [["BP7", "Petir", "A"]],
+    "44209": [["BP7", "Petir", "A"]],
+    "44221": [["BP8", "Pending", "A"]],
+    "44229": [["BP8", "Pending", "A"]],
+    "44251": [["DT1 BP6", "Bukit Panjang", "C"]],
+    "44259": [["DT1 BP6", "Bukit Panjang", "A"]],
+    "44321": [["BP9", "Bangkit", "A"]],
+    "44329": [["BP9", "Bangkit", "A"]],
+    "44441": [["BP3", "Keat Hong", "A"]],
+    "44449": [["BP3", "Keat Hong", "A"]],
+    "44451": [["BP2", "South View", "A"]],
+    "44459": [["BP2", "South View", "A"]],
+    "44531": [["NS4 BP1", "Choa Chu Kang", "B"]],
+    "44539": [["NS4 BP1", "Choa Chu Kang", "B"]],
+    "44641": [["BP13", "Senja", "A"]],
+    "44649": [["BP13", "Senja", "A"]],
+    "44701": [["BP11", "Segar", "A"]],
+    "44709": [["BP11", "Segar", "A"]],
+    "44721": [["BP12", "Jelapang", "A"]],
+    "44729": [["BP12", "Jelapang", "A"]],
+    "44771": [["BP10", "Fajar", "A"]],
+    "44779": [["BP10", "Fajar", "A"]],
+    "44821": [["BP12", "Jelapang", "A"]],
+    "44829": [["BP12", "Jelapang", "A"]],
+    "44859": [["DT1 BP6", "Bukit Panjang", "A"]],
+    "44909": [["DT1 BP6", "Bukit Panjang", "A"]],
+    "45009": [["DT1 BP6", "Bukit Panjang", "A/C"]],
+    "45131": [["NS7", "Kranji", "C"]],
+    "45139": [["NS7", "Kranji", "C"]],
+    "45321": [["NS5", "Yew Tee", "C"]],
+    "45329": [["NS5", "Yew Tee", "C"]],
+    "46008": [["NS9 TE2", "Woodlands", "3"]],
+    "46009": [["NS9 TE2", "Woodlands", "3"]],
+    "46321": [["NS9 TE2", "Woodlands", "7"]],
+    "46329": [["NS9 TE2", "Woodlands", "7"]],
+    "46331": [["NS9 TE2", "Woodlands", "7"]],
+    "46339": [["NS9 TE2", "Woodlands", "7"]],
+    "46521": [["NS8", "Marsiling", "C"]],
+    "46529": [["NS8", "Marsiling", "C"]],
+    "46631": [["NS9 TE2", "Woodlands", "5"]],
+    "46639": [["NS9 TE2", "Woodlands", "4"]],
+    "46641": [["NS9 TE2", "Woodlands", "6"]],
+    "46649": [["NS9 TE2", "Woodlands", "6"]],
+    "46771": [["NS10", "Admiralty", "C"]],
+    "46779": [["NS10", "Admiralty", "C"]],
+    "46981": [["TE3", "Woodlands South", "2"]],
+    "46989": [["TE3", "Woodlands South", "1"]],
+    "46991": [["TE3", "Woodlands South", "3"]],
+    "46999": [["TE3", "Woodlands South", "4"]],
+    "47009": [["NS9 TE2", "Woodlands", "1"]],
+    "47201": [["TE1", "Woodlands North", "1"]],
+    "47591": [["NS10", "Admiralty", "D"]],
+    "47749": [["TE3", "Woodlands South", "5"]],
+    "50021": [["NS20", "Novena", "B"]],
+    "50031": [["NS20", "Novena", "B"]],
+    "50037": [["NS20", "Novena", "B"]],
+    "50038": [["NS20", "Novena", "B"]],
+    "50251": [["NE8", "Farrer Park", "A"]],
+    "50259": [["NE8", "Farrer Park", "G"]],
+    "50279": [["NE8", "Farrer Park", "D"]],
+    "52009": [["NS19", "Toa Payoh", "A/B"]],
+    "52161": [["NS18", "Braddell", "A"]],
+    "52171": [["NS18", "Braddell", "A"]],
+    "52179": [["NS18", "Braddell", "C"]],
+    "52181": [["NS19", "Toa Payoh", "D"]],
+    "52189": [["NS19", "Toa Payoh", "C"]],
+    "52211": [["CC17 TE9", "Caldecott", "2"]],
+    "52219": [["CC17 TE9", "Caldecott", "3"]],
+    "52241": [["CC17 TE9", "Caldecott", "1"]],
+    "52249": [["CC17 TE9", "Caldecott", "1"]],
+    "52551": [["CC17 TE9", "Caldecott", "4"]],
+    "52559": [["CC17 TE9", "Caldecott", "1"]],
+    "52581": [["CC17 TE9", "Caldecott", "4"]],
+    "53009": [["NS17 CC15", "Bishan", "A/D"]],
+    "53041": [["TE8", "Upper Thomson", "4"]],
+    "53049": [["TE8", "Upper Thomson", "3"]],
+    "53051": [["TE8", "Upper Thomson", "5"]],
+    "53059": [["TE8", "Upper Thomson", "2"]],
+    "53121": [["CC16", "Marymount", "A"]],
+    "53129": [["CC16", "Marymount", "A"]],
+    "53231": [["NS17 CC15", "Bishan", "A/B/C"]],
+    "53239": [["NS17 CC15", "Bishan", "A/B/C"]],
+    "53311": [["CC16", "Marymount", "B"]],
+    "53319": [["CC16", "Marymount", "B"]],
+    "53341": [["TE7", "Bright Hill", "2"]],
+    "53349": [["TE7", "Bright Hill", "1"]],
+    "53351": [["TE7", "Bright Hill", "3"]],
+    "53359": [["TE7", "Bright Hill", "4"]],
+    "54009": [["NS16", "Ang Mo Kio", "C"]],
+    "54181": [["TE6", "Mayflower", "6"]],
+    "54189": [["TE6", "Mayflower", "5"]],
+    "54191": [["TE6", "Mayflower", "2"]],
+    "54199": [["TE6", "Mayflower", "3"]],
+    "54261": [["NS16", "Ang Mo Kio", "A"]],
+    "54269": [["NS16", "Ang Mo Kio", "A"]],
+    "54391": [["NS16", "Ang Mo Kio", "B"]],
+    "54399": [["NS16", "Ang Mo Kio", "B"]],
+    "55011": [["TE5", "Lentor", "5"]],
+    "55019": [["TE5", "Lentor", "4"]],
+    "55021": [["TE5", "Lentor", "3"]],
+    "55029": [["TE5", "Lentor", "4"]],
+    "55301": [["NS15", "Yio Chu Kang", "C"]],
+    "55309": [["NS15", "Yio Chu Kang", "C"]],
+    "55509": [["NS15", "Yio Chu Kang", "C"]],
+    "55181": [["NS15", "Yio Chu Kang", "C"]],
+    "55189": [["NS15", "Yio Chu Kang", "C"]],
+    "55341": [["TE5", "Lentor", "3"]],
+    "55349": [["TE5", "Lentor", "5"]],
+    "56091": [["TE4", "Springleaf", "3"]],
+    "56099": [["TE4", "Springleaf", "2"]],
+    "58009": [["NS11", "Sembawang", "A"]],
+    "58151": [["NS11", "Sembawang", "D"]],
+    "58159": [["NS11", "Sembawang", "D"]],
+    "58211": [["NS11", "Sembawang", "C"]],
+    "58219": [["NS11", "Sembawang", "C"]],
+    "58241": [["NS11", "Sembawang", "A"]],
+    "58249": [["NS11", "Sembawang", "A"]],
+    "58251": [["NS11", "Sembawang", "B"]],
+    "58259": [["NS11", "Sembawang", "B"]],
+    "58541": [["NS12", "Canberra", "E"]],
+    "58549": [["NS12", "Canberra", "B"]],
+    "59009": [["NS13", "Yishun", "D"]],
+    "59041": [["NS14", "Khatib", "A"]],
+    "59049": [["NS14", "Khatib", "A"]],
+    "59061": [["NS13", "Yishun", "D"]],
+    "59069": [["NS13", "Yishun", "D"]],
+    "59072": [["NS13", "Yishun", "E"]],
+    "59073": [["NS13", "Yishun", "E"]],
+    "59079": [["NS13", "Yishun", "C"]],
+    "59091": [["NS13", "Yishun", "C"]],
+    "59159": [["NS13", "Yishun", "B"]],
+    "59161": [["NS13", "Yishun", "E"]],
+    "59561": [["NS14", "Khatib", "D"]],
+    "59569": [["NS14", "Khatib", "D"]],
+    "59671": [["NS13", "Yishun", "D"]],
+    "60011": [["DT23", "Bendemeer", "A"]],
+    "60019": [["DT23", "Bendemeer", "B"]],
+    "60031": [["DT24", "Geylang Bahru", "A"]],
+    "60039": [["DT24", "Geylang Bahru", "B"]],
+    "60061": [["DT24", "Geylang Bahru", "A"]],
+    "60069": [["DT24", "Geylang Bahru", "A"]],
+    "60119": [["NE9", "Boon Keng", "B"]],
+    "60121": [["NE9", "Boon Keng", "A"]],
+    "60199": [["NE9", "Boon Keng", "C"]],
+    "60221": [["DT24", "Geylang Bahru", "A"]],
+    "60229": [["DT24", "Geylang Bahru", "A"]],
+    "60261": [["NE10", "Potong Pasir", "C"]],
+    "60269": [["NE10", "Potong Pasir", "B"]],
+    "60299": [["NE11", "Woodleigh", "C"]],
+    "61031": [["NE11", "Woodleigh", "B"]],
+    "61039": [["NE11", "Woodleigh", "A"]],
+    "61069": [["NE10", "Potong Pasir", "A"]],
+    "62071": [["CC12", "Bartley", "A"]],
+    "62079": [["CC12", "Bartley", "B"]],
+    "62131": [["NE12 CC13", "Serangoon", "B/H"]],
+    "62139": [["NE12 CC13", "Serangoon", "A"]],
+    "62189": [["NE12 CC13", "Serangoon", "D"]],
+    "63009": [["NE15", "Buangkok", "A"]],
+    "63031": [["NE13", "Kovan", "B"]],
+    "63039": [["NE13", "Kovan", "C"]],
+    "64009": [["NE14", "Hougang", "A"]],
+    "64381": [["NE14", "Hougang", "C"]],
+    "64389": [["NE14", "Hougang", "C"]],
+    "64541": [["NE14", "Hougang", "A"]],
+    "64549": [["NE14", "Hougang", "C"]],
+    "65009": [["NE17 PTC", "Punggol", "C"]],
+    "65141": [["PW7", "Soo Teck", "B"]],
+    "65149": [["PW7", "Soo Teck", "A"]],
+    "65151": [["PE1", "Cove", "B"]],
+    "65159": [["PE1", "Cove", "A"]],
+    "65161": [["PE2", "Meridian", "B"]],
+    "65169": [["PE2", "Meridian", "A"]],
+    "65171": [["PE3", "Coral Edge", "B"]],
+    "65179": [["PE3", "Coral Edge", "A"]],
+    "65211": [["NE17 PTC", "Punggol", "C"]],
+    "65219": [["NE17 PTC", "Punggol", "C"]],
+    "65231": [["PE4", "Riviera", "B"]],
+    "65239": [["PE4", "Riviera", "A"]],
+    "65251": [["NE17 PTC", "Punggol", "B"]],
+    "65259": [["NE17 PTC", "Punggol", "D"]],
+    "65301": [["PE7", "Damai", "B"]],
+    "65309": [["PE7", "Damai", "A"]],
+    "65311": [["PE6", "Oasis", "B"]],
+    "65319": [["PE6", "Oasis", "A"]],
+    "65321": [["PE5", "Kadaloor", "B"]],
+    "65329": [["PE5", "Kadaloor", "A"]],
+    "65461": [["PW5", "Nibong", "B"]],
+    "65469": [["PW5", "Nibong", "B"]],
+    "65481": [["PW1", "Sam Kee", "A/B"]],
+    "65489": [["PW1", "Sam Kee", "A/B"]],
+    "65601": [["PW6", "Sumang", "B"]],
+    "65609": [["PW6", "Sumang", "A"]],
+    "65611": [["PW5", "Nibong", "B"]],
+    "65619": [["PW5", "Nibong", "A"]],
+    "65621": [["PW4", "Samudera", "B"]],
+    "65629": [["PW4", "Samudera", "A"]],
+    "65631": [["PW3", "Punggol Point", "B"]],
+    "65639": [["PW3", "Punggol Point", "A"]],
+    "65721": [["NE18", "Punggol Coast", "2"]],
+    "65729": [["NE18", "Punggol Coast", "2"]],
+    "65731": [["PW2", "Teck Lee", "B"]],
+    "65739": [["PW2", "Teck Lee", "A"]],
+    "66009": [["NE12 CC13", "Serangoon", "F/G/H"]],
+    "66351": [["NE12 CC13", "Serangoon", "B/E"]],
+    "66359": [["NE12 CC13", "Serangoon", "C"]],
+    "66381": [["NE12 CC13", "Serangoon", "F"]],
+    "66389": [["NE12 CC13", "Serangoon", "F"]],
+    "66391": [["CC14", "Lorong Chuan", "A"]],
+    "66399": [["CC14", "Lorong Chuan", "B"]],
+    "67009": [["NE16 STC", "Sengkang", "B"]],
+    "67131": [["SE3", "Bakau", "B"]],
+    "67139": [["SE3", "Bakau", "A"]],
+    "67151": [["SE4", "Kangkar", "B"]],
+    "67159": [["SE4", "Kangkar", "A"]],
+    "67181": [["NE16 STC", "Sengkang", "B"]],
+    "67189": [["NE16 STC", "Sengkang", "B"]],
+    "67211": [["SE5", "Ranggung", "A"]],
+    "67219": [["SE5", "Ranggung", "B"]],
+    "67221": [["SE2", "Rumbia", "B"]],
+    "67229": [["SE2", "Rumbia", "A"]],
+    "67251": [["SE1", "Compassvale", "A"]],
+    "67259": [["SE1", "Compassvale", "B"]],
+    "67291": [["SW8", "Renjong", "B"]],
+    "67299": [["SW8", "Renjong", "A"]],
+    "67301": [["SW7", "Tongkang", "B"]],
+    "67309": [["SW7", "Tongkang", "A"]],
+    "67311": [["SW2", "Farmway", "B"]],
+    "67319": [["SW2", "Farmway", "A"]],
+    "67401": [["NE16 STC", "Sengkang", "D"]],
+    "67409": [["NE16 STC", "Sengkang", "D"]],
+    "67421": [["SW1", "Cheng Lim", "B"]],
+    "67429": [["SW1", "Cheng Lim", "A"]],
+    "67441": [["NE16 STC", "Sengkang", "A"]],
+    "67449": [["NE16 STC", "Sengkang", "A"]],
+    "67471": [["SW6", "Layar", "A"]],
+    "67479": [["SW6", "Layar", "B"]],
+    "67481": [["SW5", "Fernvale", "A"]],
+    "67489": [["SW5", "Fernvale", "A"]],
+    "67601": [["NE15", "Buangkok", "B"]],
+    "67609": [["NE15", "Buangkok", "A"]],
+    "67631": [["SW5", "Fernvale", "A"]],
+    "67639": [["SW5", "Fernvale", "A"]],
+    "67741": [["SW4", "Thanggam", "B"]],
+    "67749": [["SW4", "Thanggam", "A"]],
+    "68009": [["NE11", "Woodleigh", "C"]],
+    "69009": [["NE18", "Punggol Coast", "1"]],
+    "70161": [["DT25", "Mattar", "A"]],
+    "70191": [["CC10 DT26", "MacPherson", "E"]],
+    "70201": [["CC10 DT26", "MacPherson", "D"]],
+    "70231": [["DT25", "Mattar", "B"]],
+    "70251": [["CC10 DT26", "MacPherson", "C"]],
+    "70259": [["CC10 DT26", "MacPherson", "B"]],
+    "70281": [["CC11", "Tai Seng", "A"]],
+    "70289": [["CC11", "Tai Seng", "C"]],
+    "70371": [["CC10 DT26", "MacPherson", "A"]],
+    "70379": [["CC10 DT26", "MacPherson", "A"]],
+    "71121": [["DT27", "Ubi", "B"]],
+    "71129": [["DT27", "Ubi", "A"]],
+    "72031": [["DT28", "Kaki Bukit", "B"]],
+    "72039": [["DT28", "Kaki Bukit", "A"]],
+    "72041": [["DT28", "Kaki Bukit", "B"]],
+    "72049": [["DT28", "Kaki Bukit", "B"]],
+    "75009": [["EW2 DT32", "Tampines", "A/D/F/G"]],
+    "75019": [["EW2 DT32", "Tampines", "A/E"]],
+    "75051": [["DT31", "Tampines West", "B"]],
+    "75059": [["DT31", "Tampines West", "B"]],
+    "75221": [["DT31", "Tampines West", "A"]],
+    "75229": [["DT31", "Tampines West", "A"]],
+    "76031": [["DT33", "Tampines East", "B"]],
+    "76039": [["DT33", "Tampines East", "C"]],
+    "76141": [["EW2 DT32", "Tampines", "B"]],
+    "76149": [["EW2 DT32", "Tampines", "B"]],
+    "76221": [["DT33", "Tampines East", "A"]],
+    "76229": [["DT33", "Tampines East", "A"]],
+    "76281": [["DT31", "Tampines West", "B"]],
+    "76289": [["DT31", "Tampines West", "A"]],
+    "76311": [["DT33", "Tampines East", "A"]],
+    "76319": [["DT33", "Tampines East", "D"]],
+    "76551": [["EW2 DT32", "Tampines", "A/D"]],
+    "76559": [["EW2 DT32", "Tampines", "A/E"]],
+    "77009": [["EW1", "Pasir Ris", "A"]],
+    "77031": [["EW1", "Pasir Ris", "A"]],
+    "77039": [["EW1", "Pasir Ris", "A"]],
+    "77171": [["EW1", "Pasir Ris", "A"]],
+    "77179": [["EW1", "Pasir Ris", "A"]],
+    "77321": [["EW1", "Pasir Ris", "A"]],  
+    "77329": [["EW1", "Pasir Ris", "A"]],
+    "80009": [["EW10", "Kallang", "A"]],
+    "80031": [["EW10", "Kallang", "A"]],
+    "80039": [["EW10", "Kallang", "A"]],
+    "80101": [["EW10", "Kallang", "B"]],
+    "80109": [["EW10", "Kallang", "B"]],
+    "80141": [["CC7", "Mountbatten", "A"]],
+    "80149": [["CC7", "Mountbatten", "A"]],
+    "80161": [["CC5", "Nicoll Highway", "A"]],
+    "80169": [["CC5", "Nicoll Highway", "A"]],
+    "80191": [["CC6", "Stadium", "A"]],
+    "80199": [["CC6", "Stadium", "A"]],
+    "80271": [["CC7", "Mountbatten", "A"]],
+    "80279": [["CC7", "Mountbatten", "B"]],
+    "80291": [["DT24", "Geylang Bahru", "B"]],
+    "80299": [["DT24", "Geylang Bahru", "B"]],
+    "81011": [["EW9", "Aljunied", "A"]],
+    "81081": [["EW9", "Aljunied", "B"]],
+    "81089": [["EW9", "Aljunied", "B"]],
+    "81111": [["EW8 CC9", "Paya Lebar", "A/B"]],
+    "81119": [["EW8 CC9", "Paya Lebar", "C"]],
+    "81129": [["EW8 CC9", "Paya Lebar", "D"]],
+    "81171": [["CC7", "Mountbatten", "A"]],
+    "81179": [["CC7", "Mountbatten", "B"]],
+    "81181": [["CC8", "Dakota", "A"]],
+    "81189": [["CC8", "Dakota", "B"]],
+    "82009": [["EW7", "Eunos", "B"]],
+    "82011": [["EW8 CC9", "Paya Lebar", "E"]],
+    "82051": [["TE25", "Tanjong Katong", "2"]],
+    "82059": [["TE25", "Tanjong Katong", "3"]],
+    "82061": [["EW7", "Eunos", "B"]],
+    "83059": [["EW6", "Kembangan", "A"]],
+    "83062": [["EW6", "Kembangan", "A"]],
+    "83101": [["EW7", "Eunos", "C"]],
+    "83109": [["EW7", "Eunos", "C"]],
+    "83321": [["EW6", "Kembangan", "B"]],
+    "83329": [["EW6", "Kembangan", "B"]],
+    "84009": [["EW5", "Bedok", "B"]],
+    "84031": [["EW5", "Bedok", "B"]],
+    "84039": [["EW5", "Bedok", "A"]],
+    "84201": [["DT30", "Bedok Reservoir", "A"]],
+    "84209": [["DT30", "Bedok Reservoir", "B"]],
+    "84451": [["DT29", "Bedok North", "A"]],
+    "84459": [["DT29", "Bedok North", "B"]],
+    "84539": [["DT29", "Bedok North", "B"]],
+    "85091": [["EW4 CG", "Tanah Merah", "B"]],
+    "85099": [["EW4 CG", "Tanah Merah", "A"]],
+    "90041": [["TE23", "Tanjong Rhu", "2"]],
+    "90049": [["TE23", "Tanjong Rhu", "1"]],
+    "91081": [["TE24", "Katong Park", "2"]],
+    "91089": [["TE24", "Katong Park", "2"]],
+    "92041": [["TE26", "Marine Parade", "2"]],
+    "92049": [["TE26", "Marine Parade", "1"]],
+    "92051": [["TE26", "Marine Parade", "4"]],
+    "92059": [["TE26", "Marine Parade", "6"]],
+    "92061": [["TE27", "Marine Terrace", "3"]],
+    "92069": [["TE27", "Marine Terrace", "2"]],
+    "92071": [["TE27", "Marine Terrace", "4"]],
+    "92079": [["TE27", "Marine Terrace", "1"]],
+    "92081": [["TE27", "Marine Terrace", "5"]],
+    "92089": [["TE27", "Marine Terrace", "6"]],
+    "92211": [["TE27", "Marine Terrace", "6"]],
+    "92219": [["TE27", "Marine Terrace", "6"]],
+    "93031": [["TE28", "Siglap", "2"]],
+    "93039": [["TE28", "Siglap", "2/4"]],
+    "93201": [["TE28", "Siglap", "1"]],
+    "94031": [["TE29", "Bayshore", "3"]],
+    "94039": [["TE29", "Bayshore", "3"]],
+    "94101": [["TE29", "Bayshore", "3"]],
+    "94109": [["TE29", "Bayshore", "3"]],
+    "95109": [["CG2", "Changi Airport", "B"]],
+    "95129": [["CG2", "Changi Airport", "A"]],
+    "96021": [["CG1 DT35", "Expo", "A"]],
+    "96029": [["CG1 DT35", "Expo", "A"]],
+    "96031": [["CG1 DT35", "Expo", "A"]],
+    "96039": [["CG1 DT35", "Expo", "A"]],
+    "96041": [["DT34", "Upper Changi", "A"]],
+    "96049": [["DT34", "Upper Changi", "B"]],
+    "96141": [["EW3", "Simei", "A"]],
+    "96149": [["EW3", "Simei", "A"]],
+    "96161": [["EW3", "Simei", "A"]],
+    "96169": [["EW3", "Simei", "A"]],
+    "96221": [["CG1 DT35", "Expo", "A/B"]],
+    "96229": [["CG1 DT35", "Expo", "A/B"]],
+    "96301": [["CG1 DT35", "Expo", "B"]],
+    "96309": [["CG1 DT35", "Expo", "E"]],
+    "96311": [["CG1 DT35", "Expo", "B"]],
+    "96319": [["CG1 DT35", "Expo", "B"]],
+    "96381": [["CG1 DT35", "Expo", "A"]],
+    "96389": [["CG1 DT35", "Expo", "A"]]
 }

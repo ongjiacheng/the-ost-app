@@ -24,8 +24,7 @@ import type { Route } from "./+types/bus_.$svc";
 import roadNames from "../assets/road_names.json";
 const roadNamesMap: Record<string, string> = roadNames;
 import stations from "../assets/stations.json";
-const stationsMap: Record<string, string> = stations;
-
+const stationsMap: Record<string, string[][]> = stations;
 const db = new Firestore({
     projectId: "the-ost-app",
     databaseId: "the-ost-app"
@@ -214,10 +213,10 @@ function BusHours({ route }: { route: BusRouteType[] }) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {origin.map(direction => (
+                    {origin.map((direction, _, arr) => (
                         <TableRow key={direction.Direction}>
                             <TableCell colSpan={2}>
-                                {origin.length === 1 ? (
+                                {arr.length === 1 ? (
                                     <>
                                         <Typography variant="body1">Loop</Typography>
                                         From {direction.BusStopName}
@@ -332,13 +331,13 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
     return (
         <Container>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
-                {directions.map(direction =>
+                {directions.map((direction, _, arr) =>
                     <Table key={direction.at(0)?.Direction}>
                         <TableHead>
                             <TableRow>
-                                <TableCell colSpan={5}>
+                                <TableCell colSpan={7}>
                                     <Typography variant="h5">
-                                        {directions.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
+                                        {arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
                                     </Typography>
                                 </TableCell>
                             </TableRow>
@@ -347,7 +346,8 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                                 <TableCell>#</TableCell>
                                 <TableCell>km</TableCell>
                                 <TableCell>Code</TableCell>
-                                <TableCell>Name</TableCell>
+                                <TableCell colSpan={2}>Name</TableCell>
+                                <TableCell>Station</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -365,16 +365,29 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
 function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType, previousStop: BusRouteType }) {
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
+    const [altRoutes, setAltRoutes] = useState<BusRouteType[] | null>(null);
 
     async function handleClick(stop: BusRouteType) {
         if (!open) {
-            const params = new URLSearchParams({
+            const arrivalParams = new URLSearchParams({
                 BusStopCode: stop.BusStopCode,
                 ServiceNo: `${stop.ServiceNo}${stop.ServiceSuffix}`
             });
-            const response = await fetch(`/api/bus-arrival?${params}`);
-            const data = await response.json() as BusArrivalType;
-            setArrival(data);
+            const altRoutesParams = new URLSearchParams({
+                BusStopCode: stop.BusStopCode,
+                ServiceNo: String(stop.ServiceNo),
+                ServiceSuffix: stop.ServiceSuffix
+            });
+            const [arrivalResponse, altRoutesResponse] = await Promise.all([
+                fetch(`/api/bus-arrival?${arrivalParams}`),
+                fetch(`/api/bus-alt-routes?${altRoutesParams}`)
+            ])
+            const [arrivalData, altRoutesData] = await Promise.all([
+                arrivalResponse.json() as Promise<BusArrivalType>,
+                altRoutesResponse.json() as Promise<BusRouteType[]>
+            ])
+            setArrival(arrivalData);
+            setAltRoutes(altRoutesData);
         }
         setOpen(!open);
     }
@@ -382,7 +395,7 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
     return (<>
         {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
             <TableRow>
-                <TableCell colSpan={5}>
+                <TableCell colSpan={7}>
                     <Typography variant="body1">
                         {currentStop.RoadName.split(" ").map(word =>
                             roadNamesMap[word] ? roadNamesMap[word] : word
@@ -404,17 +417,57 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
             <TableCell>{currentStop.StopSequence}</TableCell>
             <TableCell>{currentStop.Distance}</TableCell>
             <TableCell>{currentStop.BusStopCode}</TableCell>
-            <TableCell>{currentStop.BusStopName}</TableCell>
+            <TableCell colSpan={2}>{currentStop.BusStopName}</TableCell>
+            <TableCell>
+                {stationsMap[currentStop.BusStopCode] &&
+                    stationsMap[currentStop.BusStopCode].map(station =>
+                        `${station[0]} ${station[1]}`
+                    ).join("\n")}
+            </TableCell>
         </TableRow>
         <TableRow>
-            <TableCell colSpan={6} sx={{ borderBottom: 0, p: 0 }}>
+            <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open}>
-                    <BusFirstLast stop={currentStop} />
-                    {arrival?.Services[0] && <BusArrival arrival={arrival} />}
+                    <Container sx={{p: 1}}>
+                        {altRoutes && <BusAltRoutes altRoutes={altRoutes} stop={currentStop} />}
+                        <BusFirstLast stop={currentStop} />
+                        {arrival?.Services[0] && <BusArrival arrival={arrival} />}
+                    </Container>
                 </Collapse>
             </TableCell>
         </TableRow>
     </>);
+}
+
+function BusAltRoutes({ altRoutes, stop }: { altRoutes: BusRouteType[], stop: BusRouteType }) {
+    return (
+        <Table>
+            <TableBody>
+                <TableRow>
+                    {altRoutes.length > 0 && <>
+                        <TableCell>
+                            <Typography variant="body1">Alternative Bus Routes</Typography>
+                        </TableCell>
+                        <TableCell>
+                            {altRoutes.filter((route, i, arr) =>
+                                i === 0 || route.ServiceNo !== arr[i - 1].ServiceNo || route.ServiceSuffix !== arr[i - 1].ServiceSuffix
+                            ).map(route =>
+                                `${route.ServiceNo}${route.ServiceSuffix}`
+                            ).join(" ")}
+                        </TableCell>
+                    </>}
+                    {stationsMap[stop.BusStopCode] && <>
+                        <TableCell>
+                            <Typography variant="body1">Nearby Train Stations</Typography>
+                        </TableCell>
+                        <TableCell>
+                            {stationsMap[stop.BusStopCode].map(station => `${station[0]} ${station[1]} Exit ${station[2]}`).join("\t")}
+                        </TableCell>
+                    </>}
+                </TableRow>
+            </TableBody>
+        </Table>
+    );
 }
 
 function BusFirstLast({ stop }: { stop: BusRouteType }) {
@@ -444,30 +497,22 @@ function BusFirstLast({ stop }: { stop: BusRouteType }) {
 
 function BusArrival({ arrival }: { arrival: BusArrivalType }) {
     const occupancyMap: Record<string, string> = { "SEA": "Low", "SDA": "Medium", "LSD": "High" };
-    const typeMap: Record<string, string> = { "SD": "Single Deck", "DD": "Double Deck", "BD": "Bendy" }
-    const timing1 = arrival.Services[0].NextBus;
-    const timing2 = arrival.Services[0].NextBus2;
-    const timing3 = arrival.Services[0].NextBus3;
+    const typeMap: Record<string, string> = { "SD": "Single", "DD": "Double", "BD": "Bendy" }
+    const timings = [arrival.Services[0].NextBus, arrival.Services[0].NextBus2, arrival?.Services[0].NextBus3];
     return (arrival && (
         <Table>
             <TableBody>
                 <TableRow>
                     <TableCell>Next Bus Timing</TableCell>
-                    {timing1 && <TableCell>{timing1.EstimatedArrival.slice(11, 19)}</TableCell>}
-                    {timing2 && <TableCell>{timing2.EstimatedArrival.slice(11, 19)}</TableCell>}
-                    {timing3 && <TableCell>{timing3.EstimatedArrival.slice(11, 19)}</TableCell>}
+                    {timings.map(timing => (
+                        timing.EstimatedArrival && <TableCell>{timing.EstimatedArrival.slice(11, 19)}</TableCell>
+                    ))}
                 </TableRow>
                 <TableRow>
-                    <TableCell>Occupancy</TableCell>
-                    {timing1 && <TableCell>{occupancyMap[timing1.Load]}</TableCell>}
-                    {timing2 && <TableCell>{occupancyMap[timing2.Load]}</TableCell>}
-                    {timing3 && <TableCell>{occupancyMap[timing3.Load]}</TableCell>}
-                </TableRow>
-                <TableRow>
-                    <TableCell>Type</TableCell>
-                    {timing1 && <TableCell>{typeMap[timing1.Type]}</TableCell>}
-                    {timing2 && <TableCell>{typeMap[timing2.Type]}</TableCell>}
-                    {timing3 && <TableCell>{typeMap[timing3.Type]}</TableCell>}
+                    <TableCell>Occupancy (Type)</TableCell>
+                    {timings.map(timing => (
+                        timing.EstimatedArrival && <TableCell>{`${occupancyMap[timing.Load]} (${typeMap[timing.Type]})`}</TableCell>
+                    ))}
                 </TableRow>
             </TableBody>
         </Table>
