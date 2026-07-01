@@ -1,140 +1,48 @@
 {
-    "Bt": [
-        "Bukit"
-    ],
-    "Jln": [
-        "Jalan"
-    ],
-    "Kg": [
-        "Kampong"
-    ],
-    "Lor": [
-        "Lorong"
-    ],
-    "Tg": [
-        "Tanjong"
-    ],
-    "A'space": [
-        "Aerospace"
-    ],
-    "Ave": [
-        "Avenue"
-    ],
-    "Blvd": [
-        "Boulevard"
-    ],
-    "Ctrl": [
-        "Central"
-    ],
-    "Ctr": [
-        "Centre"
-    ],
-    "Cl": [
-        "Close"
-    ],
-    "Cres": [
-        "Crescent"
-    ],
-    "Dr": [
-        "Drive"
-    ],
-    "Gdn": [
-        "Garden"
-    ],
-    "Gdns": [
-        "Gardens"
-    ],
-    "Hts": [
-        "Heights"
-    ],
-    "Ind": [
-        "Industrial"
-    ],
-    "Intl": [
-        "International"
-    ],
-    "Lk": [
-        "Link"
-    ],
-    "Mt": [
-        "Mount"
-    ],
-    "Nth": [
-        "North"
-    ],
-    "Pk": [
-        "Park"
-    ],
-    "Pl": [
-        "Place"
-    ],
-    "Resvr": [
-        "Reservoir"
-    ],
-    "Rd": [
-        "Road"
-    ],
-    "Sg": [
-        "Sungei"
-    ],
-    "St.": [
-        "Saint"
-    ],
-    "Sth": [
-        "South"
-    ],
-    "Sq": [
-        "Square"
-    ],
-    "St": [
-        "Street"
-    ],
-    "Terr": [
-        "Terrace"
-    ],
-    "Upp": [
-        "Upper"
-    ],
-    "Wk": [
-        "Walk"
-    ],
-    "AYE": [
-        "Ayer Rajah Expressway"
-    ],
-    "BKE": [
-        "Bukit Timah Expressway"
-    ],
-    "CTE": [
-        "Central Expressway"
-    ],
-    "ECP": [
-        "East Coast Parkway"
-    ],
-    "KJE": [
-        "Kranji Expressway"
-    ],
-    "KPE": [
-        "Kallang - Paya Lebar Expressway"
-    ],
-    "MCE": [
-        "Marina Coastal Expressway"
-    ],
-    "PIE": [
-        "Pan Island Expressway"
-    ],
-    "SLE": [
-        "Seletar Expressway"
-    ],
-    "TPE": [
-        "Tampines Expressway"
-    ],
-    "W'lands": [
-        "Woodlands"
-    ],
-    "S'goon": [
-        "Serangoon"
-    ],
-    "C'wealth": [
-        "Commonwealth"
-    ]
+    "Bt": "Bukit",
+    "Jln": "Jalan",
+    "Kg": "Kampong",
+    "Lor": "Lorong",
+    "Tg": "Tanjong",
+    "A'space": "Aerospace",
+    "Ave": "Avenue",
+    "Blvd": "Boulevard",
+    "Ctrl": "Central",
+    "Ctr": "Centre",
+    "Cl": "Close",
+    "Cres": "Crescent",
+    "Dr": "Drive",
+    "Gdn": "Garden",
+    "Gdns": "Gardens",
+    "Hts": "Heights",
+    "Ind": "Industrial",
+    "Intl": "International",
+    "Lk": "Link",
+    "Mt": "Mount",
+    "Nth": "North",
+    "Pk": "Park",
+    "Pl": "Place",
+    "Resvr": "Reservoir",
+    "Rd": "Road",
+    "Sg": "Sungei",
+    "St.": "Saint",
+    "Sth": "South",
+    "Sq": "Square",
+    "St": "Street",
+    "Terr": "Terrace",
+    "Upp": "Upper",
+    "Wk": "Walk",
+    "AYE": "Ayer Rajah Expressway",
+    "BKE": "Bukit Timah Expressway",
+    "CTE": "Central Expressway",
+    "ECP": "East Coast Parkway",
+    "KJE": "Kranji Expressway",
+    "KPE": "Kallang - Paya Lebar Expressway",
+    "MCE": "Marina Coastal Expressway",
+    "PIE": "Pan Island Expressway",
+    "SLE": "Seletar Expressway",
+    "TPE": "Tampines Expressway",
+    "W'lands": "Woodlands",
+    "S'goon": "Serangoon",
+    "C'wealth": "Commonwealth"
 }

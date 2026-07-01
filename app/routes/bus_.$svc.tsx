@@ -21,6 +21,11 @@ import { useState } from "react";
 
 import type { Route } from "./+types/bus_.$svc";
 
+import roadNames from "../assets/road_names.json";
+const roadNamesMap: Record<string, string> = roadNames;
+import stations from "../assets/stations.json";
+const stationsMap: Record<string, string> = stations;
+
 const db = new Firestore({
     projectId: "the-ost-app",
     databaseId: "the-ost-app"
@@ -159,7 +164,9 @@ export async function loader({ params }: Route.LoaderArgs) {
                 .as("DestinationName")
         )
         .execute();
-    const service: BusServiceType[] = serviceQuery.results.map(doc => doc.data() as BusServiceType);
+    const service: BusServiceType[] = serviceQuery.results.map(
+        doc => doc.data() as BusServiceType
+    );
     const videoQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
@@ -169,13 +176,13 @@ export async function loader({ params }: Route.LoaderArgs) {
         ...doc.data() as VideoType
     }));
 
-    const category: Record<string, string> = { "CITY_LINK": "City Direct", "EXPRESS": "Express", "FEEDER": "Feeder", "INDUSTRIAL": "Industrial", "TRUNK": "Trunk" };
-    const operator: Record<string, string> = { "SBST": "SBS Transit", "SMRT": "SMRT Buses", "TTS": "Tower Transit", "GAS": "Go-Ahead" };
+    const categoryMap: Record<string, string> = { "CITY_LINK": "City Direct", "EXPRESS": "Express", "FEEDER": "Feeder", "INDUSTRIAL": "Industrial", "TRUNK": "Trunk" };
+    const operatorMap: Record<string, string> = { "SBST": "SBS Transit", "SMRT": "SMRT Buses", "TTS": "Tower Transit", "GAS": "Go-Ahead" };
     const master: MasterType = {
-        operator: operator[service.at(0)!.Operator],
+        operator: operatorMap[service.at(0)!.Operator],
         category: (service.at(0) !== undefined && service.at(0)!.ServiceNo >= 451 && service.at(0)!.ServiceNo <= 500)
             ? "Limited-Stop"
-            : category[service.at(0)!.Category],
+            : categoryMap[service.at(0)!.Category],
         service: params.svc,
         direction: service.at(0)!.Direction
     }
@@ -282,7 +289,7 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {service.map(direction => (
+                    {service.map(direction =>
                         <TableRow key={direction.Direction}>
                             <TableCell>
                                 {direction.LoopDesc ? (
@@ -310,7 +317,7 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
                                 <Typography variant="body1">{direction.PM_Offpeak_Freq}</Typography>
                             </TableCell>
                         </TableRow>
-                    ))}
+                    )}
                 </TableBody>
             </Table>
         </Container>
@@ -344,9 +351,9 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {direction.map((stop, index) => (
+                            {direction.map((stop, index) =>
                                 <BusSequence key={stop.StopSequence} currentStop={stop} previousStop={direction[index - 1]} />
-                            ))}
+                            )}
                         </TableBody>
                     </Table>
                 )}
@@ -376,7 +383,11 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
         {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
             <TableRow>
                 <TableCell colSpan={5}>
-                    <Typography variant="body1">{currentStop.RoadName}</Typography>
+                    <Typography variant="body1">
+                        {currentStop.RoadName.split(" ").map(word =>
+                            roadNamesMap[word] ? roadNamesMap[word] : word
+                        ).join(" ")}
+                    </Typography>
                 </TableCell>
             </TableRow>}
         <TableRow>
@@ -432,6 +443,8 @@ function BusFirstLast({ stop }: { stop: BusRouteType }) {
 }
 
 function BusArrival({ arrival }: { arrival: BusArrivalType }) {
+    const occupancyMap: Record<string, string> = { "SEA": "Low", "SDA": "Medium", "LSD": "High" };
+    const typeMap: Record<string, string> = { "SD": "Single Deck", "DD": "Double Deck", "BD": "Bendy" }
     const timing1 = arrival.Services[0].NextBus;
     const timing2 = arrival.Services[0].NextBus2;
     const timing3 = arrival.Services[0].NextBus3;
@@ -439,22 +452,22 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
         <Table>
             <TableBody>
                 <TableRow>
-                    <TableCell>Next Bus</TableCell>
+                    <TableCell>Next Bus Timing</TableCell>
                     {timing1 && <TableCell>{timing1.EstimatedArrival.slice(11, 19)}</TableCell>}
                     {timing2 && <TableCell>{timing2.EstimatedArrival.slice(11, 19)}</TableCell>}
                     {timing3 && <TableCell>{timing3.EstimatedArrival.slice(11, 19)}</TableCell>}
                 </TableRow>
                 <TableRow>
-                    <TableCell>Bus Occupancy</TableCell>
-                    {timing1 && <TableCell>{timing1.Load}</TableCell>}
-                    {timing2 && <TableCell>{timing2.Load}</TableCell>}
-                    {timing3 && <TableCell>{timing3.Load}</TableCell>}
+                    <TableCell>Occupancy</TableCell>
+                    {timing1 && <TableCell>{occupancyMap[timing1.Load]}</TableCell>}
+                    {timing2 && <TableCell>{occupancyMap[timing2.Load]}</TableCell>}
+                    {timing3 && <TableCell>{occupancyMap[timing3.Load]}</TableCell>}
                 </TableRow>
                 <TableRow>
-                    <TableCell>Bus Type</TableCell>
-                    {timing1 && <TableCell>{timing1.Type}</TableCell>}
-                    {timing2 && <TableCell>{timing2.Type}</TableCell>}
-                    {timing3 && <TableCell>{timing3.Type}</TableCell>}
+                    <TableCell>Type</TableCell>
+                    {timing1 && <TableCell>{typeMap[timing1.Type]}</TableCell>}
+                    {timing2 && <TableCell>{typeMap[timing2.Type]}</TableCell>}
+                    {timing3 && <TableCell>{typeMap[timing3.Type]}</TableCell>}
                 </TableRow>
             </TableBody>
         </Table>
