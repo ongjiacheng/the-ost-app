@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import MuiLink from '@mui/material/Link'
+import Link from '@mui/material/Link'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,7 +9,6 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 
 import { useState } from "react";
-import { Link } from "react-router";
 
 import busPackage from "../assets/bus_package.json";
 import busType from "../assets/bus_type.json";
@@ -55,7 +54,7 @@ function BusTable(props: { table: (string | null)[][] }) {
                                 <TableCell key={colNo} sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" } }}>
                                     {col
                                         ? (/\d/.test(col)
-                                            ? <MuiLink component={Link} to={`${col}`} color="primary.light" underline="hover">{col}</MuiLink>
+                                            ? <Link href={`/bus/${col}`} color="primary.light" underline="hover">{col}</Link>
                                             : col)
                                         : ""}
                                 </TableCell>

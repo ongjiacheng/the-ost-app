@@ -9,6 +9,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -373,21 +374,19 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
                 BusStopCode: stop.BusStopCode,
                 ServiceNo: `${stop.ServiceNo}${stop.ServiceSuffix}`
             });
-            const altRoutesParams = new URLSearchParams({
-                BusStopCode: stop.BusStopCode,
-                ServiceNo: String(stop.ServiceNo),
-                ServiceSuffix: stop.ServiceSuffix
-            });
-            const [arrivalResponse, altRoutesResponse] = await Promise.all([
-                fetch(`/api/bus-arrival?${arrivalParams}`),
-                fetch(`/api/bus-alt-routes?${altRoutesParams}`)
-            ])
-            const [arrivalData, altRoutesData] = await Promise.all([
-                arrivalResponse.json() as Promise<BusArrivalType>,
-                altRoutesResponse.json() as Promise<BusRouteType[]>
-            ])
+            const arrivalResponse = await fetch(`/api/bus-arrival?${arrivalParams}`);
+            const arrivalData = await arrivalResponse.json();
             setArrival(arrivalData);
-            setAltRoutes(altRoutesData);
+            if (!altRoutes) {
+                const altRoutesParams = new URLSearchParams({
+                    BusStopCode: stop.BusStopCode,
+                    ServiceNo: String(stop.ServiceNo),
+                    ServiceSuffix: stop.ServiceSuffix
+                });
+                const altRoutesResponse = await fetch(`/api/bus-alt-routes?${altRoutesParams}`);
+                const altRoutesData = await altRoutesResponse.json();
+                setAltRoutes(altRoutesData);
+            }
         }
         setOpen(!open);
     }
@@ -428,7 +427,7 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
         <TableRow>
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open}>
-                    <Container sx={{p: 1}}>
+                    <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
                         {altRoutes && <BusAltRoutes altRoutes={altRoutes} stop={currentStop} />}
                         <BusFirstLast stop={currentStop} />
                         {arrival?.Services[0] && <BusArrival arrival={arrival} />}
@@ -446,19 +445,33 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: BusRouteType[], stop: Bu
                 <TableRow>
                     {altRoutes.length > 0 && <>
                         <TableCell>
-                            <Typography variant="body1">Alternative Bus Routes</Typography>
+                            <Typography variant="body1">Other Services</Typography>
                         </TableCell>
                         <TableCell>
                             {altRoutes.filter((route, i, arr) =>
                                 i === 0 || route.ServiceNo !== arr[i - 1].ServiceNo || route.ServiceSuffix !== arr[i - 1].ServiceSuffix
-                            ).map(route =>
-                                `${route.ServiceNo}${route.ServiceSuffix}`
-                            ).join(" ")}
+                            ).flatMap((route, i, arr) =>
+                                i === 0 ? [
+                                    <Link href={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                        {`${route.ServiceNo}${route.ServiceSuffix}`}
+                                    </Link>
+                                ] : route.ServiceNo === arr[i - 1].ServiceNo && route.ServiceSuffix !== arr[i - 1].ServiceSuffix ? [
+                                    "/",
+                                    <Link href={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                        {route.ServiceSuffix}
+                                    </Link>
+                                ] : [
+                                    " ",
+                                    <Link href={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                        {`${route.ServiceNo}${route.ServiceSuffix}`}
+                                    </Link>
+                                ]
+                            )}
                         </TableCell>
                     </>}
                     {stationsMap[stop.BusStopCode] && <>
                         <TableCell>
-                            <Typography variant="body1">Nearby Train Stations</Typography>
+                            <Typography variant="body1">Nearby Stations</Typography>
                         </TableCell>
                         <TableCell>
                             {stationsMap[stop.BusStopCode].map(station => `${station[0]} ${station[1]} Exit ${station[2]}`).join("\t")}

@@ -28,7 +28,7 @@ const db = new Firestore({
 
 export async function loader({ request }: Route.LoaderArgs) {
     const busStopCode = new URL(request.url).searchParams.get("BusStopCode") as string;
-    const serviceNo = new URL(request.url).searchParams.get("ServiceNo") as string;
+    const serviceNo = Number(new URL(request.url).searchParams.get("ServiceNo"));
     const serviceSuffix = new URL(request.url).searchParams.get("ServiceSuffix") as string;
 
     const routeQuery = await db.pipeline()
