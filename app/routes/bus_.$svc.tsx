@@ -1,8 +1,9 @@
 import { Firestore } from "@google-cloud/firestore";
 import { field, variable } from "@google-cloud/firestore/pipelines";
 
-import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import SyncIcon from '@mui/icons-material/Sync';
 
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -364,29 +365,40 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
 }
 
 function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType, previousStop: BusRouteType }) {
+    const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
     const [altRoutes, setAltRoutes] = useState<BusRouteType[] | null>(null);
 
     async function handleClick(stop: BusRouteType) {
         if (!open) {
+            setLoading(true);
             const arrivalParams = new URLSearchParams({
                 BusStopCode: stop.BusStopCode,
                 ServiceNo: `${stop.ServiceNo}${stop.ServiceSuffix}`
             });
-            const arrivalResponse = await fetch(`/api/bus-arrival?${arrivalParams}`);
-            const arrivalData = await arrivalResponse.json();
-            setArrival(arrivalData);
+            const altRoutesParams = new URLSearchParams({
+                BusStopCode: stop.BusStopCode,
+                ServiceNo: String(stop.ServiceNo),
+                ServiceSuffix: stop.ServiceSuffix
+            });
             if (!altRoutes) {
-                const altRoutesParams = new URLSearchParams({
-                    BusStopCode: stop.BusStopCode,
-                    ServiceNo: String(stop.ServiceNo),
-                    ServiceSuffix: stop.ServiceSuffix
-                });
-                const altRoutesResponse = await fetch(`/api/bus-alt-routes?${altRoutesParams}`);
-                const altRoutesData = await altRoutesResponse.json();
+                const [arrivalResponse, altRoutesResponse] = await Promise.all([
+                    fetch(`/api/bus-arrival?${arrivalParams}`),
+                    fetch(`/api/bus-alt-routes?${altRoutesParams}`)
+                ])
+                const [arrivalData, altRoutesData] = await Promise.all([
+                    arrivalResponse.json() as Promise<BusArrivalType>,
+                    altRoutesResponse.json() as Promise<BusRouteType[]>
+                ])
+                setArrival(arrivalData);
                 setAltRoutes(altRoutesData);
+            } else {
+                const arrivalResponse = await fetch(`/api/bus-arrival?${arrivalParams}`);
+                const arrivalData = await arrivalResponse.json();
+                setArrival(arrivalData);
             }
+            setLoading(false);
         }
         setOpen(!open);
     }
@@ -410,7 +422,7 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
                     type="button"
                     onClick={() => handleClick(currentStop)}
                 >
-                    {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
             </TableCell>
             <TableCell>{currentStop.StopSequence}</TableCell>
