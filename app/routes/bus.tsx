@@ -9,6 +9,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 
 import { useState } from "react";
+import { Link as RouterLink } from "react-router";
 
 import busPackage from "../assets/bus_package.json";
 import busType from "../assets/bus_type.json";
@@ -54,7 +55,7 @@ function BusTable(props: { table: (string | null)[][] }) {
                                 <TableCell key={colNo} sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" } }}>
                                     {col
                                         ? (/\d/.test(col)
-                                            ? <Link href={`/bus/${col}`} color="primary.light" underline="hover">{col}</Link>
+                                            ? <Link component={RouterLink} to={`${col}`} color="primary.light" underline="hover">{col}</Link>
                                             : col)
                                         : ""}
                                 </TableCell>

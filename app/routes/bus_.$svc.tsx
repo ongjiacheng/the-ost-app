@@ -20,6 +20,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 
 import { useState } from "react";
+import { Link as RouterLink } from "react-router";
 
 import type { Route } from "./+types/bus_.$svc";
 
@@ -464,17 +465,17 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: BusRouteType[], stop: Bu
                                 i === 0 || route.ServiceNo !== arr[i - 1].ServiceNo || route.ServiceSuffix !== arr[i - 1].ServiceSuffix
                             ).flatMap((route, i, arr) =>
                                 i === 0 ? [
-                                    <Link href={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                    <Link component={RouterLink} to={`../${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
                                         {`${route.ServiceNo}${route.ServiceSuffix}`}
                                     </Link>
                                 ] : route.ServiceNo === arr[i - 1].ServiceNo && route.ServiceSuffix !== arr[i - 1].ServiceSuffix ? [
                                     "/",
-                                    <Link href={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                    <Link component={RouterLink} to={`../${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
                                         {route.ServiceSuffix}
                                     </Link>
                                 ] : [
                                     " ",
-                                    <Link href={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                    <Link component={RouterLink} to={`../${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
                                         {`${route.ServiceNo}${route.ServiceSuffix}`}
                                     </Link>
                                 ]
