@@ -3,22 +3,27 @@ import { field, variable } from "@google-cloud/firestore/pipelines";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SyncIcon from '@mui/icons-material/Sync';
+import SyncIcon from "@mui/icons-material/Sync";
 
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
+import Switch from "@mui/material/Switch";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 
 import { useState } from "react";
 import { Link as RouterLink } from "react-router";
@@ -220,17 +225,8 @@ function BusHours({ route }: { route: BusRouteType[] }) {
                     {origin.map((direction, _, arr) => (
                         <TableRow key={direction.Direction}>
                             <TableCell colSpan={2}>
-                                {arr.length === 1 ? (
-                                    <>
-                                        <Typography variant="body1">Loop</Typography>
-                                        From {direction.BusStopName}
-                                    </>
-                                ) : (
-                                    <>
-                                        <Typography variant="body1">Direction {direction.Direction}</Typography>
-                                        From {direction.BusStopName}
-                                    </>
-                                )}
+                                <Typography variant="body1">{arr.length === 1 ? "Loop" : `Direction ${direction.Direction}`}</Typography>
+                                From {direction.BusStopName}
                             </TableCell>
                             <TableCell>
                                 <Typography variant="body1">{direction.WD_FirstBus}</Typography>
@@ -548,6 +544,9 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
 
 function BusVolume({ route }: { route: BusRouteType[] }) {
     type volumeMap = Record<string, { wd: number[], we: number[] }>;
+    const [day, setDay] = useState(false);
+    const [hour, setHour] = useState(8);
+    const [weekday, setWeekday] = useState(true);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [volume, setVolume] = useState<volumeMap[] | null>(null);
@@ -576,47 +575,90 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     }
 
     return (
-        <>
+        <Container>
             {open ? (
-                directions.map(direction => (
-                    <>
-                        <Typography variant="body1">Direction {direction[0]?.Direction}</Typography>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>{"Destination →\n↓ Origin"}</TableCell>
-                                    {direction.slice(1).map(destination => (
-                                        <TableCell key={destination.StopSequence}>
-                                            <Typography variant="body2" sx={{ transform: 'rotate(-90deg)', transformOrigin: 'center', whiteSpace: 'nowrap' }}>
-                                                {destination.BusStopCode}
-                                            </Typography>
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {volume && direction.slice(0, -1).map((origin, i) => (
-                                    <TableRow key={origin.StopSequence}>
-                                        <TableCell>{origin.BusStopCode}</TableCell>
-                                        {direction.slice(1).map((destination, j) => (
-                                            <TableCell key={destination.StopSequence}>
-                                                {i <= j ? (
-                                                    volume[i][destination.BusStopCode] ? (
-                                                        volume[i]?.[destination.BusStopCode]?.wd?.reduce((acc, val) => acc + val, 0)
-                                                    ) : 0
-                                                ) : "-"}
-                                            </TableCell>
+                <>
+                    <Typography variant="h4">Origin-Destination Volumes (May 2026)</Typography>
+                    <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
+                        <FormControlLabel
+                            control={<Switch checked={weekday} onChange={(e) => setWeekday(e.target.checked)} />}
+                            label={weekday ? "Weekday" : "Weekend"}
+                        />
+                        <FormControlLabel
+                            control={<Switch checked={day} onChange={(e) => setDay(e.target.checked)} />}
+                            label={day ? "By Day" : "By Hour"}
+                        />
+                    </Stack>
+                    {day && (
+                        <Stack direction="row" spacing={2} sx={{ p: 4 }}>
+                            <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
+                                {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
+                            </Typography>
+                            <Slider aria-labelledby="hour-slider" value={hour} min={0} max={23} step={1}
+                                marks valueLabelDisplay="auto" onChange={(_, value) => setHour(value as number)}
+                            />
+                        </Stack>
+                    )}
+
+                    {directions.map((direction, _, arr) => (
+                        <>
+                            <Typography variant="h5">{arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}</Typography>
+                            <TableContainer component={Paper} sx={{ maxHeight: "100%", width: "100%", overflow: "auto" }}>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell sx={{ backgroundColor: "background.paper", left: 0, position: "sticky", top: 0, zIndex: 4 }}>↱</TableCell>
+                                            {direction.slice(1).map(destination => (
+                                                <TableCell key={destination.StopSequence} sx={{ backgroundColor: "background.paper", position: "sticky", top: 0, zIndex: 2 }}>
+                                                    {destination.BusStopCode}
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {volume && direction.slice(0, -1).map((origin, i) => (
+                                            <TableRow key={origin.StopSequence}>
+                                                <TableCell sx={{ backgroundColor: "background.paper", position: "sticky", left: 0, zIndex: 1 }}>{origin.BusStopCode}</TableCell>
+                                                {direction.slice(1).map((destination, j) => {
+                                                    const commuters = i <= j ? (
+                                                        volume[i][destination.BusStopCode] ? (
+                                                            day ? (
+                                                                volume[i][destination.BusStopCode][weekday ? "wd" : "we"][hour]
+                                                            ) : (
+                                                                volume[i][destination.BusStopCode][weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
+                                                            )
+                                                        ) : 0
+                                                    ) : null;
+                                                    return (
+                                                        <TableCell key={destination.StopSequence}>
+                                                            <Typography variant="body2" sx={{
+                                                                color: (commuters === null || commuters === 0) ?
+                                                                    "text.disabled"
+                                                                    : commuters <= 100 ?
+                                                                        "info.main"
+                                                                        : commuters <= 400 ?
+                                                                            "success.main"
+                                                                            : commuters <= 1600 ?
+                                                                                "warning.main"
+                                                                                : "error.main"
+                                                            }}>
+                                                                {commuters === null ? "-" : commuters}
+                                                            </Typography>
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
                                         ))}
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </>
-                ))
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </>
+                    ))}
+                </>
             ) : (
-                loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Passenger Volume Data</Button>
+                loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Origin-Destination Volumes (May 2026)</Button>
             )}
-        </>
+        </Container>
     )
 }
 
