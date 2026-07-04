@@ -5,6 +5,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SyncIcon from '@mui/icons-material/Sync';
 
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Collapse from "@mui/material/Collapse";
@@ -465,17 +466,17 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: BusRouteType[], stop: Bu
                                 i === 0 || route.ServiceNo !== arr[i - 1].ServiceNo || route.ServiceSuffix !== arr[i - 1].ServiceSuffix
                             ).flatMap((route, i, arr) =>
                                 i === 0 ? [
-                                    <Link component={RouterLink} to={`../${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
                                         {`${route.ServiceNo}${route.ServiceSuffix}`}
                                     </Link>
                                 ] : route.ServiceNo === arr[i - 1].ServiceNo && route.ServiceSuffix !== arr[i - 1].ServiceSuffix ? [
                                     "/",
-                                    <Link component={RouterLink} to={`../${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
                                         {route.ServiceSuffix}
                                     </Link>
                                 ] : [
                                     " ",
-                                    <Link component={RouterLink} to={`../${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
                                         {`${route.ServiceNo}${route.ServiceSuffix}`}
                                     </Link>
                                 ]
@@ -545,6 +546,70 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
     ))
 }
 
+function BusVolume({ route }: { route: BusRouteType[] }) {
+    type volumeMap = Record<string, { wd: number[], we: number[] }>;
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [volume, setVolume] = useState<volumeMap[] | null>(null);
+    async function handleClick() {
+        setLoading(true);
+        const volumeParams = route.map(stop => (
+            new URLSearchParams({
+                BusStopCode: stop.BusStopCode
+            })
+        ));
+        const volumeResponse = await Promise.all(
+            volumeParams.map(stop => (
+                fetch(`/api/bus-volume?${stop}`)
+            ))
+        );
+        const volumeData = await Promise.all(
+            volumeResponse.map(response => response.json() as Promise<volumeMap>)
+        );
+        setVolume(volumeData);
+        setOpen(true);
+    }
+
+    return (
+        <>
+            {open ? (
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>{"Destination →\n↓ Origin"}</TableCell>
+                            {route.slice(1).map(destination => (
+                                <TableCell key={destination.StopSequence}>
+                                    <Typography variant="body2" sx={{ transform: 'rotate(-90deg)', transformOrigin: 'center', whiteSpace: 'nowrap' }}>
+                                        {destination.BusStopCode}
+                                    </Typography>
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {volume && route.slice(0, -1).map((origin, i) => (
+                            <TableRow key={origin.StopSequence}>
+                                <TableCell>{origin.BusStopCode}</TableCell>
+                                {route.slice(1).map((destination, j) => (
+                                    <TableCell key={destination.StopSequence}>
+                                        {i <= j ? (
+                                            volume[i][destination.BusStopCode] ? (
+                                                volume[i]?.[destination.BusStopCode]?.wd?.reduce((acc, val) => acc + val, 0)
+                                            ) : 0
+                                        ) : "-"}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            ) : (
+                loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Passenger Volume Data</Button>
+            )}
+        </>
+    )
+}
+
 export default function Bus({
     loaderData: { master, route, service, videos }
 }: Route.ComponentProps) {
@@ -555,6 +620,7 @@ export default function Bus({
             <BusHours route={route} />
             <BusFrequency service={service} />
             <BusJourney route={route} />
+            <BusVolume route={route} />
         </Container>
     );
 }
