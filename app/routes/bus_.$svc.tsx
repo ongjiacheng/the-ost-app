@@ -551,6 +551,11 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [volume, setVolume] = useState<volumeMap[] | null>(null);
+
+    const direction1 = route.filter(stop => stop.Direction === 1);
+    const direction2 = route.filter(stop => stop.Direction === 2);
+    const directions = direction2.length > 0 ? [direction1, direction2] : [direction1];
+
     async function handleClick() {
         setLoading(true);
         const volumeParams = route.map(stop => (
@@ -573,36 +578,41 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     return (
         <>
             {open ? (
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>{"Destination →\n↓ Origin"}</TableCell>
-                            {route.slice(1).map(destination => (
-                                <TableCell key={destination.StopSequence}>
-                                    <Typography variant="body2" sx={{ transform: 'rotate(-90deg)', transformOrigin: 'center', whiteSpace: 'nowrap' }}>
-                                        {destination.BusStopCode}
-                                    </Typography>
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {volume && route.slice(0, -1).map((origin, i) => (
-                            <TableRow key={origin.StopSequence}>
-                                <TableCell>{origin.BusStopCode}</TableCell>
-                                {route.slice(1).map((destination, j) => (
-                                    <TableCell key={destination.StopSequence}>
-                                        {i <= j ? (
-                                            volume[i][destination.BusStopCode] ? (
-                                                volume[i]?.[destination.BusStopCode]?.wd?.reduce((acc, val) => acc + val, 0)
-                                            ) : 0
-                                        ) : "-"}
-                                    </TableCell>
+                directions.map(direction => (
+                    <>
+                        <Typography variant="body1">Direction {direction[0]?.Direction}</Typography>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>{"Destination →\n↓ Origin"}</TableCell>
+                                    {direction.slice(1).map(destination => (
+                                        <TableCell key={destination.StopSequence}>
+                                            <Typography variant="body2" sx={{ transform: 'rotate(-90deg)', transformOrigin: 'center', whiteSpace: 'nowrap' }}>
+                                                {destination.BusStopCode}
+                                            </Typography>
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {volume && direction.slice(0, -1).map((origin, i) => (
+                                    <TableRow key={origin.StopSequence}>
+                                        <TableCell>{origin.BusStopCode}</TableCell>
+                                        {direction.slice(1).map((destination, j) => (
+                                            <TableCell key={destination.StopSequence}>
+                                                {i <= j ? (
+                                                    volume[i][destination.BusStopCode] ? (
+                                                        volume[i]?.[destination.BusStopCode]?.wd?.reduce((acc, val) => acc + val, 0)
+                                                    ) : 0
+                                                ) : "-"}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
                                 ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                            </TableBody>
+                        </Table>
+                    </>
+                ))
             ) : (
                 loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Passenger Volume Data</Button>
             )}
