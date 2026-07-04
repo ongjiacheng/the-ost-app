@@ -5,6 +5,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SyncIcon from "@mui/icons-material/Sync";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -25,15 +26,50 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { Route } from "./+types/bus_.$svc";
 
 import roadNames from "../assets/road_names.json";
-const roadNamesMap: Record<string, string> = roadNames;
 import stations from "../assets/stations.json";
+
+const categoryMap: Record<string, string> = {
+    "CITY_LINK": "City Direct",
+    "EXPRESS": "Express",
+    "FEEDER": "Feeder",
+    "INDUSTRIAL": "Industrial",
+    "TRUNK": "Trunk"
+};
+const lineMap: Record<string, string> = {
+    "EW": "#71CE8D",
+    "CG": "#71CE8D",
+    "NS": "#FC8061",
+    "NE": "#C461C8",
+    "CC": "#FCD452",
+    "DT": "#5BB1Fa",
+    "TE": "#B57C4A"
+};
+const occupancyMap: Record<string, string> = {
+    "SEA": "Low",
+    "SDA": "Medium",
+    "LSD": "High"
+};
+const operatorMap: Record<string, string> = {
+    "SBST": "SBS Transit",
+    "SMRT": "SMRT Buses",
+    "TTS": "Tower Transit",
+    "GAS": "Go-Ahead"
+};
+const roadNamesMap: Record<string, string> = roadNames;
 const stationsMap: Record<string, string[][]> = stations;
+const typeMap: Record<string, string> = {
+    "SD": "Single",
+    "DD": "Double",
+    "BD": "Bendy"
+}
+type volumeMap = Record<string, { wd: number[], we: number[] }>;
+
 const db = new Firestore({
     projectId: "the-ost-app",
     databaseId: "the-ost-app"
@@ -184,8 +220,6 @@ export async function loader({ params }: Route.LoaderArgs) {
         ...doc.data() as VideoType
     }));
 
-    const categoryMap: Record<string, string> = { "CITY_LINK": "City Direct", "EXPRESS": "Express", "FEEDER": "Feeder", "INDUSTRIAL": "Industrial", "TRUNK": "Trunk" };
-    const operatorMap: Record<string, string> = { "SBST": "SBS Transit", "SMRT": "SMRT Buses", "TTS": "Tower Transit", "GAS": "Go-Ahead" };
     const master: MasterType = {
         operator: operatorMap[service.at(0)!.Operator],
         category: (service.at(0) !== undefined && service.at(0)!.ServiceNo >= 451 && service.at(0)!.ServiceNo <= 500)
@@ -428,12 +462,20 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
             <TableCell>{currentStop.BusStopCode}</TableCell>
             <TableCell colSpan={2}>{currentStop.BusStopName}</TableCell>
             <TableCell>
-                {stationsMap[currentStop.BusStopCode] &&
-                    stationsMap[currentStop.BusStopCode].map(station =>
-                        `${station[0]} ${station[1]}`
-                    ).join("\n")}
+                {stationsMap[currentStop.BusStopCode]?.map(([codes, name], i, a) => (
+                    <Box key={i}>
+                        {codes.split(" ").map((code, j, b) =>
+                            <Box component="span" key={j}>
+                                <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{code}</Box>
+                                {j < b.length - 1 ? " " : b.length === 1 ? " " : "\n"}
+                            </Box>
+                        )}
+                        {`${name}`}
+                        {i < a.length - 1 && "\n"}
+                    </Box>
+                ))}
             </TableCell>
-        </TableRow>
+        </TableRow >
         <TableRow>
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open}>
@@ -484,7 +526,18 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: BusRouteType[], stop: Bu
                             <Typography variant="body1">Nearby Stations</Typography>
                         </TableCell>
                         <TableCell>
-                            {stationsMap[stop.BusStopCode].map(station => `${station[0]} ${station[1]} Exit ${station[2]}`).join("\t")}
+                            {stationsMap[stop.BusStopCode]?.map(([codes, name, exit], i, a) => (
+                                <Box key={i}>
+                                    {codes.split(" ").map((code, j, b) =>
+                                        <Box component="span" key={j}>
+                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{code}</Box>
+                                            {j < b.length - 1 ? " " : b.length === 1 ? " " : "\n"}
+                                        </Box>
+                                    )}
+                                    {`${name} Exit ${exit}`}
+                                    {i < a.length - 1 && "\n"}
+                                </Box>
+                            ))}
                         </TableCell>
                     </>}
                 </TableRow>
@@ -519,8 +572,6 @@ function BusFirstLast({ stop }: { stop: BusRouteType }) {
 }
 
 function BusArrival({ arrival }: { arrival: BusArrivalType }) {
-    const occupancyMap: Record<string, string> = { "SEA": "Low", "SDA": "Medium", "LSD": "High" };
-    const typeMap: Record<string, string> = { "SD": "Single", "DD": "Double", "BD": "Bendy" }
     const timings = [arrival.Services[0].NextBus, arrival.Services[0].NextBus2, arrival?.Services[0].NextBus3];
     return (arrival && (
         <Table>
@@ -543,7 +594,6 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
 }
 
 function BusVolume({ route }: { route: BusRouteType[] }) {
-    type volumeMap = Record<string, { wd: number[], we: number[] }>;
     const [day, setDay] = useState(false);
     const [hour, setHour] = useState(8);
     const [weekday, setWeekday] = useState(true);
