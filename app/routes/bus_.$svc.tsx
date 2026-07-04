@@ -639,7 +639,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                             label={day ? "By Day" : "By Hour"}
                         />
                     </Stack>
-                    {day && (
+                    {!day && (
                         <Stack direction="row" spacing={2} sx={{ p: 4 }}>
                             <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
                                 {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
@@ -673,9 +673,9 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                                     const commuters = i <= j ? (
                                                         volume[i][destination.BusStopCode] ? (
                                                             day ? (
-                                                                volume[i][destination.BusStopCode][weekday ? "wd" : "we"][hour]
-                                                            ) : (
                                                                 volume[i][destination.BusStopCode][weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
+                                                            ) : (
+                                                                volume[i][destination.BusStopCode][weekday ? "wd" : "we"][hour]
                                                             )
                                                         ) : 0
                                                     ) : null;
