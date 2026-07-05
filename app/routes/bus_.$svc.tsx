@@ -585,7 +585,23 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
                 <TableRow>
                     <TableCell>Occupancy (Type)</TableCell>
                     {timings.map(timing => (
-                        timing.EstimatedArrival && <TableCell>{`${occupancyMap[timing.Load]} (${typeMap[timing.Type]})`}</TableCell>
+                        timing.EstimatedArrival &&
+                        <TableCell>
+                            <Typography variant="body2" sx={{
+                                color: timing.Load === null ?
+                                    "text.disabled"
+                                    : timing.Load === "SEA" ?
+                                        "success.main"
+                                        : timing.Load === "SA" ?
+                                            "warning.main"
+                                            : timing.Load === "LSD" ?
+                                                "error.main"
+                                                : "text.disabled"
+                            }}>
+                                {occupancyMap[timing.Load]}
+                            </Typography>
+                            {` (${typeMap[timing.Type]})`}
+                        </TableCell>
                     ))}
                 </TableRow>
             </TableBody>
