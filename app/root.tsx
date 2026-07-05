@@ -51,10 +51,10 @@ const theme = createTheme({
             styleOverrides: {
                 h1: { paddingTop: 16, paddingBottom: 16 },
                 h2: { paddingTop: 16, paddingBottom: 16 },
-                h3: { paddingTop: 16, paddingBottom: 16 },
-                h4: { paddingTop: 16, paddingBottom: 16 },
-                h5: { paddingTop: 16, paddingBottom: 16 },
-                h6: { paddingTop: 16, paddingBottom: 16 },
+                h3: { paddingTop: 8, paddingBottom: 8 },
+                h4: { paddingTop: 8, paddingBottom: 8 },
+                h5: { paddingTop: 4, paddingBottom: 4 },
+                h6: { paddingTop: 4, paddingBottom: 4 },
             }
         }
     },

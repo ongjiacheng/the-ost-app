@@ -26,7 +26,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { Route } from "./+types/bus_.$svc";
@@ -325,17 +325,14 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
                     {service.map(direction =>
                         <TableRow key={direction.Direction}>
                             <TableCell>
-                                {direction.LoopDesc ? (
-                                    <>
-                                        <Typography variant="body1">Loop</Typography>
-                                        {direction.OriginName} ↺ {direction.LoopDesc}
-                                    </>
-                                ) : (
-                                    <>
-                                        <Typography variant="body1">Direction {direction.Direction}</Typography>
-                                        {direction.OriginName} → {direction.DestinationName}
-                                    </>
-                                )}
+                                <Typography variant="body1">
+                                    {direction.LoopDesc ? "Loop" : `Direction ${direction.Direction}`}
+                                </Typography>
+                                <Typography variant="body2">
+                                    {direction.LoopDesc
+                                        ? `${direction.OriginName} ↺ ${direction.LoopDesc}`
+                                        : `${direction.OriginName} → ${direction.DestinationName}`}
+                                </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="body1">{direction.AM_Peak_Freq}</Typography>
@@ -503,21 +500,25 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: BusRouteType[], stop: Bu
                             {altRoutes.filter((route, i, arr) =>
                                 i === 0 || route.ServiceNo !== arr[i - 1].ServiceNo || route.ServiceSuffix !== arr[i - 1].ServiceSuffix
                             ).flatMap((route, i, arr) =>
-                                i === 0 ? [
-                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
-                                        {`${route.ServiceNo}${route.ServiceSuffix}`}
-                                    </Link>
-                                ] : route.ServiceNo === arr[i - 1].ServiceNo && route.ServiceSuffix !== arr[i - 1].ServiceSuffix ? [
-                                    "/",
-                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
-                                        {route.ServiceSuffix}
-                                    </Link>
-                                ] : [
-                                    " ",
-                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
-                                        {`${route.ServiceNo}${route.ServiceSuffix}`}
-                                    </Link>
-                                ]
+                                i === 0
+                                    ? [
+                                        <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                            {`${route.ServiceNo}${route.ServiceSuffix}`}
+                                        </Link>
+                                    ]
+                                    : route.ServiceNo === arr[i - 1].ServiceNo && route.ServiceSuffix !== arr[i - 1].ServiceSuffix
+                                        ? [
+                                            "/",
+                                            <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                                {route.ServiceSuffix}
+                                            </Link>
+                                        ]
+                                        : [
+                                            " ",
+                                            <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
+                                                {`${route.ServiceNo}${route.ServiceSuffix}`}
+                                            </Link>
+                                        ]
                             )}
                         </TableCell>
                     </>}
@@ -588,14 +589,14 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
                         timing.EstimatedArrival &&
                         <TableCell>
                             <Typography variant="body2" sx={{
-                                color: timing.Load === null ?
-                                    "text.disabled"
-                                    : timing.Load === "SEA" ?
-                                        "success.main"
-                                        : timing.Load === "SA" ?
-                                            "warning.main"
-                                            : timing.Load === "LSD" ?
-                                                "error.main"
+                                color: timing.Load === null
+                                    ? "text.disabled"
+                                    : timing.Load === "SEA"
+                                        ? "success.main"
+                                        : timing.Load === "SDA"
+                                            ? "warning.main"
+                                            : timing.Load === "LSD"
+                                                ? "error.main"
                                                 : "text.disabled"
                             }}>
                                 {occupancyMap[timing.Load]}
@@ -615,7 +616,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     const [weekday, setWeekday] = useState(true);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-    const [volume, setVolume] = useState<volumeMap[] | null>(null);
+    const [volume, setVolume] = useState<Record<string, volumeMap> | null>(null);
 
     const direction1 = route.filter(stop => stop.Direction === 1);
     const direction2 = route.filter(stop => stop.Direction === 2);
@@ -636,96 +637,101 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
         const volumeData = await Promise.all(
             volumeResponse.map(response => response.json() as Promise<volumeMap>)
         );
-        setVolume(volumeData);
+        setVolume(Object.fromEntries(
+            route.map((stop, index) => [stop.BusStopCode, volumeData[index]])
+        ));
         setOpen(true);
     }
 
     return (
-        <Container>
+        <>
             {open ? (
                 <>
-                    <Typography variant="h4">Origin-Destination Volumes (May 2026)</Typography>
-                    <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
-                        <FormControlLabel
-                            control={<Switch checked={weekday} onChange={(e) => setWeekday(e.target.checked)} />}
-                            label={weekday ? "Weekday" : "Weekend"}
-                        />
-                        <FormControlLabel
-                            control={<Switch checked={day} onChange={(e) => setDay(e.target.checked)} />}
-                            label={day ? "By Day" : "By Hour"}
-                        />
-                    </Stack>
-                    {!day && (
-                        <Stack direction="row" spacing={2} sx={{ p: 4 }}>
-                            <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
-                                {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
-                            </Typography>
-                            <Slider aria-labelledby="hour-slider" value={hour} min={0} max={23} step={1}
-                                marks valueLabelDisplay="auto" onChange={(_, value) => setHour(value as number)}
+                    <Container>
+                        <Typography variant="h4">Origin-Destination Volumes (May 2026)</Typography>
+                        <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
+                            <FormControlLabel
+                                control={<Switch checked={weekday} onChange={(e) => setWeekday(e.target.checked)} />}
+                                label={weekday ? "Weekday" : "Weekend"}
+                            />
+                            <FormControlLabel
+                                control={<Switch checked={day} onChange={(e) => setDay(e.target.checked)} />}
+                                label={day ? "By Day" : "By Hour"}
                             />
                         </Stack>
-                    )}
-                    <Stack direction="row" spacing={2}>
-                        {directions.map((direction, _, arr) => (
-                            <>
-                                <Typography variant="h5">{arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}</Typography>
-                                <TableContainer component={Paper} sx={{ maxHeight: "60vh", width: `${100 / arr.length}wh`, overflow: "auto" }}>
-                                    <Table>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell sx={{ backgroundColor: "background.paper", left: 0, position: "sticky", top: 0, zIndex: 4 }}>↱</TableCell>
-                                                {direction.slice(1).map(destination => (
-                                                    <TableCell key={destination.StopSequence} sx={{ backgroundColor: "background.paper", position: "sticky", top: 0, zIndex: 2 }}>
-                                                        {destination.BusStopCode}
-                                                    </TableCell>
-                                                ))}
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {volume && direction.slice(0, -1).map((origin, i) => (
-                                                <TableRow key={origin.StopSequence}>
-                                                    <TableCell sx={{ backgroundColor: "background.paper", position: "sticky", left: 0, zIndex: 1 }}>{origin.BusStopCode}</TableCell>
-                                                    {direction.slice(1).map((destination, j) => {
-                                                        const commuters = i <= j ? (
-                                                            volume[i][destination.BusStopCode] ? (
-                                                                day ? (
-                                                                    volume[i][destination.BusStopCode][weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
-                                                                ) : (
-                                                                    volume[i][destination.BusStopCode][weekday ? "wd" : "we"][hour]
-                                                                )
-                                                            ) : 0
-                                                        ) : null;
-                                                        return (
-                                                            <TableCell key={destination.StopSequence}>
-                                                                <Typography variant="body2" sx={{
-                                                                    color: (commuters === null || commuters === 0) ?
-                                                                        "text.disabled"
-                                                                        : commuters <= 100 ?
-                                                                            "info.main"
-                                                                            : commuters <= 400 ?
-                                                                                "success.main"
-                                                                                : commuters <= 1600 ?
-                                                                                    "warning.main"
-                                                                                    : "error.main"
-                                                                }}>
-                                                                    {commuters === null ? "-" : commuters}
-                                                                </Typography>
-                                                            </TableCell>
-                                                        );
-                                                    })}
+                        {!day && (
+                            <Stack direction="row" spacing={2} sx={{ p: 2 }}>
+                                <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
+                                    {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
+                                </Typography>
+                                <Slider aria-labelledby="hour-slider" value={hour} min={0} max={23} step={1}
+                                    marks valueLabelDisplay="auto" onChange={(_, value) => setHour(value as number)}
+                                />
+                            </Stack>
+                        )}
+                    </Container>
+                    <Container>
+                        <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
+                            {directions.map((direction, _, arr) => (
+                                <Stack direction="column" spacing={2} sx={{ flex: 1, maxHeight: { xs: "33vh", md: "66vh" }, maxWidth: "100%", overflow: "auto" }}>
+                                    <Typography variant="h5">{arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}</Typography>
+                                    <TableContainer component={Paper}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell sx={{ backgroundColor: "background.paper", left: 0, position: "sticky", top: 0, zIndex: 4 }}>↱</TableCell>
+                                                    {direction.slice(1).map(destination => (
+                                                        <TableCell key={destination.StopSequence} sx={{ backgroundColor: "background.paper", position: "sticky", top: 0, zIndex: 2 }}>
+                                                            {destination.BusStopCode}
+                                                        </TableCell>
+                                                    ))}
                                                 </TableRow>
-                                            ))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </>
-                        ))}
-                    </Stack>
+                                            </TableHead>
+                                            <TableBody>
+                                                {volume && direction.slice(0, -1).map((origin, i) => (
+                                                    <TableRow key={origin.StopSequence}>
+                                                        <TableCell sx={{ backgroundColor: "background.paper", position: "sticky", left: 0, zIndex: 1 }}>{origin.BusStopCode}</TableCell>
+                                                        {direction.slice(1).map((destination, j) => {
+                                                            const trip = volume[origin.BusStopCode]?.[destination.BusStopCode];
+                                                            const commuters = i <= j
+                                                                ? trip
+                                                                    ? day
+                                                                        ? trip[weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
+                                                                        : trip[weekday ? "wd" : "we"][hour]
+                                                                    : 0
+                                                                : null;
+                                                            return (
+                                                                <TableCell key={destination.StopSequence}>
+                                                                    <Typography variant="body2" sx={{
+                                                                        color: (commuters === null || commuters === 0)
+                                                                            ? "text.disabled"
+                                                                            : commuters <= 100
+                                                                                ? "info.main"
+                                                                                : commuters <= 400
+                                                                                    ? "success.main"
+                                                                                    : commuters <= 1600
+                                                                                        ? "warning.main"
+                                                                                        : "error.main"
+                                                                    }}>
+                                                                        {commuters === null ? "-" : commuters}
+                                                                    </Typography>
+                                                                </TableCell>
+                                                            );
+                                                        })}
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Stack>
+                            ))}
+                        </Stack>
+                    </Container>
                 </>
             ) : (
                 loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Origin-Destination Volumes (May 2026)</Button>
             )}
-        </Container>
+        </>
     )
 }
 
