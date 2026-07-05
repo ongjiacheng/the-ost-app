@@ -597,7 +597,6 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     const [day, setDay] = useState(false);
     const [hour, setHour] = useState(8);
     const [weekday, setWeekday] = useState(true);
-    const [direction, setDirection] = useState(false);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [volume, setVolume] = useState<volumeMap[] | null>(null);
