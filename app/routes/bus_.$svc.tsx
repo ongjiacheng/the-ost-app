@@ -133,12 +133,10 @@ type BusServiceType = {
     ServiceSuffix: string
 }
 
-type VideoType = {
-    channelTitle: string,
-    description: string,
+type HyperlapseType = {
+    //description: string,
     Direction: number,
     position: number,
-    publishedAt: string,
     ServiceNo: number,
     ServiceSuffix: string,
     thumbnails: string,
@@ -211,13 +209,13 @@ export async function loader({ params }: Route.LoaderArgs) {
     const service: BusServiceType[] = serviceQuery.results.map(
         doc => doc.data() as BusServiceType
     );
-    const videoQuery = await db.collection("hyperlapse")
+    const hyperlapseQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction").get();
-    const videos: VideoType[] = videoQuery.docs.map(doc => ({
+    const hyperlapses: HyperlapseType[] = hyperlapseQuery.docs.map(doc => ({
         id: doc.id,
-        ...doc.data() as VideoType
+        ...doc.data() as HyperlapseType
     }));
 
     const master: MasterType = {
@@ -229,7 +227,7 @@ export async function loader({ params }: Route.LoaderArgs) {
         direction: service.at(0)!.Direction
     }
 
-    return { master, route, service, videos };
+    return { master, route, service, hyperlapses };
 }
 
 function BusHours({ route }: { route: BusRouteType[] }) {
@@ -288,15 +286,15 @@ function BusHours({ route }: { route: BusRouteType[] }) {
     );
 }
 
-function BusVideos({ videos }: { videos: VideoType[] }) {
+function BusHyperlapses({ hyperlapses }: { hyperlapses: HyperlapseType[] }) {
     return (
         <Container>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
-                {videos.map(video => (
-                    <Card key={video.videoId} sx={{ flex: 1, width: "100%" }}>
+                {hyperlapses.map(hyperlapse => (
+                    <Card key={hyperlapse.videoId} sx={{ flex: 1, width: "100%" }}>
                         <CardMedia
                             component="iframe"
-                            src={`https://www.youtube.com/embed/${video.videoId}`}
+                            src={`https://www.youtube.com/embed/${hyperlapse.videoId}`}
                             sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
                         />
                     </Card>
@@ -552,8 +550,8 @@ function BusFirstLast({ stop }: { stop: BusRouteType }) {
         <Table>
             <TableBody>
                 <TableRow>
-                    <TableCell>WD First</TableCell>
-                    <TableCell>WD Last</TableCell>
+                    <TableCell>First</TableCell>
+                    <TableCell>Last</TableCell>
                     <TableCell>Sat First</TableCell>
                     <TableCell>Sat Last</TableCell>
                     <TableCell>Sun First</TableCell>
@@ -736,12 +734,12 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 }
 
 export default function Bus({
-    loaderData: { master, route, service, videos }
+    loaderData: { master, route, service, hyperlapses }
 }: Route.ComponentProps) {
     return (
         <Container>
             <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
-            <BusVideos videos={videos} />
+            <BusHyperlapses hyperlapses={hyperlapses} />
             <BusHours route={route} />
             <BusFrequency service={service} />
             <BusJourney route={route} />

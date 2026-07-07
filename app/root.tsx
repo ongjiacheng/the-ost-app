@@ -84,7 +84,7 @@ function Header() {
                             <Box component="img" src={logo} alt="OST Logo" sx={{ width: 120, height: 32 }} />
                         </IconButton>
                         <Box>
-                            <IconButton component={Link} to="/walk-cycle" aria-label="Active Mobility">
+                            <IconButton component={Link} to="/am" aria-label="Active Mobility">
                                 <Box component="img" src={am} alt="Active Mobility" sx={{ width: 36, height: 36 }} />
                             </IconButton>
                             <IconButton component={Link} to="/train" aria-label="Train">
