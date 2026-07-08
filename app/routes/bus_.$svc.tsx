@@ -519,7 +519,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                                                 <Box key={i}>
                                                                     {codes.split(" ").map((code, j) =>
                                                                         <Box component="span" key={j}>
-                                                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{code}</Box>
+                                                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{`${code} `}</Box>
                                                                         </Box>
                                                                     )}{"\n"}
                                                                 </Box>
@@ -534,7 +534,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                                                 <Box key={i}>
                                                                     {codes.split(" ").map((code, j) =>
                                                                         <Box component="span" key={j}>
-                                                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{code}</Box>
+                                                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{`${code} `}</Box>
                                                                         </Box>
                                                                     )}{"\n"}
                                                                 </Box>
