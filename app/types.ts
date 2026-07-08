@@ -68,6 +68,14 @@ export type BusServiceType = {
     ServiceSuffix: string
 };
 
+export type BusVolumeType = {
+    my: string,
+    o: string,
+    d: string,
+    wd: number[],
+    we: number[]
+}
+
 export type HyperlapseType = {
     Direction: number,
     position: number,
@@ -118,7 +126,7 @@ export const typeMap: Record<string, string> = {
 
 export const roadNamesMap: Record<string, string> = roadNames;
 export const stationsMap: Record<string, string[][]> = stations;
-export type volumeMap = Record<string, { wd: number[]; we: number[] }>;
+export type volumeMap = Record<string, Record<string, { wd: number[]; we: number[] }>>;
 
 export const lineMap: Record<string, string> = {
     "EW": "#71CE8D",

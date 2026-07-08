@@ -451,7 +451,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     const [weekday, setWeekday] = useState(true);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-    const [volume, setVolume] = useState<Record<string, volumeMap> | null>(null);
+    const [volume, setVolume] = useState<volumeMap | null>(null);
 
     const direction1 = route.filter(stop => stop.Direction === 1);
     const direction2 = route.filter(stop => stop.Direction === 2);
@@ -459,22 +459,20 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 
     async function handleClick() {
         setLoading(true);
-        const volumeParams = route.map(stop => (
-            new URLSearchParams({
-                BusStopCode: stop.BusStopCode
-            })
-        ));
+        const volumeParams = route.map((origin, i) => {
+            const param = new URLSearchParams({ "OriginCode": origin.BusStopCode });
+            route.slice(i + 1).forEach(destination => param.append('DestinationCodes', destination.BusStopCode));
+            return param;
+        });
+
         const volumeResponse = await Promise.all(
-            volumeParams.map(stop => (
-                fetch(`/api/bus-volume?${stop}`)
-            ))
+            volumeParams.map(stop => fetch(`/api/bus-volume?${stop}`))
         );
-        const volumeData = await Promise.all(
+        const volumeData = Object.assign({}, ...(await Promise.all(
             volumeResponse.map(response => response.json() as Promise<volumeMap>)
-        );
-        setVolume(Object.fromEntries(
-            route.map((stop, index) => [stop.BusStopCode, volumeData[index]])
-        ));
+        ))) as volumeMap;
+
+        setVolume(volumeData);
         setOpen(true);
     }
 
@@ -483,7 +481,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
             {open ? (
                 <>
                     <Container>
-                        <Typography variant="h4">Origin-Destination Volumes (May 2026)</Typography>
+                        <Typography variant="h4">Origin-Destination Volumes (Mar 2026)</Typography>
                         <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
                             <FormControlLabel
                                 control={<Switch checked={weekday} onChange={(e) => setWeekday(e.target.checked)} />}
@@ -580,7 +578,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                     </Container>
                 </>
             ) : (
-                loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Origin-Destination Volumes (May 2026)</Button>
+                loading ? "Loading" : <Button variant="contained" onClick={handleClick}>Origin-Destination Volumes (Mar 2026)</Button>
             )}
         </>
     )

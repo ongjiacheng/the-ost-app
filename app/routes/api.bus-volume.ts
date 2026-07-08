@@ -1,24 +1,8 @@
 import { Firestore } from "@google-cloud/firestore";
+import { field } from "@google-cloud/firestore/pipelines";
 
 import type { Route } from "./+types/api.bus-alt-routes";
-
-type BusVolumeType = {
-    BusStopCode: string,
-    BusStopName: string,
-    Direction: number,
-    Distance: number,
-    Operator: string,
-    RoadName: string,
-    SAT_FirstBus: string,
-    SAT_LastBus: string,
-    ServiceNo: number,
-    ServiceSuffix: string,
-    StopSequence: number,
-    SUN_FirstBus: string,
-    SUN_LastBus: string,
-    WD_FirstBus: string,
-    WD_LastBus: string
-}
+import type { BusVolumeType, volumeMap } from "../types";
 
 const db = new Firestore({
     projectId: "the-ost-app",
@@ -26,9 +10,25 @@ const db = new Firestore({
 });
 
 export async function loader({ request }: Route.LoaderArgs) {
-    const busStopCode = new URL(request.url).searchParams.get("BusStopCode") as string;
+    const OriginCode = new URL(request.url).searchParams.get("OriginCode") as string;
+    const DestinationCodes = new URL(request.url).searchParams.getAll("DestinationCodes") as string[];
 
-    const volumeQuery = await db.collection("od_bus").doc(busStopCode).get();
-    const volume: BusVolumeType = volumeQuery.data() as BusVolumeType;
-    return volume;
+    const volumeQuery = await db.pipeline()
+        .collection("pv_bus")
+        .where(field("o").equal(OriginCode))
+        .where(field("d").equalAny(DestinationCodes))
+        .execute();
+
+    const volumes = volumeQuery.results
+        .map(doc => doc.data() as BusVolumeType)
+        .reduce((acc: volumeMap, pair) => {
+            acc[pair.o] = acc[pair.o] || {};
+            acc[pair.o][pair.d] = {
+                wd: pair.wd,
+                we: pair.we
+            };
+            return acc;
+        }, {});
+
+    return volumes;
 }
