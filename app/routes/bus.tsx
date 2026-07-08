@@ -52,7 +52,7 @@ function BusTable(props: { table: (string | null)[][] }) {
                     {props.table.map((row, rowNo) => (
                         <TableRow key={rowNo}>
                             {row.map((col, colNo) => (
-                                <TableCell key={colNo} sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" } }}>
+                                <TableCell align="center" key={colNo} sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" } }}>
                                     {col
                                         ? (/\d/.test(col)
                                             ? <Link component={RouterLink} to={`${col}`} color="primary.light" underline="hover">{col}</Link>

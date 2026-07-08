@@ -1,21 +1,15 @@
-import { Firestore } from "@google-cloud/firestore";
-import type { Route } from "./+types/train";
-
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
+import { Firestore } from "@google-cloud/firestore";
+import type { Route } from "./+types/train";
+
 import { useState } from "react";
 
-type VideoType = {
-    //description: string,
-    position: number,
-    thumbnails: string,
-    title: string,
-    videoId: string
-}
+import type { VideoType } from "../types";
 
 const db = new Firestore({
     projectId: "the-ost-app",

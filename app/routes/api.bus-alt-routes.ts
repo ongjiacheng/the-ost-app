@@ -2,24 +2,7 @@ import { Firestore } from "@google-cloud/firestore";
 import { and, field, or } from "@google-cloud/firestore/pipelines";
 
 import type { Route } from "./+types/api.bus-alt-routes";
-
-type BusRouteType = {
-    BusStopCode: string,
-    BusStopName: string,
-    Direction: number,
-    Distance: number,
-    Operator: string,
-    RoadName: string,
-    SAT_FirstBus: string,
-    SAT_LastBus: string,
-    ServiceNo: number,
-    ServiceSuffix: string,
-    StopSequence: number,
-    SUN_FirstBus: string,
-    SUN_LastBus: string,
-    WD_FirstBus: string,
-    WD_LastBus: string
-}
+import type { AltRouteType } from "../types";
 
 const db = new Firestore({
     projectId: "the-ost-app",
@@ -34,11 +17,12 @@ export async function loader({ request }: Route.LoaderArgs) {
     const routeQuery = await db.pipeline()
         .collection("bus_routes")
         .where(and(field("BusStopCode").equal(busStopCode), or(field("ServiceNo").notEqual(serviceNo), field("ServiceSuffix").notEqual(serviceSuffix))))
-        .sort(field("ServiceNo").ascending(), field("ServiceSuffix").ascending(), field("Direction").ascending())
+        .distinct(field("ServiceNo"), field("ServiceSuffix"))
+        .sort(field("ServiceNo").ascending(), field("ServiceSuffix").ascending())
         .execute();
 
-    const route: BusRouteType[] = routeQuery.results.map(
-        doc => doc.data() as BusRouteType
+    const route: AltRouteType[] = routeQuery.results.map(
+        doc => doc.data() as AltRouteType
     );
     return route;
 }
