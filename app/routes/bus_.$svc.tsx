@@ -295,14 +295,13 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
             <TableCell align="center">{currentStop.Distance.toFixed(1)}</TableCell>
             <TableCell align="center">{currentStop.BusStopCode}</TableCell>
             <TableCell align="left" colSpan={2}>{currentStop.BusStopName}</TableCell>
-            <TableCell align="left" sx={{ whiteSpace: "pre" }}>
+            <TableCell align="left">
                 {stationsMap[currentStop.BusStopCode]?.map(([codes, name], i, a) => (
                     <Box key={i}>
-                        {codes.split(" ").map((code, j, b) =>
-                            <Box component="span" key={j}>
-                                <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{code}</Box>
-                                {j < b.length - 1 ? " " : b.length === 3 ? "\n" : " "}
-                            </Box>
+                        {codes.split(" ").map((code, j) =>
+                            <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
+                                {code}{" "}
+                            </Typography>
                         )}
                         {`${name}`}
                         {i < a.length - 1 && "\n"}
@@ -335,11 +334,10 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: AltRouteType[], stop: Bu
                     <TableCell align="center">
                         {stationsMap[stop.BusStopCode]?.map(([codes, name, exit], i, a) => (
                             <Box key={i}>
-                                {codes.split(" ").map((code, j, b) =>
-                                    <Box component="span" key={j}>
-                                        <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{code}</Box>
-                                        {j < b.length - 1 ? " " : b.length === 1 ? " " : "\n"}
-                                    </Box>
+                                {codes.split(" ").map((code, j) =>
+                                    <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
+                                        {code}{" "}
+                                    </Typography>
                                 )}
                                 {`${name} Exit ${exit}`}
                                 {i < a.length - 1 && "\n"}
@@ -506,7 +504,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                     <Container>
                         <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
                             {directions.map((direction, _, arr) => (
-                                <Stack direction="column" spacing={2} sx={{ flex: 1, maxHeight: { xs: "33vh", md: "66vh" }, maxWidth: "100%", overflow: "auto" }}>
+                                <Stack direction="column" spacing={2} sx={{ flex: 1, maxHeight: { xs: arr.length === 1 ? "66vh" : "33vh", md: "66vh" }, maxWidth: "100%", overflow: "auto" }}>
                                     <Typography variant="h5">{arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}</Typography>
                                     <TableContainer component={Paper}>
                                         <Table>
@@ -517,28 +515,32 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                                         <TableCell align="center" key={destination.StopSequence} sx={{ backgroundColor: "background.paper", position: "sticky", top: 0, verticalAlign: "bottom", zIndex: 2 }}>
                                                             {stationsMap[destination.BusStopCode]?.map(([codes], i) => (
                                                                 <Box key={i}>
-                                                                    {codes.split(" ").map((code, j) =>
-                                                                        <Box component="span" key={j}>
-                                                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{`${code}\n`}</Box>
-                                                                        </Box>
-                                                                    )}
+                                                                    {codes.split(" ").map((code, j) => (
+                                                                        <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
+                                                                            {code}{"\n"}
+                                                                        </Typography>
+                                                                    ))}
                                                                 </Box>
-                                                            ))}{destination.BusStopCode}
+                                                            ))}
+                                                            {destination.BusStopCode}
                                                         </TableCell>
                                                     ))}
                                                 </TableRow>
                                                 {volume && direction.slice(0, -1).map((origin, i) => (
                                                     <TableRow key={origin.StopSequence}>
-                                                        <TableCell align="center" sx={{ backgroundColor: "background.paper", position: "sticky", left: 0, zIndex: 1 }}>
+                                                        <TableCell align="right" sx={{ backgroundColor: "background.paper", position: "sticky", whiteSpace: "nowrap", left: 0, zIndex: 1 }}>
                                                             {stationsMap[origin.BusStopCode]?.map(([codes], i) => (
-                                                                <Box key={i}>
-                                                                    {codes.split(" ").map((code, j) =>
-                                                                        <Box component="span" key={j}>
-                                                                            <Box component="span" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>{`${code} `}</Box>
-                                                                        </Box>
-                                                                    )}{"\n"}
+                                                                <Box component="span" key={i}>
+                                                                    {codes.split(" ").map((code, j) => (
+                                                                        <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
+                                                                            {code}{" "}
+                                                                        </Typography>
+                                                                    ))}
                                                                 </Box>
-                                                            ))}{origin.BusStopCode}
+                                                            ))}
+                                                            <Typography component="span" variant="body2">
+                                                                {origin.BusStopCode}
+                                                            </Typography>
                                                         </TableCell>
                                                         {direction.slice(1).map((destination, j) => {
                                                             const trip = volume[origin.BusStopCode]?.[destination.BusStopCode];
