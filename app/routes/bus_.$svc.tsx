@@ -477,10 +477,10 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
             ))) as volumeMap;
 
             setVolume({ ...(volume ?? {}), [p]: volumeData });
-            setPeriod(p);
             setOpen(true);
             setLoading(false);
         }
+        setPeriod(p);
     }
 
     return (
