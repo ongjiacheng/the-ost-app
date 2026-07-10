@@ -464,8 +464,8 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
         if (!volume || !volume[p]) {
             setLoading(true);
             const volumeParams = new URLSearchParams({ "Period": p });
-            route.slice(0, -1).forEach(origin => volumeParams.append("Origin", origin.BusStopCode));
-            route.slice(1).forEach(destination => volumeParams.append("Destination", destination.BusStopCode));
+            route.forEach(origin => volumeParams.append("Origin", origin.BusStopCode));
+            route.forEach(destination => volumeParams.append("Destination", destination.BusStopCode));
             const volumeResponse = await fetch(`/api/bus-volume?${volumeParams}`);
             const volumeData = await volumeResponse.json();
             setVolume({ ...(volume ?? {}), [p]: volumeData });
@@ -482,113 +482,93 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                 : (open
                     ? (
                         <>
-                            <Container>
-                                <Typography variant="h4">Origin-Destination Volumes</Typography>
-                                <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
-                                    <FormControl size="small">
-                                        <InputLabel>Period</InputLabel>
-                                        <Select value={period} label="Period" onChange={e => handleFetch(e.target.value)}>
-                                            <MenuItem value="202603">March 2026</MenuItem>
-                                            <MenuItem value="202606">June 2026</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <FormControlLabel
-                                        control={<Switch checked={weekday} onChange={e => setWeekday(e.target.checked)} />}
-                                        label={weekday ? "Weekday" : "Weekend"}
-                                    />
-                                    <FormControlLabel
-                                        control={<Switch checked={day} onChange={e => setDay(e.target.checked)} />}
-                                        label={day ? "By Day" : "By Hour"}
+                            <Typography variant="h4">Origin-Destination Volumes</Typography>
+                            <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
+                                <FormControl size="small">
+                                    <InputLabel>Period</InputLabel>
+                                    <Select value={period} label="Period" onChange={e => handleFetch(e.target.value)}>
+                                        <MenuItem value="202603">March 2026</MenuItem>
+                                        <MenuItem value="202606">June 2026</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControlLabel
+                                    control={<Switch checked={weekday} onChange={e => setWeekday(e.target.checked)} />}
+                                    label={weekday ? "Weekday" : "Weekend"}
+                                />
+                                <FormControlLabel
+                                    control={<Switch checked={day} onChange={e => setDay(e.target.checked)} />}
+                                    label={day ? "By Day" : "By Hour"}
+                                />
+                            </Stack>
+                            {!day && (
+                                <Stack direction="row" spacing={2} sx={{ p: 2 }}>
+                                    <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
+                                        {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
+                                    </Typography>
+                                    <Slider aria-labelledby="hour-slider" value={hour} min={0} max={23} step={1}
+                                        marks valueLabelDisplay="auto" onChange={(_, value) => setHour(value as number)}
                                     />
                                 </Stack>
-                                {!day && (
-                                    <Stack direction="row" spacing={2} sx={{ p: 2 }}>
-                                        <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
-                                            {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
-                                        </Typography>
-                                        <Slider aria-labelledby="hour-slider" value={hour} min={0} max={23} step={1}
-                                            marks valueLabelDisplay="auto" onChange={(_, value) => setHour(value as number)}
-                                        />
-                                    </Stack>
-                                )}
-                            </Container>
-                            <Container>
-                                <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
-                                    {directions.map((direction, _, arr) => (
-                                        <Stack direction="column" spacing={2} sx={{ flex: 1, maxHeight: { xs: arr.length === 1 ? "66vh" : "33vh", md: "66vh" }, maxWidth: "100%", overflow: "auto" }}>
-                                            <Typography variant="h5">{arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}</Typography>
-                                            <TableContainer component={Paper}>
-                                                <Table>
-                                                    <TableBody>
-                                                        <TableRow>
-                                                            <TableCell align="center" sx={{ backgroundColor: "background.paper", left: 0, position: "sticky", top: 0, zIndex: 4 }}>↱</TableCell>
-                                                            {direction.slice(1).map(destination => (
-                                                                <TableCell align="center" key={destination.StopSequence} sx={{ backgroundColor: "background.paper", position: "sticky", top: 0, verticalAlign: "bottom", zIndex: 2 }}>
-                                                                    {stationsMap[destination.BusStopCode]?.map(([codes], i) => (
-                                                                        <Box key={i}>
-                                                                            {codes.split(" ").map((code, j) => (
-                                                                                <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
-                                                                                    {code}{"\n"}
-                                                                                </Typography>
-                                                                            ))}
-                                                                        </Box>
-                                                                    ))}
+                            )}
+                            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
+                                {directions.map((direction, _, arr) => (
+                                    <Stack direction="column" spacing={2} sx={{ flex: 1, maxHeight: { xs: arr.length === 1 ? "80vh" : "40vh", md: "80vh" }, maxWidth: "100%", overflow: "auto" }}>
+                                        <Typography variant="h5">{arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}</Typography>
+                                        <TableContainer component={Paper}>
+                                            <Table>
+                                                <TableBody>
+                                                    <TableRow>
+                                                        <TableCell align="center" sx={{ backgroundColor: "background.paper", left: 0, position: "sticky", top: 0, zIndex: 4 }}>↱</TableCell>
+                                                        {direction.map(destination => (
+                                                            <TableCell align="center" key={destination.StopSequence} sx={{ backgroundColor: "background.paper", position: "sticky", top: 0, verticalAlign: "bottom", zIndex: 2 }}>
+                                                                <Typography variant="caption">
                                                                     {destination.BusStopCode}
-                                                                </TableCell>
-                                                            ))}
-                                                        </TableRow>
-                                                        {volume && direction.slice(0, -1).map((origin, i) => (
-                                                            <TableRow key={origin.StopSequence}>
-                                                                <TableCell align="right" sx={{ backgroundColor: "background.paper", position: "sticky", whiteSpace: "nowrap", left: 0, zIndex: 1 }}>
-                                                                    {stationsMap[origin.BusStopCode]?.map(([codes], i) => (
-                                                                        <Box component="span" key={i}>
-                                                                            {codes.split(" ").map((code, j) => (
-                                                                                <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
-                                                                                    {code}{" "}
-                                                                                </Typography>
-                                                                            ))}
-                                                                        </Box>
-                                                                    ))}
-                                                                    <Typography component="span" variant="body2">
-                                                                        {origin.BusStopCode}
-                                                                    </Typography>
-                                                                </TableCell>
-                                                                {direction.slice(1).map((destination, j) => {
-                                                                    const trip = volume[period][origin.BusStopCode]?.[destination.BusStopCode];
-                                                                    const commuters = i <= j
-                                                                        ? trip
-                                                                            ? day
-                                                                                ? trip[weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
-                                                                                : trip[weekday ? "wd" : "we"][hour]
-                                                                            : 0
-                                                                        : null;
-                                                                    return (
-                                                                        <TableCell align="right" key={destination.StopSequence}>
-                                                                            <Typography variant="body2" sx={{
-                                                                                color: (commuters === null || commuters === 0)
-                                                                                    ? "text.disabled"
-                                                                                    : commuters <= 100
-                                                                                        ? "info.main"
-                                                                                        : commuters <= 400
-                                                                                            ? "success.main"
-                                                                                            : commuters <= 1600
-                                                                                                ? "warning.main"
-                                                                                                : "error.main"
-                                                                            }}>
-                                                                                {commuters === null ? "-" : commuters}
-                                                                            </Typography>
-                                                                        </TableCell>
-                                                                    );
-                                                                })}
-                                                            </TableRow>
+                                                                </Typography>
+                                                            </TableCell>
                                                         ))}
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </Stack>
-                                    ))}
-                                </Stack>
-                            </Container>
+                                                    </TableRow>
+                                                    {volume && direction.map((origin, i) => (
+                                                        <TableRow key={origin.StopSequence}>
+                                                            <TableCell align="right" sx={{ backgroundColor: "background.paper", position: "sticky", whiteSpace: "nowrap", left: 0, zIndex: 1 }}>
+                                                                <Typography variant="caption">
+                                                                    {origin.BusStopName} {origin.BusStopCode}
+                                                                </Typography>
+                                                            </TableCell>
+                                                            {direction.map((destination, j) => {
+                                                                const trip = volume[period][origin.BusStopCode]?.[destination.BusStopCode];
+                                                                const commuters = i < j
+                                                                    ? trip
+                                                                        ? day
+                                                                            ? trip[weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
+                                                                            : trip[weekday ? "wd" : "we"][hour]
+                                                                        : 0
+                                                                    : null;
+                                                                return (
+                                                                    <TableCell align="right" key={destination.StopSequence}>
+                                                                        <Typography variant="body2" sx={{
+                                                                            color: (commuters === null || commuters === 0)
+                                                                                ? "text.disabled"
+                                                                                : commuters <= 100
+                                                                                    ? "info.main"
+                                                                                    : commuters <= 400
+                                                                                        ? "success.main"
+                                                                                        : commuters <= 1600
+                                                                                            ? "warning.main"
+                                                                                            : "error.main"
+                                                                        }}>
+                                                                            {commuters === null ? "-" : commuters}
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                );
+                                                            })}
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+                                        </TableContainer>
+                                    </Stack>
+                                ))}
+                            </Stack>
                         </>
                     )
                     : <Button variant="contained" onClick={() => handleFetch()}>Origin-Destination Volumes</Button>
