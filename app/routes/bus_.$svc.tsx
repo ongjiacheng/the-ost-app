@@ -417,7 +417,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
                 <TableRow>
                     <TableCell align="center">Next Bus Timing</TableCell>
                     {timings.map(timing => (
-                        timing.EstimatedArrival && <TableCell>{timing.EstimatedArrival.slice(11, 19)}</TableCell>
+                        timing.EstimatedArrival && <TableCell align="center">{timing.EstimatedArrival.slice(11, 19)}</TableCell>
                     ))}
                 </TableRow>
                 <TableRow>
@@ -438,7 +438,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
                             }}>
                                 {occupancyMap[timing.Load]}
                             </Typography>
-                            {` (${typeMap[timing.Type]})`}
+                            {`(${typeMap[timing.Type]})`}
                         </TableCell>
                     ))}
                 </TableRow>
@@ -463,19 +463,11 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     async function handleFetch(p: string = period) {
         if (!volume || !volume[p]) {
             setLoading(true);
-            const volumeParams = route.map((origin, i) => {
-                const param = new URLSearchParams({ "Period": p, "OriginCode": origin.BusStopCode });
-                route.slice(i + 1).forEach(destination => param.append('DestinationCodes', destination.BusStopCode));
-                return param;
-            });
-
-            const volumeResponse = await Promise.all(
-                volumeParams.map(stop => fetch(`/api/bus-volume?${stop}`))
-            );
-            const volumeData = Object.assign({}, ...(await Promise.all(
-                volumeResponse.map(response => response.json() as Promise<volumeMap>)
-            ))) as volumeMap;
-
+            const volumeParams = new URLSearchParams({ "Period": p });
+            route.slice(0, -1).forEach(origin => volumeParams.append("Origin", origin.BusStopCode));
+            route.slice(1).forEach(destination => volumeParams.append("Destination", destination.BusStopCode));
+            const volumeResponse = await fetch(`/api/bus-volume?${volumeParams}`);
+            const volumeData = await volumeResponse.json();
             setVolume({ ...(volume ?? {}), [p]: volumeData });
             setOpen(true);
             setLoading(false);
