@@ -461,8 +461,8 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     const directions = direction2.length > 0 ? [direction1, direction2] : [direction1];
 
     async function handleFetch(p: string = period) {
-        setLoading(true);
         if (!volume || !volume[p]) {
+            setLoading(true);
             const volumeParams = route.map((origin, i) => {
                 const param = new URLSearchParams({ "Period": p, "OriginCode": origin.BusStopCode });
                 route.slice(i + 1).forEach(destination => param.append('DestinationCodes', destination.BusStopCode));
