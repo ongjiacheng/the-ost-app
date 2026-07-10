@@ -69,7 +69,7 @@ export type BusServiceType = {
 };
 
 export type BusVolumeType = {
-    my: string,
+    p: string,
     o: string,
     d: string,
     wd: number[],
