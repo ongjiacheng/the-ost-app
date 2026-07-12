@@ -223,9 +223,9 @@ function BusJourney({ route }: { route: BusRouteType[] }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {direction.map((stop, index) =>
-                                <BusSequence key={stop.StopSequence} currentStop={stop} previousStop={direction[index - 1]} />
-                            )}
+                            {direction.map((stop, index) => (
+                                <BusSequence key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`} currentStop={stop} previousStop={direction[index - 1]} />
+                            ))}
                         </TableBody>
                     </Table>
                 )}
