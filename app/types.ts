@@ -86,8 +86,17 @@ export type HyperlapseType = {
     videoId: string
 };
 
+export type TimestampsType = {
+    Direction: number,
+    ServiceNo: number,
+    ServiceSuffix: string,
+    Timestamps: {
+        code: string,
+        time: number[]
+    }[]
+};
+
 export type VideoType = {
-    //description: string,
     position: number,
     thumbnails: string,
     title: string,

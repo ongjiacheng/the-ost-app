@@ -3,6 +3,7 @@ import { field, variable } from "@google-cloud/firestore/pipelines";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import SyncIcon from "@mui/icons-material/Sync";
 
 import Box from "@mui/material/Box";
@@ -30,11 +31,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { Route } from "./+types/bus_.$svc";
-import type { AltRouteType, BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, volumeMap } from "../types";
+import type { AltRouteType, BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, roadNamesMap, stationsMap, typeMap } from "../types";
 
 const db = new Firestore({
@@ -109,6 +110,15 @@ export async function loader({ params }: Route.LoaderArgs) {
         ...doc.data() as HyperlapseType
     }));
 
+    const timestampsQuery = await db.collection("timestamps")
+        .where("ServiceNo", "==", serviceNo)
+        .where("ServiceSuffix", "==", serviceSuffix)
+        .orderBy("Direction").get();
+    const timestamps: TimestampsType[] = timestampsQuery.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data() as TimestampsType
+    }));
+
     const master: BusMasterType = {
         operator: operatorMap[service.at(0)!.Operator],
         category: (service.at(0) !== undefined && service.at(0)!.ServiceNo >= 451 && service.at(0)!.ServiceNo <= 500)
@@ -118,28 +128,43 @@ export async function loader({ params }: Route.LoaderArgs) {
         direction: service.at(0)!.Direction
     }
 
-    return { master, route, service, hyperlapses };
+    return { master, route, service, hyperlapses, timestamps };
 }
 
-function BusHyperlapses({ hyperlapses }: { hyperlapses: HyperlapseType[] }) {
+function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], play: { id: string, start: number } | null }) {
+    const iframeRefs = useRef<Record<string, HTMLIFrameElement | null>>({});
+
+    useEffect(() => {
+        if (!play) return;
+        const iframe = iframeRefs.current[play.id];
+        if (!iframe) return;
+        iframe.src = `https://www.youtube.com/embed/${play.id}?rel=0&autoplay=1&start=${play.start}`;
+    }, [play]);
+
     return (
         <Container>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
-                {hyperlapses.map(hyperlapse => (
-                    <Card key={hyperlapse.videoId} sx={{ flex: 1, width: "100%" }}>
-                        <CardMedia
-                            component="iframe"
-                            src={`https://www.youtube.com/embed/${hyperlapse.videoId}`}
-                            sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
-                        />
-                    </Card>
-                ))}
+                {hyperlapses.map(hyperlapse => {
+                    const selected = play?.id === hyperlapse.videoId;
+                    const src = `https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0${selected ? `&autoplay=1&start=${play.start}` : ""}`;
+                    return (
+                        <Card key={hyperlapse.videoId} sx={{ flex: 1, width: "100%" }}>
+                            <CardMedia
+                                component="iframe"
+                                ref={video => { iframeRefs.current[hyperlapse.videoId] = video; }}
+                                src={src}
+                                allow="autoplay; encrypted-media"
+                                sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
+                            />
+                        </Card>
+                    );
+                })}
             </Stack>
         </Container>
     );
 }
 
-function BusFrequency({ service }: { service: BusServiceType[] }) {
+function BusInfo({ service }: { service: BusServiceType[] }) {
     return (
         <Container>
             <Table>
@@ -195,48 +220,71 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
     );
 }
 
-function BusJourney({ route }: { route: BusRouteType[] }) {
+function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[], timestamps: TimestampsType[], hyperlapses: HyperlapseType[] }) {
+    const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
+
     const directions = useMemo(() => {
         const direction1 = route.filter(stop => stop.Direction === 1);
         const direction2 = route.filter(stop => stop.Direction === 2);
         return direction2.length > 0 ? [direction1, direction2] : [direction1];
     }, [route]);
 
+    function handlePlay(direction: number, start: number) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        const video = hyperlapses.find(h => h.Direction === direction);
+        setTimecode(video ? { id: video.videoId, start } : null);
+    }
+
     return (
         <Container>
+            <BusHyperlapses hyperlapses={hyperlapses} play={timecode} />
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
-                {directions.map((direction, _, arr) =>
-                    <Table key={direction.at(0)?.Direction}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center" colSpan={7}>
-                                    <Typography variant="h5">
-                                        {arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
-                                    </Typography>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell></TableCell>
-                                <TableCell align="center">#</TableCell>
-                                <TableCell align="center">km</TableCell>
-                                <TableCell align="center">Code</TableCell>
-                                <TableCell align="left" colSpan={2}>Name</TableCell>
-                                <TableCell align="left">Station</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {direction.map((stop, index) => (
-                                <BusSequence key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`} currentStop={stop} previousStop={direction[index - 1]} />
-                            ))}
-                        </TableBody>
-                    </Table>
-                )}
+                {directions.map((direction, _, arr) => {
+                    return (
+                        <Table key={direction.at(0)?.Direction}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center" colSpan={7}>
+                                        <Typography variant="h5">
+                                            {arr.length === 1 ? "Loop" : `Direction ${direction.at(0)?.Direction}`}
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell></TableCell>
+                                    <TableCell align="center">#</TableCell>
+                                    <TableCell align="center">km</TableCell>
+                                    <TableCell align="center">Code</TableCell>
+                                    <TableCell align="left" colSpan={2}>Name</TableCell>
+                                    <TableCell align="left">Station</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {direction.map((stop, index) => {
+                                    const start = timestamps.find(t => t.Direction === stop.Direction)?.Timestamps.filter(s =>
+                                        s.code === stop.BusStopCode
+                                    )[direction.slice(0, index + 1).filter(s =>
+                                        s.BusStopCode === stop.BusStopCode
+                                    ).length - 1]?.time?.[0] ?? 0;
+                                    return (
+                                        <BusSequence
+                                            key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
+                                            currentStop={stop}
+                                            previousStop={direction[index - 1]}
+                                            play={() => handlePlay(stop.Direction, start)}
+                                        />
+                                    );
+                                })}
+                            </TableBody>
+                        </Table>
+                    );
+                })}
             </Stack>
         </Container>
     );
 }
 
-function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType, previousStop: BusRouteType }) {
+function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRouteType, previousStop: BusRouteType, play: () => void }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
@@ -273,10 +321,8 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
                 const arrivalData = await arrivalResponse.json();
                 setArrival(arrivalData);
             }
-
             setLoading(false);
         }
-
         fetchStopData();
     }, [open, currentStop, altRoutes]);
 
@@ -297,13 +343,11 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
             </TableRow>}
         <TableRow>
             <TableCell>
-                <IconButton
-                    aria-label="Expand"
-                    size="small"
-                    type="button"
-                    onClick={handleDropdown}
-                >
+                <IconButton aria-label="Expand Dropdown" size="small" type="button" onClick={handleDropdown}>
                     {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                </IconButton>
+                <IconButton aria-label="Play Video" size="small" type="button" onClick={play}>
+                    <PlayCircleIcon />
                 </IconButton>
             </TableCell>
             <TableCell align="center">{currentStop.StopSequence}</TableCell>
@@ -461,8 +505,8 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
 function BusVolume({ route }: { route: BusRouteType[] }) {
     const [period, setPeriod] = useState("202606");
     const [day, setDay] = useState(false);
-    const [hour, setHour] = useState(8);
-    const [weekday, setWeekday] = useState(true);
+    const [hour, setHour] = useState(new Date().getHours());
+    const [weekday, setWeekday] = useState([0, 6].includes(new Date().getDay()) ? false : true);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [volume, setVolume] = useState<Record<string, volumeMap> | null>(null);
@@ -600,14 +644,13 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 }
 
 export default function Bus({
-    loaderData: { master, route, service, hyperlapses }
+    loaderData: { master, route, service, hyperlapses, timestamps }
 }: Route.ComponentProps) {
     return (
         <Container>
             <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
-            <BusHyperlapses hyperlapses={hyperlapses} />
-            <BusFrequency service={service} />
-            <BusJourney route={route} />
+            <BusInfo service={service} />
+            <BusJourney route={route} timestamps={timestamps} hyperlapses={hyperlapses} />
             <BusVolume route={route} />
         </Container>
     );
