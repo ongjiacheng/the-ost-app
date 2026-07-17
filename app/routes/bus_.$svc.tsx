@@ -370,7 +370,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
         </TableRow >
         <TableRow>
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
-                <Collapse in={open}>
+                <Collapse in={open && !loading}>
                     <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
                         {altRoutes && <BusAltRoutes altRoutes={altRoutes} stop={currentStop} />}
                         <BusFirstLast stop={currentStop} />
