@@ -30,7 +30,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { Route } from "./+types/bus_.$svc";
@@ -196,9 +196,11 @@ function BusFrequency({ service }: { service: BusServiceType[] }) {
 }
 
 function BusJourney({ route }: { route: BusRouteType[] }) {
-    const direction1 = route.filter(stop => stop.Direction === 1);
-    const direction2 = route.filter(stop => stop.Direction === 2);
-    const directions = direction2.length > 0 ? [direction1, direction2] : [direction1];
+    const directions = useMemo(() => {
+        const direction1 = route.filter(stop => stop.Direction === 1);
+        const direction2 = route.filter(stop => stop.Direction === 2);
+        return direction2.length > 0 ? [direction1, direction2] : [direction1];
+    }, [route]);
 
     return (
         <Container>
@@ -240,27 +242,30 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
     const [altRoutes, setAltRoutes] = useState<AltRouteType[] | null>(null);
 
-    async function handleClick(stop: BusRouteType) {
-        if (!open) {
+    useEffect(() => {
+        if (!open) return;
+
+        async function fetchStopData() {
             setLoading(true);
             const arrivalParams = new URLSearchParams({
-                BusStopCode: stop.BusStopCode,
-                ServiceNo: `${stop.ServiceNo}${stop.ServiceSuffix}`
+                BusStopCode: currentStop.BusStopCode,
+                ServiceNo: `${currentStop.ServiceNo}${currentStop.ServiceSuffix}`
             });
             const altRoutesParams = new URLSearchParams({
-                BusStopCode: stop.BusStopCode,
-                ServiceNo: String(stop.ServiceNo),
-                ServiceSuffix: stop.ServiceSuffix
+                BusStopCode: currentStop.BusStopCode,
+                ServiceNo: String(currentStop.ServiceNo),
+                ServiceSuffix: currentStop.ServiceSuffix
             });
+
             if (!altRoutes) {
                 const [arrivalResponse, altRoutesResponse] = await Promise.all([
                     fetch(`/api/bus-arrival?${arrivalParams}`),
                     fetch(`/api/bus-alt-routes?${altRoutesParams}`)
-                ])
+                ]);
                 const [arrivalData, altRoutesData] = await Promise.all([
                     arrivalResponse.json() as Promise<BusArrivalType>,
                     altRoutesResponse.json() as Promise<AltRouteType[]>
-                ])
+                ]);
                 setArrival(arrivalData);
                 setAltRoutes(altRoutesData);
             } else {
@@ -268,9 +273,15 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
                 const arrivalData = await arrivalResponse.json();
                 setArrival(arrivalData);
             }
+
             setLoading(false);
         }
-        setOpen(!open);
+
+        fetchStopData();
+    }, [open, currentStop, altRoutes]);
+
+    function handleDropdown() {
+        setOpen(prev => !prev);
     }
 
     return (<>
@@ -290,7 +301,7 @@ function BusSequence({ currentStop, previousStop }: { currentStop: BusRouteType,
                     aria-label="Expand"
                     size="small"
                     type="button"
-                    onClick={() => handleClick(currentStop)}
+                    onClick={handleDropdown}
                 >
                     {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
@@ -456,23 +467,33 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     const [open, setOpen] = useState(false);
     const [volume, setVolume] = useState<Record<string, volumeMap> | null>(null);
 
-    const direction1 = route.filter(stop => stop.Direction === 1);
-    const direction2 = route.filter(stop => stop.Direction === 2);
-    const directions = direction2.length > 0 ? [direction1, direction2] : [direction1];
+    useEffect(() => {
+        if (!open) return;
+        if (volume && volume[period]) return;
 
-    async function handleFetch(p: string = period) {
-        if (!volume || !volume[p]) {
+        async function fetchVolume() {
             setLoading(true);
-            const volumeParams = new URLSearchParams({ "Period": p });
+            const volumeParams = new URLSearchParams({ Period: period });
             route.forEach(origin => volumeParams.append("Origin", origin.BusStopCode));
             route.forEach(destination => volumeParams.append("Destination", destination.BusStopCode));
             const volumeResponse = await fetch(`/api/bus-volume?${volumeParams}`);
             const volumeData = await volumeResponse.json();
-            setVolume({ ...(volume ?? {}), [p]: volumeData });
-            setOpen(true);
+            setVolume(prev => ({ ...(prev ?? {}), [period]: volumeData }));
             setLoading(false);
         }
+
+        fetchVolume();
+    }, [open, period, route, volume]);
+
+    const directions = useMemo(() => {
+        const direction1 = route.filter(stop => stop.Direction === 1);
+        const direction2 = route.filter(stop => stop.Direction === 2);
+        return direction2.length > 0 ? [direction1, direction2] : [direction1];
+    }, [route]);
+
+    function handleFetch(p: string = period) {
         setPeriod(p);
+        setOpen(true);
     }
 
     return (
