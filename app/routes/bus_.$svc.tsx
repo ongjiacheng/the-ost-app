@@ -342,7 +342,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
                 </TableCell>
             </TableRow>}
         <TableRow>
-            <TableCell sx={{ whiteSpace: "nowrap" }}>
+            <TableCell>
                 <IconButton aria-label="Expand Dropdown" size="small" type="button" onClick={handleDropdown}>
                     {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
@@ -370,7 +370,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
         </TableRow >
         <TableRow>
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
-                <Collapse in={open && !loading}>
+                <Collapse in={open}>
                     <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
                         {altRoutes && <BusAltRoutes altRoutes={altRoutes} stop={currentStop} />}
                         <BusFirstLast stop={currentStop} />
