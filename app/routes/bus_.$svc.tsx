@@ -238,7 +238,7 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[],
     return (
         <Container>
             <BusHyperlapses hyperlapses={hyperlapses} play={timecode} />
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
+            <Stack direction={{ xs: "column", lg: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
                 {directions.map((direction, _, arr) => {
                     return (
                         <Table key={direction.at(0)?.Direction}>
@@ -261,11 +261,15 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[],
                             </TableHead>
                             <TableBody>
                                 {direction.map((stop, index) => {
-                                    const start = timestamps.find(t => t.Direction === stop.Direction)?.Timestamps.filter(s =>
+                                    const start = timestamps.find(t =>
+                                        t.Direction === stop.Direction
+                                    )?.Timestamps.find(s =>
                                         s.code === stop.BusStopCode
-                                    )[direction.slice(0, index + 1).filter(s =>
-                                        s.BusStopCode === stop.BusStopCode
-                                    ).length - 1]?.time?.[0] ?? 0;
+                                    )?.time?.[
+                                        direction.slice(0, index + 1).filter(s =>
+                                            s.BusStopCode === stop.BusStopCode
+                                        ).length - 1
+                                    ] ?? 0;
                                     return (
                                         <BusSequence
                                             key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
@@ -370,7 +374,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
         </TableRow >
         <TableRow>
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
-                <Collapse in={open}>
+                <Collapse in={open && !loading}>
                     <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
                         {altRoutes && <BusAltRoutes altRoutes={altRoutes} stop={currentStop} />}
                         <BusFirstLast stop={currentStop} />
