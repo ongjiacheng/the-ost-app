@@ -304,9 +304,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
                 ServiceNo: `${currentStop.ServiceNo}${currentStop.ServiceSuffix}`
             });
             const altRoutesParams = new URLSearchParams({
-                BusStopCode: currentStop.BusStopCode,
-                ServiceNo: String(currentStop.ServiceNo),
-                ServiceSuffix: currentStop.ServiceSuffix
+                BusStopCode: currentStop.BusStopCode
             });
 
             if (!altRoutes) {
@@ -410,7 +408,7 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: AltRouteType[], stop: Bu
                 </TableRow>}
                 {altRoutes.length > 0 && <TableRow>
                     <TableCell align="center">
-                        <Typography variant="body1">Other Services</Typography>
+                        <Typography variant="body1">Bus Services</Typography>
                     </TableCell>
                     <TableCell align="center">
                         {altRoutes.filter((route, i, arr) =>
