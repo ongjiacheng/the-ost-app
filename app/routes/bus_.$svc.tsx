@@ -1,5 +1,4 @@
 import { Firestore } from "@google-cloud/firestore";
-import { field, variable } from "@google-cloud/firestore/pipelines";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -53,42 +52,24 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         serviceNo = Number(params.svc);
     }
 
-    const routeQuery = await db.pipeline()
-        .collection("bus_routes")
-        .where(field("ServiceNo").equal(serviceNo))
-        .where(field("ServiceSuffix").equal(serviceSuffix))
-        .sort(field("Direction").ascending(), field("StopSequence").ascending())
-        .define(field("BusStopCode").as("BusStopCode"))
-        .addFields(
-            db.pipeline()
-                .collection("bus_stops")
-                .where(field("BusStopCode").equal(variable("BusStopCode")))
-                .select("Description", "RoadName")
-                .toScalarExpression()
-                .as("BusStopInfo")
-        )
-        .execute();
-    const route: BusRouteType[] = routeQuery.results.map(doc => {
-        const { BusStopInfo, ...RouteData } = doc.data();
-        return {
-            BusStopName: BusStopInfo.Description,
-            RoadName: BusStopInfo.RoadName,
-            ...RouteData
-        } as BusRouteType;
-    });
+    const routeParams = new URLSearchParams({
+        ServiceNo: String(serviceNo),
+        ServiceSuffix: serviceSuffix
+    })
+    const routeUrl = new URL(`/api/bus-routes?${routeParams}`, request.url);
+    const route = await fetch(routeUrl).then(response => response.json()) as BusRouteType[];
 
     const serviceParams = new URLSearchParams({
         ServiceNo: `${serviceNo}${serviceSuffix}`
     });
     const serviceUrl = new URL(`/api/bus-services?${serviceParams}`, request.url);
-    const serviceResponse = await fetch(serviceUrl);
-    const service: BusServiceType[] = await serviceResponse.json() as BusServiceType[];
+    const service = await fetch(serviceUrl).then(response => response.json()) as BusServiceType[];
 
     const hyperlapseQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction").get();
-    const hyperlapses: HyperlapseType[] = hyperlapseQuery.docs.map(doc => ({
+    const hyperlapses = hyperlapseQuery.docs.map(doc => ({
         id: doc.id,
         ...doc.data() as HyperlapseType
     }));
@@ -97,7 +78,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
         .orderBy("Direction").get();
-    const timestamps: TimestampsType[] = timestampsQuery.docs.map(doc => ({
+    const timestamps = timestampsQuery.docs.map(doc => ({
         id: doc.id,
         ...doc.data() as TimestampsType
     }));

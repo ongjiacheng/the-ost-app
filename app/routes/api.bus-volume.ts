@@ -10,15 +10,15 @@ const db = new Firestore({
 });
 
 export async function loader({ request }: Route.LoaderArgs) {
-    const Origin = new URL(request.url).searchParams.getAll("Origin") as string[];
-    const Destination = new URL(request.url).searchParams.getAll("Destination") as string[];
-    const Period = new URL(request.url).searchParams.get("Period") as string;
+    const origin = new URL(request.url).searchParams.getAll("Origin") as string[];
+    const destination = new URL(request.url).searchParams.getAll("Destination") as string[];
+    const period = new URL(request.url).searchParams.get("Period") as string;
 
     const volumeQuery = await db.pipeline()
         .collection("pv_bus")
-        .where(field("o").equalAny(Origin))
-        .where(field("d").equalAny(Destination))
-        .where(field("p").equal(Period))
+        .where(field("o").equalAny(origin))
+        .where(field("d").equalAny(destination))
+        .where(field("p").equal(period))
         .execute();
 
     const volumes = volumeQuery.results
