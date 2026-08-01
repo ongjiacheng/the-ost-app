@@ -14,7 +14,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     const serviceNo = Number(new URL(request.url).searchParams.get("ServiceNo"));
     const serviceSuffix = new URL(request.url).searchParams.get("ServiceSuffix");
     const direction = Number(new URL(request.url).searchParams.get("Direction"));
-    const channel = new URL(request.url).searchParams.get("ChannelTitle");
+    const channel = new URL(request.url).searchParams.get("Channel");
 
     const infobarQuery = await db.pipeline()
         .collection("bus_routes")
