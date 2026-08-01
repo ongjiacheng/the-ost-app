@@ -8,6 +8,7 @@ import SyncIcon from "@mui/icons-material/Sync";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
@@ -120,6 +121,9 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
                                 allow="autoplay; encrypted-media"
                                 sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
                             />
+                            <CardContent>
+                                Uploaded by {hyperlapse.channelTitle} on {hyperlapse.publishedAt.slice(0, 10)}
+                            </CardContent>
                         </Card>
                     );
                 })}

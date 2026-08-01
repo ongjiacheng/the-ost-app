@@ -78,10 +78,11 @@ export type BusVolumeType = {
 
 export type HyperlapseType = {
     Direction: number,
-    position: number,
     ServiceNo: number,
     ServiceSuffix: string,
-    thumbnails: string,
+    channelTitle: string,
+    position: string,
+    publishedAt: string,
     title: string,
     videoId: string
 };
