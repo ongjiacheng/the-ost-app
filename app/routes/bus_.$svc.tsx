@@ -43,7 +43,7 @@ const db = new Firestore({
     databaseId: "the-ost-app"
 });
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
     let serviceNo: number, serviceSuffix: string;
     if (/[^0-9]/.test(params.svc)) {
         serviceSuffix = String(params.svc.at(-1));
@@ -77,30 +77,13 @@ export async function loader({ params }: Route.LoaderArgs) {
         } as BusRouteType;
     });
 
-    const serviceQuery = await db.pipeline()
-        .collection("bus_services")
-        .where(field("ServiceNo").equal(serviceNo))
-        .where(field("ServiceSuffix").equal(serviceSuffix))
-        .sort(field("Direction").ascending())
-        .define(field("OriginCode").as("OriginCode"), field("DestinationCode").as("DestinationCode"))
-        .addFields(
-            db.pipeline()
-                .collection("bus_stops")
-                .where(field("BusStopCode").equal(variable("OriginCode")))
-                .select("Description")
-                .toScalarExpression()
-                .as("OriginName"),
-            db.pipeline()
-                .collection("bus_stops")
-                .where(field("BusStopCode").equal(variable("DestinationCode")))
-                .select("Description")
-                .toScalarExpression()
-                .as("DestinationName")
-        )
-        .execute();
-    const service: BusServiceType[] = serviceQuery.results.map(
-        doc => doc.data() as BusServiceType
-    );
+    const serviceParams = new URLSearchParams({
+        ServiceNo: `${serviceNo}${serviceSuffix}`
+    });
+    const serviceUrl = new URL(`/api/bus-services?${serviceParams}`, request.url);
+    const serviceResponse = await fetch(serviceUrl);
+    const service: BusServiceType[] = await serviceResponse.json() as BusServiceType[];
+
     const hyperlapseQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
         .where("ServiceSuffix", "==", serviceSuffix)
@@ -344,7 +327,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
                 </TableCell>
             </TableRow>}
         <TableRow>
-            <TableCell  sx={{ whiteSpace: "nowrap" }}>
+            <TableCell sx={{ whiteSpace: "nowrap" }}>
                 <IconButton aria-label="Expand Dropdown" size="small" type="button" onClick={handleDropdown}>
                     {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
