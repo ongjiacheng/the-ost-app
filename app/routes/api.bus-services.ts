@@ -1,5 +1,5 @@
 import "dotenv/config";
-import type { Route } from "./+types/api.bus-arrival";
+import type { Route } from "./+types/api.bus-services";
 import type { BusServiceType } from "../types";
 
 export async function loader({ request }: Route.LoaderArgs) {

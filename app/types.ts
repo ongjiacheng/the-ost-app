@@ -33,6 +33,15 @@ export type AltRouteType = {
     ServiceSuffix: string
 };
 
+export type InfobarType = {
+    AltRoutes: string,
+    BusStopCode: string,
+    BusStopName: string,
+    Distance: number,
+    RoadName: string,
+    Stations: string[][],
+};
+
 export type BusRouteType = {
     BusStopCode: string,
     BusStopName: string,

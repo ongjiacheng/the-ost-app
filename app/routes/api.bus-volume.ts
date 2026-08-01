@@ -1,7 +1,7 @@
 import { Firestore } from "@google-cloud/firestore";
 import { field } from "@google-cloud/firestore/pipelines";
 
-import type { Route } from "./+types/api.bus-alt-routes";
+import type { Route } from "./+types/api.bus-volume";
 import type { BusVolumeType, volumeMap } from "../types";
 
 const db = new Firestore({
