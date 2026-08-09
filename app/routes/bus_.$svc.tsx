@@ -34,6 +34,9 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
+import { Map } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+
 import type { Route } from "./+types/bus_.$svc";
 import type { AltRouteType, BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, roadNamesMap, stationsMap, typeMap } from "../types";
@@ -96,42 +99,6 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     return { master, route, service, hyperlapses, timestamps };
 }
 
-function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], play: { id: string, start: number } | null }) {
-    const iframeRefs = useRef<Record<string, HTMLIFrameElement | null>>({});
-
-    useEffect(() => {
-        if (!play) return;
-        const iframe = iframeRefs.current[play.id];
-        if (!iframe) return;
-        iframe.src = `https://www.youtube.com/embed/${play.id}?rel=0&autoplay=1&start=${play.start}`;
-    }, [play]);
-
-    return (
-        <Container>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
-                {hyperlapses.map(hyperlapse => {
-                    const selected = play?.id === hyperlapse.videoId;
-                    const src = `https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0${selected ? `&autoplay=1&start=${play.start}` : ""}`;
-                    return (
-                        <Card key={hyperlapse.videoId} sx={{ flex: 1, width: "100%" }}>
-                            <CardMedia
-                                component="iframe"
-                                ref={video => { iframeRefs.current[hyperlapse.videoId] = video; }}
-                                src={src}
-                                allow="autoplay; encrypted-media"
-                                sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
-                            />
-                            <CardContent>
-                                Uploaded by {hyperlapse.channelTitle} on {hyperlapse.publishedAt.slice(0, 10)}
-                            </CardContent>
-                        </Card>
-                    );
-                })}
-            </Stack>
-        </Container>
-    );
-}
-
 function BusInfo({ service }: { service: BusServiceType[] }) {
     return (
         <Container>
@@ -184,6 +151,42 @@ function BusInfo({ service }: { service: BusServiceType[] }) {
                     )}
                 </TableBody>
             </Table>
+        </Container>
+    );
+}
+
+function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], play: { id: string, start: number } | null }) {
+    const iframeRefs = useRef<Record<string, HTMLIFrameElement | null>>({});
+
+    useEffect(() => {
+        if (!play) return;
+        const iframe = iframeRefs.current[play.id];
+        if (!iframe) return;
+        iframe.src = `https://www.youtube.com/embed/${play.id}?rel=0&autoplay=1&start=${play.start}`;
+    }, [play]);
+
+    return (
+        <Container>
+            <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
+                {hyperlapses.map(hyperlapse => {
+                    const selected = play?.id === hyperlapse.videoId;
+                    const src = `https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0${selected ? `&autoplay=1&start=${play.start}` : ""}`;
+                    return (
+                        <Card key={hyperlapse.videoId} sx={{ flex: 1, width: "100%" }}>
+                            <CardMedia
+                                component="iframe"
+                                ref={video => { iframeRefs.current[hyperlapse.videoId] = video; }}
+                                src={src}
+                                allow="autoplay; encrypted-media"
+                                sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
+                            />
+                            <CardContent>
+                                Uploaded by {hyperlapse.channelTitle} on {hyperlapse.publishedAt.slice(0, 10)}
+                            </CardContent>
+                        </Card>
+                    );
+                })}
+            </Stack>
         </Container>
     );
 }
