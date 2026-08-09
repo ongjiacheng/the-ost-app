@@ -483,7 +483,8 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 
     useEffect(() => {
         if (!open) return;
-        if (volume && volume[period]) return;
+        if (loading) return;
+        if (volume?.[period]) return;
 
         async function fetchVolume() {
             setLoading(true);
@@ -497,7 +498,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
         }
 
         fetchVolume();
-    }, [open, period, route, volume]);
+    }, [open, period, route, volume, loading]);
 
     const directions = useMemo(() => {
         const direction1 = route.filter(stop => stop.Direction === 1);
@@ -562,7 +563,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                                             </TableCell>
                                                         ))}
                                                     </TableRow>
-                                                    {volume && direction.map((origin, i) => (
+                                                    {volume?.[period] && direction.map((origin, i) => (
                                                         <TableRow key={origin.StopSequence}>
                                                             <TableCell align="right" sx={{ backgroundColor: "background.paper", position: "sticky", whiteSpace: "nowrap", left: 0, zIndex: 1 }}>
                                                                 <Typography variant="caption">
@@ -570,12 +571,12 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                                                 </Typography>
                                                             </TableCell>
                                                             {direction.map((destination, j) => {
-                                                                const trip = volume[period][origin.BusStopCode]?.[destination.BusStopCode];
+                                                                const trip = volume?.[period]?.[origin.BusStopCode]?.[destination.BusStopCode];
                                                                 const commuters = i < j
                                                                     ? trip
                                                                         ? day
-                                                                            ? trip[weekday ? "wd" : "we"].reduce((acc, val) => acc + val, 0)
-                                                                            : trip[weekday ? "wd" : "we"][hour]
+                                                                            ? (trip[weekday ? "wd" : "we"] ?? []).reduce((acc, val) => acc + val, 0)
+                                                                            : (trip[weekday ? "wd" : "we"] ?? [])[hour] ?? 0
                                                                         : 0
                                                                     : null;
                                                                 return (
