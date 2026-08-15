@@ -1,0 +1,1562 @@
+[
+  {
+    "line": "East-West MRT Line",
+    "stations": [
+      {
+        "english": "Pasir Ris",
+        "chinese": "巴西立",
+        "tamil": "பாசிர் ரிஸ்",
+        "code": "EW1",
+        "url": "pasir-ris"
+      },
+      {
+        "english": "Tampines",
+        "chinese": "淡滨尼",
+        "tamil": "தெம்பனிஸ்",
+        "code": "EW2",
+        "url": "tampines"
+      },
+      {
+        "english": "Simei",
+        "chinese": "四美",
+        "tamil": "ஸீமெய்",
+        "code": "EW3",
+        "url": "simei"
+      },
+      {
+        "english": "Tanah Merah",
+        "chinese": "丹那美拉",
+        "tamil": "தானா மேரா",
+        "code": "EW4 CG",
+        "url": "tanah-merah"
+      },
+      {
+        "english": "Bedok",
+        "chinese": "勿洛",
+        "tamil": "பிடோக்",
+        "code": "EW5",
+        "url": "bedok"
+      },
+      {
+        "english": "Kembangan",
+        "chinese": "景万岸",
+        "tamil": "கெம்பாங்கான்",
+        "code": "EW6",
+        "url": "kembangan"
+      },
+      {
+        "english": "Eunos",
+        "chinese": "友诺士",
+        "tamil": "யூனுஸ்",
+        "code": "EW7",
+        "url": "eunos"
+      },
+      {
+        "english": "Paya Lebar",
+        "chinese": "巴耶利峇",
+        "tamil": "பாய லேபார்",
+        "code": "EW8",
+        "url": "paya-lebar"
+      },
+      {
+        "english": "Aljunied",
+        "chinese": "阿裕尼",
+        "tamil": "அல்ஜூனிட்",
+        "code": "EW9",
+        "url": "aljunied"
+      },
+      {
+        "english": "Kallang",
+        "chinese": "加冷",
+        "tamil": "காலாங்",
+        "code": "EW10",
+        "url": "kallang"
+      },
+      {
+        "english": "Lavender",
+        "chinese": "劳明达",
+        "tamil": "லவண்டர்",
+        "code": "EW11",
+        "url": "lavender"
+      },
+      {
+        "english": "Bugis",
+        "chinese": "武吉士",
+        "tamil": "பூகிஸ்",
+        "code": "EW12",
+        "url": "bugis"
+      },
+      {
+        "english": "City Hall",
+        "chinese": "政府大厦",
+        "tamil": "நகர மண்டபம்",
+        "code": "EW13",
+        "url": "city-hall"
+      },
+      {
+        "english": "Raffles Place",
+        "chinese": "莱佛士坊",
+        "tamil": "ராஃபிள்ஸ் பிளேஸ்",
+        "code": "EW14",
+        "url": "raffles-place"
+      },
+      {
+        "english": "Tanjong Pagar",
+        "chinese": "丹戎巴葛",
+        "tamil": "தஞ்சோங் பகார்",
+        "code": "EW15",
+        "url": "tanjong-pagar"
+      },
+      {
+        "english": "Outram Park",
+        "chinese": "欧南园",
+        "tamil": "ஊட்ரம் பார்க்",
+        "code": "EW16",
+        "url": "outram-park"
+      },
+      {
+        "english": "Tiong Bahru",
+        "chinese": "中峇鲁",
+        "tamil": "தியோங் பாரு",
+        "code": "EW17",
+        "url": "tiong-bahru"
+      },
+      {
+        "english": "Redhill",
+        "chinese": "红山",
+        "tamil": "ரெட்ஹில்",
+        "code": "EW18",
+        "url": "redhill"
+      },
+      {
+        "english": "Queenstown",
+        "chinese": "女皇镇",
+        "tamil": "குவீன்ஸ்டவுன்",
+        "code": "EW19",
+        "url": "queenstown"
+      },
+      {
+        "english": "Commonwealth",
+        "chinese": "联邦",
+        "tamil": "காமன்வெல்த்",
+        "code": "EW20",
+        "url": "commonwealth"
+      },
+      {
+        "english": "Buona Vista",
+        "chinese": "波那维斯达",
+        "tamil": "புவன விஸ்தா",
+        "code": "EW21",
+        "url": "buona-vista"
+      },
+      {
+        "english": "Dover",
+        "chinese": "杜弗",
+        "tamil": "டோவெர்",
+        "code": "EW22",
+        "url": "dover"
+      },
+      {
+        "english": "Clementi",
+        "chinese": "金文泰",
+        "tamil": "கிளிமெண்டி",
+        "code": "EW23",
+        "url": "clementi"
+      },
+      {
+        "english": "Jurong East",
+        "chinese": "裕廊东",
+        "tamil": "ஜூரோங் கிழக்கு",
+        "code": "EW24",
+        "url": "jurong-east"
+      },
+      {
+        "english": "Chinese Garden",
+        "chinese": "裕华园",
+        "tamil": "சீனத் தோட்டம்",
+        "code": "EW25",
+        "url": "chinese-garden"
+      },
+      {
+        "english": "Lakeside",
+        "chinese": "湖畔",
+        "tamil": "ஏரிக்கரை",
+        "code": "EW26",
+        "url": "lakeside"
+      },
+      {
+        "english": "Boon Lay",
+        "chinese": "文礼",
+        "tamil": "பூன் லே",
+        "code": "EW27",
+        "url": "boon-lay"
+      },
+      {
+        "english": "Pioneer",
+        "chinese": "先驱",
+        "tamil": "பயனியர்",
+        "code": "EW28",
+        "url": "pioneer"
+      },
+      {
+        "english": "Joo Koon",
+        "chinese": "裕群",
+        "tamil": "ஜூ கூன்",
+        "code": "EW29",
+        "url": "joo-koon"
+      },
+      {
+        "english": "Gul Circle",
+        "chinese": "卡尔圈",
+        "tamil": "கல் சர்க்கல்",
+        "code": "EW30",
+        "url": "gul-circle"
+      },
+      {
+        "english": "Tuas Crescent",
+        "chinese": "大士弯",
+        "tamil": "துவாஸ் கிரசண்ட்",
+        "code": "EW31",
+        "url": "tuas-crescent"
+      },
+      {
+        "english": "Tuas West Road",
+        "chinese": "大士西路",
+        "tamil": "துவாஸ் வெஸ்ட் ரோடு",
+        "code": "EW32",
+        "url": "tuas-west-road"
+      },
+      {
+        "english": "Tuas Link",
+        "chinese": "大士连路",
+        "tamil": "துவாஸ் லிங்க்",
+        "code": "EW33",
+        "url": "tuas-link"
+      },
+      {
+        "english": "Expo",
+        "chinese": "博覽",
+        "tamil": "எக்ஸ்போ",
+        "code": "CG1",
+        "url": "expo"
+      },
+      {
+        "english": "Changi Airport",
+        "chinese": "樟宜机场",
+        "tamil": "சாங்கி விமானநிலையம்",
+        "code": "CG2",
+        "url": "changi-airport"
+      }
+    ]
+  },
+  {
+    "line": "North-South MRT Line",
+    "stations": [
+      {
+        "english": "Jurong East",
+        "chinese": "裕廊东",
+        "tamil": "ஜூரோங் கிழக்கு",
+        "code": "NS1",
+        "url": "jurong-east"
+      },
+      {
+        "english": "Bukit Batok",
+        "chinese": "武吉巴督",
+        "tamil": "புக்கிட் பாத்தோக்",
+        "code": "NS2",
+        "url": "bukit-batok"
+      },
+      {
+        "english": "Bukit Gombak",
+        "chinese": "武吉甘柏",
+        "tamil": "புக்கிட் கோம்பாக்",
+        "code": "NS3",
+        "url": "bukit-gombak"
+      },
+      {
+        "english": "Choa Chu Kang",
+        "chinese": "蔡厝港",
+        "tamil": "சுவா சூ காங்",
+        "code": "NS4",
+        "url": "choa-chu-kang"
+      },
+      {
+        "english": "Yew Tee",
+        "chinese": "油池",
+        "tamil": "இயூ டீ",
+        "code": "NS5",
+        "url": "yew-tee"
+      },
+      {
+        "english": "Kranji",
+        "chinese": "克兰芝",
+        "tamil": "கிராஞ்சி",
+        "code": "NS7",
+        "url": "kranji"
+      },
+      {
+        "english": "Marsiling",
+        "chinese": "马西岭",
+        "tamil": "மார்சிலிங்",
+        "code": "NS8",
+        "url": "marsiling"
+      },
+      {
+        "english": "Woodlands",
+        "chinese": "兀兰",
+        "tamil": "ஊட்லண்ட்ஸ்",
+        "code": "NS9",
+        "url": "woodlands"
+      },
+      {
+        "english": "Admiralty",
+        "chinese": "海军部",
+        "tamil": "அட்மிரல்ட்டி",
+        "code": "NS10",
+        "url": "admiralty"
+      },
+      {
+        "english": "Sembawang",
+        "chinese": "三巴旺",
+        "tamil": "செம்பாவாங்",
+        "code": "NS11",
+        "url": "sembawang"
+      },
+      {
+        "english": "Canberra",
+        "chinese": "坎贝拉",
+        "tamil": "கென்பரா",
+        "code": "NS12",
+        "url": "canberra"
+      },
+      {
+        "english": "Yishun",
+        "chinese": "义顺",
+        "tamil": "யீஷூன்",
+        "code": "NS13",
+        "url": "yishun"
+      },
+      {
+        "english": "Khatib",
+        "chinese": "卡迪",
+        "tamil": "காதிப்",
+        "code": "NS14",
+        "url": "khatib"
+      },
+      {
+        "english": "Yio Chu Kang",
+        "chinese": "杨厝港",
+        "tamil": "இயோ சூ காங்",
+        "code": "NS15",
+        "url": "yio-chu-kang"
+      },
+      {
+        "english": "Ang Mo Kio",
+        "chinese": "宏茂桥",
+        "tamil": "அங் மோ கியோ",
+        "code": "NS16",
+        "url": "ang-mo-kio"
+      },
+      {
+        "english": "Bishan",
+        "chinese": "碧山",
+        "tamil": "பீஷான்",
+        "code": "NS17",
+        "url": "bishan"
+      },
+      {
+        "english": "Braddell",
+        "chinese": "布莱德",
+        "tamil": "பிரேடல்",
+        "code": "NS18",
+        "url": "braddell"
+      },
+      {
+        "english": "Toa Payoh",
+        "chinese": "大巴窑",
+        "tamil": "தோ பாயோ",
+        "code": "NS19",
+        "url": "toa-payoh"
+      },
+      {
+        "english": "Novena",
+        "chinese": "诺维娜",
+        "tamil": "நொவீனா",
+        "code": "NS20",
+        "url": "novena"
+      },
+      {
+        "english": "Newton",
+        "chinese": "纽顿",
+        "tamil": "நியூட்டன்",
+        "code": "NS21",
+        "url": "newton"
+      },
+      {
+        "english": "Orchard",
+        "chinese": "乌节",
+        "tamil": "ஆர்ச்சர்ட்",
+        "code": "NS22",
+        "url": "orchard"
+      },
+      {
+        "english": "Somerset",
+        "chinese": "索美塞",
+        "tamil": "சாமர்செட்",
+        "code": "NS23",
+        "url": "somerset"
+      },
+      {
+        "english": "Dhoby Ghaut",
+        "chinese": "多美歌",
+        "tamil": "தோபி காட்",
+        "code": "NS24",
+        "url": "dhoby-ghaut"
+      },
+      {
+        "english": "City Hall",
+        "chinese": "政府大厦",
+        "tamil": "நகர மண்டபம்",
+        "code": "NS25",
+        "url": "city-hall"
+      },
+      {
+        "english": "Raffles Place",
+        "chinese": "莱佛士坊",
+        "tamil": "ராஃபிள்ஸ் பிளேஸ்",
+        "code": "NS26",
+        "url": "raffles-place"
+      },
+      {
+        "english": "Marina Bay",
+        "chinese": "滨海湾",
+        "tamil": "மரீனா பே",
+        "code": "NS27",
+        "url": "marina-bay"
+      },
+      {
+        "english": "Marina South Pier",
+        "chinese": "滨海南码头",
+        "tamil": "மரினா சவுத் பியர்",
+        "code": "NS28",
+        "url": "marina-south-pier"
+      }
+    ]
+  },
+  {
+    "line": "North East MRT Line",
+    "stations": [
+      {
+        "english": "HarbourFront",
+        "chinese": "港湾",
+        "tamil": "ஹார்பர்ஃபிரண்ட்",
+        "code": "NE1",
+        "url": "harbourfront"
+      },
+      {
+        "english": "Outram Park",
+        "chinese": "欧南园",
+        "tamil": "ஊட்ரம் பார்க்",
+        "code": "NE3",
+        "url": "outram-park"
+      },
+      {
+        "english": "Chinatown",
+        "chinese": "牛车水",
+        "tamil": "சைனாடவுன்",
+        "code": "NE4",
+        "url": "chinatown"
+      },
+      {
+        "english": "Clarke Quay",
+        "chinese": "克拉码头",
+        "tamil": "கிளார்க் கீ",
+        "code": "NE5",
+        "url": "clarke-quay"
+      },
+      {
+        "english": "Dhoby Ghaut",
+        "chinese": "多美歌",
+        "tamil": "தோபி காட்",
+        "code": "NE6",
+        "url": "dhoby-ghaut"
+      },
+      {
+        "english": "Little India",
+        "chinese": "小印度",
+        "tamil": "லிட்டில் இந்தியா",
+        "code": "NE7",
+        "url": "little-india"
+      },
+      {
+        "english": "Farrer Park",
+        "chinese": "花拉公园",
+        "tamil": "ஃபேரர் பார்க்",
+        "code": "NE8",
+        "url": "farrer-park"
+      },
+      {
+        "english": "Boon Keng",
+        "chinese": "文庆",
+        "tamil": "பூன் கெங்",
+        "code": "NE9",
+        "url": "boon-keng"
+      },
+      {
+        "english": "Potong Pasir",
+        "chinese": "波东巴西",
+        "tamil": "போத்தோங் பாசிர்",
+        "code": "NE10",
+        "url": "potong-pasir"
+      },
+      {
+        "english": "Woodleigh",
+        "chinese": "兀里",
+        "tamil": "உட் லீ",
+        "code": "NE11",
+        "url": "woodleigh"
+      },
+      {
+        "english": "Serangoon",
+        "chinese": "实龙岗",
+        "tamil": "சிராங்கூன்",
+        "code": "NE12",
+        "url": "serangoon"
+      },
+      {
+        "english": "Kovan",
+        "chinese": "高文",
+        "tamil": "கோவன்",
+        "code": "NE13",
+        "url": "kovan"
+      },
+      {
+        "english": "Hougang",
+        "chinese": "后港",
+        "tamil": "ஹவ்காங்",
+        "code": "NE14",
+        "url": "hougang"
+      },
+      {
+        "english": "Buangkok",
+        "chinese": "万国",
+        "tamil": "புவாங்கோக்",
+        "code": "NE15",
+        "url": "buangkok"
+      },
+      {
+        "english": "Sengkang",
+        "chinese": "盛港",
+        "tamil": "செங்காங்",
+        "code": "NE16",
+        "url": "sengkang"
+      },
+      {
+        "english": "Punggol",
+        "chinese": "榜鹅",
+        "tamil": "பொங்கோல்",
+        "code": "NE17",
+        "url": "punggol"
+      },
+      {
+        "english": "Punggol Coast",
+        "chinese": "榜鹅海岸",
+        "tamil": "பொங்கோல் கோஸ்ட்",
+        "code": "NE18",
+        "url": "punggol-coast"
+      }
+    ]
+  },
+  {
+    "line": "Circle MRT Line",
+    "stations": [
+      {
+        "english": "Dhoby Ghaut",
+        "chinese": "多美歌",
+        "tamil": "தோபி காட்",
+        "code": "CC1",
+        "url": "dhoby-ghaut"
+      },
+      {
+        "english": "Bras Basah",
+        "chinese": "百胜",
+        "tamil": "பிராஸ் பாசா",
+        "code": "CC2",
+        "url": "bras-basah"
+      },
+      {
+        "english": "Esplanade",
+        "chinese": "滨海中心",
+        "tamil": "எஸ்பிளனேட்",
+        "code": "CC3",
+        "url": "esplanade"
+      },
+      {
+        "english": "Promenade",
+        "chinese": "宝门廊",
+        "tamil": "புரொமனாட்",
+        "code": "CC4",
+        "url": "promenade"
+      },
+      {
+        "english": "Nicoll Highway",
+        "chinese": "尼诰大道",
+        "tamil": "நிக்கல் நெடுஞ்சாலை",
+        "code": "CC5",
+        "url": "nicoll-highway"
+      },
+      {
+        "english": "Stadium",
+        "chinese": "体育场",
+        "tamil": "ஸ்டேடியம்",
+        "code": "CC6",
+        "url": "stadium"
+      },
+      {
+        "english": "Mountbatten",
+        "chinese": "蒙巴登",
+        "tamil": "மவுண்ட்பேட்டன்",
+        "code": "CC7",
+        "url": "mountbatten"
+      },
+      {
+        "english": "Dakota",
+        "chinese": "达科达",
+        "tamil": "டகோட்டா",
+        "code": "CC8",
+        "url": "dakota"
+      },
+      {
+        "english": "Paya Lebar",
+        "chinese": "巴耶利峇",
+        "tamil": "பாய லேபார்",
+        "code": "CC9",
+        "url": "paya-lebar"
+      },
+      {
+        "english": "MacPherson",
+        "chinese": "麦波申",
+        "tamil": "மெக்பர்சன்",
+        "code": "CC10",
+        "url": "macpherson"
+      },
+      {
+        "english": "Tai Seng",
+        "chinese": "大成",
+        "tamil": "தை செங்",
+        "code": "CC11",
+        "url": "tai-seng"
+      },
+      {
+        "english": "Bartley",
+        "chinese": "巴特礼",
+        "tamil": "பார்ட்லி",
+        "code": "CC12",
+        "url": "bartley"
+      },
+      {
+        "english": "Serangoon",
+        "chinese": "实龙岗",
+        "tamil": "சிராங்கூன்",
+        "code": "CC13",
+        "url": "serangoon"
+      },
+      {
+        "english": "Lorong Chuan",
+        "chinese": "罗弄泉",
+        "tamil": "லோரோங் சுவான்",
+        "code": "CC14",
+        "url": "lorong-chuan"
+      },
+      {
+        "english": "Bishan",
+        "chinese": "碧山",
+        "tamil": "பீஷான்",
+        "code": "CC15",
+        "url": "bishan"
+      },
+      {
+        "english": "Marymount",
+        "chinese": "玛丽蒙",
+        "tamil": "மேரிமவுண்ட்",
+        "code": "CC16",
+        "url": "marymount"
+      },
+      {
+        "english": "Caldecott",
+        "chinese": "加利谷",
+        "tamil": "கால்டிகாட்",
+        "code": "CC17",
+        "url": "caldecott"
+      },
+      {
+        "english": "Botanic Gardens",
+        "chinese": "植物园",
+        "malay": "Kebun Bunga",
+        "tamil": "பூ மலை",
+        "code": "CC19",
+        "url": "botanic-gardens"
+      },
+      {
+        "english": "Farrer Road",
+        "chinese": "花拉路",
+        "tamil": "ஃபேரர் சாலை",
+        "code": "CC20",
+        "url": "farrer-road"
+      },
+      {
+        "english": "Holland Village",
+        "chinese": "荷兰村",
+        "tamil": "ஹாலந்து வில்லேஜ்",
+        "code": "CC21",
+        "url": "holland-village"
+      },
+      {
+        "english": "Buona Vista",
+        "chinese": "波那维斯达",
+        "tamil": "புவன விஸ்தா",
+        "code": "CC22",
+        "url": "buona-vista"
+      },
+      {
+        "english": "one-north",
+        "chinese": "纬壹",
+        "tamil": "ஒன்-நார்த்",
+        "code": "CC23",
+        "url": "one-north"
+      },
+      {
+        "english": "Kent Ridge",
+        "chinese": "肯特岗",
+        "tamil": "கெண்ட் ரிஜ்",
+        "code": "CC24",
+        "url": "kent-ridge"
+      },
+      {
+        "english": "Haw Par Villa",
+        "chinese": "虎豹别墅",
+        "tamil": "ஹா பர் வில்லா",
+        "code": "CC25",
+        "url": "haw-par-villa"
+      },
+      {
+        "english": "Pasir Panjang",
+        "chinese": "巴西班让",
+        "tamil": "பாசிர் பாஞ்சாங்",
+        "code": "CC26",
+        "url": "pasir-panjang"
+      },
+      {
+        "english": "Labrador Park",
+        "chinese": "拉柏多公园",
+        "tamil": "லாப்ரடார் பூங்கா",
+        "code": "CC27",
+        "url": "labrador-park"
+      },
+      {
+        "english": "Telok Blangah",
+        "chinese": "直落布兰雅",
+        "tamil": "தெலுக் பிளாங்கா",
+        "code": "CC28",
+        "url": "telok-blangah"
+      },
+      {
+        "english": "HarbourFront",
+        "chinese": "港湾",
+        "tamil": "ஹார்பர்ஃபிரண்ட்",
+        "code": "CC29",
+        "url": "harbourfront"
+      },
+      {
+        "english": "Keppel",
+        "chinese": "吉宝",
+        "tamil": "கெப்பல்",
+        "code": "CC30",
+        "url": "keppel"
+      },
+      {
+        "english": "Cantonment",
+        "chinese": "广东民",
+        "tamil": "கெண்டொன்மன்",
+        "code": "CC31",
+        "url": "cantonment"
+      },
+      {
+        "english": "Prince Edward Road",
+        "chinese": "爱德华太子路",
+        "tamil": "பிரின்ஸ் எட்வர்ட் ரோடு",
+        "code": "CC32",
+        "url": "prince-edward-road"
+      },
+      {
+        "english": "Marina Bay",
+        "chinese": "滨海湾",
+        "tamil": "மரீனா பே",
+        "code": "CC33",
+        "url": "marina-bay"
+      },
+      {
+        "english": "Bayfront",
+        "chinese": "海湾舫",
+        "tamil": "பேஃபிரண்ட்",
+        "code": "CC34",
+        "url": "bayfront"
+      }
+    ]
+  },
+  {
+    "line": "Downtown MRT Line",
+    "stations": [
+      {
+        "english": "Bukit Panjang",
+        "chinese": "武吉班让",
+        "tamil": "புக்கிட் பாஞ்சாங்",
+        "code": "DT1",
+        "url": "bukit-panjang"
+      },
+      {
+        "english": "Cashew",
+        "chinese": "凯秀",
+        "tamil": "கேஷ்யூ",
+        "code": "DT2",
+        "url": "cashew"
+      },
+      {
+        "english": "Hillview",
+        "chinese": "山景",
+        "tamil": "ஹில்வியூ",
+        "code": "DT3",
+        "url": "hillview"
+      },
+      {
+        "english": "Hume",
+        "chinese": "谦道",
+        "tamil": "ஹியூம்",
+        "code": "DT4",
+        "url": "hume"
+      },
+      {
+        "english": "Beauty World",
+        "chinese": "美世界",
+        "tamil": "பியூட்டி வோர்ல்ட்",
+        "code": "DT5",
+        "url": "beauty-world"
+      },
+      {
+        "english": "King Albert Park",
+        "chinese": "阿尔柏王园",
+        "tamil": "கிங் ஆல்பர்ட் பார்க்",
+        "code": "DT6",
+        "url": "king-albert-park"
+      },
+      {
+        "english": "Sixth Avenue",
+        "chinese": "第六道",
+        "tamil": "சிக்ஸ்த் அவென்யூ",
+        "code": "DT7",
+        "url": "sixth-avenue"
+      },
+      {
+        "english": "Tan Kah Kee",
+        "chinese": "陈嘉庚",
+        "tamil": "டான் கா கீ",
+        "code": "DT8",
+        "url": "tan-kah-kee"
+      },
+      {
+        "english": "Botanic Gardens",
+        "chinese": "植物园",
+        "malay": "Kebun Bunga",
+        "tamil": "பூ மலை",
+        "code": "DT9",
+        "url": "botanic-gardens"
+      },
+      {
+        "english": "Stevens",
+        "chinese": "史蒂芬",
+        "tamil": "ஸ்டீவன்ஸ்",
+        "code": "DT10",
+        "url": "stevens"
+      },
+      {
+        "english": "Newton",
+        "chinese": "纽顿",
+        "tamil": "நியூட்டன்",
+        "code": "DT11",
+        "url": "newton"
+      },
+      {
+        "english": "Little India",
+        "chinese": "小印度",
+        "tamil": "லிட்டில் இந்தியா",
+        "code": "DT12",
+        "url": "little-india"
+      },
+      {
+        "english": "Rochor",
+        "chinese": "梧槽",
+        "tamil": "ரோச்சோர்",
+        "code": "DT13",
+        "url": "rochor"
+      },
+      {
+        "english": "Bugis",
+        "chinese": "武吉士",
+        "tamil": "பூகிஸ்",
+        "code": "DT14",
+        "url": "bugis"
+      },
+      {
+        "english": "Promenade",
+        "chinese": "宝门廊",
+        "tamil": "புரொமனாட்",
+        "code": "DT15",
+        "url": "promenade"
+      },
+      {
+        "english": "Bayfront",
+        "chinese": "海湾舫",
+        "tamil": "பேஃபிரண்ட்",
+        "code": "DT16",
+        "url": "bayfront"
+      },
+      {
+        "english": "Downtown",
+        "chinese": "市中心",
+        "tamil": "டௌன்டவுன்",
+        "code": "DT17",
+        "url": "downtown"
+      },
+      {
+        "english": "Telok Ayer",
+        "chinese": "直落亚逸",
+        "tamil": "தெலுக் ஆயர்",
+        "code": "DT18",
+        "url": "telok-ayer"
+      },
+      {
+        "english": "Chinatown",
+        "chinese": "牛车水",
+        "tamil": "சைனாடவுன்",
+        "code": "DT19",
+        "url": "chinatown"
+      },
+      {
+        "english": "Fort Canning",
+        "chinese": "福康宁",
+        "tamil": "ஃபோர்ட் கெனிங்",
+        "code": "DT20",
+        "url": "fort-canning"
+      },
+      {
+        "english": "Bencoolen",
+        "chinese": "明古连",
+        "tamil": "பென்கூலன்",
+        "code": "DT21",
+        "url": "bencoolen"
+      },
+      {
+        "english": "Jalan Besar",
+        "chinese": "惹兰勿刹",
+        "tamil": "ஜாலான் புசார்",
+        "code": "DT22",
+        "url": "jalan-besar"
+      },
+      {
+        "english": "Bendemeer",
+        "chinese": "明地迷亚",
+        "tamil": "பெண்டிமியர்",
+        "code": "DT23",
+        "url": "bendemeer"
+      },
+      {
+        "english": "Geylang Bahru",
+        "chinese": "芽笼峇鲁",
+        "tamil": "கேலாங் பாரு",
+        "code": "DT24",
+        "url": "geylang-bahru"
+      },
+      {
+        "english": "Mattar",
+        "chinese": "玛达",
+        "tamil": "மாத்தார்",
+        "code": "DT25",
+        "url": "mattar"
+      },
+      {
+        "english": "MacPherson",
+        "chinese": "麦波申",
+        "tamil": "மெக்பர்சன்",
+        "code": "DT26",
+        "url": "macpherson"
+      },
+      {
+        "english": "Ubi",
+        "chinese": "乌美",
+        "tamil": "உபி",
+        "code": "DT27",
+        "url": "ubi"
+      },
+      {
+        "english": "Kaki Bukit",
+        "chinese": "加基武吉",
+        "tamil": "காக்கி புக்கிட்",
+        "code": "DT28",
+        "url": "kaki-bukit"
+      },
+      {
+        "english": "Bedok North",
+        "chinese": "勿洛北",
+        "tamil": "பிடோக் நார்த்",
+        "code": "DT29",
+        "url": "bedok-north"
+      },
+      {
+        "english": "Bedok Reservoir",
+        "chinese": "勿洛蓄水池",
+        "tamil": "பிடோக் ரெசவோர்",
+        "code": "DT30",
+        "url": "bedok-reservoir"
+      },
+      {
+        "english": "Tampines West",
+        "chinese": "淡滨尼西",
+        "tamil": "தெம்பினிஸ் வெஸ்ட்",
+        "code": "DT31",
+        "url": "tampines-west"
+      },
+      {
+        "english": "Tampines",
+        "chinese": "淡滨尼",
+        "tamil": "தெம்பனிஸ்",
+        "code": "DT32",
+        "url": "tampines"
+      },
+      {
+        "english": "Tampines East",
+        "chinese": "淡滨尼东",
+        "tamil": "தெம்பினிஸ் ஈஸ்ட்",
+        "code": "DT33",
+        "url": "tampines-east"
+      },
+      {
+        "english": "Upper Changi",
+        "chinese": "樟宜上段",
+        "tamil": "அப்பர் சாங்கி",
+        "code": "DT34",
+        "url": "upper-changi"
+      },
+      {
+        "english": "Expo",
+        "chinese": "博覽",
+        "tamil": "எக்ஸ்போ",
+        "code": "DT35",
+        "url": "expo"
+      }
+    ]
+  },
+  {
+    "line": "Thomson-East Coast MRT Line",
+    "stations": [
+      {
+        "english": "Woodlands North",
+        "chinese": "兀兰北",
+        "tamil": "ஊட்லண்ட்ஸ் நார்த்",
+        "code": "TE1",
+        "url": "woodlands-north"
+      },
+      {
+        "english": "Woodlands",
+        "chinese": "兀兰",
+        "tamil": "ஊட்லண்ட்ஸ்",
+        "code": "TE2",
+        "url": "woodlands"
+      },
+      {
+        "english": "Woodlands South",
+        "chinese": "兀兰南",
+        "tamil": "ஊட்லண்ட்ஸ் சவுத்",
+        "code": "TE3",
+        "url": "woodlands-south"
+      },
+      {
+        "english": "Springleaf",
+        "chinese": "春叶",
+        "tamil": "ஸ்பிரிங்லீஃவ்",
+        "code": "TE4",
+        "url": "springleaf"
+      },
+      {
+        "english": "Lentor",
+        "chinese": "伦多",
+        "tamil": "லென்ட்டோர்",
+        "code": "TE5",
+        "url": "lentor"
+      },
+      {
+        "english": "Mayflower",
+        "chinese": "美华",
+        "tamil": "மேஃபிளவர்",
+        "code": "TE6",
+        "url": "mayflower"
+      },
+      {
+        "english": "Bright Hill",
+        "chinese": "光明山",
+        "tamil": "பிரைட் ஹில்",
+        "code": "TE7",
+        "url": "bright-hill"
+      },
+      {
+        "english": "Upper Thomson",
+        "chinese": "汤申路上段",
+        "tamil": "அப்பர் தாம்சன்",
+        "code": "TE8",
+        "url": "upper-thomson"
+      },
+      {
+        "english": "Caldecott",
+        "chinese": "加利谷",
+        "tamil": "கால்டிகாட்",
+        "code": "TE9",
+        "url": "caldecott"
+      },
+      {
+        "english": "Stevens",
+        "chinese": "史蒂芬",
+        "tamil": "ஸ்டீவன்ஸ்",
+        "code": "TE11",
+        "url": "stevens"
+      },
+      {
+        "english": "Napier",
+        "chinese": "纳比雅",
+        "tamil": "நேப்பியர்",
+        "code": "TE12",
+        "url": "napier"
+      },
+      {
+        "english": "Orchard Boulevard",
+        "chinese": "乌节大道",
+        "tamil": "ஆர்ச்சர்ட் பொலிவார்ட்",
+        "code": "TE13",
+        "url": "orchard-boulevard"
+      },
+      {
+        "english": "Orchard",
+        "chinese": "乌节",
+        "tamil": "ஆர்ச்சர்ட்",
+        "code": "TE14",
+        "url": "orchard"
+      },
+      {
+        "english": "Great World",
+        "chinese": "大世界",
+        "tamil": "கிரேட் வோர்ல்ட்",
+        "code": "TE15",
+        "url": "great-world"
+      },
+      {
+        "english": "Havelock",
+        "chinese": "合乐",
+        "tamil": "ஹவ்லாக்",
+        "code": "TE16",
+        "url": "havelock"
+      },
+      {
+        "english": "Outram Park",
+        "chinese": "欧南园",
+        "tamil": "ஊட்ரம் பார்க்",
+        "code": "TE17",
+        "url": "outram-park"
+      },
+      {
+        "english": "Maxwell",
+        "chinese": "麦士威",
+        "tamil": "மெச்ஸ்வெல்",
+        "code": "TE18",
+        "url": "maxwell"
+      },
+      {
+        "english": "Shenton Way",
+        "chinese": "珊顿道",
+        "tamil": "ஷென்ட்டன் வே",
+        "code": "TE19",
+        "url": "shenton-way"
+      },
+      {
+        "english": "Marina Bay",
+        "chinese": "滨海湾",
+        "tamil": "மரீனா பே",
+        "code": "TE20",
+        "url": "marina-bay"
+      },
+      {
+        "english": "Gardens by the Bay",
+        "chinese": "滨海湾花园",
+        "malay": "Taman Di Persisiran",
+        "tamil": "கரையோரப் பூந்தோட்டங்கள்",
+        "code": "TE22",
+        "url": "gardens-by-the-bay"
+      },
+      {
+        "english": "Tanjong Rhu",
+        "chinese": "丹戎禺",
+        "tamil": "தஞ்சோங் ரூ",
+        "code": "TE23",
+        "url": "tanjong-rhu"
+      },
+      {
+        "english": "Katong Park",
+        "chinese": "加东公园",
+        "tamil": "காத்தோங் பார்க்",
+        "code": "TE24",
+        "url": "katong-park"
+      },
+      {
+        "english": "Tanjong Katong",
+        "chinese": "丹戎加东",
+        "tamil": "தஞ்சோங் காத்தோங்",
+        "code": "TE25",
+        "url": "tanjong-katong"
+      },
+      {
+        "english": "Marine Parade",
+        "chinese": "马林百列",
+        "tamil": "மரீன் பரேட்",
+        "code": "TE26",
+        "url": "marine-parade"
+      },
+      {
+        "english": "Marine Terrace",
+        "chinese": "马林台",
+        "tamil": "மரீன் டெரஸ்",
+        "code": "TE27",
+        "url": "marine-terrace"
+      },
+      {
+        "english": "Siglap",
+        "chinese": "实乞纳",
+        "tamil": "சிக்லாப்",
+        "code": "TE28",
+        "url": "siglap"
+      },
+      {
+        "english": "Bayshore",
+        "chinese": "碧湾",
+        "tamil": "பேஷோர்",
+        "code": "TE29",
+        "url": "bayshore"
+      }
+    ]
+  },
+  {
+    "line": "Bukit Panjang LRT Line",
+    "stations": [
+      {
+        "english": "Choa Chu Kang",
+        "chinese": "蔡厝港",
+        "tamil": "சுவா சூ காங்",
+        "code": "BP1",
+        "url": "choa-chu-kang**"
+      },
+      {
+        "english": "South View",
+        "chinese": "南景",
+        "tamil": "சவுத் வியூ",
+        "code": "BP2",
+        "url": "south-view"
+      },
+      {
+        "english": "Keat Hong",
+        "chinese": "吉丰",
+        "tamil": "கியட் ஹோங்",
+        "code": "BP3",
+        "url": "keat-hong"
+      },
+      {
+        "english": "Teck Whye",
+        "chinese": "德惠",
+        "tamil": "டெக் வாய்",
+        "code": "BP4",
+        "url": "teck-whye"
+      },
+      {
+        "english": "Phoenix",
+        "chinese": "凤凰",
+        "tamil": "ஃபீனிக்ஸ்",
+        "code": "BP5",
+        "url": "phoenix"
+      },
+      {
+        "english": "Bukit Panjang*",
+        "chinese": "武吉班让",
+        "tamil": "புக்கிட் பாஞ்சாங்",
+        "code": "BP6",
+        "url": "bukit-panjang*"
+      },
+      {
+        "english": "Petir",
+        "chinese": "柏提",
+        "tamil": "பெட்டீர்",
+        "code": "BP7",
+        "url": "petir"
+      },
+      {
+        "english": "Pending",
+        "chinese": "秉定",
+        "tamil": "பெண்டிங்",
+        "code": "BP8",
+        "url": "pending"
+      },
+      {
+        "english": "Bangkit",
+        "chinese": "万吉",
+        "tamil": "பங்கிட்",
+        "code": "BP9",
+        "url": "bangkit"
+      },
+      {
+        "english": "Fajar",
+        "chinese": "法嘉",
+        "tamil": "ஃபஜார்",
+        "code": "BP10",
+        "url": "fajar"
+      },
+      {
+        "english": "Segar",
+        "chinese": "实加",
+        "tamil": "செகார்",
+        "code": "BP11",
+        "url": "segar"
+      },
+      {
+        "english": "Jelapang",
+        "chinese": "泽拉邦",
+        "tamil": "ஜெலப்பாங்",
+        "code": "BP12",
+        "url": "jelapang"
+      },
+      {
+        "english": "Senja",
+        "chinese": "信佳",
+        "tamil": "சென்ஜா",
+        "code": "BP13",
+        "url": "senja"
+      }
+    ]
+  },
+  {
+    "line": "Sengkang LRT Line",
+    "stations": [
+      {
+        "english": "Compassvale",
+        "chinese": "康埔桦",
+        "tamil": "கம்பஸ்வேல்",
+        "code": "SE1",
+        "url": "compassvale"
+      },
+      {
+        "english": "Rumbia",
+        "chinese": "棕美",
+        "tamil": "ரூம்பியா",
+        "code": "SE2",
+        "url": "rumbia"
+      },
+      {
+        "english": "Bakau",
+        "chinese": "码高",
+        "tamil": "பக்காவ்",
+        "code": "SE3",
+        "url": "bakau"
+      },
+      {
+        "english": "Kangkar",
+        "chinese": "港脚",
+        "tamil": "கங்கார்",
+        "code": "SE4",
+        "url": "kangkar"
+      },
+      {
+        "english": "Ranggung",
+        "chinese": "兰岗",
+        "tamil": "ரங்கோங்",
+        "code": "SE5",
+        "url": "ranggung"
+      },
+      {
+        "english": "Sengkang",
+        "chinese": "盛港",
+        "tamil": "செங்காங்",
+        "code": "STC",
+        "url": "sengkang"
+      },
+      {
+        "english": "Cheng Lim",
+        "chinese": "振林",
+        "tamil": "செங் லிம்",
+        "code": "SW1",
+        "url": "cheng-lim"
+      },
+      {
+        "english": "Farmway",
+        "chinese": "农道",
+        "tamil": "ஃபாம்வே",
+        "code": "SW2",
+        "url": "farmway"
+      },
+      {
+        "english": "Kupang",
+        "chinese": "古邦",
+        "tamil": "கூப்பாங்",
+        "code": "SW3",
+        "url": "kupang"
+      },
+      {
+        "english": "Thanggam",
+        "chinese": "丹甘",
+        "tamil": "தங்கம்",
+        "code": "SW4",
+        "url": "thanggam"
+      },
+      {
+        "english": "Fernvale",
+        "chinese": "芬微",
+        "tamil": "ஃபொ்ன்வேல்",
+        "code": "SW5",
+        "url": "fernvale"
+      },
+      {
+        "english": "Layar",
+        "chinese": "拉雅",
+        "tamil": "லாயார்",
+        "code": "SW6",
+        "url": "layar"
+      },
+      {
+        "english": "Tongkang",
+        "chinese": "同港",
+        "tamil": "தொங்காங்",
+        "code": "SW7",
+        "url": "tongkang"
+      },
+      {
+        "english": "Renjong",
+        "chinese": "仁宗",
+        "tamil": "ரெஞ்சோங்",
+        "code": "SW8",
+        "url": "renjong"
+      }
+    ]
+  },
+  {
+    "line": "Punggol LRT Line",
+    "stations": [
+      {
+        "english": "Cove",
+        "chinese": "海湾",
+        "tamil": "கோவ்",
+        "code": "PE1",
+        "url": "cove"
+      },
+      {
+        "english": "Meridian",
+        "chinese": "丽园",
+        "tamil": "மெரிடியன்",
+        "code": "PE2",
+        "url": "meridian"
+      },
+      {
+        "english": "Coral Edge",
+        "chinese": "珊瑚",
+        "tamil": "கோரல் எட்ஜ்",
+        "code": "PE3",
+        "url": "coral-edge"
+      },
+      {
+        "english": "Riviera",
+        "chinese": "里维拉",
+        "tamil": "ரிவியாரா",
+        "code": "PE4",
+        "url": "riviera"
+      },
+      {
+        "english": "Kadaloor",
+        "chinese": "卡达鲁",
+        "tamil": "கடலூர்",
+        "code": "PE5",
+        "url": "kadaloor"
+      },
+      {
+        "english": "Oasis",
+        "chinese": "绿洲",
+        "tamil": "ஓய்சிஸ்",
+        "code": "PE6",
+        "url": "oasis"
+      },
+      {
+        "english": "Damai",
+        "chinese": "达迈",
+        "tamil": "டாமாய்",
+        "code": "PE7",
+        "url": "damai"
+      },
+      {
+        "english": "Punggol",
+        "chinese": "榜鹅",
+        "tamil": "பொங்கோல்",
+        "code": "PTC",
+        "url": "punggol"
+      },
+      {
+        "english": "Sam Kee",
+        "chinese": "三记",
+        "tamil": "சாம் கீ",
+        "code": "PW1",
+        "url": "sam-kee"
+      },
+      {
+        "english": "Teck Lee",
+        "chinese": "德利",
+        "tamil": "டெக் லீ",
+        "code": "PW2",
+        "url": "teck-lee"
+      },
+      {
+        "english": "Punggol Point",
+        "chinese": "榜鹅坊",
+        "tamil": "பொங்கோல் பாயிண்ட்",
+        "code": "PW3",
+        "url": "punggol-point"
+      },
+      {
+        "english": "Samudera",
+        "chinese": "山姆",
+        "tamil": "சமுத்திரா",
+        "code": "PW4",
+        "url": "samudera"
+      },
+      {
+        "english": "Nibong",
+        "chinese": "尼蒙",
+        "tamil": "நிபொங்",
+        "code": "PW5",
+        "url": "nibong"
+      },
+      {
+        "english": "Sumang",
+        "chinese": "苏芒",
+        "tamil": "சுமாங்",
+        "code": "PW6",
+        "url": "sumang"
+      },
+      {
+        "english": "Soo Teck",
+        "chinese": "树德",
+        "tamil": "சூ டெக்",
+        "code": "PW7",
+        "url": "soo-teck"
+      }
+    ]
+  }
+]

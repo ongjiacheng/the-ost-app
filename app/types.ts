@@ -113,8 +113,24 @@ export type VideoType = {
     videoId: string
 }
 
+export type TrainScheduleType = {
+    a: string,
+    d: string,
+    s: string,
+    t: string
+}
+
+export type TrainStationType = {
+    english: string,
+    chinese: string,
+    malay?: string,
+    tamil: string,
+    code: string,
+    url: string
+}
+
 import roadNames from "./assets/road_names.json";
-import stations from "./assets/stations.json";
+import stations from "./assets/nearby_stations.json";
 
 export const categoryMap: Record<string, string> = {
     "CITY_LINK": "City Direct",

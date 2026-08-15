@@ -29,7 +29,13 @@ export async function loader() {
         ...doc.data() as VideoType
     }));
 
-    return { bikethrough, cyclingTours };
+    const walkingToursQuery = await db.collection("walking_tours").orderBy("position").get();
+    const walkingTours: VideoType[] = walkingToursQuery.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data() as VideoType
+    }));
+
+    return { bikethrough, cyclingTours, walkingTours };
 }
 
 function Video({ video }: { video: VideoType }) {
@@ -58,10 +64,10 @@ function Video({ video }: { video: VideoType }) {
 }
 
 export default function ActiveMobility({
-    loaderData: { bikethrough, cyclingTours }
+    loaderData: { bikethrough, cyclingTours, walkingTours }
 }: Route.ComponentProps) {
-    const videos = [bikethrough, cyclingTours];
-    const titles = ["Park Connectors", "Cycling Towns"];
+    const videos = [bikethrough, cyclingTours, walkingTours];
+    const titles = ["Park Connectors", "Cycling Towns", "Walking Transfers"];
 
     return (
         <Container>

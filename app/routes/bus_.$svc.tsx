@@ -34,8 +34,8 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
-import { Map } from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
+//import { Map } from 'maplibre-gl';
+//import 'maplibre-gl/dist/maplibre-gl.css';
 
 import type { Route } from "./+types/bus_.$svc";
 import type { AltRouteType, BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
