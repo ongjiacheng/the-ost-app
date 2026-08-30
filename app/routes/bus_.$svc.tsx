@@ -223,7 +223,7 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[],
                                 </TableRow>
                                 <TableRow>
                                     <TableCell></TableCell>
-                                    <TableCell align="center">#</TableCell>
+                                    <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" }}}>#</TableCell>
                                     <TableCell align="center">km</TableCell>
                                     <TableCell align="center">Code</TableCell>
                                     <TableCell align="left" colSpan={2}>Name</TableCell>
@@ -323,7 +323,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
                     <PlayCircleIcon />
                 </IconButton>
             </TableCell>
-            <TableCell align="center">{currentStop.StopSequence}</TableCell>
+            <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" }}}>{currentStop.StopSequence}</TableCell>
             <TableCell align="center">{currentStop.Distance.toFixed(1)}</TableCell>
             <TableCell align="center">{currentStop.BusStopCode}</TableCell>
             <TableCell align="left" colSpan={2}>{currentStop.BusStopName}</TableCell>
