@@ -181,11 +181,13 @@ export default function Root() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Header />
-            <Container sx={{ px: { xs: 1, sm: 2 } }}>
-                <Outlet />
-            </Container>
-            <Footer />
+            <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+                <Header />
+                <Container component="main" sx={{ flexGrow: 1, px: { xs: 1, sm: 2 } }}>
+                    <Outlet />
+                </Container>
+                <Footer />
+            </Box>
         </ThemeProvider>
     );
 }

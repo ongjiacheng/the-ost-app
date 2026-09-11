@@ -24,17 +24,14 @@ export default function Infobar() {
     const [service, setService] = useState("");
     const [direction, setDirection] = useState("1");
     const [channel, setChannel] = useState("TE");
-    const [error, setError] = useState("");
+    const [error, setError] = useState(false);
 
     function requestInfobar() {
-        const match = service.trim().toUpperCase().match(/^(\d+)([A-Z]*)$/);
-        if (!match) {
-            setError("Enter a service such as 12, 12A, or 10E.");
-            return;
-        }
+        const match = service.trim().match(/^(\d+)([a-zA-Z]*)$/);
+        if (!match) return setError(true);
 
         const [, serviceNo, serviceSuffix] = match;
-        setError("");
+        setError(false);
         const params = new URLSearchParams({
             ServiceNo: serviceNo,
             ServiceSuffix: serviceSuffix,
@@ -68,11 +65,20 @@ export default function Infobar() {
             <Button variant="contained" onClick={requestInfobar} disabled={fetcher.state !== "idle"} sx={{ mt: 2 }}>
                 {fetcher.state === "idle" ? "Generate infobar" : "Loading..."}
             </Button>
-            {error && <Typography color="error" sx={{ pt: 2 }}>{error}</Typography>}
-            {typeof fetcher.data === "string" && (
+            {error &&
+                <Typography color="error" sx={{ pt: 2 }}>
+                    Enter a valid service!
+                </Typography>
+            }
+            {fetcher.state === "idle" && fetcher.data === "" &&
+                <Typography color="error" sx={{ pt: 2 }}>
+                    No stops found for this service.
+                </Typography>
+            }
+            {fetcher.data && (
                 <Paper variant="outlined" sx={{ mt: 3, p: 2 }}>
                     <Box sx={{ fontFamily: "monospace", textAlign: "left", whiteSpace: "pre-wrap" }}>
-                        {fetcher.data || "Invalid input!"}
+                        {fetcher.data}
                     </Box>
                 </Paper>
             )}
