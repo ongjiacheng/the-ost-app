@@ -26,14 +26,11 @@ export default function Infobar() {
     const [service, setService] = useState("");
     const [direction, setDirection] = useState("1");
     const [channel, setChannel] = useState("TE");
-    const [error, setError] = useState(false);
 
     function requestInfobar() {
         const match = service.match(/^(\d+)([a-zA-Z]*)$/);
-        if (!match) return setError(true);
-
-        const [, serviceNo, serviceSuffix] = match;
-        setError(false);
+        const serviceNo = match?.at(1) ?? "";
+        const serviceSuffix = match?.at(2) ?? "";
         const params = new URLSearchParams({
             ServiceNo: serviceNo,
             ServiceSuffix: serviceSuffix,
@@ -71,7 +68,7 @@ export default function Infobar() {
             <Button variant="contained" onClick={requestInfobar} disabled={fetcher.state !== "idle"} sx={{ mt: 2 }}>
                 {fetcher.state === "idle" ? "Generate infobar" : "Loading..."}
             </Button>
-            {error || (fetcher.state === "idle" && fetcher.data === "") &&
+            {(fetcher.state === "idle" && fetcher.data === "") &&
                 <Typography color="error" sx={{ pt: 2 }}>
                     Enter a valid service!
                 </Typography>
