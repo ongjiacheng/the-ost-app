@@ -48,7 +48,7 @@ export default function Infobar() {
     }
 
     return (
-        <Box sx={{ maxWidth: { xs: "100%", md: "80%" }, mx: "auto", py: 2 }}>
+        <Box sx={{ maxWidth: "80%", mx: "auto", py: 2 }}>
             <Typography variant="h2" sx={{ mb: 2 }}>DataCaller 6.0</Typography>
 
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
