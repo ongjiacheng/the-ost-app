@@ -65,14 +65,9 @@ export default function Infobar() {
             <Button variant="contained" onClick={requestInfobar} disabled={fetcher.state !== "idle"} sx={{ mt: 2 }}>
                 {fetcher.state === "idle" ? "Generate infobar" : "Loading..."}
             </Button>
-            {error &&
+            {error || (fetcher.state === "idle" && fetcher.data === "") &&
                 <Typography color="error" sx={{ pt: 2 }}>
                     Enter a valid service!
-                </Typography>
-            }
-            {fetcher.state === "idle" && fetcher.data === "" &&
-                <Typography color="error" sx={{ pt: 2 }}>
-                    No stops found for this service.
                 </Typography>
             }
             {fetcher.data && (
