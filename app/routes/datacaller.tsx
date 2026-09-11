@@ -1,3 +1,5 @@
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import DownloadIcon from "@mui/icons-material/Download";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
@@ -27,7 +29,7 @@ export default function Infobar() {
     const [error, setError] = useState(false);
 
     function requestInfobar() {
-        const match = service.trim().match(/^(\d+)([a-zA-Z]*)$/);
+        const match = service.match(/^(\d+)([a-zA-Z]*)$/);
         if (!match) return setError(true);
 
         const [, serviceNo, serviceSuffix] = match;
@@ -41,9 +43,13 @@ export default function Infobar() {
         fetcher.load(`/api/infobar?${params.toString()}`);
     }
 
+    function copyTxt() {
+        if (fetcher.data) navigator.clipboard.writeText(fetcher.data);
+    }
+
     return (
         <Box sx={{ maxWidth: { xs: "100%", md: "80%" }, mx: "auto", py: 2 }}>
-            <Typography variant="h2" sx={{ mb: 2 }}>Infobar Generator</Typography>
+            <Typography variant="h2" sx={{ mb: 2 }}>DataCaller 6.0</Typography>
 
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
                 <TextField label="Service" value={service} onChange={event => setService(event.target.value)} required fullWidth />
@@ -72,6 +78,13 @@ export default function Infobar() {
             }
             {fetcher.data && (
                 <Paper variant="outlined" sx={{ mt: 3, p: 2 }}>
+                    <Button startIcon={<ContentCopyIcon />} onClick={copyTxt} sx={{ m: 1 }}>
+                        Copy
+                    </Button>
+                    <Button startIcon={<DownloadIcon />} component="a"
+                        href={`data:text/plain;charset=utf-8,${encodeURIComponent(fetcher.data)}`} download={`${service}.txt`} sx={{ m: 1 }}>
+                        Download
+                    </Button>
                     <Box sx={{ fontFamily: "monospace", textAlign: "left", whiteSpace: "pre-wrap" }}>
                         {fetcher.data}
                     </Box>
