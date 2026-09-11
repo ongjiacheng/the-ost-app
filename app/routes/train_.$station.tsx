@@ -1,14 +1,16 @@
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
-import stations from "../assets/train_stations.json";
+import mrt from "../assets/mrt_stations.json";
+import lrt from "../assets/lrt_stations.json";
 
 import { lineMap } from "../types";
 import type { TrainStationType } from "../types";
 import type { Route } from "./+types/train_.$station";
 
 export async function loader({ params }: Route.LoaderArgs) {
-    const match = stations
+    const match = mrt
+        .concat(lrt)
         .flatMap(line => line.stations)
         .filter(station => station.url === params.station) as TrainStationType[];
     const master = {

@@ -8,18 +8,18 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from "react-router";
 
-import stations from "../assets/train_stations.json";
+import stations from "../assets/lrt_stations.json";
 import type { TrainStationType } from "../types";
 import { lineMap } from "../types";
 
-export default function Trains() {
+export default function LRT() {
     return (
         <Container>
-            <Typography variant="h2">Train Stations</Typography>
+            <Typography variant="h2">LRT Stations</Typography>
             {stations.map(line => (
                 <Container>
                     <Typography variant="h4">{line.line}</Typography>
-                    <TrainTable line={line.stations} />
+                    <LRTTable line={line.stations} />
                 </Container>
             ))
             }
@@ -27,7 +27,7 @@ export default function Trains() {
     )
 }
 
-function TrainTable(props: { line: TrainStationType[] }) {
+function LRTTable(props: { line: TrainStationType[] }) {
     return (
         <Container>
             <Table>
@@ -48,7 +48,7 @@ function TrainTable(props: { line: TrainStationType[] }) {
                                 </Typography>
                             </TableCell>
                             <TableCell>
-                                <Link component={RouterLink} to={`${station.url}`} color="primary.light" underline="hover">
+                                <Link component={RouterLink} to={`../train/${station.url}`} color="primary.light" underline="hover">
                                     {station.english} {station.malay && `\n(${station.malay})`}
                                 </Link>
                             </TableCell>

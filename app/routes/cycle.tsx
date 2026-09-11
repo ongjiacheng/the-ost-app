@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 import { Firestore } from "@google-cloud/firestore";
-import type { Route } from "./+types/am";
+import type { Route } from "./+types/cycle";
 
 import { useState } from "react";
 
@@ -29,13 +29,7 @@ export async function loader() {
         ...doc.data() as VideoType
     }));
 
-    const walkingToursQuery = await db.collection("walking_tours").orderBy("position").get();
-    const walkingTours: VideoType[] = walkingToursQuery.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data() as VideoType
-    }));
-
-    return { bikethrough, cyclingTours, walkingTours };
+    return { bikethrough, cyclingTours };
 }
 
 function Video({ video }: { video: VideoType }) {
@@ -63,15 +57,15 @@ function Video({ video }: { video: VideoType }) {
     )
 }
 
-export default function ActiveMobility({
-    loaderData: { bikethrough, cyclingTours, walkingTours }
+export default function Cycle({
+    loaderData: { bikethrough, cyclingTours }
 }: Route.ComponentProps) {
-    const videos = [bikethrough, cyclingTours, walkingTours];
-    const titles = ["Park Connectors", "Cycling Towns", "Walking Transfers"];
+    const videos = [bikethrough, cyclingTours];
+    const titles = ["Park Connectors", "Cycling Towns"];
 
     return (
         <Container>
-            <Typography variant="h2">Active Mobility</Typography>
+            <Typography variant="h2">Cycle</Typography>
             {videos.map((series, i) => (
                 <Container>
                     <Typography variant="h4">{titles[i]}</Typography>

@@ -12,9 +12,11 @@ import Toolbar from "@mui/material/Toolbar";
 
 import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
-import am from './assets/am.png';
+import walk from './assets/walk.png';
+import cycle from './assets/cycle.png';
+import mrt from './assets/mrt.png';
 import bus from './assets/bus.png';
-import train from './assets/train.png';
+import lrt from './assets/lrt.png';
 import logo from './assets/ost_logo.png';
 
 import '@fontsource/inter/300.css';
@@ -79,18 +81,24 @@ function Header() {
             <Toolbar sx={{ bgcolor: "primary.dark" }}>
                 <Container sx={{ px: { xs: 1, sm: 2 }, py: 0 }}>
                     <Box component="header" sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <IconButton component={Link} to="/" aria-label="Home">
+                        <IconButton component={Link} to="/" aria-label="Home" sx={{ borderRadius: "10%" }}>
                             <Box component="img" src={logo} alt="OST Logo" sx={{ width: 120, height: 32 }} />
                         </IconButton>
                         <Box>
-                            <IconButton component={Link} to="/am" aria-label="Active Mobility">
-                                <Box component="img" src={am} alt="Active Mobility" sx={{ width: 36, height: 36 }} />
+                            <IconButton component={Link} to="/walk" aria-label="Walk">
+                                <Box component="img" src={walk} alt="Walk" sx={{ width: 36, height: 36 }} />
                             </IconButton>
-                            <IconButton component={Link} to="/train" aria-label="Train">
-                                <Box component="img" src={train} alt="Train" sx={{ width: 36, height: 36 }} />
+                            <IconButton component={Link} to="/cycle" aria-label="Cycle">
+                                <Box component="img" src={cycle} alt="Cycle" sx={{ width: 36, height: 36 }} />
+                            </IconButton>
+                            <IconButton component={Link} to="/train/mrt" aria-label="MRT">
+                                <Box component="img" src={mrt} alt="MRT" sx={{ width: 36, height: 36 }} />
                             </IconButton>
                             <IconButton component={Link} to="/bus" aria-label="Bus">
                                 <Box component="img" src={bus} alt="Bus" sx={{ width: 36, height: 36 }} />
+                            </IconButton>
+                            <IconButton component={Link} to="/train/lrt" aria-label="LRT">
+                                <Box component="img" src={lrt} alt="LRT" sx={{ width: 36, height: 36 }} />
                             </IconButton>
                         </Box>
                     </Box>
