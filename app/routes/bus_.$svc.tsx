@@ -169,6 +169,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
         <Container>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
                 {hyperlapses.map(hyperlapse => {
+                    const date = new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric'});
                     const selected = play?.id === hyperlapse.videoId;
                     const src = `https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0${selected ? `&autoplay=1&start=${play.start}` : ""}`;
                     return (
@@ -181,7 +182,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
                                 sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
                             />
                             <CardContent>
-                                Uploaded by {hyperlapse.channelTitle} on {hyperlapse.publishedAt.slice(0, 10)}
+                                Uploaded by {hyperlapse.channelTitle} on {date}
                             </CardContent>
                         </Card>
                     );
@@ -445,7 +446,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
                 <TableRow>
                     <TableCell align="center">Next Bus Timing</TableCell>
                     {timings.map(timing => (
-                        timing.EstimatedArrival && <TableCell align="center">{timing.EstimatedArrival.slice(11, 19)}</TableCell>
+                        timing.EstimatedArrival && <TableCell align="center">{new Date(timing.EstimatedArrival).toLocaleTimeString()}</TableCell>
                     ))}
                 </TableRow>
                 <TableRow>

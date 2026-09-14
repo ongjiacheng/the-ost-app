@@ -17,8 +17,8 @@ import { useState } from "react";
 const channels = [
     { value: "3449", label: "3449 Hyperlapses" },
     { value: "AT", label: "Alvetor Transport" },
-    { value: "TE", label: "Transit Evolution" },
     { value: "TMT", label: "TheMainTrain" },
+    { value: "TE", label: "Transit Evolution" }
 ] as const;
 
 export default function Infobar() {
