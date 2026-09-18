@@ -134,9 +134,9 @@ export async function loader({ request }: Route.LoaderArgs) {
     const date = searchParams.get("date");
     const time = searchParams.get("time");
     const modes = parseList(searchParams, "modes", "mode");
-    const maxWalkDistances = parseList(searchParams, "maxWalkDistances", "maxWalkDistance");
+    const maxWalkDistance = searchParams.get("maxWalkDistance");
     const selectedModes = modes.length > 0 ? modes : defaultModes;
-    const selectedMaxWalkDistances = maxWalkDistances.length > 0 ? maxWalkDistances : defaultMaxWalkDistances;
+    const selectedMaxWalkDistances = maxWalkDistance ? [maxWalkDistance] : defaultMaxWalkDistances;
     const numItineraries = searchParams.get("numItineraries") ?? "3";
 
     if (!start || !end) {
@@ -160,7 +160,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     }
 
     if (selectedMaxWalkDistances.some(distance => !/^\d+(\.\d+)?$/.test(distance))) {
-        return jsonError("maxWalkDistance values must be non-negative numbers", 400);
+        return jsonError("maxWalkDistance must be a non-negative number", 400);
     }
 
     if (!isPublicTransport) {
