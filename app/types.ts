@@ -108,7 +108,6 @@ export type TimestampsType = {
 
 export type VideoType = {
     position: number,
-    thumbnails: string,
     title: string,
     videoId: string
 }

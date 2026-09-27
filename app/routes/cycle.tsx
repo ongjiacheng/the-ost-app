@@ -47,7 +47,7 @@ function Video({ video }: { video: VideoType }) {
             ) : (
                 <CardMedia
                     component="img"
-                    image={video.thumbnails}
+                    image={`https://i.ytimg.com/vi/${video.videoId}/sddefault.jpg`}
                     alt={video.title}
                     sx={{ aspectRatio: "16 / 9", border: 0, width: "100%" }}
                     onClick={() => setPlaying(true)}
