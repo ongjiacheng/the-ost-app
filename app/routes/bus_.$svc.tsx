@@ -477,7 +477,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
 }
 
 function BusVolume({ route }: { route: BusRouteType[] }) {
-    const [period, setPeriod] = useState("202606");
+    const [period, setPeriod] = useState("202609");
     const [day, setDay] = useState(false);
     const [hour, setHour] = useState(new Date().getHours());
     const [weekday, setWeekday] = useState([0, 6].includes(new Date().getDay()) ? false : true);
@@ -527,8 +527,9 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                 <FormControl size="small">
                                     <InputLabel>Period</InputLabel>
                                     <Select value={period} label="Period" onChange={e => handleFetch(e.target.value)}>
-                                        <MenuItem value="202603">March 2026</MenuItem>
-                                        <MenuItem value="202606">June 2026</MenuItem>
+                                        <MenuItem value="202603">Mar 2026</MenuItem>
+                                        <MenuItem value="202606">Jun 2026</MenuItem>
+                                        <MenuItem value="202609">Sep 2026</MenuItem>
                                     </Select>
                                 </FormControl>
                                 <FormControlLabel
@@ -626,7 +627,7 @@ export default function Bus({
             <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
             <BusInfo service={service} />
             <BusJourney route={route} timestamps={timestamps} hyperlapses={hyperlapses} />
-            <BusVolume route={route} />
+            <BusVolume key={master.service} route={route} />
         </Container>
     );
 }
