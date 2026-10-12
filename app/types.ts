@@ -60,6 +60,29 @@ export type BusRouteType = {
     WD_LastBus: string
 };
 
+export type BusType = {
+    AltSvcNo: number[],
+    AltSvcSuffix: string[],
+    BusStopCode: string,
+    BusStopName: string,
+    Direction: number,
+    Distance: number,
+    Operator: string,
+    RoadName: string,
+    SAT_FirstBus: string,
+    SAT_LastBus: string,
+    SUN_FirstBus: string,
+    SUN_LastBus: string,
+    ServiceNo: number,
+    ServiceSuffix: string,
+    StnCode: string[],
+    StnExit: string[],
+    StnName: string[],
+    StopSequence: number,
+    WD_FirstBus: string,
+    WD_LastBus: string
+}
+
 export type BusServiceType = {
     AM_Offpeak_Freq: string,
     AM_Peak_Freq: string,

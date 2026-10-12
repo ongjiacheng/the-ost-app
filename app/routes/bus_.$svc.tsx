@@ -38,8 +38,8 @@ import { Link as RouterLink } from "react-router";
 //import 'maplibre-gl/dist/maplibre-gl.css';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { AltRouteType, BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
-import { categoryMap, lineMap, occupancyMap, operatorMap, roadNamesMap, stationsMap, typeMap } from "../types";
+import type { BusArrivalType, BusServiceType, BusType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
+import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
 
 const db = new Firestore({
     projectId: "the-ost-app",
@@ -56,18 +56,13 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         serviceNo = Number(params.svc);
     }
 
-    const routeParams = new URLSearchParams({
-        ServiceNo: String(serviceNo),
-        ServiceSuffix: serviceSuffix
-    })
-    const routeUrl = new URL(`/api/bus-routes?${routeParams}`, request.url);
-    const route = await fetch(routeUrl).then(response => response.json()) as BusRouteType[];
+    const routeParams = new URLSearchParams({ ServiceNo: params.svc })
+    const route = await fetch(new URL(`/api/bus?${routeParams}`, request.url))
+        .then(response => response.json()) as BusType[];
 
-    const serviceParams = new URLSearchParams({
-        ServiceNo: `${serviceNo}${serviceSuffix}`
-    });
-    const serviceUrl = new URL(`/api/bus-services?${serviceParams}`, request.url);
-    const service = await fetch(serviceUrl).then(response => response.json()) as BusServiceType[];
+    const serviceParams = new URLSearchParams({ ServiceNo: params.svc });
+    const service = await fetch(new URL(`/api/bus-services?${serviceParams}`, request.url))
+        .then(response => response.json()) as BusServiceType[];
 
     const hyperlapseQuery = await db.collection("hyperlapse")
         .where("ServiceNo", "==", serviceNo)
@@ -169,7 +164,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
         <Container>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
                 {hyperlapses.map(hyperlapse => {
-                    const date = new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric'});
+                    const date = new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
                     const selected = play?.id === hyperlapse.videoId;
                     const src = `https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0${selected ? `&autoplay=1&start=${play.start}` : ""}`;
                     return (
@@ -192,7 +187,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
     );
 }
 
-function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[], timestamps: TimestampsType[], hyperlapses: HyperlapseType[] }) {
+function BusJourney({ route, timestamps, hyperlapses }: { route: BusType[], timestamps: TimestampsType[], hyperlapses: HyperlapseType[] }) {
     const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
 
     const directions = useMemo(() => {
@@ -224,7 +219,7 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[],
                                 </TableRow>
                                 <TableRow>
                                     <TableCell></TableCell>
-                                    <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" }}}>#</TableCell>
+                                    <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
                                     <TableCell align="center">km</TableCell>
                                     <TableCell align="center">Code</TableCell>
                                     <TableCell align="left" colSpan={2}>Name</TableCell>
@@ -260,45 +255,25 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[],
     );
 }
 
-function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRouteType, previousStop: BusRouteType, play: () => void }) {
+function BusSequence({ currentStop, previousStop, play }: { currentStop: BusType, previousStop: BusType, play: () => void }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
-    const [altRoutes, setAltRoutes] = useState<AltRouteType[] | null>(null);
 
     useEffect(() => {
         if (!open) return;
-
         async function fetchStopData() {
             setLoading(true);
             const arrivalParams = new URLSearchParams({
                 BusStopCode: currentStop.BusStopCode,
                 ServiceNo: `${currentStop.ServiceNo}${currentStop.ServiceSuffix}`
             });
-            const altRoutesParams = new URLSearchParams({
-                BusStopCode: currentStop.BusStopCode
-            });
-
-            if (!altRoutes) {
-                const [arrivalResponse, altRoutesResponse] = await Promise.all([
-                    fetch(`/api/bus-arrival?${arrivalParams}`),
-                    fetch(`/api/bus-alt-routes?${altRoutesParams}`)
-                ]);
-                const [arrivalData, altRoutesData] = await Promise.all([
-                    arrivalResponse.json() as Promise<BusArrivalType>,
-                    altRoutesResponse.json() as Promise<AltRouteType[]>
-                ]);
-                setArrival(arrivalData);
-                setAltRoutes(altRoutesData);
-            } else {
-                const arrivalResponse = await fetch(`/api/bus-arrival?${arrivalParams}`);
-                const arrivalData = await arrivalResponse.json();
-                setArrival(arrivalData);
-            }
+            const arrival = await fetch(`/api/bus-arrival?${arrivalParams}`).then(response => response.json());
+            setArrival(arrival);
             setLoading(false);
         }
         fetchStopData();
-    }, [open, currentStop, altRoutes]);
+    }, [open, currentStop]);
 
     function handleDropdown() {
         setOpen(prev => !prev);
@@ -308,11 +283,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
         {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
             <TableRow>
                 <TableCell align="center" colSpan={7}>
-                    <Typography variant="body1">
-                        {currentStop.RoadName.split(" ").map(word =>
-                            roadNamesMap[word] ? roadNamesMap[word] : word
-                        ).join(" ")}
-                    </Typography>
+                    <Typography variant="body1">{currentStop.RoadName}</Typography>
                 </TableCell>
             </TableRow>}
         <TableRow>
@@ -324,19 +295,19 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
                     <PlayCircleIcon />
                 </IconButton>
             </TableCell>
-            <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" }}}>{currentStop.StopSequence}</TableCell>
+            <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>{currentStop.StopSequence}</TableCell>
             <TableCell align="center">{currentStop.Distance.toFixed(1)}</TableCell>
             <TableCell align="center">{currentStop.BusStopCode}</TableCell>
             <TableCell align="left" colSpan={2}>{currentStop.BusStopName}</TableCell>
             <TableCell align="left">
-                {stationsMap[currentStop.BusStopCode]?.map(([codes, name], i, a) => (
+                {currentStop.StnCode?.map((codes, i, a) => (
                     <Box key={i}>
                         {codes.split(" ").map((code, j) =>
                             <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
                                 {code}{" "}
                             </Typography>
                         )}
-                        {`${name}`}
+                        {`${currentStop.StnName[i]}`}
                         {i < a.length - 1 && "\n"}
                     </Box>
                 ))}
@@ -346,7 +317,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open && !loading}>
                     <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
-                        {altRoutes && <BusAltRoutes altRoutes={altRoutes} stop={currentStop} />}
+                        <BusAltRoutes stop={currentStop} />
                         <BusFirstLast stop={currentStop} />
                         {arrival?.Services[0] && <BusArrival arrival={arrival} />}
                     </Container>
@@ -356,53 +327,53 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
     </>);
 }
 
-function BusAltRoutes({ altRoutes, stop }: { altRoutes: AltRouteType[], stop: BusRouteType }) {
+function BusAltRoutes({ stop }: { stop: BusType }) {
     return (
         <Table>
             <TableBody>
-                {stationsMap[stop.BusStopCode] && <TableRow>
+                {stop.StnCode.length > 0 && <TableRow>
                     <TableCell align="center">
                         <Typography variant="body1">Nearby Stations</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        {stationsMap[stop.BusStopCode]?.map(([codes, name, exit], i, a) => (
+                        {stop.StnCode?.map((codes, i, a) => (
                             <Box key={i}>
                                 {codes.split(" ").map((code, j) =>
                                     <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
                                         {code}{" "}
                                     </Typography>
                                 )}
-                                {`${name} Exit ${exit}`}
+                                {`${stop.StnName[i]} Exit ${stop.StnExit[i]}`}
                                 {i < a.length - 1 && "\n"}
                             </Box>
                         ))}
                     </TableCell>
                 </TableRow>}
-                {altRoutes.length > 0 && <TableRow>
+                {stop.AltSvcNo.length > 0 && <TableRow>
                     <TableCell align="center">
                         <Typography variant="body1">Bus Services</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        {altRoutes.filter((route, i, arr) =>
-                            i === 0 || route.ServiceNo !== arr[i - 1].ServiceNo || route.ServiceSuffix !== arr[i - 1].ServiceSuffix
-                        ).flatMap((route, i, arr) =>
+                        {stop.AltSvcNo.filter((svc, i, arr) =>
+                            i === 0 || svc !== arr[i - 1] || stop.AltSvcSuffix[i] !== stop.AltSvcSuffix[i - 1]
+                        ).flatMap((svc, i, arr) =>
                             i === 0
                                 ? [
-                                    <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
-                                        {`${route.ServiceNo}${route.ServiceSuffix}`}
+                                    <Link component={RouterLink} to={`/bus/${svc}${stop.AltSvcSuffix[i]}`} color="primary.light" underline="hover">
+                                        {`${svc}${stop.AltSvcSuffix[i]}`}
                                     </Link>
                                 ]
-                                : route.ServiceNo === arr[i - 1].ServiceNo && route.ServiceSuffix !== arr[i - 1].ServiceSuffix
+                                : svc === arr[i - 1] && stop.AltSvcSuffix[i] !== stop.AltSvcSuffix[i - 1]
                                     ? [
                                         "/",
-                                        <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
-                                            {route.ServiceSuffix}
+                                        <Link component={RouterLink} to={`/bus/${svc}${stop.AltSvcSuffix[i]}`} color="primary.light" underline="hover">
+                                            {stop.AltSvcSuffix[i]}
                                         </Link>
                                     ]
                                     : [
                                         " ",
-                                        <Link component={RouterLink} to={`/bus/${route.ServiceNo}${route.ServiceSuffix}`} color="primary.light" underline="hover">
-                                            {`${route.ServiceNo}${route.ServiceSuffix}`}
+                                        <Link component={RouterLink} to={`/bus/${svc}${stop.AltSvcSuffix[i]}`} color="primary.light" underline="hover">
+                                            {`${svc}${stop.AltSvcSuffix[i]}`}
                                         </Link>
                                     ]
                         )}
@@ -413,7 +384,7 @@ function BusAltRoutes({ altRoutes, stop }: { altRoutes: AltRouteType[], stop: Bu
     );
 }
 
-function BusFirstLast({ stop }: { stop: BusRouteType }) {
+function BusFirstLast({ stop }: { stop: BusType }) {
     return (
         <Table>
             <TableBody>
@@ -476,7 +447,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
     ))
 }
 
-function BusVolume({ route }: { route: BusRouteType[] }) {
+function BusVolume({ route }: { route: BusType[] }) {
     const [period, setPeriod] = useState("202609");
     const [day, setDay] = useState(false);
     const [hour, setHour] = useState(new Date().getHours());
