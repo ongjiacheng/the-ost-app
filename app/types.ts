@@ -51,11 +51,11 @@ export type BusRouteType = {
     RoadName: string,
     SAT_FirstBus: string,
     SAT_LastBus: string,
+    SUN_FirstBus: string,
+    SUN_LastBus: string,
     ServiceNo: number,
     ServiceSuffix: string,
     StopSequence: number,
-    SUN_FirstBus: string,
-    SUN_LastBus: string,
     WD_FirstBus: string,
     WD_LastBus: string
 };

@@ -1,7 +1,7 @@
 import { Firestore } from "@google-cloud/firestore";
 import { field } from "@google-cloud/firestore/pipelines";
 
-import type { Route } from "./+types/api.train_schedule";
+import type { Route } from "./+types/api.train-trip-schedule";
 import type { TrainScheduleType } from "../types";
 
 const db = new Firestore({
