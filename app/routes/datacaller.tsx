@@ -28,12 +28,8 @@ export default function Infobar() {
     const [channel, setChannel] = useState("TE");
 
     function requestInfobar() {
-        const match = service.match(/^(\d+)([a-zA-Z]*)$/);
-        const serviceNo = match?.at(1) ?? "";
-        const serviceSuffix = match?.at(2) ?? "";
         const params = new URLSearchParams({
-            ServiceNo: serviceNo,
-            ServiceSuffix: serviceSuffix,
+            ServiceNo: service,
             Direction: direction,
             Channel: channel,
         });
@@ -46,8 +42,8 @@ export default function Infobar() {
 
     return (
         <Box sx={{ maxWidth: "80%", mx: "auto", py: 2 }}>
-            <Typography variant="h2" sx={{ mb: 2 }}>DataCaller 6.0</Typography>
-
+            <Typography variant="h2">DataCaller 6.1</Typography>
+            <Typography sx={{ mb: 2 }}>13 Oct 2026: Completed migration from Google Cloud Firestore to Google Cloud Storage.</Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
                 <TextField label="Service" value={service} onChange={event => setService(event.target.value)} required fullWidth />
                 <FormControl fullWidth>

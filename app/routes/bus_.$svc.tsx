@@ -38,7 +38,7 @@ import { Link as RouterLink } from "react-router";
 //import 'maplibre-gl/dist/maplibre-gl.css';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { BusArrivalType, BusServiceType, BusType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
+import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
 
 const db = new Firestore({
@@ -57,11 +57,11 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     }
 
     const routeParams = new URLSearchParams({ ServiceNo: params.svc })
-    const route = await fetch(new URL(`/api/bus?${routeParams}`, request.url))
-        .then(response => response.json()) as BusType[];
+    const route = await fetch(new URL(`/api/bus-route?${routeParams}`, request.url))
+        .then(response => response.json()) as BusRouteType[];
 
     const serviceParams = new URLSearchParams({ ServiceNo: params.svc });
-    const service = await fetch(new URL(`/api/bus-services?${serviceParams}`, request.url))
+    const service = await fetch(new URL(`/api/bus-service?${serviceParams}`, request.url))
         .then(response => response.json()) as BusServiceType[];
 
     const hyperlapseQuery = await db.collection("hyperlapse")
@@ -187,7 +187,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
     );
 }
 
-function BusJourney({ route, timestamps, hyperlapses }: { route: BusType[], timestamps: TimestampsType[], hyperlapses: HyperlapseType[] }) {
+function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[], timestamps: TimestampsType[], hyperlapses: HyperlapseType[] }) {
     const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
 
     const directions = useMemo(() => {
@@ -255,7 +255,7 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusType[], time
     );
 }
 
-function BusSequence({ currentStop, previousStop, play }: { currentStop: BusType, previousStop: BusType, play: () => void }) {
+function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRouteType, previousStop: BusRouteType, play: () => void }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
@@ -327,7 +327,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusType
     </>);
 }
 
-function BusAltRoutes({ stop }: { stop: BusType }) {
+function BusAltRoutes({ stop }: { stop: BusRouteType }) {
     return (
         <Table>
             <TableBody>
@@ -384,7 +384,7 @@ function BusAltRoutes({ stop }: { stop: BusType }) {
     );
 }
 
-function BusFirstLast({ stop }: { stop: BusType }) {
+function BusFirstLast({ stop }: { stop: BusRouteType }) {
     return (
         <Table>
             <TableBody>
@@ -447,7 +447,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
     ))
 }
 
-function BusVolume({ route }: { route: BusType[] }) {
+function BusVolume({ route }: { route: BusRouteType[] }) {
     const [period, setPeriod] = useState("202609");
     const [day, setDay] = useState(false);
     const [hour, setHour] = useState(new Date().getHours());

@@ -28,39 +28,8 @@ export type BusMasterType = {
     direction: number
 };
 
-export type AltRouteType = {
-    ServiceNo: number,
-    ServiceSuffix: string
-};
-
-export type InfobarType = {
-    AltRoutes: string,
-    BusStopCode: string,
-    BusStopName: string,
-    Distance: number,
-    RoadName: string,
-    Stations: string[][],
-};
-
 export type BusRouteType = {
-    BusStopCode: string,
-    BusStopName: string,
-    Direction: number,
-    Distance: number,
-    Operator: string,
-    RoadName: string,
-    SAT_FirstBus: string,
-    SAT_LastBus: string,
-    SUN_FirstBus: string,
-    SUN_LastBus: string,
-    ServiceNo: number,
-    ServiceSuffix: string,
-    StopSequence: number,
-    WD_FirstBus: string,
-    WD_LastBus: string
-};
-
-export type BusType = {
+    AltSvc: string | null;
     AltSvcNo: number[],
     AltSvcSuffix: string[],
     BusStopCode: string,
