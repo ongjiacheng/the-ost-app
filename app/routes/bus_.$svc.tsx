@@ -1,5 +1,3 @@
-import { Firestore } from "@google-cloud/firestore";
-
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -38,49 +36,17 @@ import { Link as RouterLink } from "react-router";
 //import 'maplibre-gl/dist/maplibre-gl.css';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, TimestampsType, BusMasterType, volumeMap } from "../types";
+import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
 
-const db = new Firestore({
-    projectId: "the-ost-app",
-    databaseId: "the-ost-app"
-});
-
 export async function loader({ params, request }: Route.LoaderArgs) {
-    let serviceNo: number, serviceSuffix: string;
-    if (/[^0-9]/.test(params.svc)) {
-        serviceSuffix = String(params.svc.at(-1));
-        serviceNo = Number(params.svc.slice(0, -1));
-    } else {
-        serviceSuffix = "";
-        serviceNo = Number(params.svc);
-    }
-
-    const routeParams = new URLSearchParams({ ServiceNo: params.svc })
-    const route = await fetch(new URL(`/api/bus-route?${routeParams}`, request.url))
+    const busParams = new URLSearchParams({ ServiceNo: params.svc })
+    const route = await fetch(new URL(`/api/bus-route?${busParams}`, request.url))
         .then(response => response.json()) as BusRouteType[];
-
-    const serviceParams = new URLSearchParams({ ServiceNo: params.svc });
-    const service = await fetch(new URL(`/api/bus-service?${serviceParams}`, request.url))
+    const service = await fetch(new URL(`/api/bus-service?${busParams}`, request.url))
         .then(response => response.json()) as BusServiceType[];
-
-    const hyperlapseQuery = await db.collection("hyperlapse")
-        .where("ServiceNo", "==", serviceNo)
-        .where("ServiceSuffix", "==", serviceSuffix)
-        .orderBy("Direction").get();
-    const hyperlapses = hyperlapseQuery.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data() as HyperlapseType
-    }));
-
-    const timestampsQuery = await db.collection("timestamps")
-        .where("ServiceNo", "==", serviceNo)
-        .where("ServiceSuffix", "==", serviceSuffix)
-        .orderBy("Direction").get();
-    const timestamps = timestampsQuery.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data() as TimestampsType
-    }));
+    const hyperlapses = await fetch(new URL(`/api/hyperlapse?${busParams}`, request.url))
+        .then(response => response.json()) as HyperlapseType[];
 
     const master: BusMasterType = {
         operator: operatorMap[service.at(0)!.Operator],
@@ -91,7 +57,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         direction: service.at(0)!.Direction
     }
 
-    return { master, route, service, hyperlapses, timestamps };
+    return { master, route, service, hyperlapses };
 }
 
 function BusInfo({ service }: { service: BusServiceType[] }) {
@@ -187,7 +153,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
     );
 }
 
-function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[], timestamps: TimestampsType[], hyperlapses: HyperlapseType[] }) {
+function BusJourney({ route, hyperlapses }: { route: BusRouteType[], hyperlapses: HyperlapseType[] }) {
     const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
 
     const directions = useMemo(() => {
@@ -228,7 +194,7 @@ function BusJourney({ route, timestamps, hyperlapses }: { route: BusRouteType[],
                             </TableHead>
                             <TableBody>
                                 {direction.map((stop, index) => {
-                                    const start = timestamps.find(t =>
+                                    const start = hyperlapses.find(t =>
                                         t.Direction === stop.Direction
                                     )?.Timestamps.find(s =>
                                         s.code === stop.BusStopCode
@@ -591,13 +557,13 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 }
 
 export default function Bus({
-    loaderData: { master, route, service, hyperlapses, timestamps }
+    loaderData: { master, route, service, hyperlapses }
 }: Route.ComponentProps) {
     return (
         <Container>
             <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
             <BusInfo service={service} />
-            <BusJourney route={route} timestamps={timestamps} hyperlapses={hyperlapses} />
+            <BusJourney route={route} hyperlapses={hyperlapses} />
             <BusVolume key={master.service} route={route} />
         </Container>
     );

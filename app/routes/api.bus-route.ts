@@ -1,5 +1,5 @@
 import type { BusRouteType } from "../types";
-import type { Route } from "./+types/api.bus";
+import type { Route } from "./+types/api.bus-route";
 
 export async function loader({ request }: Route.LoaderArgs) {
     const serviceNo = new URL(request.url).searchParams.get("ServiceNo");

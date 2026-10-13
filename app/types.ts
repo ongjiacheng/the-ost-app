@@ -79,19 +79,12 @@ export type BusVolumeType = {
 
 export type HyperlapseType = {
     Direction: number,
-    ServiceNo: number,
-    ServiceSuffix: string,
+    ServiceNo: string,
     channelTitle: string,
     position: string,
     publishedAt: string,
     title: string,
-    videoId: string
-};
-
-export type TimestampsType = {
-    Direction: number,
-    ServiceNo: number,
-    ServiceSuffix: string,
+    videoId: string,
     Timestamps: {
         code: string,
         time: number[]
@@ -120,9 +113,6 @@ export type TrainStationType = {
     url: string
 }
 
-import roadNames from "./assets/road_names.json";
-import stations from "./assets/nearby_stations.json";
-
 export const categoryMap: Record<string, string> = {
     "CITY_LINK": "City Direct",
     "EXPRESS": "Express",
@@ -150,8 +140,6 @@ export const typeMap: Record<string, string> = {
     "BD": "Bendy"
 };
 
-export const roadNamesMap: Record<string, string> = roadNames;
-export const stationsMap: Record<string, string[][]> = stations;
 export type volumeMap = Record<string, Record<string, { wd: number[]; we: number[] }>>;
 
 export const lineMap: Record<string, string> = {
