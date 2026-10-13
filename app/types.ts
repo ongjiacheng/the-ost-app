@@ -92,7 +92,9 @@ export type HyperlapseType = {
 };
 
 export type VideoType = {
+    channelTitle: string,
     position: number,
+    publishedAt: string,
     title: string,
     videoId: string
 }

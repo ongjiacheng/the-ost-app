@@ -4,31 +4,15 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-import { Firestore } from "@google-cloud/firestore";
 import type { Route } from "./+types/cycle";
-
 import { useState } from "react";
-
 import type { VideoType } from "../types";
 
-const db = new Firestore({
-    projectId: "the-ost-app",
-    databaseId: "the-ost-app"
-});
-
 export async function loader() {
-    const bikethroughQuery = await db.collection("bikethrough").orderBy("position").get();
-    const bikethrough: VideoType[] = bikethroughQuery.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data() as VideoType
-    }));
-
-    const cyclingToursQuery = await db.collection("cycling_tours").orderBy("position").get();
-    const cyclingTours: VideoType[] = cyclingToursQuery.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data() as VideoType
-    }));
-
+    const bikethrough = await fetch("https://storage.googleapis.com/the-ost-app/bikethrough.json")
+        .then(response => response.json()) as VideoType[];
+    const cyclingTours = await fetch("https://storage.googleapis.com/the-ost-app/cycling_tours.json")
+        .then(response => response.json()) as VideoType[];
     return { bikethrough, cyclingTours };
 }
 
