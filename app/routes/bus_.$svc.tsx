@@ -32,8 +32,10 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
-//import { Map } from 'maplibre-gl';
-//import 'maplibre-gl/dist/maplibre-gl.css';
+import type { FeatureCollection, LineString } from 'geojson';
+import { Map, setWorkerUrl } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
 import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, volumeMap } from "../types";
@@ -47,6 +49,8 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         .then(response => response.json()) as BusServiceType[];
     const hyperlapses = await fetch(new URL(`/api/hyperlapse?${busParams}`, request.url))
         .then(response => response.json()) as HyperlapseType[];
+    const map = await fetch(new URL(`/api/bus-map?${busParams}`, request.url))
+        .then(response => response.json()) as FeatureCollection<LineString>;
 
     const master: BusMasterType = {
         operator: operatorMap[service.at(0)!.Operator],
@@ -57,7 +61,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         direction: service.at(0)!.Direction
     }
 
-    return { master, route, service, hyperlapses };
+    return { master, route, service, hyperlapses, map };
 }
 
 function BusInfo({ service }: { service: BusServiceType[] }) {
@@ -116,6 +120,33 @@ function BusInfo({ service }: { service: BusServiceType[] }) {
     );
 }
 
+setWorkerUrl(workerUrl);
+function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>, route: BusRouteType[] }) {
+    const container = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const map = new Map({
+            container: container.current!,
+            style: "https://tiles.openfreemap.org/styles/dark",
+            center: [103.8198, 1.3521],
+            zoom: 10.5
+        });
+
+        map.on("load", () => {
+            map.addSource("route", { type: "geojson", data: collection });
+            map.addLayer({ id: "route", type: "line", source: "route", paint: { "line-color": "#96D600", "line-width": 4 } });
+            const features = route.map(stop => ({ type: "Feature" as const, properties: {}, geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] } }));
+            map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
+            map.addLayer({ id: "stops", type: "circle", source: "stops", paint: { "circle-color": "#96D600", "circle-radius": 8 } });
+            const [longs, lats] = [0, 1].map(i => collection.features.flatMap(f => f.geometry.coordinates.map(c => c[i])));
+            map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
+        });
+        return () => map.remove();
+    }, [collection, route]);
+
+    return <Paper ref={container} sx={{ height: "50vh", overflow: "hidden" }} />;
+}
+
 function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], play: { id: string, start: number } | null }) {
     const iframeRefs = useRef<Record<string, HTMLIFrameElement | null>>({});
 
@@ -153,7 +184,7 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
     );
 }
 
-function BusJourney({ route, hyperlapses }: { route: BusRouteType[], hyperlapses: HyperlapseType[] }) {
+function BusJourney({ route, hyperlapses, map }: { route: BusRouteType[], hyperlapses: HyperlapseType[], map: FeatureCollection<LineString> }) {
     const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
 
     const directions = useMemo(() => {
@@ -171,6 +202,7 @@ function BusJourney({ route, hyperlapses }: { route: BusRouteType[], hyperlapses
     return (
         <Container>
             <BusHyperlapses hyperlapses={hyperlapses} play={timecode} />
+            <BusMap map={map} route={route} />
             <Stack direction={{ xs: "column", lg: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
                 {directions.map((direction, _, arr) => {
                     return (
@@ -557,13 +589,13 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 }
 
 export default function Bus({
-    loaderData: { master, route, service, hyperlapses }
+    loaderData: { master, route, service, hyperlapses, map }
 }: Route.ComponentProps) {
     return (
         <Container>
             <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
             <BusInfo service={service} />
-            <BusJourney route={route} hyperlapses={hyperlapses} />
+            <BusJourney route={route} hyperlapses={hyperlapses} map={map} />
             <BusVolume key={master.service} route={route} />
         </Container>
     );

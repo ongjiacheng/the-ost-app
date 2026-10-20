@@ -36,6 +36,8 @@ export type BusRouteType = {
     BusStopName: string,
     Direction: number,
     Distance: number,
+    Latitude: number,
+    Longitude: number,
     Operator: string,
     RoadName: string,
     SAT_FirstBus: string,
