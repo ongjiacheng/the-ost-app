@@ -137,14 +137,18 @@ function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>
             map.addLayer({ id: "route", type: "line", source: "route", paint: { "line-color": "#96D600", "line-width": 4 } });
             const features = route.map(stop => ({ type: "Feature" as const, properties: {}, geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] } }));
             map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
-            map.addLayer({ id: "stops", type: "circle", source: "stops", paint: { "circle-color": "#96D600", "circle-radius": 8 } });
+            map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 12, paint: { "circle-color": "#96D600", "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 0, 18, 10] } });
             const [longs, lats] = [0, 1].map(i => collection.features.flatMap(f => f.geometry.coordinates.map(c => c[i])));
             map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
         });
         return () => map.remove();
     }, [collection, route]);
 
-    return <Paper ref={container} sx={{ height: "50vh", overflow: "hidden" }} />;
+    return (
+        <Container>
+            <Paper ref={container} sx={{ height: "50vh", overflow: "hidden" }} />
+        </Container>
+    );
 }
 
 function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], play: { id: string, start: number } | null }) {
@@ -201,8 +205,8 @@ function BusJourney({ route, hyperlapses, map }: { route: BusRouteType[], hyperl
 
     return (
         <Container>
-            <BusHyperlapses hyperlapses={hyperlapses} play={timecode} />
             <BusMap map={map} route={route} />
+            <BusHyperlapses hyperlapses={hyperlapses} play={timecode} />
             <Stack direction={{ xs: "column", lg: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
                 {directions.map((direction, _, arr) => {
                     return (
@@ -593,9 +597,11 @@ export default function Bus({
 }: Route.ComponentProps) {
     return (
         <Container>
-            <Typography variant="h3">{master.operator} {master.category} Service {master.service}</Typography>
-            <BusInfo service={service} />
+            <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
+                {master.operator} {master.category} Service {master.service}
+            </Typography>
             <BusJourney route={route} hyperlapses={hyperlapses} map={map} />
+            <BusInfo service={service} />
             <BusVolume key={master.service} route={route} />
         </Container>
     );
