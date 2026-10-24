@@ -9,7 +9,9 @@ export async function loader({ request }: Route.LoaderArgs) {
     let infobars = await fetch(
         `https://storage.googleapis.com/the-ost-app/bus/${serviceNo}.json`,
         { headers: { accept: "application/json" } }
-    ).then(response => response.json()) as BusRouteType[];
+    ).then(response => response.ok ? response.json() : null) as BusRouteType[] | null;
+    if (!infobars) return "";
+
     infobars = infobars.filter(i =>
         i.Direction === direction
     );

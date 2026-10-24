@@ -55,7 +55,7 @@ export default function Infobar() {
 
     return (
         <Box sx={{ maxWidth: "80%", mx: "auto", py: 2 }}>
-            <Typography variant="h2">DataCaller 6.1.1</Typography>
+            <Typography variant="h2">DataCaller 6.2</Typography>
             <Typography sx={{ mb: 2 }}>24 Oct 2026: Add functionality to update Datamall data online.</Typography>
             <Typography sx={{ mb: 2 }}>Last updated: {updated ? new Date(updated).toLocaleString() : "Unknown"}</Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
