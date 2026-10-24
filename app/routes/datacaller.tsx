@@ -79,9 +79,7 @@ export default function Infobar() {
                 {fetcher.state === "idle" ? "Generate infobar" : "Loading..."}
             </Button>
             {(fetcher.state === "idle" && fetcher.data === "") &&
-                <Typography color="error" sx={{ pt: 2 }}>
-                    Enter a valid service!
-                </Typography>
+                <Typography sx={{ pt: 2 }}>Enter a valid service!</Typography>
             }
             {fetcher.data && (
                 <Paper variant="outlined" sx={{ mt: 3, p: 2 }}>
@@ -99,7 +97,7 @@ export default function Infobar() {
             )}
 
             <Stack direction="row" spacing={2} sx={{ mt: 5, alignItems: "center" }}>
-                <TextField label="Secret" type="password" size="small" value={secret} onChange={event => setSecret(event.target.value)} fullWidth />
+                <TextField label="Password" type="password" size="small" value={secret} onChange={event => setSecret(event.target.value)} fullWidth />
                 <Button variant="contained" onClick={refreshBus} disabled={refresher.state !== "idle"} sx={{ whiteSpace: "nowrap", flexShrink: 0 }}>
                     {refresher.state === "idle" ? "Refresh bus data" : "Loading..."}
                 </Button>
