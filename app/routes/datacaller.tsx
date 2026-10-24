@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import { useFetcher } from "react-router";
+import { useFetcher, useLoaderData } from "react-router";
 import { useState } from "react";
 
 const channels = [
@@ -21,11 +21,20 @@ const channels = [
     { value: "TE", label: "Transit Evolution" }
 ] as const;
 
+export async function loader() {
+    const response = await fetch(`https://storage.googleapis.com/the-ost-app/bus/updated.json`);
+    return response.ok ? await response.json() as string : null;
+}
+
 export default function Infobar() {
+    const updated = useLoaderData<typeof loader>();
     const fetcher = useFetcher<string>();
     const [service, setService] = useState("");
     const [direction, setDirection] = useState("1");
     const [channel, setChannel] = useState("TE");
+    
+    const refresher = useFetcher<string>();
+    const [secret, setSecret] = useState("");
 
     function requestInfobar() {
         const params = new URLSearchParams({
@@ -36,6 +45,10 @@ export default function Infobar() {
         fetcher.load(`/api/infobar?${params.toString()}`);
     }
 
+    function refreshBus() {
+        refresher.submit({ secret }, { method: "post", action: "/api/refresh-bus" });
+    }
+
     function copyTxt() {
         if (fetcher.data) navigator.clipboard.writeText(fetcher.data);
     }
@@ -43,17 +56,18 @@ export default function Infobar() {
     return (
         <Box sx={{ maxWidth: "80%", mx: "auto", py: 2 }}>
             <Typography variant="h2">DataCaller 6.1.1</Typography>
-            <Typography sx={{ mb: 2 }}>24 Oct 2026: Fix infobar logic for TheMainTrain.</Typography>
+            <Typography sx={{ mb: 2 }}>24 Oct 2026: Add functionality to update Datamall data online.</Typography>
+            <Typography sx={{ mb: 2 }}>Last updated: {updated ? new Date(updated).toLocaleString() : "Unknown"}</Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
-                <TextField label="Service" value={service} onChange={event => setService(event.target.value)} required fullWidth />
-                <FormControl fullWidth>
+                <TextField label="Service" size="small" value={service} onChange={event => setService(event.target.value)} required fullWidth />
+                <FormControl fullWidth size="small">
                     <InputLabel id="direction">Direction</InputLabel>
                     <Select labelId="direction" label="Direction" value={direction} onChange={event => setDirection(event.target.value)}>
                         <MenuItem value="1">Direction 1</MenuItem>
                         <MenuItem value="2">Direction 2</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl fullWidth>
+                <FormControl fullWidth size="small">
                     <InputLabel id="channel">Channel</InputLabel>
                     <Select labelId="channel" label="Channel" value={channel} onChange={event => setChannel(event.target.value as typeof channel)}>
                         {channels.map(option => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)}
@@ -83,6 +97,14 @@ export default function Infobar() {
                     </Box>
                 </Paper>
             )}
+
+            <Stack direction="row" spacing={2} sx={{ mt: 5, alignItems: "center" }}>
+                <TextField label="Secret" type="password" size="small" value={secret} onChange={event => setSecret(event.target.value)} fullWidth />
+                <Button variant="contained" onClick={refreshBus} disabled={refresher.state !== "idle"} sx={{ whiteSpace: "nowrap", flexShrink: 0 }}>
+                    {refresher.state === "idle" ? "Refresh bus data" : "Loading..."}
+                </Button>
+            </Stack>
+            <Typography sx={{ pt: 2 }}>{refresher.data}</Typography>
         </Box>
     );
 }

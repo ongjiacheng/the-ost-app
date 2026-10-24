@@ -155,3 +155,8 @@ export const lineMap: Record<string, string> = {
     "DT": "#5BB1Fa",
     "TE": "#B57C4A"
 };
+
+export type DatamallBusRouteType = Pick<BusRouteType, "BusStopCode" | "Direction" | "Distance" | "Operator" | "StopSequence"
+    | "WD_FirstBus" | "WD_LastBus" | "SAT_FirstBus" | "SAT_LastBus" | "SUN_FirstBus" | "SUN_LastBus"> & { ServiceNo: string };
+
+export type DatamallBusStopType = Pick<BusRouteType, "BusStopCode" | "Latitude" | "Longitude" | "RoadName"> & { Description: string };

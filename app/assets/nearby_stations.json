@@ -1,0 +1,3908 @@
+[
+    {
+        "BusStopCode":"01012",
+        "StnCode":"CC2",
+        "StnName":"Bras Basah",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"01059",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"01112",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"01113",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"01119",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"01139",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"01311",
+        "StnCode":"EW11",
+        "StnName":"Lavender",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"01319",
+        "StnCode":"EW11",
+        "StnName":"Lavender",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"01541",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"01611",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"01619",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"02029",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"02049",
+        "StnCode":"EW13 NS25",
+        "StnName":"City Hall",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"02049",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"02089",
+        "StnCode":"CC4 DT15",
+        "StnName":"Promenade",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"02111",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"C\/D"
+    },
+    {
+        "BusStopCode":"02119",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"C\/D"
+    },
+    {
+        "BusStopCode":"02151",
+        "StnCode":"CC3",
+        "StnName":"Esplanade",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"02161",
+        "StnCode":"CC4 DT15",
+        "StnName":"Promenade",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"02169",
+        "StnCode":"CC4 DT15",
+        "StnName":"Promenade",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"02171",
+        "StnCode":"CC4 DT15",
+        "StnName":"Promenade",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"03011",
+        "StnCode":"EW14 NS26",
+        "StnName":"Raffles Place",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"03019",
+        "StnCode":"EW14 NS26",
+        "StnName":"Raffles Place",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"03021",
+        "StnCode":"EW14 NS26",
+        "StnName":"Raffles Place",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"03021",
+        "StnCode":"DT18",
+        "StnName":"Telok Ayer",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"03031",
+        "StnCode":"EW14 NS26",
+        "StnName":"Raffles Place",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"03041",
+        "StnCode":"DT18",
+        "StnName":"Telok Ayer",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"03111",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"03129",
+        "StnCode":"TE19",
+        "StnName":"Shenton Way",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"03151",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"G"
+    },
+    {
+        "BusStopCode":"03217",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"03217",
+        "StnCode":"CC32",
+        "StnName":"Prince Edward Road",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03218",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"H"
+    },
+    {
+        "BusStopCode":"03218",
+        "StnCode":"CC32",
+        "StnName":"Prince Edward Road",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03222",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"03222",
+        "StnCode":"CC32",
+        "StnName":"Prince Edward Road",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"03223",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"03223",
+        "StnCode":"CC32",
+        "StnName":"Prince Edward Road",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03239",
+        "StnCode":"CC32",
+        "StnName":"Prince Edward Road",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03241",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"03241",
+        "StnCode":"CC32",
+        "StnName":"Prince Edward Road",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03361",
+        "StnCode":"TE22",
+        "StnName":"Gardens by the Bay",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03369",
+        "StnCode":"TE22",
+        "StnName":"Gardens by the Bay",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"03391",
+        "StnCode":"NS27 CC33 TE20",
+        "StnName":"Marina Bay",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"03391",
+        "StnCode":"DT17",
+        "StnName":"Downtown",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"03411",
+        "StnCode":"NS28",
+        "StnName":"Marina South Pier",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"03419",
+        "StnCode":"NS28",
+        "StnName":"Marina South Pier",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"03509",
+        "StnCode":"CC34 DT16",
+        "StnName":"Bayfront",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"03511",
+        "StnCode":"CC34 DT16",
+        "StnName":"Bayfront",
+        "StnExit":"D\/E"
+    },
+    {
+        "BusStopCode":"03519",
+        "StnCode":"CC34 DT16",
+        "StnName":"Bayfront",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"03529",
+        "StnCode":"DT17",
+        "StnName":"Downtown",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"03539",
+        "StnCode":"NS27 CC33 TE20",
+        "StnName":"Marina Bay",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"03541",
+        "StnCode":"TE19",
+        "StnName":"Shenton Way",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"03549",
+        "StnCode":"TE19",
+        "StnName":"Shenton Way",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"03551",
+        "StnCode":"NS27 CC33 TE20",
+        "StnName":"Marina Bay",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03559",
+        "StnCode":"NS27 CC33 TE20",
+        "StnName":"Marina Bay",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"03561",
+        "StnCode":"NS27 CC33 TE20",
+        "StnName":"Marina Bay",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"03569",
+        "StnCode":"NS27 CC33 TE20",
+        "StnName":"Marina Bay",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"03579",
+        "StnCode":"DT17",
+        "StnName":"Downtown",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"04019",
+        "StnCode":"CC2",
+        "StnName":"Bras Basah",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"04019",
+        "StnCode":"DT21",
+        "StnName":"Bencoolen",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"04029",
+        "StnCode":"DT21",
+        "StnName":"Bencoolen",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"04111",
+        "StnCode":"EW13 NS25",
+        "StnName":"City Hall",
+        "StnExit":"B\/D"
+    },
+    {
+        "BusStopCode":"04121",
+        "StnCode":"CC2",
+        "StnName":"Bras Basah",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"04151",
+        "StnCode":"EW13 NS25",
+        "StnName":"City Hall",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"04151",
+        "StnCode":"CC2",
+        "StnName":"Bras Basah",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"04167",
+        "StnCode":"EW13 NS25",
+        "StnName":"City Hall",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"04168",
+        "StnCode":"EW13 NS25",
+        "StnName":"City Hall",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"04179",
+        "StnCode":"CC2",
+        "StnName":"Bras Basah",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"04222",
+        "StnCode":"NE5",
+        "StnName":"Clarke Quay",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"04239",
+        "StnCode":"NE5",
+        "StnName":"Clarke Quay",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"04331",
+        "StnCode":"DT20",
+        "StnName":"Fort Canning",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"04339",
+        "StnCode":"DT20",
+        "StnName":"Fort Canning",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"05012",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"05013",
+        "StnCode":"NE4 DT19",
+        "StnName":"Chinatown",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"05019",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"05022",
+        "StnCode":"NE4 DT19",
+        "StnName":"Chinatown",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"05049",
+        "StnCode":"NE4 DT19",
+        "StnName":"Chinatown",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"05059",
+        "StnCode":"NE5",
+        "StnName":"Clarke Quay",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"05069",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"05129",
+        "StnCode":"NE4 DT19",
+        "StnName":"Chinatown",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"05131",
+        "StnCode":"NE4 DT19",
+        "StnName":"Chinatown",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"05199",
+        "StnCode":"NE4 DT19",
+        "StnName":"Chinatown",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"05189",
+        "StnCode":"TE18",
+        "StnName":"Maxwell",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"05241",
+        "StnCode":"TE18",
+        "StnName":"Maxwell",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"05259",
+        "StnCode":"TE18",
+        "StnName":"Maxwell",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"05269",
+        "StnCode":"TE18",
+        "StnName":"Maxwell",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"05319",
+        "StnCode":"EW14 NS26",
+        "StnName":"Raffles Place",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"05319",
+        "StnCode":"DT18",
+        "StnName":"Telok Ayer",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"05421",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"05429",
+        "StnCode":"EW15",
+        "StnName":"Tanjong Pagar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"06011",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"7"
+    },
+    {
+        "BusStopCode":"06029",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"06071",
+        "StnCode":"TE16",
+        "StnName":"Havelock",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"06081",
+        "StnCode":"TE16",
+        "StnName":"Havelock",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"06129",
+        "StnCode":"TE16",
+        "StnName":"Havelock",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"06131",
+        "StnCode":"TE15",
+        "StnName":"Great World",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"06141",
+        "StnCode":"TE16",
+        "StnName":"Havelock",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"06149",
+        "StnCode":"TE16",
+        "StnName":"Havelock",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"07211",
+        "StnCode":"NE8",
+        "StnName":"Farrer Park",
+        "StnExit":"G"
+    },
+    {
+        "BusStopCode":"07529",
+        "StnCode":"DT22",
+        "StnName":"Jalan Besar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"07531",
+        "StnCode":"DT13",
+        "StnName":"Rochor",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"07539",
+        "StnCode":"DT13",
+        "StnName":"Rochor",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"07551",
+        "StnCode":"EW12 DT14",
+        "StnName":"Bugis",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"08031",
+        "StnCode":"NS24 NE6 CC1",
+        "StnName":"Dhoby Ghaut",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"08057",
+        "StnCode":"NS24 NE6 CC1",
+        "StnName":"Dhoby Ghaut",
+        "StnExit":"E\/F"
+    },
+    {
+        "BusStopCode":"08058",
+        "StnCode":"NS24 NE6 CC1",
+        "StnName":"Dhoby Ghaut",
+        "StnExit":"E\/F"
+    },
+    {
+        "BusStopCode":"08069",
+        "StnCode":"DT21",
+        "StnName":"Bencoolen",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"08121",
+        "StnCode":"NS23",
+        "StnName":"Somerset",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"09022",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"13"
+    },
+    {
+        "BusStopCode":"09023",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"7"
+    },
+    {
+        "BusStopCode":"09037",
+        "StnCode":"NS23",
+        "StnName":"Somerset",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"09038",
+        "StnCode":"NS23",
+        "StnName":"Somerset",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"09047",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"09048",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"09111",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"11"
+    },
+    {
+        "BusStopCode":"09121",
+        "StnCode":"TE13",
+        "StnName":"Orchard Boulevard",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"09131",
+        "StnCode":"TE13",
+        "StnName":"Orchard Boulevard",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"09139",
+        "StnCode":"TE13",
+        "StnName":"Orchard Boulevard",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"10017",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"10018",
+        "StnCode":"EW16 NE3 TE17",
+        "StnName":"Outram Park",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"10041",
+        "StnCode":"CC31",
+        "StnName":"Cantonment",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"10161",
+        "StnCode":"EW17",
+        "StnName":"Tiong Bahru",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"10169",
+        "StnCode":"EW17",
+        "StnName":"Tiong Bahru",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"10201",
+        "StnCode":"EW18",
+        "StnName":"Redhill",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"10209",
+        "StnCode":"EW18",
+        "StnName":"Redhill",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"11111",
+        "StnCode":"CC20",
+        "StnName":"Farrer Road",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"11119",
+        "StnCode":"CC20",
+        "StnName":"Farrer Road",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"11141",
+        "StnCode":"EW19",
+        "StnName":"Queenstown",
+        "StnExit":"A\/D"
+    },
+    {
+        "BusStopCode":"11149",
+        "StnCode":"EW19",
+        "StnName":"Queenstown",
+        "StnExit":"B\/C"
+    },
+    {
+        "BusStopCode":"11161",
+        "StnCode":"EW20",
+        "StnName":"Commonwealth",
+        "StnExit":"A\/D"
+    },
+    {
+        "BusStopCode":"11169",
+        "StnCode":"EW20",
+        "StnName":"Commonwealth",
+        "StnExit":"B\/C"
+    },
+    {
+        "BusStopCode":"11181",
+        "StnCode":"EW21 CC22",
+        "StnName":"Buona Vista",
+        "StnExit":"B\/D"
+    },
+    {
+        "BusStopCode":"11189",
+        "StnCode":"EW21 CC22",
+        "StnName":"Buona Vista",
+        "StnExit":"B\/D"
+    },
+    {
+        "BusStopCode":"11191",
+        "StnCode":"EW21 CC22",
+        "StnName":"Buona Vista",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"11199",
+        "StnCode":"EW21 CC22",
+        "StnName":"Buona Vista",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"11261",
+        "StnCode":"CC21",
+        "StnName":"Holland Village",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"11269",
+        "StnCode":"CC21",
+        "StnName":"Holland Village",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"11361",
+        "StnCode":"EW21 CC22",
+        "StnName":"Buona Vista",
+        "StnExit":"B\/C"
+    },
+    {
+        "BusStopCode":"11369",
+        "StnCode":"EW21 CC22",
+        "StnName":"Buona Vista",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"11401",
+        "StnCode":"CC21",
+        "StnName":"Holland Village",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"11419",
+        "StnCode":"CC21",
+        "StnName":"Holland Village",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"13011",
+        "StnCode":"TE12",
+        "StnName":"Napier",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"13019",
+        "StnCode":"TE12",
+        "StnName":"Napier",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"13071",
+        "StnCode":"TE15",
+        "StnName":"Great World",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"13079",
+        "StnCode":"TE15",
+        "StnName":"Great World",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"13119",
+        "StnCode":"TE15",
+        "StnName":"Great World",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"13181",
+        "StnCode":"TE13",
+        "StnName":"Orchard Boulevard",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"13189",
+        "StnCode":"TE13",
+        "StnName":"Orchard Boulevard",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"13191",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"12"
+    },
+    {
+        "BusStopCode":"13199",
+        "StnCode":"NS22 TE14",
+        "StnName":"Orchard",
+        "StnExit":"12"
+    },
+    {
+        "BusStopCode":"14009",
+        "StnCode":"NE1 CC29",
+        "StnName":"HarbourFront",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"14061",
+        "StnCode":"CC31",
+        "StnName":"Cantonment",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"14069",
+        "StnCode":"CC31",
+        "StnName":"Cantonment",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"14071",
+        "StnCode":"CC31",
+        "StnName":"Cantonment",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"14081",
+        "StnCode":"CC30",
+        "StnName":"Keppel",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"14089",
+        "StnCode":"CC30",
+        "StnName":"Keppel",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"14119",
+        "StnCode":"NE1 CC29",
+        "StnName":"HarbourFront",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"14121",
+        "StnCode":"NE1 CC29",
+        "StnName":"HarbourFront",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"14129",
+        "StnCode":"NE1 CC29",
+        "StnName":"HarbourFront",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"14141",
+        "StnCode":"NE1 CC29",
+        "StnName":"HarbourFront",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"14161",
+        "StnCode":"CC28",
+        "StnName":"Telok Blangah",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"14169",
+        "StnCode":"CC28",
+        "StnName":"Telok Blangah",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"14189",
+        "StnCode":"CC27",
+        "StnName":"Labrador Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15041",
+        "StnCode":"CC27",
+        "StnName":"Labrador Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15049",
+        "StnCode":"CC27",
+        "StnName":"Labrador Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15131",
+        "StnCode":"CC24",
+        "StnName":"Kent Ridge",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"15139",
+        "StnCode":"CC24",
+        "StnName":"Kent Ridge",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"15141",
+        "StnCode":"CC27",
+        "StnName":"Labrador Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15149",
+        "StnCode":"CC27",
+        "StnName":"Labrador Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15191",
+        "StnCode":"CC26",
+        "StnName":"Pasir Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15199",
+        "StnCode":"CC26",
+        "StnName":"Pasir Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15201",
+        "StnCode":"CC26",
+        "StnName":"Pasir Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"15209",
+        "StnCode":"CC26",
+        "StnName":"Pasir Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"16011",
+        "StnCode":"CC25",
+        "StnName":"Haw Par Villa",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"16019",
+        "StnCode":"CC25",
+        "StnName":"Haw Par Villa",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"16221",
+        "StnCode":"CC25",
+        "StnName":"Haw Par Villa",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"16229",
+        "StnCode":"CC25",
+        "StnName":"Haw Par Villa",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"17009",
+        "StnCode":"EW23",
+        "StnName":"Clementi",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"17171",
+        "StnCode":"EW23",
+        "StnName":"Clementi",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"17179",
+        "StnCode":"EW23",
+        "StnName":"Clementi",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"18051",
+        "StnCode":"CC23",
+        "StnName":"one-north",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"18059",
+        "StnCode":"CC23",
+        "StnName":"one-north",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"18151",
+        "StnCode":"CC23",
+        "StnName":"one-north",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"18159",
+        "StnCode":"CC23",
+        "StnName":"one-north",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"18331",
+        "StnCode":"CC24",
+        "StnName":"Kent Ridge",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"18339",
+        "StnCode":"CC24",
+        "StnName":"Kent Ridge",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"19031",
+        "StnCode":"EW22",
+        "StnName":"Dover",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"19039",
+        "StnCode":"EW22",
+        "StnName":"Dover",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"22009",
+        "StnCode":"EW27",
+        "StnName":"Boon Lay",
+        "StnExit":"C\/D"
+    },
+    {
+        "BusStopCode":"22491",
+        "StnCode":"EW27",
+        "StnName":"Boon Lay",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"22499",
+        "StnCode":"EW27",
+        "StnName":"Boon Lay",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"22521",
+        "StnCode":"EW28",
+        "StnName":"Pioneer",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"22529",
+        "StnCode":"EW28",
+        "StnName":"Pioneer",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"22571",
+        "StnCode":"EW27",
+        "StnName":"Boon Lay",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"22579",
+        "StnCode":"EW27",
+        "StnName":"Boon Lay",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"23371",
+        "StnCode":"EW29",
+        "StnName":"Joo Koon",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"23379",
+        "StnCode":"EW29",
+        "StnName":"Joo Koon",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"23491",
+        "StnCode":"EW29",
+        "StnName":"Joo Koon",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"23499",
+        "StnCode":"EW29",
+        "StnName":"Joo Koon",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"23519",
+        "StnCode":"EW29",
+        "StnName":"Joo Koon",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"24009",
+        "StnCode":"EW29",
+        "StnName":"Joo Koon",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"24511",
+        "StnCode":"EW30",
+        "StnName":"Gul Circle",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"24519",
+        "StnCode":"EW30",
+        "StnName":"Gul Circle",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"24701",
+        "StnCode":"EW31",
+        "StnName":"Tuas Crescent",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"24709",
+        "StnCode":"EW31",
+        "StnName":"Tuas Crescent",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"24711",
+        "StnCode":"EW32",
+        "StnName":"Tuas West Road",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"24719",
+        "StnCode":"EW32",
+        "StnName":"Tuas West Road",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"25399",
+        "StnCode":"EW32",
+        "StnName":"Tuas West Road",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"25421",
+        "StnCode":"EW33",
+        "StnName":"Tuas Link",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"25429",
+        "StnCode":"EW33",
+        "StnName":"Tuas Link",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"25691",
+        "StnCode":"EW32",
+        "StnName":"Tuas West Road",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28009",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"28061",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28069",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"28091",
+        "StnCode":"EW26",
+        "StnName":"Lakeside",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28099",
+        "StnCode":"EW26",
+        "StnName":"Lakeside",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28199",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"28201",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"28211",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28241",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28249",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28271",
+        "StnCode":"EW25",
+        "StnName":"Chinese Garden",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"28279",
+        "StnCode":"EW25",
+        "StnName":"Chinese Garden",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"28341",
+        "StnCode":"EW25",
+        "StnName":"Chinese Garden",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"28349",
+        "StnCode":"EW25",
+        "StnName":"Chinese Garden",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"29009",
+        "StnCode":"EW24 NS1",
+        "StnName":"Jurong East",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"40011",
+        "StnCode":"NE7 DT12",
+        "StnName":"Little India",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"40019",
+        "StnCode":"NE7 DT12",
+        "StnName":"Little India",
+        "StnExit":"B\/D"
+    },
+    {
+        "BusStopCode":"40041",
+        "StnCode":"NS21 DT11",
+        "StnName":"Newton",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"40049",
+        "StnCode":"NS21 DT11",
+        "StnName":"Newton",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"40081",
+        "StnCode":"DT10 TE11",
+        "StnName":"Stevens",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"40089",
+        "StnCode":"DT10 TE11",
+        "StnName":"Stevens",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"40181",
+        "StnCode":"NS21 DT11",
+        "StnName":"Newton",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"40189",
+        "StnCode":"NS21 DT11",
+        "StnName":"Newton",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"40221",
+        "StnCode":"DT10 TE11",
+        "StnName":"Stevens",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"40229",
+        "StnCode":"DT10 TE11",
+        "StnName":"Stevens",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"40231",
+        "StnCode":"DT10 TE11",
+        "StnName":"Stevens",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"40239",
+        "StnCode":"DT10 TE11",
+        "StnName":"Stevens",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"41021",
+        "StnCode":"CC19 DT9",
+        "StnName":"Botanic Gardens",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"41029",
+        "StnCode":"CC19 DT9",
+        "StnName":"Botanic Gardens",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"41051",
+        "StnCode":"DT8",
+        "StnName":"Tan Kah Kee",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"41069",
+        "StnCode":"DT8",
+        "StnName":"Tan Kah Kee",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"41081",
+        "StnCode":"DT7",
+        "StnName":"Sixth Avenue",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"42019",
+        "StnCode":"DT7",
+        "StnName":"Sixth Avenue",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"42051",
+        "StnCode":"DT6",
+        "StnName":"King Albert Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"42059",
+        "StnCode":"DT6",
+        "StnName":"King Albert Park",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"42091",
+        "StnCode":"DT5",
+        "StnName":"Beauty World",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"42099",
+        "StnCode":"DT5",
+        "StnName":"Beauty World",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"42109",
+        "StnCode":"DT5",
+        "StnName":"Beauty World",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"42151",
+        "StnCode":"DT5",
+        "StnName":"Beauty World",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"42159",
+        "StnCode":"DT5",
+        "StnName":"Beauty World",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"42259",
+        "StnCode":"DT5",
+        "StnName":"Beauty World",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"42991",
+        "StnCode":"DT3",
+        "StnName":"Hillview",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"43009",
+        "StnCode":"NS2",
+        "StnName":"Bukit Batok",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"43061",
+        "StnCode":"DT3",
+        "StnName":"Hillview",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"43069",
+        "StnCode":"DT3",
+        "StnName":"Hillview",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"43091",
+        "StnCode":"DT2",
+        "StnName":"Cashew",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"43109",
+        "StnCode":"DT2",
+        "StnName":"Cashew",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"43271",
+        "StnCode":"DT3",
+        "StnName":"Hillview",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"43279",
+        "StnCode":"DT3",
+        "StnName":"Hillview",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"43381",
+        "StnCode":"NS2",
+        "StnName":"Bukit Batok",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"43389",
+        "StnCode":"NS2",
+        "StnName":"Bukit Batok",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"43411",
+        "StnCode":"NS2",
+        "StnName":"Bukit Batok",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"43419",
+        "StnCode":"NS2",
+        "StnName":"Bukit Batok",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"43571",
+        "StnCode":"NS3",
+        "StnName":"Bukit Gombak",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"43579",
+        "StnCode":"NS3",
+        "StnName":"Bukit Gombak",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"44009",
+        "StnCode":"NS4 BP1",
+        "StnName":"Choa Chu Kang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44021",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"44029",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44031",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44131",
+        "StnCode":"BP4",
+        "StnName":"Teck Whye",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44139",
+        "StnCode":"BP4",
+        "StnName":"Teck Whye",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44141",
+        "StnCode":"BP5",
+        "StnName":"Phoenix",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44149",
+        "StnCode":"BP5",
+        "StnName":"Phoenix",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44201",
+        "StnCode":"BP7",
+        "StnName":"Petir",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44209",
+        "StnCode":"BP7",
+        "StnName":"Petir",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44221",
+        "StnCode":"BP8",
+        "StnName":"Pending",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44229",
+        "StnCode":"BP8",
+        "StnName":"Pending",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44251",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"44259",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44321",
+        "StnCode":"BP9",
+        "StnName":"Bangkit",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44329",
+        "StnCode":"BP9",
+        "StnName":"Bangkit",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44441",
+        "StnCode":"BP3",
+        "StnName":"Keat Hong",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44449",
+        "StnCode":"BP3",
+        "StnName":"Keat Hong",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44451",
+        "StnCode":"BP2",
+        "StnName":"South View",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44459",
+        "StnCode":"BP2",
+        "StnName":"South View",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44531",
+        "StnCode":"NS4 BP1",
+        "StnName":"Choa Chu Kang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"44539",
+        "StnCode":"NS4 BP1",
+        "StnName":"Choa Chu Kang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"44641",
+        "StnCode":"BP13",
+        "StnName":"Senja",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44649",
+        "StnCode":"BP13",
+        "StnName":"Senja",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44701",
+        "StnCode":"BP11",
+        "StnName":"Segar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44709",
+        "StnCode":"BP11",
+        "StnName":"Segar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44721",
+        "StnCode":"BP12",
+        "StnName":"Jelapang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44729",
+        "StnCode":"BP12",
+        "StnName":"Jelapang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44771",
+        "StnCode":"BP10",
+        "StnName":"Fajar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44779",
+        "StnCode":"BP10",
+        "StnName":"Fajar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44821",
+        "StnCode":"BP12",
+        "StnName":"Jelapang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44829",
+        "StnCode":"BP12",
+        "StnName":"Jelapang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44859",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"44909",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"45009",
+        "StnCode":"DT1 BP6",
+        "StnName":"Bukit Panjang",
+        "StnExit":"A\/C"
+    },
+    {
+        "BusStopCode":"45131",
+        "StnCode":"NS7",
+        "StnName":"Kranji",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"45139",
+        "StnCode":"NS7",
+        "StnName":"Kranji",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"45321",
+        "StnCode":"NS5",
+        "StnName":"Yew Tee",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"45329",
+        "StnCode":"NS5",
+        "StnName":"Yew Tee",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"46008",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"46009",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"46321",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"7"
+    },
+    {
+        "BusStopCode":"46329",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"7"
+    },
+    {
+        "BusStopCode":"46331",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"7"
+    },
+    {
+        "BusStopCode":"46339",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"7"
+    },
+    {
+        "BusStopCode":"46521",
+        "StnCode":"NS8",
+        "StnName":"Marsiling",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"46529",
+        "StnCode":"NS8",
+        "StnName":"Marsiling",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"46631",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"46639",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"46641",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"46649",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"46771",
+        "StnCode":"NS10",
+        "StnName":"Admiralty",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"46779",
+        "StnCode":"NS10",
+        "StnName":"Admiralty",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"46981",
+        "StnCode":"TE3",
+        "StnName":"Woodlands South",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"46989",
+        "StnCode":"TE3",
+        "StnName":"Woodlands South",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"46991",
+        "StnCode":"TE3",
+        "StnName":"Woodlands South",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"46999",
+        "StnCode":"TE3",
+        "StnName":"Woodlands South",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"47009",
+        "StnCode":"NS9 TE2",
+        "StnName":"Woodlands",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"47201",
+        "StnCode":"TE1",
+        "StnName":"Woodlands North",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"47591",
+        "StnCode":"NS10",
+        "StnName":"Admiralty",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"47749",
+        "StnCode":"TE3",
+        "StnName":"Woodlands South",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"50021",
+        "StnCode":"NS20",
+        "StnName":"Novena",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"50031",
+        "StnCode":"NS20",
+        "StnName":"Novena",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"50037",
+        "StnCode":"NS20",
+        "StnName":"Novena",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"50038",
+        "StnCode":"NS20",
+        "StnName":"Novena",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"50251",
+        "StnCode":"NE8",
+        "StnName":"Farrer Park",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"50259",
+        "StnCode":"NE8",
+        "StnName":"Farrer Park",
+        "StnExit":"G"
+    },
+    {
+        "BusStopCode":"50279",
+        "StnCode":"NE8",
+        "StnName":"Farrer Park",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"52009",
+        "StnCode":"NS19",
+        "StnName":"Toa Payoh",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"52161",
+        "StnCode":"NS18",
+        "StnName":"Braddell",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"52171",
+        "StnCode":"NS18",
+        "StnName":"Braddell",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"52179",
+        "StnCode":"NS18",
+        "StnName":"Braddell",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"52181",
+        "StnCode":"NS19",
+        "StnName":"Toa Payoh",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"52189",
+        "StnCode":"NS19",
+        "StnName":"Toa Payoh",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"52211",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"52219",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"52241",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"52249",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"52551",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"52559",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"52581",
+        "StnCode":"CC17 TE9",
+        "StnName":"Caldecott",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"53009",
+        "StnCode":"NS17 CC15",
+        "StnName":"Bishan",
+        "StnExit":"A\/D"
+    },
+    {
+        "BusStopCode":"53041",
+        "StnCode":"TE8",
+        "StnName":"Upper Thomson",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"53049",
+        "StnCode":"TE8",
+        "StnName":"Upper Thomson",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"53051",
+        "StnCode":"TE8",
+        "StnName":"Upper Thomson",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"53059",
+        "StnCode":"TE8",
+        "StnName":"Upper Thomson",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"53121",
+        "StnCode":"CC16",
+        "StnName":"Marymount",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"53129",
+        "StnCode":"CC16",
+        "StnName":"Marymount",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"53231",
+        "StnCode":"NS17 CC15",
+        "StnName":"Bishan",
+        "StnExit":"A\/B\/C"
+    },
+    {
+        "BusStopCode":"53239",
+        "StnCode":"NS17 CC15",
+        "StnName":"Bishan",
+        "StnExit":"A\/B\/C"
+    },
+    {
+        "BusStopCode":"53311",
+        "StnCode":"CC16",
+        "StnName":"Marymount",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"53319",
+        "StnCode":"CC16",
+        "StnName":"Marymount",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"53341",
+        "StnCode":"TE7",
+        "StnName":"Bright Hill",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"53349",
+        "StnCode":"TE7",
+        "StnName":"Bright Hill",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"53351",
+        "StnCode":"TE7",
+        "StnName":"Bright Hill",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"53359",
+        "StnCode":"TE7",
+        "StnName":"Bright Hill",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"54009",
+        "StnCode":"NS16",
+        "StnName":"Ang Mo Kio",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"54181",
+        "StnCode":"TE6",
+        "StnName":"Mayflower",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"54189",
+        "StnCode":"TE6",
+        "StnName":"Mayflower",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"54191",
+        "StnCode":"TE6",
+        "StnName":"Mayflower",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"54199",
+        "StnCode":"TE6",
+        "StnName":"Mayflower",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"54261",
+        "StnCode":"NS16",
+        "StnName":"Ang Mo Kio",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"54269",
+        "StnCode":"NS16",
+        "StnName":"Ang Mo Kio",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"54391",
+        "StnCode":"NS16",
+        "StnName":"Ang Mo Kio",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"54399",
+        "StnCode":"NS16",
+        "StnName":"Ang Mo Kio",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"55011",
+        "StnCode":"TE5",
+        "StnName":"Lentor",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"55019",
+        "StnCode":"TE5",
+        "StnName":"Lentor",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"55021",
+        "StnCode":"TE5",
+        "StnName":"Lentor",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"55029",
+        "StnCode":"TE5",
+        "StnName":"Lentor",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"55301",
+        "StnCode":"NS15",
+        "StnName":"Yio Chu Kang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"55309",
+        "StnCode":"NS15",
+        "StnName":"Yio Chu Kang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"55509",
+        "StnCode":"NS15",
+        "StnName":"Yio Chu Kang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"55181",
+        "StnCode":"NS15",
+        "StnName":"Yio Chu Kang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"55189",
+        "StnCode":"NS15",
+        "StnName":"Yio Chu Kang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"55341",
+        "StnCode":"TE5",
+        "StnName":"Lentor",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"55349",
+        "StnCode":"TE5",
+        "StnName":"Lentor",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"56091",
+        "StnCode":"TE4",
+        "StnName":"Springleaf",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"56099",
+        "StnCode":"TE4",
+        "StnName":"Springleaf",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"58009",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"58151",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"58159",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"58211",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"58219",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"58241",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"58249",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"58251",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"58259",
+        "StnCode":"NS11",
+        "StnName":"Sembawang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"58541",
+        "StnCode":"NS12",
+        "StnName":"Canberra",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"58549",
+        "StnCode":"NS12",
+        "StnName":"Canberra",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"59009",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"59041",
+        "StnCode":"NS14",
+        "StnName":"Khatib",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"59049",
+        "StnCode":"NS14",
+        "StnName":"Khatib",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"59061",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"59069",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"59072",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"59073",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"59079",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"59091",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"59159",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"59161",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"59561",
+        "StnCode":"NS14",
+        "StnName":"Khatib",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"59569",
+        "StnCode":"NS14",
+        "StnName":"Khatib",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"59671",
+        "StnCode":"NS13",
+        "StnName":"Yishun",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"60011",
+        "StnCode":"DT23",
+        "StnName":"Bendemeer",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60019",
+        "StnCode":"DT23",
+        "StnName":"Bendemeer",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"60031",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60039",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"60061",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60069",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60119",
+        "StnCode":"NE9",
+        "StnName":"Boon Keng",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"60121",
+        "StnCode":"NE9",
+        "StnName":"Boon Keng",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60199",
+        "StnCode":"NE9",
+        "StnName":"Boon Keng",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"60221",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60229",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"60261",
+        "StnCode":"NE10",
+        "StnName":"Potong Pasir",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"60269",
+        "StnCode":"NE10",
+        "StnName":"Potong Pasir",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"60299",
+        "StnCode":"NE11",
+        "StnName":"Woodleigh",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"61031",
+        "StnCode":"NE11",
+        "StnName":"Woodleigh",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"61039",
+        "StnCode":"NE11",
+        "StnName":"Woodleigh",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"61069",
+        "StnCode":"NE10",
+        "StnName":"Potong Pasir",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"62071",
+        "StnCode":"CC12",
+        "StnName":"Bartley",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"62079",
+        "StnCode":"CC12",
+        "StnName":"Bartley",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"62131",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"B\/H"
+    },
+    {
+        "BusStopCode":"62139",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"62189",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"63009",
+        "StnCode":"NE15",
+        "StnName":"Buangkok",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"63031",
+        "StnCode":"NE13",
+        "StnName":"Kovan",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"63039",
+        "StnCode":"NE13",
+        "StnName":"Kovan",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"64009",
+        "StnCode":"NE14",
+        "StnName":"Hougang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"64381",
+        "StnCode":"NE14",
+        "StnName":"Hougang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"64389",
+        "StnCode":"NE14",
+        "StnName":"Hougang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"64541",
+        "StnCode":"NE14",
+        "StnName":"Hougang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"64549",
+        "StnCode":"NE14",
+        "StnName":"Hougang",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"65009",
+        "StnCode":"NE17 PTC",
+        "StnName":"Punggol",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"65141",
+        "StnCode":"PW7",
+        "StnName":"Soo Teck",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65149",
+        "StnCode":"PW7",
+        "StnName":"Soo Teck",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65151",
+        "StnCode":"PE1",
+        "StnName":"Cove",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65159",
+        "StnCode":"PE1",
+        "StnName":"Cove",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65161",
+        "StnCode":"PE2",
+        "StnName":"Meridian",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65169",
+        "StnCode":"PE2",
+        "StnName":"Meridian",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65171",
+        "StnCode":"PE3",
+        "StnName":"Coral Edge",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65179",
+        "StnCode":"PE3",
+        "StnName":"Coral Edge",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65211",
+        "StnCode":"NE17 PTC",
+        "StnName":"Punggol",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"65219",
+        "StnCode":"NE17 PTC",
+        "StnName":"Punggol",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"65231",
+        "StnCode":"PE4",
+        "StnName":"Riviera",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65239",
+        "StnCode":"PE4",
+        "StnName":"Riviera",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65251",
+        "StnCode":"NE17 PTC",
+        "StnName":"Punggol",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65259",
+        "StnCode":"NE17 PTC",
+        "StnName":"Punggol",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"65301",
+        "StnCode":"PE7",
+        "StnName":"Damai",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65309",
+        "StnCode":"PE7",
+        "StnName":"Damai",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65311",
+        "StnCode":"PE6",
+        "StnName":"Oasis",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65319",
+        "StnCode":"PE6",
+        "StnName":"Oasis",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65321",
+        "StnCode":"PE5",
+        "StnName":"Kadaloor",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65329",
+        "StnCode":"PE5",
+        "StnName":"Kadaloor",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65461",
+        "StnCode":"PW5",
+        "StnName":"Nibong",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65469",
+        "StnCode":"PW5",
+        "StnName":"Nibong",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65481",
+        "StnCode":"PW1",
+        "StnName":"Sam Kee",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"65489",
+        "StnCode":"PW1",
+        "StnName":"Sam Kee",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"65601",
+        "StnCode":"PW6",
+        "StnName":"Sumang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65609",
+        "StnCode":"PW6",
+        "StnName":"Sumang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65611",
+        "StnCode":"PW5",
+        "StnName":"Nibong",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65619",
+        "StnCode":"PW5",
+        "StnName":"Nibong",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65621",
+        "StnCode":"PW4",
+        "StnName":"Samudera",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65629",
+        "StnCode":"PW4",
+        "StnName":"Samudera",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65631",
+        "StnCode":"PW3",
+        "StnName":"Punggol Point",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65639",
+        "StnCode":"PW3",
+        "StnName":"Punggol Point",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"65721",
+        "StnCode":"NE18",
+        "StnName":"Punggol Coast",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"65729",
+        "StnCode":"NE18",
+        "StnName":"Punggol Coast",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"65731",
+        "StnCode":"PW2",
+        "StnName":"Teck Lee",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"65739",
+        "StnCode":"PW2",
+        "StnName":"Teck Lee",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"66009",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"F\/G\/H"
+    },
+    {
+        "BusStopCode":"66351",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"B\/E"
+    },
+    {
+        "BusStopCode":"66359",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"66381",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"66389",
+        "StnCode":"NE12 CC13",
+        "StnName":"Serangoon",
+        "StnExit":"F"
+    },
+    {
+        "BusStopCode":"66391",
+        "StnCode":"CC14",
+        "StnName":"Lorong Chuan",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"66399",
+        "StnCode":"CC14",
+        "StnName":"Lorong Chuan",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67009",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67131",
+        "StnCode":"SE3",
+        "StnName":"Bakau",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67139",
+        "StnCode":"SE3",
+        "StnName":"Bakau",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67151",
+        "StnCode":"SE4",
+        "StnName":"Kangkar",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67159",
+        "StnCode":"SE4",
+        "StnName":"Kangkar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67181",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67189",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67211",
+        "StnCode":"SE5",
+        "StnName":"Ranggung",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67219",
+        "StnCode":"SE5",
+        "StnName":"Ranggung",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67221",
+        "StnCode":"SE2",
+        "StnName":"Rumbia",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67229",
+        "StnCode":"SE2",
+        "StnName":"Rumbia",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67251",
+        "StnCode":"SE1",
+        "StnName":"Compassvale",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67259",
+        "StnCode":"SE1",
+        "StnName":"Compassvale",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67291",
+        "StnCode":"SW8",
+        "StnName":"Renjong",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67299",
+        "StnCode":"SW8",
+        "StnName":"Renjong",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67301",
+        "StnCode":"SW7",
+        "StnName":"Tongkang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67309",
+        "StnCode":"SW7",
+        "StnName":"Tongkang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67311",
+        "StnCode":"SW2",
+        "StnName":"Farmway",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67319",
+        "StnCode":"SW2",
+        "StnName":"Farmway",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67401",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"67409",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"67421",
+        "StnCode":"SW1",
+        "StnName":"Cheng Lim",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67429",
+        "StnCode":"SW1",
+        "StnName":"Cheng Lim",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67441",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67449",
+        "StnCode":"NE16 STC",
+        "StnName":"Sengkang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67471",
+        "StnCode":"SW6",
+        "StnName":"Layar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67479",
+        "StnCode":"SW6",
+        "StnName":"Layar",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67481",
+        "StnCode":"SW5",
+        "StnName":"Fernvale",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67489",
+        "StnCode":"SW5",
+        "StnName":"Fernvale",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67601",
+        "StnCode":"NE15",
+        "StnName":"Buangkok",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67609",
+        "StnCode":"NE15",
+        "StnName":"Buangkok",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67631",
+        "StnCode":"SW5",
+        "StnName":"Fernvale",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67639",
+        "StnCode":"SW5",
+        "StnName":"Fernvale",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"67741",
+        "StnCode":"SW4",
+        "StnName":"Thanggam",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"67749",
+        "StnCode":"SW4",
+        "StnName":"Thanggam",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"68009",
+        "StnCode":"NE11",
+        "StnName":"Woodleigh",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"69009",
+        "StnCode":"NE18",
+        "StnName":"Punggol Coast",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"70161",
+        "StnCode":"DT25",
+        "StnName":"Mattar",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"70191",
+        "StnCode":"CC10 DT26",
+        "StnName":"MacPherson",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"70201",
+        "StnCode":"CC10 DT26",
+        "StnName":"MacPherson",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"70231",
+        "StnCode":"DT25",
+        "StnName":"Mattar",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"70251",
+        "StnCode":"CC10 DT26",
+        "StnName":"MacPherson",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"70259",
+        "StnCode":"CC10 DT26",
+        "StnName":"MacPherson",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"70281",
+        "StnCode":"CC11",
+        "StnName":"Tai Seng",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"70289",
+        "StnCode":"CC11",
+        "StnName":"Tai Seng",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"70371",
+        "StnCode":"CC10 DT26",
+        "StnName":"MacPherson",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"70379",
+        "StnCode":"CC10 DT26",
+        "StnName":"MacPherson",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"71121",
+        "StnCode":"DT27",
+        "StnName":"Ubi",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"71129",
+        "StnCode":"DT27",
+        "StnName":"Ubi",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"72031",
+        "StnCode":"DT28",
+        "StnName":"Kaki Bukit",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"72039",
+        "StnCode":"DT28",
+        "StnName":"Kaki Bukit",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"72041",
+        "StnCode":"DT28",
+        "StnName":"Kaki Bukit",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"72049",
+        "StnCode":"DT28",
+        "StnName":"Kaki Bukit",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"75009",
+        "StnCode":"EW2 DT32",
+        "StnName":"Tampines",
+        "StnExit":"A\/D\/F\/G"
+    },
+    {
+        "BusStopCode":"75019",
+        "StnCode":"EW2 DT32",
+        "StnName":"Tampines",
+        "StnExit":"A\/E"
+    },
+    {
+        "BusStopCode":"75051",
+        "StnCode":"DT31",
+        "StnName":"Tampines West",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"75059",
+        "StnCode":"DT31",
+        "StnName":"Tampines West",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"75221",
+        "StnCode":"DT31",
+        "StnName":"Tampines West",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"75229",
+        "StnCode":"DT31",
+        "StnName":"Tampines West",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"76031",
+        "StnCode":"DT33",
+        "StnName":"Tampines East",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"76039",
+        "StnCode":"DT33",
+        "StnName":"Tampines East",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"76141",
+        "StnCode":"EW2 DT32",
+        "StnName":"Tampines",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"76149",
+        "StnCode":"EW2 DT32",
+        "StnName":"Tampines",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"76221",
+        "StnCode":"DT33",
+        "StnName":"Tampines East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"76229",
+        "StnCode":"DT33",
+        "StnName":"Tampines East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"76281",
+        "StnCode":"DT31",
+        "StnName":"Tampines West",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"76289",
+        "StnCode":"DT31",
+        "StnName":"Tampines West",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"76311",
+        "StnCode":"DT33",
+        "StnName":"Tampines East",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"76319",
+        "StnCode":"DT33",
+        "StnName":"Tampines East",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"76551",
+        "StnCode":"EW2 DT32",
+        "StnName":"Tampines",
+        "StnExit":"A\/D"
+    },
+    {
+        "BusStopCode":"76559",
+        "StnCode":"EW2 DT32",
+        "StnName":"Tampines",
+        "StnExit":"A\/E"
+    },
+    {
+        "BusStopCode":"77009",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"77031",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"77039",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"77171",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"77179",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"77321",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"77329",
+        "StnCode":"EW1",
+        "StnName":"Pasir Ris",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80009",
+        "StnCode":"EW10",
+        "StnName":"Kallang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80031",
+        "StnCode":"EW10",
+        "StnName":"Kallang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80039",
+        "StnCode":"EW10",
+        "StnName":"Kallang",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80101",
+        "StnCode":"EW10",
+        "StnName":"Kallang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"80109",
+        "StnCode":"EW10",
+        "StnName":"Kallang",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"80141",
+        "StnCode":"CC7",
+        "StnName":"Mountbatten",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80149",
+        "StnCode":"CC7",
+        "StnName":"Mountbatten",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80161",
+        "StnCode":"CC5",
+        "StnName":"Nicoll Highway",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80169",
+        "StnCode":"CC5",
+        "StnName":"Nicoll Highway",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80191",
+        "StnCode":"CC6",
+        "StnName":"Stadium",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80199",
+        "StnCode":"CC6",
+        "StnName":"Stadium",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80271",
+        "StnCode":"CC7",
+        "StnName":"Mountbatten",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"80279",
+        "StnCode":"CC7",
+        "StnName":"Mountbatten",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"80291",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"80299",
+        "StnCode":"DT24",
+        "StnName":"Geylang Bahru",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"81011",
+        "StnCode":"EW9",
+        "StnName":"Aljunied",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"81081",
+        "StnCode":"EW9",
+        "StnName":"Aljunied",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"81089",
+        "StnCode":"EW9",
+        "StnName":"Aljunied",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"81111",
+        "StnCode":"EW8 CC9",
+        "StnName":"Paya Lebar",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"81119",
+        "StnCode":"EW8 CC9",
+        "StnName":"Paya Lebar",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"81129",
+        "StnCode":"EW8 CC9",
+        "StnName":"Paya Lebar",
+        "StnExit":"D"
+    },
+    {
+        "BusStopCode":"81171",
+        "StnCode":"CC7",
+        "StnName":"Mountbatten",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"81179",
+        "StnCode":"CC7",
+        "StnName":"Mountbatten",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"81181",
+        "StnCode":"CC8",
+        "StnName":"Dakota",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"81189",
+        "StnCode":"CC8",
+        "StnName":"Dakota",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"82009",
+        "StnCode":"EW7",
+        "StnName":"Eunos",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"82011",
+        "StnCode":"EW8 CC9",
+        "StnName":"Paya Lebar",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"82051",
+        "StnCode":"TE25",
+        "StnName":"Tanjong Katong",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"82059",
+        "StnCode":"TE25",
+        "StnName":"Tanjong Katong",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"82061",
+        "StnCode":"EW7",
+        "StnName":"Eunos",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"83059",
+        "StnCode":"EW6",
+        "StnName":"Kembangan",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"83062",
+        "StnCode":"EW6",
+        "StnName":"Kembangan",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"83101",
+        "StnCode":"EW7",
+        "StnName":"Eunos",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"83109",
+        "StnCode":"EW7",
+        "StnName":"Eunos",
+        "StnExit":"C"
+    },
+    {
+        "BusStopCode":"83321",
+        "StnCode":"EW6",
+        "StnName":"Kembangan",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"83329",
+        "StnCode":"EW6",
+        "StnName":"Kembangan",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"84009",
+        "StnCode":"EW5",
+        "StnName":"Bedok",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"84031",
+        "StnCode":"EW5",
+        "StnName":"Bedok",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"84039",
+        "StnCode":"EW5",
+        "StnName":"Bedok",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"84201",
+        "StnCode":"DT30",
+        "StnName":"Bedok Reservoir",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"84209",
+        "StnCode":"DT30",
+        "StnName":"Bedok Reservoir",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"84451",
+        "StnCode":"DT29",
+        "StnName":"Bedok North",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"84459",
+        "StnCode":"DT29",
+        "StnName":"Bedok North",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"84539",
+        "StnCode":"DT29",
+        "StnName":"Bedok North",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"85091",
+        "StnCode":"EW4 CG",
+        "StnName":"Tanah Merah",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"85099",
+        "StnCode":"EW4 CG",
+        "StnName":"Tanah Merah",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"90041",
+        "StnCode":"TE23",
+        "StnName":"Tanjong Rhu",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"90049",
+        "StnCode":"TE23",
+        "StnName":"Tanjong Rhu",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"91081",
+        "StnCode":"TE24",
+        "StnName":"Katong Park",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"91089",
+        "StnCode":"TE24",
+        "StnName":"Katong Park",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"92041",
+        "StnCode":"TE26",
+        "StnName":"Marine Parade",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"92049",
+        "StnCode":"TE26",
+        "StnName":"Marine Parade",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"92051",
+        "StnCode":"TE26",
+        "StnName":"Marine Parade",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"92059",
+        "StnCode":"TE26",
+        "StnName":"Marine Parade",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"92061",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"92069",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"92071",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"4"
+    },
+    {
+        "BusStopCode":"92079",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"92081",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"5"
+    },
+    {
+        "BusStopCode":"92089",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"92211",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"92219",
+        "StnCode":"TE27",
+        "StnName":"Marine Terrace",
+        "StnExit":"6"
+    },
+    {
+        "BusStopCode":"93031",
+        "StnCode":"TE28",
+        "StnName":"Siglap",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"93039",
+        "StnCode":"TE28",
+        "StnName":"Siglap",
+        "StnExit":"2\/4"
+    },
+    {
+        "BusStopCode":"93201",
+        "StnCode":"TE28",
+        "StnName":"Siglap",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"94031",
+        "StnCode":"TE29",
+        "StnName":"Bayshore",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"94039",
+        "StnCode":"TE29",
+        "StnName":"Bayshore",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"94101",
+        "StnCode":"TE29",
+        "StnName":"Bayshore",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"94109",
+        "StnCode":"TE29",
+        "StnName":"Bayshore",
+        "StnExit":"3"
+    },
+    {
+        "BusStopCode":"95109",
+        "StnCode":"CG2",
+        "StnName":"Changi Airport",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"95129",
+        "StnCode":"CG2",
+        "StnName":"Changi Airport",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96021",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96029",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96031",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96039",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96041",
+        "StnCode":"DT34",
+        "StnName":"Upper Changi",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96049",
+        "StnCode":"DT34",
+        "StnName":"Upper Changi",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"96141",
+        "StnCode":"EW3",
+        "StnName":"Simei",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96149",
+        "StnCode":"EW3",
+        "StnName":"Simei",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96161",
+        "StnCode":"EW3",
+        "StnName":"Simei",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96169",
+        "StnCode":"EW3",
+        "StnName":"Simei",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96221",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"96229",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A\/B"
+    },
+    {
+        "BusStopCode":"96301",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"96309",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"E"
+    },
+    {
+        "BusStopCode":"96311",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"96319",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"B"
+    },
+    {
+        "BusStopCode":"96381",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A"
+    },
+    {
+        "BusStopCode":"96389",
+        "StnCode":"CG1 DT35",
+        "StnName":"Expo",
+        "StnExit":"A"
+    }
+]

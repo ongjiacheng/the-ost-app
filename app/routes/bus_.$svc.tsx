@@ -144,7 +144,7 @@ function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>
             map.addLayer({ id: "route", type: "line", source: "route", paint: { "line-color": "#96D600", "line-width": 4 } });
             const features = route.map(stop => ({ type: "Feature" as const, properties: {}, geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] } }));
             map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
-            map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 10, paint: { "circle-color": "#96D600", "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 5, 18, 12], "circle-stroke-color": "#fff", "circle-stroke-width": 2 } });
+            map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 10, paint: { "circle-color": "#96D600" }});
             const [longs, lats] = [0, 1].map(i => collection.features.flatMap(f => f.geometry.coordinates.map(c => c[i])));
             map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
         });
@@ -153,7 +153,7 @@ function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>
 
     return (
         <Container>
-            <Paper ref={container} sx={{ height: "50vh", overflow: "hidden" }} />
+            <Paper ref={container} sx={{ height: "40vh", overflow: "hidden" }} />
         </Container>
     );
 }
