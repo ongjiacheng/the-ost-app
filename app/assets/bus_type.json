@@ -30,7 +30,7 @@
             [null, null, null, null, "825", null, null, null, null, null],
             ["851", "852", "853", "854", "855", "856", "857", "858", "859", "860"],
             ["861", null, null, null, null, null, null, null, null, "870"],
-            ["871", "872", null, null, null, null, null, null, null, null],
+            ["871", "872", "873", "874", null, null, null, null, null, null],
             [null, "882", "883", null, null, null, null, null, null, null],
             [null, null, null, null, "925", null, "927", null, null, null],
             [null, null, null, null, null, null, null, null, null, "950"],
@@ -47,7 +47,7 @@
             ["16M", "18M", "35M", "53M", "63M", "70M", "84G", "84W"],
             ["98M", "107M", "117M", "123M", "138M", "143M", "170X", "179A"],
             ["179B", "181M", "182M", "248M", "258M", "853M", "859A", "859B"],
-            ["861M", "883M", "925M", "961M", "972M", "983M"]
+            ["861M", "873M", "883M", "925M", "961M", "972M", "983M"]
         ]
     },
     {
