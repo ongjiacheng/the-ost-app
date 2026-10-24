@@ -33,7 +33,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { FeatureCollection, LineString } from 'geojson';
-import { Map, setWorkerUrl } from 'maplibre-gl';
+import { AttributionControl, FullscreenControl, GeolocateControl, Map, NavigationControl, ScaleControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
@@ -121,6 +121,7 @@ function BusInfo({ service }: { service: BusServiceType[] }) {
 }
 
 setWorkerUrl(workerUrl);
+
 function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>, route: BusRouteType[] }) {
     const container = useRef<HTMLDivElement>(null);
 
@@ -129,15 +130,21 @@ function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>
             container: container.current!,
             style: "https://tiles.openfreemap.org/styles/dark",
             center: [103.8198, 1.3521],
-            zoom: 10.5
+            zoom: 10,
+            attributionControl: false
         });
+        map.addControl(new AttributionControl({ compact: true }));
+        map.addControl(new ScaleControl({ unit: "metric" }), "top-right");
+        map.addControl(new NavigationControl({ showZoom: false }), "top-right");
+        map.addControl(new GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showAccuracyCircle: true }), "top-right");
+        map.addControl(new FullscreenControl({ container: container.current! }), "top-right");
 
         map.on("load", () => {
             map.addSource("route", { type: "geojson", data: collection });
             map.addLayer({ id: "route", type: "line", source: "route", paint: { "line-color": "#96D600", "line-width": 4 } });
             const features = route.map(stop => ({ type: "Feature" as const, properties: {}, geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] } }));
             map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
-            map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 12, paint: { "circle-color": "#96D600", "circle-radius": ["interpolate", ["linear"], ["zoom"], 12, 0, 18, 10] } });
+            map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 10, paint: { "circle-color": "#96D600", "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 5, 18, 12], "circle-stroke-color": "#fff", "circle-stroke-width": 2 } });
             const [longs, lats] = [0, 1].map(i => collection.features.flatMap(f => f.geometry.coordinates.map(c => c[i])));
             map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
         });

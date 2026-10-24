@@ -14,15 +14,16 @@ export async function loader({ request }: Route.LoaderArgs) {
         i.Direction === direction
     );
     infobars.forEach(bar => {
-        bar.AltSvc = bar.AltSvcNo.filter((s, i) =>
-            (channel !== "TMT") || (serviceNo !== `${s}${bar.AltSvcSuffix[i]}`)
-        ).map((s, j, a) =>
-            j === 0
-                ? `${s}${bar.AltSvcSuffix[j]}`
-                : s !== a[j - 1]
-                    ? ` ${s}${bar.AltSvcSuffix[j]}`
-                    : `/${bar.AltSvcSuffix[j]}`
-        ).join("");
+        bar.AltSvc = bar.AltSvcNo
+            .map((number, index) => ({ number, suffix: bar.AltSvcSuffix[index] }))
+            .filter(({ number, suffix }) => channel !== "TMT" || serviceNo !== `${number}${suffix}`)
+            .map(({ number, suffix }, index, services) =>
+                index === 0
+                    ? `${number}${suffix}`
+                    : number !== services[index - 1].number
+                        ? ` ${number}${suffix}`
+                        : `/${suffix}`
+            ).join("");
     });
 
     switch (channel) {

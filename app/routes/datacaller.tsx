@@ -42,8 +42,8 @@ export default function Infobar() {
 
     return (
         <Box sx={{ maxWidth: "80%", mx: "auto", py: 2 }}>
-            <Typography variant="h2">DataCaller 6.1</Typography>
-            <Typography sx={{ mb: 2 }}>13 Oct 2026: Completed migration from Google Cloud Firestore to Google Cloud Storage.</Typography>
+            <Typography variant="h2">DataCaller 6.1.1</Typography>
+            <Typography sx={{ mb: 2 }}>24 Oct 2026: Fix infobar logic for TheMainTrain.</Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch" }}>
                 <TextField label="Service" value={service} onChange={event => setService(event.target.value)} required fullWidth />
                 <FormControl fullWidth>
