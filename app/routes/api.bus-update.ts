@@ -17,24 +17,30 @@ async function getDatamall<T>(endpoint: string) {
 }
 
 function buildBusRoutes(routes: DatamallBusRouteType[], stops: DatamallBusStopType[]) {
-    const names: Record<string, string> = roadNames;
+    const stationsByStop = new Map<string, (typeof nearbyStations)[number][]>();
+    for (const station of nearbyStations) {
+        const stations = stationsByStop.get(station.BusStopCode) ?? [];
+        stations.push(station);
+        stationsByStop.set(station.BusStopCode, stations);
+    }
     const stopMap = new Map(stops.map(stop => [stop.BusStopCode, {
         BusStopName: stop.Description,
         Latitude: stop.Latitude,
         Longitude: stop.Longitude,
-        RoadName: stop.RoadName.split(/\s+/).map(word => names[word] ?? word).join(" "),
+        RoadName: stop.RoadName.split(/\s+/).map(word => (roadNames as Record<string, string>)[word] ?? word).join(" "),
     }]));
 
-    const rows = new Map<string, Omit<BusRouteType, "AltSvc">>();
-    const alts = new Map<string, Map<string, [number, string]>>();
+    const busRouteMap = new Map<string, Omit<BusRouteType, "AltSvc">>();
+    const altRoutesMap = new Map<string, Map<string, [number, string]>>();
     for (const route of routes) {
         const [, no, suffix] = /^(\d+)([A-Za-z]?)$/.exec(route.ServiceNo) ?? [];
         if (!no) continue;
-        const stations = nearbyStations.filter(s => s.BusStopCode === route.BusStopCode);
-        rows.set(`${route.ServiceNo}|${route.Direction}|${route.StopSequence}`, {
+        const serviceNo = Number(no);
+        const stations = stationsByStop.get(route.BusStopCode) ?? [];
+        busRouteMap.set(`${route.ServiceNo}|${route.Direction}|${route.StopSequence}`, {
             ...route,
             ...stopMap.get(route.BusStopCode)!,
-            ServiceNo: Number(no),
+            ServiceNo: serviceNo,
             ServiceSuffix: suffix,
             AltSvcNo: [],
             AltSvcSuffix: [],
@@ -42,18 +48,24 @@ function buildBusRoutes(routes: DatamallBusRouteType[], stops: DatamallBusStopTy
             StnExit: stations.map(s => s.StnExit),
             StnName: stations.map(s => s.StnName),
         });
-        if (!alts.has(route.BusStopCode)) alts.set(route.BusStopCode, new Map());
-        alts.get(route.BusStopCode)!.set(route.ServiceNo, [Number(no), suffix]);
+        let altRoutes = altRoutesMap.get(route.BusStopCode);
+        if (!altRoutes) altRoutesMap.set(route.BusStopCode, altRoutes = new Map());
+        altRoutes.set(route.ServiceNo, [serviceNo, suffix]);
     }
 
+    const sortedAltRoutes = new Map([...altRoutesMap].map(([stopCode, altRoutes]) => [
+        stopCode,
+        [...altRoutes.values()].sort((a, b) => a[0] - b[0] || a[1].localeCompare(b[1])),
+    ]));
     const files = new Map<string, Omit<BusRouteType, "AltSvc">[]>();
-    const sorted = [...rows.values()].sort((a, b) => a.Direction - b.Direction || a.StopSequence - b.StopSequence);
-    for (const row of sorted) {
-        const alt = [...alts.get(row.BusStopCode)!.values()].sort((a, b) => a[0] - b[0] || a[1].localeCompare(b[1]));
+    for (const row of [...busRouteMap.values()].sort((a, b) => a.Direction - b.Direction || a.StopSequence - b.StopSequence)) {
+        const alt = sortedAltRoutes.get(row.BusStopCode)!;
         row.AltSvcNo = alt.map(a => a[0]);
         row.AltSvcSuffix = alt.map(a => a[1]);
         const name = `${row.ServiceNo}${row.ServiceSuffix}`;
-        files.set(name, [...files.get(name) ?? [], row]);
+        const file = files.get(name);
+        if (file) file.push(row);
+        else files.set(name, [row]);
     }
     return files;
 }
