@@ -71,13 +71,13 @@ function buildBusRoutes(routes: DatamallBusRouteType[], stops: DatamallBusStopTy
 }
 
 export async function action({ request }: Route.ActionArgs) {
-    if ((await request.formData()).get("secret") !== process.env.DATACALLER_SECRET) return "Invalid secret.";
+    if ((await request.formData()).get("secret") !== process.env.DATACALLER_SECRET) return "Invalid password.";
     const [routes, stops] = await Promise.all([
         getDatamall<DatamallBusRouteType>(process.env.DATAMALL_BUS_ROUTES_URL!),
         getDatamall<DatamallBusStopType>(process.env.DATAMALL_BUS_STOPS_URL!),
     ]);
     const bucket = new Storage().bucket("the-ost-app");
     await Promise.all([...buildBusRoutes(routes, stops)].map(([name, data]) => bucket.file(`bus/${name}.json`).save(JSON.stringify(data))));
-    await bucket.file("bus/updated.json").save(JSON.stringify(new Date().toISOString()), { metadata: { cacheControl: "no-cache" } });
-    return "Bus data refreshed.";
+    await bucket.file("bus/updated.json").save(JSON.stringify(new Date().toISOString()));
+    return "Updated data.";
 }
