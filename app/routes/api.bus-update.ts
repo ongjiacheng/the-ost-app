@@ -2,7 +2,7 @@ import { Storage } from "@google-cloud/storage";
 import nearbyStations from "../assets/nearby_stations.json";
 import roadNames from "../assets/road_names.json";
 import type { BusRouteType, DatamallBusRouteType, DatamallBusStopType } from "../types";
-import type { Route } from "./+types/api.refresh-bus";
+import type { Route } from "./+types/api.bus-update";
 
 async function getDatamall<T>(endpoint: string) {
     const items: T[] = [];

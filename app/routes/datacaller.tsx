@@ -46,7 +46,7 @@ export default function Infobar() {
     }
 
     function refreshBus() {
-        refresher.submit({ secret }, { method: "post", action: "/api/refresh-bus" });
+        refresher.submit({ secret }, { method: "post", action: "/api/bus-update" });
     }
 
     function copyTxt() {
