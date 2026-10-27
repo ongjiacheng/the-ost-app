@@ -38,7 +38,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, volumeMap } from "../types";
+import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
@@ -49,6 +49,8 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         .then(response => response.json()) as BusServiceType[];
     const hyperlapses = await fetch(new URL(`/api/hyperlapse?${busParams}`, request.url))
         .then(response => response.json()) as HyperlapseType[];
+    const timecodes = await fetch(new URL(`/api/bus-timecodes?${busParams}`, request.url))
+        .then(response => response.json()) as Partial<Record<number, TimecodeType[]>>;
     const map = await fetch(new URL(`/api/bus-map?${busParams}`, request.url))
         .then(response => response.json()) as FeatureCollection<LineString>;
 
@@ -61,7 +63,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         direction: service.at(0)!.Direction
     }
 
-    return { master, route, service, hyperlapses, map };
+    return { master, route, service, hyperlapses, timecodes, map };
 }
 
 function BusInfo({ service }: { service: BusServiceType[] }) {
@@ -195,7 +197,12 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
     );
 }
 
-function BusJourney({ route, hyperlapses, map }: { route: BusRouteType[], hyperlapses: HyperlapseType[], map: FeatureCollection<LineString> }) {
+function BusJourney({ route, hyperlapses, timecodes, map }: {
+    route: BusRouteType[],
+    hyperlapses: HyperlapseType[],
+    timecodes: Partial<Record<number, TimecodeType[]>>,
+    map: FeatureCollection<LineString>
+}) {
     const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
 
     const directions = useMemo(() => {
@@ -237,9 +244,7 @@ function BusJourney({ route, hyperlapses, map }: { route: BusRouteType[], hyperl
                             </TableHead>
                             <TableBody>
                                 {direction.map((stop, index) => {
-                                    const start = hyperlapses.find(t =>
-                                        t.Direction === stop.Direction
-                                    )?.Timestamps.find(s =>
+                                    const start = timecodes[stop.Direction]?.find(s =>
                                         s.code === stop.BusStopCode
                                     )?.time?.[
                                         direction.slice(0, index + 1).filter(s =>
@@ -600,14 +605,14 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
 }
 
 export default function Bus({
-    loaderData: { master, route, service, hyperlapses, map }
+    loaderData: { master, route, service, hyperlapses, timecodes, map }
 }: Route.ComponentProps) {
     return (
         <Container>
             <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
                 {master.operator} {master.category} Service {master.service}
             </Typography>
-            <BusJourney route={route} hyperlapses={hyperlapses} map={map} />
+            <BusJourney route={route} hyperlapses={hyperlapses} timecodes={timecodes} map={map} />
             <BusInfo service={service} />
             <BusVolume key={master.service} route={route} />
         </Container>

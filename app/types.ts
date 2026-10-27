@@ -79,18 +79,14 @@ export type BusVolumeType = {
     we: number[]
 }
 
-export type HyperlapseType = {
-    Direction: number,
-    ServiceNo: string,
-    channelTitle: string,
-    position: string,
-    publishedAt: string,
-    title: string,
-    videoId: string,
-    Timestamps: {
-        code: string,
-        time: number[]
-    }[]
+export type YouTubeType = {
+    snippet: {
+        videoOwnerChannelTitle?: string,
+        position: number,
+        publishedAt: string,
+        title: string,
+        resourceId: { videoId: string }
+    }
 };
 
 export type VideoType = {
@@ -99,7 +95,17 @@ export type VideoType = {
     publishedAt: string,
     title: string,
     videoId: string
-}
+};
+
+export type HyperlapseType = VideoType & {
+    Direction: number,
+    ServiceNo: string
+};
+
+export type TimecodeType = {
+    code: string,
+    time: number[]
+};
 
 export type TrainScheduleType = {
     a: string,
@@ -160,3 +166,8 @@ export type DatamallBusRouteType = Pick<BusRouteType, "BusStopCode" | "Direction
     | "WD_FirstBus" | "WD_LastBus" | "SAT_FirstBus" | "SAT_LastBus" | "SUN_FirstBus" | "SUN_LastBus"> & { ServiceNo: string };
 
 export type DatamallBusStopType = Pick<BusRouteType, "BusStopCode" | "Latitude" | "Longitude" | "RoadName"> & { Description: string };
+
+export type OpenStreetMapType =
+    | { type: "node"; id: number; lon: number; lat: number }
+    | { type: "way"; id: number; nodes: number[] }
+    | { type: "relation"; id: number; members: { type: string; ref: number }[]; tags?: Record<string, string> };
