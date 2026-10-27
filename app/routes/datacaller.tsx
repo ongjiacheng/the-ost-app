@@ -11,6 +11,7 @@ import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
@@ -69,27 +70,29 @@ export default function Infobar() {
     }
 
     return (
-        <Box sx={{ maxWidth: "80%", mx: "auto", py: 2 }}>
+        <Box sx={{ width: { xs: "100%", sm: "80%" }, mx: "auto", px: { xs: 2, sm: 0 }, py: 2 }}>
             <Typography variant="h2">DataCaller 6.2.1</Typography>
             <Typography sx={{ mb: 2 }}>27 Oct 2026: Add functionality to update data online.</Typography>
-            <Table size="small" sx={{ mb: 2, width: "fit-content", mx: "auto" }}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="center">Data source</TableCell>
-                        <TableCell align="center">Datamall</TableCell>
-                        <TableCell align="center">OpenStreetMap</TableCell>
-                        <TableCell align="center">YouTube</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow>
-                        <TableCell align="center" component="th" scope="row">Last updated</TableCell>
-                        <TableCell align="center">{busUpdated ? new Date(busUpdated).toLocaleString() : "Unknown"}</TableCell>
-                        <TableCell align="center">{mapUpdated ? new Date(mapUpdated).toLocaleString() : "Unknown"}</TableCell>
-                        <TableCell align="center">{youtubeUpdated ? new Date(youtubeUpdated).toLocaleString() : "Unknown"}</TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+            <TableContainer sx={{ mb: 2, maxWidth: "100%", overflowX: "auto" }}>
+                <Table size="small" sx={{ width: "fit-content", mx: "auto" }}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="center">Data source</TableCell>
+                            <TableCell align="center">Datamall</TableCell>
+                            <TableCell align="center">OpenStreetMap</TableCell>
+                            <TableCell align="center">YouTube</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell align="center" component="th" scope="row">Last updated</TableCell>
+                            <TableCell align="center">{busUpdated ? new Date(busUpdated).toLocaleString() : "Unknown"}</TableCell>
+                            <TableCell align="center">{mapUpdated ? new Date(mapUpdated).toLocaleString() : "Unknown"}</TableCell>
+                            <TableCell align="center">{youtubeUpdated ? new Date(youtubeUpdated).toLocaleString() : "Unknown"}</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch", mt: 4 }}>
                 <TextField label="Service" size="small" value={service} onChange={event => setService(event.target.value)} required fullWidth />
                 <FormControl fullWidth size="small">
@@ -130,7 +133,7 @@ export default function Infobar() {
 
             <Stack spacing={2} sx={{ mt: 4 }}>
                 <TextField label="Password" type="password" size="small" value={secret} onChange={event => setSecret(event.target.value)} fullWidth />
-                <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "center", flexWrap: { sm: "wrap" }, justifyContent: "center" }}>
                     <Button variant="contained" onClick={() => updater.submit({ secret, update: "bus" }, { method: "post", action: "/api/bus-update" })} disabled={updater.state !== "idle"} sx={{ whiteSpace: "nowrap", flexShrink: 0 }}>
                         {updater.formData?.get("update") === "bus" && updater.state !== "idle" ? "Loading..." : "Refresh Datamall"}
                     </Button>
