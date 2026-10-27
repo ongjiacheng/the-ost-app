@@ -30,14 +30,14 @@ function buildBusRoutes(routes: DatamallBusRouteType[], stops: DatamallBusStopTy
         RoadName: stop.RoadName.split(/\s+/).map(word => (roadNames as Record<string, string>)[word] ?? word).join(" "),
     }]));
 
-    const busRouteMap = new Map<string, Omit<BusRouteType, "AltSvc">>();
-    const altRoutesMap = new Map<string, Map<string, [number, string]>>();
+    const busRoutes = new Map<string, Omit<BusRouteType, "AltSvc">>();
+    const altRoutes = new Map<string, Map<string, [number, string]>>();
     for (const route of routes) {
         const [, no, suffix] = /^(\d+)([A-Za-z]?)$/.exec(route.ServiceNo) ?? [];
         if (!no) continue;
         const serviceNo = Number(no);
         const stations = stationsByStop.get(route.BusStopCode) ?? [];
-        busRouteMap.set(`${route.ServiceNo}|${route.Direction}|${route.StopSequence}`, {
+        busRoutes.set(`${route.ServiceNo}|${route.Direction}|${route.StopSequence}`, {
             ...route,
             ...stopMap.get(route.BusStopCode)!,
             ServiceNo: serviceNo,
@@ -48,17 +48,17 @@ function buildBusRoutes(routes: DatamallBusRouteType[], stops: DatamallBusStopTy
             StnExit: stations.map(s => s.StnExit),
             StnName: stations.map(s => s.StnName),
         });
-        let altRoutes = altRoutesMap.get(route.BusStopCode);
-        if (!altRoutes) altRoutesMap.set(route.BusStopCode, altRoutes = new Map());
-        altRoutes.set(route.ServiceNo, [serviceNo, suffix]);
+        let alt = altRoutes.get(route.BusStopCode);
+        if (!alt) altRoutes.set(route.BusStopCode, alt = new Map());
+        alt.set(route.ServiceNo, [serviceNo, suffix]);
     }
 
-    const sortedAltRoutes = new Map([...altRoutesMap].map(([stopCode, altRoutes]) => [
+    const sortedAltRoutes = new Map([...altRoutes].map(([stopCode, altRoutes]) => [
         stopCode,
         [...altRoutes.values()].sort((a, b) => a[0] - b[0] || a[1].localeCompare(b[1])),
     ]));
     const files = new Map<string, Omit<BusRouteType, "AltSvc">[]>();
-    for (const row of [...busRouteMap.values()].sort((a, b) => a.Direction - b.Direction || a.StopSequence - b.StopSequence)) {
+    for (const row of [...busRoutes.values()].sort((a, b) => a.Direction - b.Direction || a.StopSequence - b.StopSequence)) {
         const alt = sortedAltRoutes.get(row.BusStopCode)!;
         row.AltSvcNo = alt.map(a => a[0]);
         row.AltSvcSuffix = alt.map(a => a[1]);
