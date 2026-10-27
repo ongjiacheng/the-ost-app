@@ -96,26 +96,24 @@ async function buildBusMap(bucket: ReturnType<Storage["bucket"]>) {
         const id = route.id;
         const nodes = new Map(elements.filter(element => element.type === "node").map(node => [node.id, [node.lon, node.lat]]));
         const ways = new Map(elements.filter(element => element.type === "way").map(way => [way.id, way.nodes]));
-        const coordinates: number[][] = [];
+        const tags = route.tags;
+        if (!tags?.ref) throw new Error(`Missing ref in OSM relation ${id}`);
+        const features = files.get(tags.ref) ?? [];
         for (const member of route.members) {
             if (member.type !== "way") continue;
             const way = ways.get(member.ref);
             if (!way) throw new Error(`Missing OSM way ${member.ref} in relation ${id}`);
-            const line = way.map(nodeId => {
+            const coordinates = way.map(nodeId => {
                 const node = nodes.get(nodeId);
                 if (!node) throw new Error(`Missing OSM node ${nodeId} in relation ${id}`);
                 return node;
             });
-            coordinates.push(...(coordinates.length ? line.slice(1) : line));
+            features.push({
+                type: "Feature",
+                properties: { relation: id, ...tags },
+                geometry: { type: "LineString", coordinates },
+            });
         }
-        const tags = route.tags;
-        if (!tags?.ref) throw new Error(`Missing ref in OSM relation ${id}`);
-        const features = files.get(tags.ref) ?? [];
-        features.push({
-            type: "Feature",
-            properties: { relation: id, ...tags },
-            geometry: { type: "LineString", coordinates },
-        });
         files.set(tags.ref, features);
     }
     await Promise.all([...files].map(([name, features]) =>
