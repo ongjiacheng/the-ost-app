@@ -33,7 +33,7 @@ const channels = [
 
 export async function loader() {
     const get = async (path: string) => {
-        const response = await fetch(`https://storage.googleapis.com/the-ost-app/${path}`);
+        const response = await fetch(`https://storage.googleapis.com/the-ost-app/${path}`, { cache: "no-store" });
         return response.ok ? await response.json() as string : null;
     };
     const [bus, map, youtube] = await Promise.all([
