@@ -75,7 +75,6 @@ async function* fetchOpenStreetMap(ids: number[]) {
             await new Promise(resolve => setTimeout(resolve, 10000));
             response = await fetch(url, options);
         }
-        console.log(id);
         if (!response.ok) throw new Error(`Failed to download OSM relation ${id}: ${response.status}`);
         const data: { elements: OpenStreetMapType[] } = await response.json();
         const relation = data.elements.find(element => element.type === "relation" && element.id === id);

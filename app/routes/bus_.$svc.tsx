@@ -28,12 +28,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { FeatureCollection, LineString } from 'geojson';
-import { AttributionControl, FullscreenControl, GeolocateControl, Map, NavigationControl, ScaleControl, setWorkerUrl } from 'maplibre-gl';
+import { AttributionControl, FullscreenControl, GeolocateControl, type GeoJSONSource, Map, NavigationControl, ScaleControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
@@ -124,8 +125,9 @@ function BusInfo({ service }: { service: BusServiceType[] }) {
 
 setWorkerUrl(workerUrl);
 
-function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>, route: BusRouteType[] }) {
+function BusMap({ map: collection, route, service }: { map: FeatureCollection<LineString>, route: BusRouteType[], service: BusServiceType[] }) {
     const container = useRef<HTMLDivElement>(null);
+    const { palette } = useTheme();
 
     useEffect(() => {
         const map = new Map({
@@ -147,11 +149,64 @@ function BusMap({ map: collection, route }: { map: FeatureCollection<LineString>
             const features = route.map(stop => ({ type: "Feature" as const, properties: {}, geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] } }));
             map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
             map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 10, paint: { "circle-color": "#96D600" }});
+            map.addSource("buses", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+            map.addLayer({ id: "buses", type: "circle", source: "buses", paint: { "circle-color": ["get", "color"], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" } });
             const [longs, lats] = [0, 1].map(i => collection.features.flatMap(f => f.geometry.coordinates.map(c => c[i])));
             map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
         });
-        return () => map.remove();
-    }, [collection, route]);
+
+        let active = true;
+        (async () => {
+            await map.once("load");
+            while (active) {
+                const sampled = [...new Set(route.map(stop => stop.Direction))].flatMap(direction => {
+                    const stops = route.filter(stop => stop.Direction === direction);
+                    const info = service.find(s => s.Direction === direction);
+                    const spacing = 20 / 60 * 2 * (
+                        [info?.AM_Peak_Freq, info?.AM_Offpeak_Freq, info?.PM_Peak_Freq, info?.PM_Offpeak_Freq]
+                            .join(" ").match(/\d+/g)
+                            ?.reduce((mean, n, i) => mean + (Number(n) - mean) / (i + 1), 0) || 15
+                    );
+                    return stops.filter((stop, i) =>
+                        i === 0 || Math.floor(stop.Distance / spacing) !== Math.floor(stops[i - 1].Distance / spacing)
+                    );
+                });
+
+                const arrivals: (BusArrivalType | null)[] = await Promise.all(sampled.map(stop =>
+                    fetch(`/api/bus-arrival?BusStopCode=${stop.BusStopCode}&ServiceNo=${stop.ServiceNo}${stop.ServiceSuffix}`)
+                        .then(response => response.json())
+                        .catch(() => null)
+                ));
+
+                const unique = new globalThis.Map<string, { coordinates: [number, number], color: string }>();
+                arrivals.forEach(arrival => {
+                    const svc = arrival?.Services?.[0];
+                    [svc?.NextBus, svc?.NextBus2, svc?.NextBus3].forEach(bus => {
+                        const [lng, lat] = [parseFloat(bus?.Longitude ?? ""), parseFloat(bus?.Latitude ?? "")];
+                        const color = bus?.Load === "SEA" ? palette.success.main
+                            : bus?.Load === "SDA" ? palette.warning.main
+                                : bus?.Load === "LSD" ? palette.error.main
+                                    : palette.text.disabled;
+                        if (lng && lat) unique.set(`${lng.toFixed(4)},${lat.toFixed(4)}`, { coordinates: [lng, lat], color });
+                    });
+                });
+
+                if (active) {
+                    (map.getSource("buses") as GeoJSONSource).setData({
+                        type: "FeatureCollection",
+                        features: [...unique.values()].map(({ coordinates, color }) => ({
+                            type: "Feature" as const,
+                            properties: { color },
+                            geometry: { type: "Point" as const, coordinates }
+                        }))
+                    });
+                }
+                await new Promise(resolve => setTimeout(resolve, 30_000));
+            }
+        })();
+
+        return () => { active = false; map.remove(); };
+    }, [collection, route, service, palette]);
 
     return (
         <Container>
@@ -197,8 +252,9 @@ function BusHyperlapses({ hyperlapses, play }: { hyperlapses: HyperlapseType[], 
     );
 }
 
-function BusJourney({ route, hyperlapses, timecodes, map }: {
+function BusJourney({ route, service, hyperlapses, timecodes, map }: {
     route: BusRouteType[],
+    service: BusServiceType[],
     hyperlapses: HyperlapseType[],
     timecodes: Partial<Record<number, TimecodeType[]>>,
     map: FeatureCollection<LineString>
@@ -219,7 +275,7 @@ function BusJourney({ route, hyperlapses, timecodes, map }: {
 
     return (
         <Container>
-            <BusMap map={map} route={route} />
+            <BusMap map={map} route={route} service={service} />
             <BusHyperlapses hyperlapses={hyperlapses} play={timecode} />
             <Stack direction={{ xs: "column", lg: "row" }} spacing={2} sx={{ alignItems: "flex-start" }}>
                 {directions.map((direction, _, arr) => {
@@ -612,7 +668,7 @@ export default function Bus({
             <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
                 {master.operator} {master.category} Service {master.service}
             </Typography>
-            <BusJourney route={route} hyperlapses={hyperlapses} timecodes={timecodes} map={map} />
+            <BusJourney route={route} service={service} hyperlapses={hyperlapses} timecodes={timecodes} map={map} />
             <BusInfo service={service} />
             <BusVolume key={master.service} route={route} />
         </Container>
