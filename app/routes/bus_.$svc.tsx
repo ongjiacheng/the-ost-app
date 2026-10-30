@@ -202,7 +202,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                         }))
                     });
                 }
-                await new Promise(resolve => setTimeout(resolve, 30_000));
+                await new Promise(resolve => setTimeout(resolve, 20_000));
             }
         })();
 
