@@ -157,44 +157,46 @@ function BusMap({ map: collection, directions, service }: { map: FeatureCollecti
 
         (async () => {
             await map.once("load");
-            const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date());
-            const frequency = "06:30" < time && time <= "08:30" ? "AM_Peak_Freq" : time < "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
-            const sampled = directions.flatMap(stops => {
-                const info = service.find(s => s.Direction === stops[0].Direction);
-                const spacing = 0.25 * (Number(info?.[frequency].match(/\d+/)?.[0]) || 15);
-                const dist = stops.at(-1)!.Distance;
-                return stops.filter((stop, i) =>
-                    i === stops.length - 2 || Math.floor((dist - stop.Distance) / spacing) != Math.floor((dist - stops.at(i - 1)!.Distance) / spacing)
-                );
-            });
-
-            const arrivals: BusArrivalType[] = await Promise.all(sampled.map(stop =>
-                fetch(`/api/bus-arrival?BusStopCode=${stop.BusStopCode}&ServiceNo=${stop.ServiceNo}${stop.ServiceSuffix}`)
-                    .then(response => response.json())
-            ));
-
-            const unique = new Map<string, { coordinates: [number, number], color: string }>();
-            arrivals.forEach(arrival => {
-                const svc = arrival.Services[0];
-                [svc.NextBus, svc.NextBus2, svc.NextBus3].forEach(bus => {
-                    const [lng, lat] = [parseFloat(bus.Longitude), parseFloat(bus.Latitude)];
-                    const color = bus.Load === "SEA" ? palette.success.dark
-                        : bus.Load === "SDA" ? palette.warning.dark
-                            : bus.Load === "LSD" ? palette.error.dark
-                                : palette.text.disabled;
-                    if (lng && lat) unique.set(`${lng.toFixed(3)},${lat.toFixed(3)}`, { coordinates: [lng, lat], color });
+            while (true) {
+                const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date());
+                const frequency = "06:30" < time && time <= "08:30" ? "AM_Peak_Freq" : time < "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
+                const sampled = directions.flatMap(stops => {
+                    const info = service.find(s => s.Direction === stops[0].Direction);
+                    const spacing = 0.25 * (Number(info?.[frequency].match(/\d+/)?.[0]) || 15);
+                    const dist = stops.at(-1)!.Distance;
+                    return stops.filter((stop, i) =>
+                        i === stops.length - 2 || Math.floor((dist - stop.Distance) / spacing) != Math.floor((dist - stops.at(i - 1)!.Distance) / spacing)
+                    );
                 });
-            });
 
-            (map.getSource("buses") as GeoJSONSource).setData({
-                type: "FeatureCollection",
-                features: [...unique.values()].map(({ coordinates, color }) => ({
-                    type: "Feature" as const,
-                    properties: { color },
-                    geometry: { type: "Point" as const, coordinates }
-                }))
-            });
-            await new Promise(resolve => setTimeout(resolve, 20_000));
+                const arrivals: BusArrivalType[] = await Promise.all(sampled.map(stop =>
+                    fetch(`/api/bus-arrival?BusStopCode=${stop.BusStopCode}&ServiceNo=${stop.ServiceNo}${stop.ServiceSuffix}`)
+                        .then(response => response.json())
+                ));
+
+                const unique = new Map<string, { coordinates: [number, number], color: string }>();
+                arrivals.forEach(arrival => {
+                    const svc = arrival.Services[0];
+                    [svc.NextBus, svc.NextBus2, svc.NextBus3].forEach(bus => {
+                        const [lng, lat] = [parseFloat(bus.Longitude), parseFloat(bus.Latitude)];
+                        const color = bus.Load === "SEA" ? palette.success.dark
+                            : bus.Load === "SDA" ? palette.warning.dark
+                                : bus.Load === "LSD" ? palette.error.dark
+                                    : palette.text.disabled;
+                        if (lng && lat) unique.set(`${lng.toFixed(3)},${lat.toFixed(3)}`, { coordinates: [lng, lat], color });
+                    });
+                });
+
+                (map.getSource("buses") as GeoJSONSource).setData({
+                    type: "FeatureCollection",
+                    features: [...unique.values()].map(({ coordinates, color }) => ({
+                        type: "Feature" as const,
+                        properties: { color },
+                        geometry: { type: "Point" as const, coordinates }
+                    }))
+                });
+                await new Promise(resolve => setTimeout(resolve, 20_000));
+            }
         })();
 
         return () => map.remove();
