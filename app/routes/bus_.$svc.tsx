@@ -168,7 +168,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                             ?.reduce((mean, n, i) => mean + (Number(n) - mean) / (i + 1), 0) || 15
                     );
                     return stops.filter((stop, i) =>
-                        i === 0 || Math.floor(stop.Distance / spacing) !== Math.floor(stops[i - 1].Distance / spacing)
+                        i in [0, stops.length - 2] || Math.floor(stop.Distance / spacing) !== Math.floor(stops[i - 1].Distance / spacing)
                     );
                 });
 
