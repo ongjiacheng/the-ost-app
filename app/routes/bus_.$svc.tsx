@@ -162,13 +162,14 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                 const sampled = [...new Set(route.map(stop => stop.Direction))].flatMap(direction => {
                     const stops = route.filter(stop => stop.Direction === direction);
                     const info = service.find(s => s.Direction === direction);
-                    const spacing = 20 / 60 * 2 * (
+                    const spacing = 20 / 60 * (
                         [info?.AM_Peak_Freq, info?.AM_Offpeak_Freq, info?.PM_Peak_Freq, info?.PM_Offpeak_Freq]
                             .join(" ").match(/\d+/g)
                             ?.reduce((mean, n, i) => mean + (Number(n) - mean) / (i + 1), 0) || 15
                     );
+                    const dist = stops.at(-1)!.Distance;
                     return stops.filter((stop, i) =>
-                        i in [0, stops.length - 2] || Math.floor(stop.Distance / spacing) !== Math.floor(stops[i - 1].Distance / spacing)
+                        i === stops.length - 1 || Math.floor((dist - stop.Distance) / spacing) !== Math.floor((dist - stops.at(i - 1)!.Distance) / spacing)
                     );
                 });
 
