@@ -155,11 +155,12 @@ function BusMap({ map: collection, directions, service }: { map: FeatureCollecti
             map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
         });
 
+        let active = true;
         (async () => {
             await map.once("load");
-            while (true) {
+            while (active) {
                 const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date());
-                const frequency = "06:30" < time && time <= "08:30" ? "AM_Peak_Freq" : time < "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
+                const frequency = "06:30" <= time && time <= "08:30" ? "AM_Peak_Freq" : time <= "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
                 const sampled = directions.flatMap(stops => {
                     const info = service.find(s => s.Direction === stops[0].Direction);
                     const spacing = 0.25 * (Number(info?.[frequency].match(/\d+/)?.[0]) || 15);
@@ -169,15 +170,17 @@ function BusMap({ map: collection, directions, service }: { map: FeatureCollecti
                     );
                 });
 
-                const arrivals: BusArrivalType[] = await Promise.all(sampled.map(stop =>
+                const arrivals = await Promise.allSettled(sampled.map(stop =>
                     fetch(`/api/bus-arrival?BusStopCode=${stop.BusStopCode}&ServiceNo=${stop.ServiceNo}${stop.ServiceSuffix}`)
-                        .then(response => response.json())
+                        .then(response => response.ok ? response.json() as Promise<BusArrivalType> : undefined)
                 ));
 
+                if (!active) return;
                 const unique = new Map<string, { coordinates: [number, number], color: string }>();
                 arrivals.forEach(arrival => {
-                    const svc = arrival.Services[0];
-                    [svc.NextBus, svc.NextBus2, svc.NextBus3].forEach(bus => {
+                    const svc = arrival.status === "fulfilled" ? arrival.value?.Services?.[0] : undefined;
+                    [svc?.NextBus, svc?.NextBus2, svc?.NextBus3].forEach(bus => {
+                        if (!bus) return;
                         const [lng, lat] = [parseFloat(bus.Longitude), parseFloat(bus.Latitude)];
                         const color = bus.Load === "SEA" ? palette.success.dark
                             : bus.Load === "SDA" ? palette.warning.dark
@@ -199,7 +202,10 @@ function BusMap({ map: collection, directions, service }: { map: FeatureCollecti
             }
         })();
 
-        return () => map.remove();
+        return () => {
+            active = false;
+            map.remove();
+        };
     }, [collection, directions, service, palette]);
 
     return (
