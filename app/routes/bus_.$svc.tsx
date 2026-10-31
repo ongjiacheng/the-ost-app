@@ -157,7 +157,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
             while (active) {
                 const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date());
                 const frequency = "06:30" <= time && time <= "08:30" ? "AM_Peak_Freq" : time <= "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
-                const spacing = 0.5 * (Number(service[frequency].match(/\d+/)?.[0]) || 15);
+                const spacing = 0.75 * (Number(service[frequency].match(/\d+/)?.[0]) || 15);
                 const dist = route.at(-1)!.Distance;
                 const sampled = route.filter((stop, i) =>
                     i === route.length - 2 || Math.floor((dist - stop.Distance) / spacing) != Math.floor((dist - route.at(i - 1)!.Distance) / spacing)
