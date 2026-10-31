@@ -25,7 +25,7 @@ export type BusMasterType = {
     operator: string,
     category: string,
     service: string,
-    direction: number
+    multi: boolean
 };
 
 export type BusRouteType = {
