@@ -36,7 +36,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { FeatureCollection, LineString } from 'geojson';
-import { AttributionControl, FullscreenControl, GeolocateControl, type GeoJSONSource, Map as MapLibreMap, NavigationControl, ScaleControl, setWorkerUrl } from 'maplibre-gl';
+import { AttributionControl, FullscreenControl, GeolocateControl, type GeoJSONSource, LngLatBounds, Map as MapLibreMap, NavigationControl, ScaleControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
@@ -125,11 +125,14 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
     const { palette } = useTheme();
 
     useEffect(() => {
+        const bounds = new LngLatBounds();
+        route.forEach(stop => bounds.extend([stop.Longitude, stop.Latitude]));
+        collection.features.forEach(f => f.geometry.coordinates.forEach(c => bounds.extend(c as [number, number])));
         const map = new MapLibreMap({
             container: container.current!,
             style: "https://tiles.openfreemap.org/styles/dark",
-            center: [103.8198, 1.3521],
-            zoom: 10,
+            bounds,
+            fitBoundsOptions: { padding: 50 },
             attributionControl: false
         });
         map.addControl(new AttributionControl({ compact: true }));
@@ -146,8 +149,6 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
             map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 10, paint: { "circle-color": "#96D600" } });
             map.addSource("buses", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
             map.addLayer({ id: "buses", type: "circle", source: "buses", paint: { "circle-color": ["get", "color"], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" } });
-            const [longs, lats] = [0, 1].map(i => collection.features.flatMap(f => f.geometry.coordinates.map(c => c[i])));
-            map.fitBounds([[Math.min(...longs), Math.min(...lats)], [Math.max(...longs), Math.max(...lats)]], { padding: 50 });
         });
 
         let active = true;
@@ -633,11 +634,14 @@ export default function Bus({
             <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
                 {master.operator} {master.category} Service {master.service}
             </Typography>
-            <ToggleButtonGroup value={direction} size="small" exclusive onChange={(_, value) => value && setDirection(value)}>
-                {services.map(s => (
-                    <ToggleButton key={s.Direction} value={s.Direction}>Direction {s.Direction}</ToggleButton>
-                ))}
-            </ToggleButtonGroup>
+            {
+                services.some(s => s.Direction === 2) &&
+                <ToggleButtonGroup value={direction} size="small" exclusive onChange={(_, value) => value && setDirection(value)}>
+                    {services.map(s => (
+                        <ToggleButton key={s.Direction} value={s.Direction}>Direction {s.Direction}</ToggleButton>
+                    ))}
+                </ToggleButtonGroup>
+            }
             <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "stretch" }}>
                 <BusMap map={map} route={route} service={service} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} play={timecode} />}
