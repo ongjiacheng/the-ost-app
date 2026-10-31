@@ -180,7 +180,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                                 : bus.Load === "LSD" ? palette.error.dark
                                     : palette.text.disabled;
                         if (!lng || !lat) return;
-                        const match = unique.find(u => !u.sources.has(source) && Math.hypot(u.coordinates[0] - lng, u.coordinates[1] - lat) < 0.003);
+                        const match = unique.find(u => !u.sources.has(source) && Math.hypot(u.coordinates[0] - lng, u.coordinates[1] - lat) < 0.01);
                         if (match) match.sources.add(source);
                         else unique.push({ coordinates: [lng, lat], color, sources: new Set([source]) });
                     });
