@@ -159,6 +159,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                 const frequency = "06:30" <= time && time <= "08:30" ? "AM_Peak_Freq" : time <= "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
                 const spacing = 0.75 * (Number(service[frequency].match(/\d+/)?.[0]) || 15);
                 const dist = route.at(-1)!.Distance;
+                if (route.at(-1)?.BusStopCode ?? "" in ["02099", "03239", "11009", "11379", "22609", "44989", "84299"]) route.pop();
                 const sampled = route.filter((stop, i) =>
                     i === route.length - 2 || Math.floor((dist - stop.Distance) / spacing) != Math.floor((dist - route.at(i - 1)!.Distance) / spacing)
                 );
