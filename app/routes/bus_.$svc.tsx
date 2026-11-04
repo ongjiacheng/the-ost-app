@@ -42,7 +42,7 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
 import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, volumeMap } from "../types";
-import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
+import { categoryMap, lineMap, occupancyMap, typeMap } from "../types";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
     const busParams = new URLSearchParams({ ServiceNo: params.svc })
@@ -53,12 +53,10 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     ) as [BusRouteType[], BusServiceType[], HyperlapseType[], FeatureCollection<LineString>, Partial<Record<number, TimecodeType[]>>];
 
     const master: BusMasterType = {
-        operator: operatorMap[services.at(0)!.Operator],
         category: (services.at(0) !== undefined && services.at(0)!.ServiceNo >= 451 && services.at(0)!.ServiceNo <= 500)
             ? "Limited-Stop"
             : categoryMap[services.at(0)!.Category],
-        service: params.svc,
-        multi: services.at(0)!.LoopDesc.length > 0
+        service: params.svc
     }
 
     return { master, routes, services, hyperlapses, maps, timecodes };
@@ -632,8 +630,8 @@ export default function Bus({
 
     return (
         <Container>
-            <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
-                {master.operator} {master.category} Service {master.service}
+            <Typography variant="h3">
+                {master.category} {master.service}
             </Typography>
             {
                 services.some(s => s.Direction === 2) &&

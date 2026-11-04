@@ -1,6 +1,6 @@
 [
     {
-        "name": "Trunk Services",
+        "name": "Trunk",
         "services": [
             [null, "2", "3", "4", "5", "6", "7", "8", "9", "10"],
             ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
@@ -42,7 +42,7 @@
         ]
     },
     {
-        "name": "Modified Trunk Variants",
+        "name": "Modified Variants",
         "services": [
             ["16M", "18M", "35M", "53M", "63M", "70M", "84G", "84W"],
             ["98M", "107M", "117M", "123M", "138M", "143M", "170X", "179A"],
@@ -51,14 +51,14 @@
         ]
     },
     {
-        "name": "Express Trunk Variants",
+        "name": "Express Variants",
         "services": [
             ["10e", "12e", "14e", "30e", "43e", "89e", "97e", "174e"],
             ["188e", "196e", "851e", "854e", "960e", "963e"]
         ]
     },
     {
-        "name": "Feeder Services",
+        "name": "Feeder",
         "services": [
             ["Bedok", "222", "225G", "225W", "228", "229"],
             ["Toa Payoh", "230", "230M", "231", "232", "235", "238"],
@@ -85,20 +85,20 @@
         ]
     },
     {
-        "name": "Limited-Stop Services",
+        "name": "Limited-Stop",
         "services": [
             ["451", "452", "453", "454", "455", "456", "457", "458", "459", "460"],
             ["461"]
         ]
     },
     {
-        "name": "Express Services",
+        "name": "Express",
         "services": [
             ["502", "502A", "506", "518", "518A"]
         ]
     },
     {
-        "name": "City Direct Services",
+        "name": "City Direct",
         "services": [
             [null, null, null, null, null, "646", "647", "648", "649", "650"],
             ["651", "652", "653", "654", "655", "656", "657", null, "660", "660M"],

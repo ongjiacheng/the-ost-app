@@ -29,8 +29,8 @@ const theme = createTheme({
         MuiContainer: {
             styleOverrides: {
                 root: {
-                    paddingTop: 16,
-                    paddingBottom: 16,
+                    paddingTop: 4,
+                    paddingBottom: 4,
                     paddingLeft: 0,
                     paddingRight: 0,
                     textAlign: "center"
