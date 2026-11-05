@@ -210,21 +210,14 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
     );
 }
 
-function BusHyperlapses({ hyperlapse, play }: { hyperlapse: HyperlapseType, play: { id: string, start: number } | null }) {
-    const iframe = useRef<HTMLIFrameElement>(null);
-
-    useEffect(() => {
-        if (!play || !iframe.current) return;
-        iframe.current.src = `https://www.youtube.com/embed/${play.id}?rel=0&autoplay=1&start=${play.start}`;
-    }, [play]);
-
+function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, iframe: React.RefObject<HTMLIFrameElement | null> }) {
     return (
         <Container>
             <Card sx={{ width: "100%" }}>
                 <CardMedia
                     component="iframe"
                     ref={iframe}
-                    src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0${play?.id === hyperlapse.videoId ? `&autoplay=1&start=${play.start}` : ""}`}
+                    src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0&playsinline=1&enablejsapi=1`}
                     allow="autoplay; encrypted-media"
                     sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
                 />
@@ -620,12 +613,16 @@ export default function Bus({
     const service = services.filter(s => s.Direction === direction).at(0)!;
     const hyperlapse = hyperlapses.filter(h => h.Direction === direction).at(0);
     const map = { ...maps, features: maps.features.filter(f => String(f.properties?.direction) === String(direction)) };
-    const [timecode, setTimecode] = useState<{ id: string, start: number } | null>(null);
+    const iframe = useRef<HTMLIFrameElement>(null);
 
-    function handlePlay(direction: number, start: number) {
+    function handlePlay(_direction: number, start: number) {
         window.scrollTo({ top: 0, behavior: "smooth" });
-        const video = hyperlapses.find(h => h.Direction === direction);
-        setTimecode(video ? { id: video.videoId, start } : null);
+        const target = iframe.current?.contentWindow;
+        if (!target) return;
+        const send = (func: string, args: unknown[] = []) =>
+            target.postMessage(JSON.stringify({ event: "command", func, args }), "https://www.youtube.com");
+        send("seekTo", [start, true]);
+        send("playVideo");
     }
 
     return (
@@ -643,7 +640,7 @@ export default function Bus({
             }
             <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "stretch" }}>
                 <BusMap map={map} route={route} service={service} />
-                {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} play={timecode} />}
+                {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
             <BusInfo service={service} />
             <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} />
