@@ -205,7 +205,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
 
     return (
         <Container sx={{ display: "flex" }}>
-            <Paper ref={container} sx={{ flex: 1, minHeight: { xs: "40vh", md: 0 }, overflow: "hidden" }} />
+            <Paper ref={container} sx={{ flex: 1, minHeight: { xs: "30vh", md: 0 }, overflow: "hidden" }} />
         </Container>
     );
 }
@@ -627,7 +627,7 @@ export default function Bus({
 
     return (
         <Container>
-            <Typography variant="h3">
+            <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
                 {master.category} {master.service}
             </Typography>
             {
