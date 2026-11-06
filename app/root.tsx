@@ -1,5 +1,6 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from '@mui/material/IconButton';
@@ -9,8 +10,9 @@ import ListItemButton from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 
-import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { isRouteErrorResponse, Link, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router";
 
 import walk from './assets/walk.png';
 import cycle from './assets/cycle.png';
@@ -188,6 +190,30 @@ export default function Root() {
                 <Header />
                 <Container component="main" sx={{ flexGrow: 1, px: { xs: 1, sm: 2 } }}>
                     <Outlet />
+                </Container>
+                <Footer />
+            </Box>
+        </ThemeProvider>
+    );
+}
+
+export function ErrorBoundary() {
+    const error = useRouteError();
+    const notFound = isRouteErrorResponse(error) && error.status === 404;
+
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+                <Header />
+                <Container component="main" sx={{ flexGrow: 1, py: 6, px: { xs: 1, sm: 2 } }}>
+                    <Typography component="h1" variant="h3">
+                        {notFound ? "Page not found" : "Something went wrong"}
+                    </Typography>
+                    <Typography sx={{ mb: 3 }}>
+                        {notFound ? "We couldn't find this page." : "We couldn't load this page. Please try again."}
+                    </Typography>
+                    <Button component={Link} to="/" variant="contained">Go to home</Button>
                 </Container>
                 <Footer />
             </Box>
