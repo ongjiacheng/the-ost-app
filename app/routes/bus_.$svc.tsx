@@ -42,7 +42,11 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
 import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, volumeMap } from "../types";
-import { categoryMap, lineMap, occupancyMap, typeMap } from "../types";
+import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
+
+export function meta({ loaderData }: Route.MetaArgs) {
+    return [{ title: `${loaderData.master.operator} ${loaderData.master.category} Bus Service ${loaderData.master.service} | One Stop Transport` }];
+}
 
 export async function loader({ params, request }: Route.LoaderArgs) {
     const busParams = new URLSearchParams({ ServiceNo: params.svc })
@@ -53,10 +57,11 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     ) as [BusRouteType[], BusServiceType[], HyperlapseType[], FeatureCollection<LineString>, Partial<Record<number, TimecodeType[]>>];
 
     const master: BusMasterType = {
+        operator: operatorMap[services.at(0)!.Operator] ?? "",
         category: (services.at(0) !== undefined && services.at(0)!.ServiceNo >= 451 && services.at(0)!.ServiceNo <= 500)
             ? "Limited-Stop"
             : categoryMap[services.at(0)!.Category],
-        service: params.svc
+        service: params.svc,
     }
 
     return { master, routes, services, hyperlapses, maps, timecodes };

@@ -22,6 +22,7 @@ export type BusArrivalType = {
 };
 
 export type BusMasterType = {
+    operator: string,
     category: string,
     service: string
 };
@@ -133,6 +134,13 @@ export const occupancyMap: Record<string, string> = {
     "SEA": "Low",
     "SDA": "Medium",
     "LSD": "High"
+};
+
+export const operatorMap: Record<string, string> = {
+    "SBST": "SBS Transit",
+    "SMRT": "SMRT Buses",
+    "TTS": "Tower Transit",
+    "GAS": "Go-Ahead"
 };
 
 export const typeMap: Record<string, string> = {
