@@ -57,7 +57,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     ) as [BusRouteType[], BusServiceType[], HyperlapseType[], FeatureCollection<LineString>, Partial<Record<number, TimecodeType[]>>];
 
     const master: BusMasterType = {
-        operator: operatorMap[services.at(0)!.Operator] ?? "",
+        operator: operatorMap[services.at(0)!.Operator],
         category: (services.at(0) !== undefined && services.at(0)!.ServiceNo >= 451 && services.at(0)!.ServiceNo <= 500)
             ? "Limited-Stop"
             : categoryMap[services.at(0)!.Category],
