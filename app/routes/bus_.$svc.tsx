@@ -381,7 +381,7 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
                             ))}
                         </TableBody>
                     </Table>
-                    {activeIndex >= 0 && <Box sx={{ height: "50vh" }} />}
+                    {activeIndex >= 0 && <Box sx={{ height: "25vh" }} />}
                 </TableContainer>
             </Paper>
         </Container>
