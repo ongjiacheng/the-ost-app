@@ -338,8 +338,12 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     const activeIndex = statuses.findIndex(status => status === "current" || status === "next");
 
     useEffect(() => {
-        if (!container.current || !activeStop.current) return;
-        container.current.scrollTop += activeStop.current.getBoundingClientRect().top - container.current.getBoundingClientRect().top;
+        if (!container.current) return;
+        if (!activeStop.current) {
+            container.current.scrollTop = 0;
+        } else {
+            container.current.scrollTop += activeStop.current.getBoundingClientRect().top - container.current.getBoundingClientRect().top;
+        }
     }, [activeIndex, route]);
 
     return (
@@ -381,7 +385,7 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
                             ))}
                         </TableBody>
                     </Table>
-                    {activeIndex >= 0 && <Box sx={{ height: "25vh" }} />}
+                    <Box sx={{ height: "25vh" }} />
                 </TableContainer>
             </Paper>
         </Container>
