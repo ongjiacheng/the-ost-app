@@ -288,11 +288,17 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
         const highlight = () => {
             map.setFilter("next-stop", ["in", ["id"], ["literal", [statuses.indexOf("current"), statuses.indexOf("next")]]]);
             map.setPaintProperty("next-stop", "circle-color", ["case", ["==", ["id"], statuses.indexOf("current")], palette.secondary.main, palette.primary.main]);
+            const index = statuses.indexOf("next") >= 0 ? statuses.indexOf("next") : statuses.indexOf("current");
+            if (route[index]) {
+                const bounds = new LngLatBounds([route[index].Longitude, route[index].Latitude], [route[index].Longitude, route[index].Latitude]);
+                if (route[index - 1]) bounds.extend([route[index - 1].Longitude, route[index - 1].Latitude]);
+                map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 1000 });
+            }
         };
         if (map.getLayer("next-stop")) highlight();
         else map.once("load", highlight);
         return () => { map.off("load", highlight); };
-    }, [statuses, collection, route, service, timecodes, handlePlay, palette]);
+    }, [collection, route, service, statuses, timecodes, handlePlay, palette]);
 
     return (
         <Container sx={{ display: "flex", py: { xs: 0, md: 2 } }}>
