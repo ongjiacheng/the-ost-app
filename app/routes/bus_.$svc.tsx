@@ -196,9 +196,9 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
                 map.setFeatureState({ source: "stops", id: hoveredStop }, { hover: true });
                 const content = document.createElement("div");
                 content.style.cssText = "max-width:280px;font-size:12px;line-height:1.4;color:#222;white-space:pre-line";
-                content.append(`#${stop.properties.sequence} ${stop.properties.distance} km ${stop.properties.code}\n`,
-                    Object.assign(document.createElement("strong"), { textContent: stop.properties.name }),
-                    Object.assign(document.createElement("em"), { textContent: stop.properties.road }),
+                content.append(`#${stop.properties.sequence} ${stop.properties.distance} km ${stop.properties.code}`,
+                    Object.assign(document.createElement("strong"), { textContent: `\n${stop.properties.name}` }),
+                    Object.assign(document.createElement("em"), { textContent: `\n${stop.properties.road}` }),
                     document.createTextNode([stop.properties.stations, stop.properties.services].filter(Boolean).map(line => `\n${line}`).join("")));
                 popup.setLngLat(event.lngLat).setDOMContent(content).addTo(map);
                 map.getCanvas().style.cursor = "pointer";
