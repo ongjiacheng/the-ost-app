@@ -32,7 +32,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { FeatureCollection, LineString } from 'geojson';
@@ -41,7 +41,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, volumeMap } from "../types";
+import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, StatusType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -69,68 +69,68 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
 function BusInfo({ service }: { service: BusServiceType }) {
     return (
-        <Container>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            <Typography align="center" variant="body1">Frequency (minutes)</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography align="center" variant="body1">AM Peak</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography align="center" variant="body1">AM Off Peak</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography align="center" variant="body1">PM Peak</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography align="center" variant="body1">PM Off Peak</Typography>
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow key={service.Direction}>
-                        <TableCell align="center">
-                            <Typography variant="body1">
-                                {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                            </Typography>
-                            <Typography variant="body2">
-                                {service.LoopDesc
-                                    ? `${service.OriginName} ↺ ${service.LoopDesc}`
-                                    : `${service.OriginName} → ${service.DestinationName}`}
-                            </Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography variant="body1">{service.AM_Peak_Freq}</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography variant="body1">{service.AM_Offpeak_Freq}</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography variant="body1">{service.PM_Peak_Freq}</Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                            <Typography variant="body1">{service.PM_Offpeak_Freq}</Typography>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
-        </Container>
+        <Table>
+            <TableHead>
+                <TableRow>
+                    <TableCell>
+                        <Typography align="center" variant="body1">Frequency (minutes)</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography align="center" variant="body1">AM Peak</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography align="center" variant="body1">AM Off Peak</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography align="center" variant="body1">PM Peak</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography align="center" variant="body1">PM Off Peak</Typography>
+                    </TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                <TableRow key={service.Direction}>
+                    <TableCell align="center">
+                        <Typography variant="body1">
+                            {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
+                        </Typography>
+                        <Typography variant="body2">
+                            {service.LoopDesc
+                                ? `${service.OriginName} ↺ ${service.LoopDesc}`
+                                : `${service.OriginName} → ${service.DestinationName}`}
+                        </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography variant="body1">{service.AM_Peak_Freq}</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography variant="body1">{service.AM_Offpeak_Freq}</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography variant="body1">{service.PM_Peak_Freq}</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                        <Typography variant="body1">{service.PM_Offpeak_Freq}</Typography>
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
     );
 }
 
 setWorkerUrl(workerUrl);
 
-function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
+function BusMap({ map: collection, route, service, timecodes, handlePlay, statuses }: {
     map: FeatureCollection<LineString>,
     route: BusRouteType[],
     service: BusServiceType,
     timecodes: Partial<Record<number, TimecodeType[]>>,
-    handlePlay: (direction: number, start: number) => void
+    handlePlay: (direction: number, start: number) => void,
+    statuses: StatusType[]
 }) {
     const container = useRef<HTMLDivElement>(null);
+    const mapRef = useRef<MapLibreMap | null>(null);
     const { palette } = useTheme();
 
     useEffect(() => {
@@ -144,6 +144,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
             fitBoundsOptions: { padding: 50 },
             attributionControl: false
         });
+        mapRef.current = map;
         map.addControl(new AttributionControl({ compact: true }));
         map.addControl(new ScaleControl({ unit: "metric" }), "top-right");
         map.addControl(new NavigationControl({ showZoom: false }), "top-right");
@@ -175,6 +176,10 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
                 geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] }
             }));
             map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
+            map.addLayer({
+                id: "next-stop", type: "circle", source: "stops", filter: ["==", ["id"], -1],
+                paint: { "circle-color": palette.primary.light, "circle-radius": 9 }
+            });
             map.addLayer({
                 id: "stops", type: "circle", source: "stops",
                 paint: {
@@ -229,9 +234,10 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
                 const frequency = "06:30" <= time && time <= "08:30" ? "AM_Peak_Freq" : time <= "17:00" ? "AM_Offpeak_Freq" : time <= "19:00" ? "PM_Peak_Freq" : "PM_Offpeak_Freq";
                 const spacing = 0.75 * Math.min((service[frequency].match(/\d+/g)?.map(Number).reduce((sum, value, _, values) => sum + value / values.length, 0)) ?? 14, 14);
                 const dist = route.at(-1)!.Distance;
-                if (route.at(-1)?.BusStopCode ?? "" in ["02099", "03239", "11009", "11379", "22609", "44989", "84299"]) route.pop();
-                const sampled = route.filter((stop, i) =>
-                    i === route.length - 2 || Math.floor((dist - stop.Distance) / spacing) != Math.floor((dist - route.at(i - 1)!.Distance) / spacing)
+                const stops = route.slice();
+                if (["02099", "03239", "11009", "11379", "22609", "44989", "84299"].includes(stops.at(-1)?.BusStopCode ?? "")) stops.pop();
+                const sampled = stops.filter((stop, i) =>
+                    i === stops.length - 2 || Math.floor((dist - stop.Distance) / spacing) != Math.floor((dist - stops.at(i - 1)!.Distance) / spacing)
                 );
 
                 const arrivals = await Promise.allSettled(sampled.map(stop =>
@@ -271,9 +277,22 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
 
         return () => {
             active = false;
+            mapRef.current = null;
             map.remove();
         };
     }, [collection, route, service, timecodes, handlePlay, palette]);
+
+    useEffect(() => {
+        const map = mapRef.current;
+        if (!map) return;
+        const highlight = () => {
+            map.setFilter("next-stop", ["in", ["id"], ["literal", [statuses.indexOf("current"), statuses.indexOf("next")]]]);
+            map.setPaintProperty("next-stop", "circle-color", ["case", ["==", ["id"], statuses.indexOf("current")], palette.secondary.main, palette.primary.main]);
+        };
+        if (map.getLayer("next-stop")) highlight();
+        else map.once("load", highlight);
+        return () => { map.off("load", highlight); };
+    }, [statuses, collection, route, service, timecodes, handlePlay, palette]);
 
     return (
         <Container sx={{ display: "flex" }}>
@@ -301,57 +320,69 @@ function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, if
     );
 }
 
-function BusJourney({ route, service, timecodes, handlePlay }: {
+function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     route: BusRouteType[],
     service: BusServiceType,
     timecodes: Partial<Record<number, TimecodeType[]>>,
-    handlePlay: (direction: number, start: number) => void
+    handlePlay: (direction: number, start: number) => void,
+    statuses: StatusType[]
 }) {
+    const container = useRef<HTMLDivElement>(null);
+    const activeStop = useRef<HTMLTableRowElement>(null);
+    const activeIndex = statuses.findIndex(status => status === "current" || status === "next");
+
+    useEffect(() => {
+        if (!container.current || !activeStop.current) return;
+        container.current.scrollTop += activeStop.current.getBoundingClientRect().top - container.current.getBoundingClientRect().top;
+    }, [activeIndex, route]);
+
     return (
         <Container>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="center" colSpan={7}>
-                            <Typography variant="h5">
-                                {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                            </Typography>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
-                        <TableCell align="center">km</TableCell>
-                        <TableCell align="center">Code</TableCell>
-                        <TableCell align="left" colSpan={2}>Name</TableCell>
-                        <TableCell align="left">Station</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {route.map((stop, index) => {
-                        const start = timecodes[stop.Direction]?.find(s =>
-                            s.code === stop.BusStopCode
-                        )?.time?.[
-                            route.slice(0, index + 1).filter(s =>
-                                s.BusStopCode === stop.BusStopCode
-                            ).length - 1
-                        ] ?? 0;
-                        return (
-                            <BusSequence
-                                key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
-                                currentStop={stop}
-                                previousStop={route[index - 1]}
-                                play={() => handlePlay(stop.Direction, start)}
-                            />
-                        );
-                    })}
-                </TableBody>
-            </Table>
+            <Paper sx={{ overflow: "hidden", p: 2 }}>
+                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "50vh", scrollBehavior: "smooth" }}>
+                    <BusInfo service={service} />
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="center" colSpan={7}>
+                                    <Typography variant="h5">
+                                        {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
+                                    </Typography>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell></TableCell>
+                                <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
+                                <TableCell align="center">km</TableCell>
+                                <TableCell align="center">Code</TableCell>
+                                <TableCell align="left" colSpan={2}>Name</TableCell>
+                                <TableCell align="left">Station</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {route.map((stop, index) => (
+                                <BusSequence
+                                    key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
+                                    currentStop={stop}
+                                    previousStop={route[index - 1]}
+                                    status={statuses[index] ?? "later"}
+                                    activeRef={index === activeIndex ? activeStop : undefined}
+                                    play={() => handlePlay(stop.Direction,
+                                        timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[
+                                        route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1
+                                        ] ?? 0)}
+                                />
+                            ))}
+                        </TableBody>
+                    </Table>
+                    {activeIndex >= 0 && <Box sx={{ height: "50vh" }} />}
+                </TableContainer>
+            </Paper>
         </Container>
     );
 }
 
-function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRouteType, previousStop: BusRouteType, play: () => void }) {
+function BusSequence({ currentStop, previousStop, status, activeRef, play }: { currentStop: BusRouteType, previousStop: BusRouteType, status: StatusType, activeRef?: React.Ref<HTMLTableRowElement>, play: () => void }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
@@ -382,7 +413,7 @@ function BusSequence({ currentStop, previousStop, play }: { currentStop: BusRout
                     <Typography variant="body1">{currentStop.RoadName}</Typography>
                 </TableCell>
             </TableRow>}
-        <TableRow>
+        <TableRow ref={activeRef} sx={{ backgroundColor: { current: "secondary.dark", next: "primary.dark", previous: undefined, later: undefined }[status] }}>
             <TableCell sx={{ whiteSpace: "nowrap" }}>
                 <IconButton aria-label="Expand Dropdown" size="small" type="button" onClick={handleDropdown}>
                     {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -582,7 +613,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                 ? "Loading"
                 : (open
                     ? (
-                        <>
+                        <Container>
                             <Typography variant="h4">Origin-Destination Volumes</Typography>
                             <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
                                 <FormControl size="small">
@@ -668,7 +699,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                     </TableContainer>
                                 </Stack>
                             </Stack>
-                        </>
+                        </Container>
                     )
                     : <Button variant="contained" onClick={() => handleFetch()}>Origin-Destination Volumes</Button>
                 )
@@ -681,22 +712,52 @@ export default function Bus({
     loaderData: { master, routes, services, hyperlapses, maps, timecodes }
 }: Route.ComponentProps) {
     const [direction, setDirection] = useState(1);
-    const route = routes.filter(stop => stop.Direction === direction);
+    const route = useMemo(() => routes.filter(stop => stop.Direction === direction), [routes, direction]);
     const service = services.filter(s => s.Direction === direction).at(0)!;
     const hyperlapse = hyperlapses.filter(h => h.Direction === direction).at(0);
-    const map = { ...maps, features: maps.features.filter(f => String(f.properties?.direction) === String(direction)) };
+    const map = useMemo(() => ({ ...maps, features: maps.features.filter(f => String(f.properties?.direction) === String(direction)) }), [maps, direction]);
     const iframe = useRef<HTMLIFrameElement>(null);
+    const [stopStatuses, setStopStatuses] = useState<{ videoId: string, direction: number, statuses: StatusType[] } | null>(null);
+    const statuses = stopStatuses?.videoId === hyperlapse?.videoId && stopStatuses?.direction === direction ? stopStatuses.statuses : [];
 
-    function handlePlay(_direction: number, start: number) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    useEffect(() => {
+        if (!hyperlapse) return;
+        const listen = window.setInterval(() => iframe.current?.contentWindow?.postMessage(JSON.stringify({ event: "listening" }), "https://www.youtube.com"), 1000);
+        const onMessage = (event: MessageEvent) => {
+            if (event.origin !== "https://www.youtube.com" || event.source !== iframe.current?.contentWindow || typeof event.data !== "string" || !event.data.trimStart().startsWith("{")) return;
+            const { event: type, info }: { event?: string, info?: { currentTime?: unknown } } = JSON.parse(event.data);
+            const time = info?.currentTime;
+            if (type !== "infoDelivery" || typeof time !== "number" || !Number.isFinite(time)) return;
+            let nextTime = Infinity, nextIndex: number | null = null;
+            const statuses: StatusType[] = [];
+            route.forEach((stop, index) => {
+                const stopTime = timecodes[direction]?.find(s => s.code === stop.BusStopCode)?.time?.[
+                    route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1
+                ];
+                statuses.push(stopTime !== undefined && stopTime + 3 <= time ? "previous" : "later");
+                if (stopTime !== undefined && stopTime + 3 > time && stopTime < nextTime) {
+                    [nextTime, nextIndex] = [stopTime, index];
+                }
+            });
+            if (nextIndex !== null) statuses[nextIndex] = time >= nextTime ? "current" : "next";
+            setStopStatuses(previous => previous?.videoId === hyperlapse.videoId && previous.direction === direction &&
+                previous.statuses.length === statuses.length && previous.statuses.every((status, index) => status === statuses[index])
+                ? previous : { videoId: hyperlapse.videoId, direction, statuses });
+        };
+        window.addEventListener("message", onMessage);
+        return () => {
+            window.clearInterval(listen);
+            window.removeEventListener("message", onMessage);
+        };
+    }, [direction, hyperlapse, route, timecodes]);
+
+    const handlePlay = useCallback((_direction: number, start: number) => {
         const target = iframe.current?.contentWindow;
         if (!target) return;
         const send = (func: string, args: unknown[] = []) =>
             target.postMessage(JSON.stringify({ event: "command", func, args }), "https://www.youtube.com");
-        send("mute");
         send("seekTo", [start, true]);
-        send("playVideo");
-    }
+    }, []);
 
     return (
         <Container>
@@ -712,11 +773,10 @@ export default function Bus({
                 </ToggleButtonGroup>
             }
             <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "stretch" }}>
-                <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} />
+                <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
-            <BusInfo service={service} />
-            <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} />
+            <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
             <BusVolume key={`${master.service}-${direction}`} route={route} />
         </Container>
     );

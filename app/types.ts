@@ -106,6 +106,8 @@ export type TimecodeType = {
     time: number[]
 };
 
+export type StatusType = "previous" | "current" | "next" | "later";
+
 export type TrainScheduleType = {
     a: string,
     d: string,
