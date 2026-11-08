@@ -162,6 +162,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
                     sequence: stop.StopSequence,
                     code: stop.BusStopCode,
                     name: stop.BusStopName,
+                    road: stop.RoadName,
                     stations: stop.StnCode
                         .map((codes, i) => `${codes} ${stop.StnName[i]} Exit ${stop.StnExit[i]}`)
                         .join("\n"),
@@ -196,8 +197,8 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
                 const content = document.createElement("div");
                 content.style.cssText = "max-width:280px;font-size:12px;line-height:1.4;color:#222;white-space:pre-line";
                 content.append(`#${stop.properties.sequence} ${stop.properties.distance} km ${stop.properties.code}\n`,
-                    Object.assign(document.createElement("strong"),
-                    { textContent: stop.properties.name }),
+                    Object.assign(document.createElement("strong"), { textContent: stop.properties.name }),
+                    Object.assign(document.createElement("em"), { textContent: stop.properties.road }),
                     document.createTextNode([stop.properties.stations, stop.properties.services].filter(Boolean).map(line => `\n${line}`).join("")));
                 popup.setLngLat(event.lngLat).setDOMContent(content).addTo(map);
                 map.getCanvas().style.cursor = "pointer";
@@ -211,7 +212,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
             map.addSource("buses", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
             map.addLayer({
                 id: "buses", type: "circle", source: "buses",
-                paint: { "circle-color": ["get", "color"], "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 3, 12, 4, 13, 7], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" }
+                paint: { "circle-color": ["get", "color"], "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 3, 11, 4, 12, 7], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" }
             });
             map.addLayer({
                 id: "bus-types", type: "symbol", source: "buses", minzoom: 12,
