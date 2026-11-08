@@ -338,8 +338,8 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
 
     return (
         <Container>
-            <Paper sx={{ overflow: "hidden", p: 2 }}>
-                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "50vh", scrollBehavior: "smooth" }}>
+            <Paper sx={{ overflow: "hidden", p: { xs: 0, md: 2 } }}>
+                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "40vh", scrollBehavior: "smooth" }}>
                     <BusInfo service={service} />
                     <Table>
                         <TableHead>
