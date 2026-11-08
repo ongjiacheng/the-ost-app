@@ -36,7 +36,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
 
 import type { FeatureCollection, LineString } from 'geojson';
-import { AttributionControl, FullscreenControl, GeolocateControl, type GeoJSONSource, LngLatBounds, Map as MapLibreMap, NavigationControl, ScaleControl, setWorkerUrl } from 'maplibre-gl';
+import { AttributionControl, FullscreenControl, GeolocateControl, type GeoJSONSource, LngLatBounds, Map as MapLibreMap, NavigationControl, Popup, ScaleControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
@@ -123,7 +123,13 @@ function BusInfo({ service }: { service: BusServiceType }) {
 
 setWorkerUrl(workerUrl);
 
-function BusMap({ map: collection, route, service }: { map: FeatureCollection<LineString>, route: BusRouteType[], service: BusServiceType }) {
+function BusMap({ map: collection, route, service, timecodes, handlePlay }: {
+    map: FeatureCollection<LineString>,
+    route: BusRouteType[],
+    service: BusServiceType,
+    timecodes: Partial<Record<number, TimecodeType[]>>,
+    handlePlay: (direction: number, start: number) => void
+}) {
     const container = useRef<HTMLDivElement>(null);
     const { palette } = useTheme();
 
@@ -147,11 +153,71 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
         map.on("load", () => {
             map.addSource("route", { type: "geojson", data: collection });
             map.addLayer({ id: "route", type: "line", source: "route", paint: { "line-color": "#96D600", "line-width": 4 } });
-            const features = route.map(stop => ({ type: "Feature" as const, properties: {}, geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] } }));
+            const features = route.map((stop, index) => ({
+                type: "Feature" as const,
+                id: index,
+                properties: {
+                    start: timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1] ?? 0,
+                    distance: stop.Distance.toFixed(1),
+                    sequence: stop.StopSequence,
+                    code: stop.BusStopCode,
+                    name: stop.BusStopName,
+                    stations: stop.StnCode
+                        .map((codes, i) => `${codes} ${stop.StnName[i]} Exit ${stop.StnExit[i]}`)
+                        .join("\n"),
+                    services: stop.AltSvcNo
+                        .map((number, i) => [number, stop.AltSvcSuffix[i]] as const)
+                        .filter(([number, suffix], i, all) => i === 0 || number !== all[i - 1][0] || suffix !== all[i - 1][1])
+                        .map(([number, suffix], i, all) => i === 0 ? `${number}${suffix}` : number === all[i - 1][0] ? `/${suffix}` : ` ${number}${suffix}`)
+                        .join("")
+                },
+                geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] }
+            }));
             map.addSource("stops", { type: "geojson", data: { type: "FeatureCollection", features } });
-            map.addLayer({ id: "stops", type: "circle", source: "stops", minzoom: 10, paint: { "circle-color": "#96D600" } });
+            map.addLayer({
+                id: "stops", type: "circle", source: "stops",
+                paint: {
+                    "circle-color": ["case", ["boolean", ["feature-state", "hover"], false], "#FFFFFF", "#96D600"],
+                    "circle-radius": ["case", ["boolean", ["feature-state", "hover"], false], 9, 5]
+                }
+            });
+            const popup = new Popup({ closeButton: false, closeOnClick: false, offset: 8 });
+            let hoveredStop: string | number | undefined;
+            map.on("click", "stops", event => {
+                const start = event.features?.[0]?.properties?.start;
+                if (typeof start === "number") handlePlay(service.Direction, start);
+            });
+            map.on("mousemove", "stops", event => {
+                const stop = event.features?.[0];
+                if (!stop?.properties || stop.id === undefined || hoveredStop === stop.id) return;
+                if (hoveredStop !== undefined) map.setFeatureState({ source: "stops", id: hoveredStop }, { hover: false });
+                hoveredStop = stop.id;
+                map.setFeatureState({ source: "stops", id: hoveredStop }, { hover: true });
+                const content = document.createElement("div");
+                content.style.cssText = "max-width:280px;font-size:12px;line-height:1.4;color:#222;white-space:pre-line";
+                content.append(`#${stop.properties.sequence} ${stop.properties.distance} km ${stop.properties.code}\n`,
+                    Object.assign(document.createElement("strong"),
+                    { textContent: stop.properties.name }),
+                    document.createTextNode([stop.properties.stations, stop.properties.services].filter(Boolean).map(line => `\n${line}`).join("")));
+                popup.setLngLat(event.lngLat).setDOMContent(content).addTo(map);
+                map.getCanvas().style.cursor = "pointer";
+            });
+            map.on("mouseleave", "stops", () => {
+                if (hoveredStop !== undefined) map.setFeatureState({ source: "stops", id: hoveredStop }, { hover: false });
+                hoveredStop = undefined;
+                popup.remove();
+                map.getCanvas().style.cursor = "";
+            });
             map.addSource("buses", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-            map.addLayer({ id: "buses", type: "circle", source: "buses", paint: { "circle-color": ["get", "color"], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" } });
+            map.addLayer({
+                id: "buses", type: "circle", source: "buses",
+                paint: { "circle-color": ["get", "color"], "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 3, 12, 4, 13, 7], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" }
+            });
+            map.addLayer({
+                id: "bus-types", type: "symbol", source: "buses", minzoom: 12,
+                layout: { "text-field": ["get", "type"], "text-size": 7, "text-offset": [0, 0], "text-anchor": "center" },
+                paint: { "text-color": ["match", ["get", "color"], palette.success.dark, "#FFFFFF", palette.error.dark, "#FFFFFF", "#000000"] }
+            });
         });
 
         let active = true;
@@ -173,7 +239,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                 ));
 
                 if (!active) return;
-                const unique: { coordinates: [number, number], color: string, sources: Set<number> }[] = [];
+                const unique: { coordinates: [number, number], color: string, type: string, sources: Set<number> }[] = [];
                 arrivals.forEach((arrival, source) => {
                     const svc = arrival.status === "fulfilled" ? arrival.value?.Services?.[0] : undefined;
                     [svc?.NextBus, svc?.NextBus2, svc?.NextBus3].forEach(bus => {
@@ -186,15 +252,15 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
                         if (!lng || !lat) return;
                         const match = unique.find(u => !u.sources.has(source) && Math.hypot(u.coordinates[0] - lng, u.coordinates[1] - lat) < 0.001);
                         if (match) match.sources.add(source);
-                        else unique.push({ coordinates: [lng, lat], color, sources: new Set([source]) });
+                        else unique.push({ coordinates: [lng, lat], color, type: bus.Type, sources: new Set([source]) });
                     });
                 });
 
                 (map.getSource("buses") as GeoJSONSource).setData({
                     type: "FeatureCollection",
-                    features: unique.map(({ coordinates, color }) => ({
+                    features: unique.map(({ coordinates, color, type }) => ({
                         type: "Feature" as const,
-                        properties: { color },
+                        properties: { color, type },
                         geometry: { type: "Point" as const, coordinates }
                     }))
                 });
@@ -206,7 +272,7 @@ function BusMap({ map: collection, route, service }: { map: FeatureCollection<Li
             active = false;
             map.remove();
         };
-    }, [collection, route, service, palette]);
+    }, [collection, route, service, timecodes, handlePlay, palette]);
 
     return (
         <Container sx={{ display: "flex" }}>
@@ -644,7 +710,7 @@ export default function Bus({
                 </ToggleButtonGroup>
             }
             <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "stretch" }}>
-                <BusMap map={map} route={route} service={service} />
+                <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
             <BusInfo service={service} />
