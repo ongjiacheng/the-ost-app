@@ -295,7 +295,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
     }, [statuses, collection, route, service, timecodes, handlePlay, palette]);
 
     return (
-        <Container sx={{ display: "flex" }}>
+        <Container sx={{ display: "flex", py: { xs: 0, md: 2 } }}>
             <Paper ref={container} sx={{ flex: 1, minHeight: { xs: "30vh", md: 0 }, overflow: "hidden" }} />
         </Container>
     );
@@ -303,7 +303,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
 
 function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, iframe: React.RefObject<HTMLIFrameElement | null> }) {
     return (
-        <Container>
+        <Container sx={{ py: { xs: 0, md: 2 } }}>
             <Card sx={{ width: "100%" }}>
                 <CardMedia
                     component="iframe"
@@ -312,7 +312,7 @@ function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, if
                     allow="autoplay; encrypted-media"
                     sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
                 />
-                <CardContent>
+                <CardContent sx={{ display: { xs: "none", md: "block" } }}>
                     Uploaded by {hyperlapse.channelTitle} on {new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </CardContent>
             </Card>
@@ -339,7 +339,7 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     return (
         <Container>
             <Paper sx={{ overflow: "hidden", p: { xs: 0, md: 2 } }}>
-                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "40vh", scrollBehavior: "smooth" }}>
+                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "25vh", scrollBehavior: "smooth" }}>
                     <BusInfo service={service} />
                     <Table>
                         <TableHead>
@@ -608,7 +608,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     }
 
     return (
-        <>
+        <Container sx={{ paddingTop: 4 }}>
             {loading
                 ? "Loading"
                 : (open
@@ -704,7 +704,7 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                     : <Button variant="contained" onClick={() => handleFetch()}>Origin-Destination Volumes</Button>
                 )
             }
-        </>
+        </Container>
     )
 }
 
@@ -760,7 +760,7 @@ export default function Bus({
     }, []);
 
     return (
-        <Container>
+        <>
             <Typography variant="h4" sx={{ typography: { md: 'h3' } }}>
                 {master.category} {master.service}
             </Typography>
@@ -778,6 +778,6 @@ export default function Bus({
             </Stack>
             <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
             <BusVolume key={`${master.service}-${direction}`} route={route} />
-        </Container>
+        </>
     );
 }
