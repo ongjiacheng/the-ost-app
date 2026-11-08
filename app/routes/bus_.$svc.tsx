@@ -288,7 +288,7 @@ function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, if
                 <CardMedia
                     component="iframe"
                     ref={iframe}
-                    src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0&playsinline=1&enablejsapi=1`}
+                    src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0&playsinline=1&enablejsapi=1&mute=1`}
                     allow="autoplay; encrypted-media"
                     sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
                 />
@@ -692,6 +692,7 @@ export default function Bus({
         if (!target) return;
         const send = (func: string, args: unknown[] = []) =>
             target.postMessage(JSON.stringify({ event: "command", func, args }), "https://www.youtube.com");
+        send("mute");
         send("seekTo", [start, true]);
         send("playVideo");
     }
