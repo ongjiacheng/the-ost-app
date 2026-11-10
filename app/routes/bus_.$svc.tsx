@@ -302,7 +302,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
 
     return (
         <Container sx={{ display: "flex", py: { xs: 0, md: 2 } }}>
-            <Paper ref={container} sx={{ flex: 1, minHeight: { xs: "30vh", md: 0 }, overflow: "hidden" }} />
+            <Paper ref={container} sx={{ flex: 1, aspectRatio: { xs: "16 / 9", md: "auto" }, alignSelf: { xs: "flex-start", md: "stretch" }, overflow: "hidden" }} />
         </Container>
     );
 }
@@ -349,7 +349,7 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     return (
         <Container>
             <Paper sx={{ overflow: "hidden", p: { xs: 0, md: 2 } }}>
-                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "25vh", scrollBehavior: "smooth" }}>
+                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "8.5rem", scrollBehavior: "smooth" }}>
                     <BusInfo service={service} />
                     <Table>
                         <TableHead>
