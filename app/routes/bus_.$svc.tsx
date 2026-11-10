@@ -722,8 +722,8 @@ export default function Bus({
     loaderData: { master, routes, services, hyperlapses, maps, timecodes }
 }: Route.ComponentProps) {
     const [direction, setDirection] = useState(() => {
-        const now = new Date(), time = now.toTimeString().slice(0, 5).replace(":", ""), day = (["SUN", "WD", "WD", "WD", "WD", "WD", "SAT"] as const)[now.getDay()];
-        return services.length > 1 && !routes.some(s => s.Direction === 1 && time >= s[`${day}_FirstBus`] && time <= s[`${day}_LastBus`]) ? 2 : 1;
+        const time = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+        return time >= "12:00" && services.some(s => s.Direction === 2) ? 2 : 1;
     });
     const route = useMemo(() => routes.filter(stop => stop.Direction === direction), [routes, direction]);
     const service = services.filter(s => s.Direction === direction).at(0)!;
@@ -775,14 +775,14 @@ export default function Bus({
     return (
         <>
             <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
-                <Typography variant="h4">
+                <Typography variant="h4" sx={{ typography: { md: "h3" } }}>
                     {master.category} {master.service}
                 </Typography>
                 {
                     services.some(s => s.Direction === 2) &&
                     <ToggleButtonGroup value={direction} size="small" exclusive onChange={(_, value) => value && setDirection(value)}>
                         {services.map(s => (
-                            <ToggleButton key={s.Direction} value={s.Direction}>Direction {s.Direction}</ToggleButton>
+                            <ToggleButton key={s.Direction} value={s.Direction}>To {s.DestinationName}</ToggleButton>
                         ))}
                     </ToggleButtonGroup>
                 }
