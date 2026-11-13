@@ -4,10 +4,6 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -112,38 +108,9 @@ function Header() {
 
 function Footer() {
     return (
-        <Box component="footer" sx={{ bgcolor: "primary.dark", color: "white", py: 3 }}>
-            <Container sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 }, py: 0 }}>
-                <List sx={{ p: 0 }}>
-                    <ListItem disableGutters>
-                        <ListItemText sx={{ color: "white" }} primary="©2026 One Stop Transport" />
-                    </ListItem>
-                    <ListItem disableGutters>
-                        <ListItemText primary="onestoptransportsg@gmail.com" />
-                    </ListItem>
-                </List>
-                <List sx={{ p: 0 }}>
-                    <ListItem disablePadding>
-                        <ListItemButton component="a" href="https://www.youtube.com/@3449Hyperlapses" sx={{ py: 0 }}>
-                            <ListItemText sx={{ color: "white" }} primary="3449 Hyperlapses" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton component="a" href="https://www.youtube.com/@AlvetorTransport" sx={{ py: 0 }}>
-                            <ListItemText sx={{ color: "white" }} primary="Alvetor Transport" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton component="a" href="https://www.youtube.com/@themaintrainost" sx={{ py: 0 }}>
-                            <ListItemText sx={{ color: "white" }} primary="TheMainTrain" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton component="a" href="https://www.youtube.com/@transitevolution" sx={{ py: 0 }}>
-                            <ListItemText sx={{ color: "white" }} primary="Transit Evolution" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
+        <Box component="footer" sx={{ bgcolor: "primary.dark", color: "white" }}>
+            <Container sx={{ alignItems: "center", bgcolor: "primary.dark", display: "flex", justifyContent: "space-between", px: 1, py: 1 }}>
+                <Typography>©2026 One Stop Transport</Typography>
             </Container>
         </Box>
     );
