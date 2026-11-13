@@ -106,16 +106,6 @@ function Header() {
     );
 }
 
-function Footer() {
-    return (
-        <Box component="footer" sx={{ bgcolor: "primary.dark", color: "white" }}>
-            <Container sx={{ alignItems: "center", bgcolor: "primary.dark", display: "flex", justifyContent: "space-between", px: 1, py: 1 }}>
-                <Typography>©2026 One Stop Transport</Typography>
-            </Container>
-        </Box>
-    );
-}
-
 export function links() {
     return [
         { rel: "icon", href: "/favicon.png", type: "image/png" },
@@ -158,7 +148,6 @@ export default function Root() {
                 <Container component="main" sx={{ flexGrow: 1, px: { xs: 1, sm: 2 } }}>
                     <Outlet />
                 </Container>
-                <Footer />
             </Box>
         </ThemeProvider>
     );
