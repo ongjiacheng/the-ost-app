@@ -145,7 +145,7 @@ export default function Root() {
             <CssBaseline />
             <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
                 <Header />
-                <Container component="main" sx={{ flexGrow: 1, px: { xs: 1, sm: 2 } }}>
+                <Container component="main" sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", px: { xs: 1, sm: 2 } }}>
                     <Outlet />
                 </Container>
             </Box>
@@ -171,7 +171,6 @@ export function ErrorBoundary() {
                     </Typography>
                     <Button component={Link} to="/" variant="contained">Go to home</Button>
                 </Container>
-                <Footer />
             </Box>
         </ThemeProvider>
     );

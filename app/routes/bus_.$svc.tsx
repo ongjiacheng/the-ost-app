@@ -301,28 +301,24 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
     }, [collection, route, service, statuses, timecodes, handlePlay, palette]);
 
     return (
-        <Container sx={{ display: "flex", py: { xs: 0, md: 2 } }}>
-            <Paper ref={container} sx={{ flex: 1, aspectRatio: { xs: "16 / 9", md: "auto" }, alignSelf: { xs: "flex-start", md: "stretch" }, overflow: "hidden" }} />
-        </Container>
+        <Paper ref={container} sx={{ flex: { md: 1 }, minWidth: 0, width: "100%", aspectRatio: { xs: "16 / 9", md: "auto" } }} />
     );
 }
 
 function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, iframe: React.RefObject<HTMLIFrameElement | null> }) {
     return (
-        <Container sx={{ py: { xs: 0, md: 2 } }}>
-            <Card sx={{ width: "100%" }}>
-                <CardMedia
-                    component="iframe"
-                    ref={iframe}
-                    src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0&playsinline=1&enablejsapi=1&mute=1`}
-                    allow="autoplay; encrypted-media"
-                    sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
-                />
-                <CardContent sx={{ display: { xs: "none", md: "block" } }}>
-                    Uploaded by {hyperlapse.channelTitle} on {new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </CardContent>
-            </Card>
-        </Container>
+        <Card sx={{ flex: { md: 1 }, minWidth: 0, width: "100%" }}>
+            <CardMedia
+                component="iframe"
+                ref={iframe}
+                src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0&playsinline=1&enablejsapi=1&mute=1`}
+                allow="autoplay; encrypted-media"
+                sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
+            />
+            <CardContent sx={{ display: { xs: "none", md: "block" } }}>
+                Uploaded by {hyperlapse.channelTitle} on {new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </CardContent>
+        </Card>
     );
 }
 
@@ -347,48 +343,46 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     }, [activeIndex, route]);
 
     return (
-        <Container>
-            <Paper sx={{ overflow: "hidden", p: { xs: 0, md: 2 } }}>
-                <TableContainer ref={container} tabIndex={0} role="region" sx={{ maxHeight: "8.5rem", scrollBehavior: "smooth" }}>
-                    <BusInfo service={service} />
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center" colSpan={7}>
-                                    <Typography variant="h5">
-                                        {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                                    </Typography>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell></TableCell>
-                                <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
-                                <TableCell align="center">km</TableCell>
-                                <TableCell align="center">Code</TableCell>
-                                <TableCell align="left" colSpan={2}>Name</TableCell>
-                                <TableCell align="left">Station</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {route.map((stop, index) => (
-                                <BusSequence
-                                    key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
-                                    currentStop={stop}
-                                    previousStop={route[index - 1]}
-                                    status={statuses[index] ?? "later"}
-                                    activeRef={index === activeIndex ? activeStop : undefined}
-                                    play={() => handlePlay(stop.Direction,
-                                        timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[
-                                        route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1
-                                        ] ?? 0)}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                    <Box sx={{ height: "25vh" }} />
-                </TableContainer>
-            </Paper>
-        </Container>
+        <Paper sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", mb: 1 }}>
+            <TableContainer ref={container} tabIndex={0} role="region" sx={{ flex: 1, overflowY: "auto", scrollBehavior: "smooth" }}>
+                <BusInfo service={service} />
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="center" colSpan={7}>
+                                <Typography variant="h5">
+                                    {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
+                                </Typography>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
+                            <TableCell align="center">km</TableCell>
+                            <TableCell align="center">Code</TableCell>
+                            <TableCell align="left" colSpan={2}>Name</TableCell>
+                            <TableCell align="left">Station</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {route.map((stop, index) => (
+                            <BusSequence
+                                key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
+                                currentStop={stop}
+                                previousStop={route[index - 1]}
+                                status={statuses[index] ?? "later"}
+                                activeRef={index === activeIndex ? activeStop : undefined}
+                                play={() => handlePlay(stop.Direction,
+                                    timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[
+                                    route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1
+                                    ] ?? 0)}
+                            />
+                        ))}
+                    </TableBody>
+                </Table>
+                <Box sx={{ height: "25vh" }} />
+            </TableContainer>
+        </Paper>
     );
 }
 
@@ -618,12 +612,12 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
     }
 
     return (
-        <Container sx={{ paddingTop: 4 }}>
+        <Container sx={{ py: 1 }}>
             {loading
                 ? "Loading"
                 : (open
                     ? (
-                        <Container>
+                        <>
                             <Typography variant="h4">Origin-Destination Volumes</Typography>
                             <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
                                 <FormControl size="small">
@@ -709,9 +703,9 @@ function BusVolume({ route }: { route: BusRouteType[] }) {
                                     </TableContainer>
                                 </Stack>
                             </Stack>
-                        </Container>
+                        </>
                     )
-                    : <Button variant="contained" onClick={() => handleFetch()}>Origin-Destination Volumes</Button>
+                    : <Button variant="contained" size="small" onClick={() => handleFetch()}>Origin-Destination Volumes</Button>
                 )
             }
         </Container>
@@ -774,7 +768,7 @@ export default function Bus({
 
     return (
         <>
-            <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
+            <Stack direction="row" spacing={2} sx={{ flexShrink: 0, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
                 <Typography variant="h4" sx={{ typography: { md: "h3" } }}>
                     {master.category} {master.service}
                 </Typography>
@@ -787,7 +781,7 @@ export default function Bus({
                     </ToggleButtonGroup>
                 }
             </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "stretch" }}>
+            <Stack direction={{ xs: "column", md: "row" }} sx={{ flexShrink: 0, gap: 1, mb: 1 }}>
                 <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
