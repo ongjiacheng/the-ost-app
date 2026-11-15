@@ -28,7 +28,11 @@ export type BusMasterType = {
 };
 
 export type BusRouteType = {
-    AltSvc: string | null;
+    services: BusServiceType[],
+    stops: BusStopType[]
+};
+
+export type BusStopType = {
     AltSvcNo: number[],
     AltSvcSuffix: string[],
     BusStopCode: string,
@@ -66,8 +70,7 @@ export type BusServiceType = {
     OriginName: string,
     PM_Offpeak_Freq: string,
     PM_Peak_Freq: string,
-    ServiceNo: number,
-    ServiceSuffix: string
+    ServiceNo: string
 };
 
 export type BusVolumeType = {
@@ -163,10 +166,12 @@ export const lineMap: Record<string, string> = {
     "TE": "#B57C4A"
 };
 
-export type DatamallBusRouteType = Pick<BusRouteType, "BusStopCode" | "Direction" | "Distance" | "Operator" | "StopSequence"
+export type DatamallBusRouteType = Pick<BusStopType, "BusStopCode" | "Direction" | "Distance" | "Operator" | "StopSequence"
     | "WD_FirstBus" | "WD_LastBus" | "SAT_FirstBus" | "SAT_LastBus" | "SUN_FirstBus" | "SUN_LastBus"> & { ServiceNo: string };
 
-export type DatamallBusStopType = Pick<BusRouteType, "BusStopCode" | "Latitude" | "Longitude" | "RoadName"> & { Description: string };
+export type DatamallBusStopType = Pick<BusStopType, "BusStopCode" | "Latitude" | "Longitude" | "RoadName"> & { Description: string };
+
+export type DatamallBusServiceType = Omit<BusServiceType, "OriginName" | "DestinationName">;
 
 export type OpenStreetMapType =
     | { type: "node"; id: number; lon: number; lat: number }

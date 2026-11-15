@@ -41,7 +41,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { BusArrivalType, BusRouteType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, StatusType, volumeMap } from "../types";
+import type { BusArrivalType, BusStopType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, StatusType, volumeMap } from "../types";
 import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -52,13 +52,16 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     const busParams = new URLSearchParams({ ServiceNo: params.svc })
     const [routes, services, hyperlapses, maps, timecodes] = await Promise.all(
         ["bus-route", "bus-service", "hyperlapse", "bus-map", "bus-timecodes"].map(api =>
-            fetch(new URL(`/api/${api}?${busParams}`, request.url)).then(response => response.json())
+            fetch(new URL(`/api/${api}?${busParams}`, request.url)).then(async response => {
+                if (!response.ok) throw new Response(await response.text(), { status: response.status });
+                return response.json();
+            })
         )
-    ) as [BusRouteType[], BusServiceType[], HyperlapseType[], FeatureCollection<LineString>, Partial<Record<number, TimecodeType[]>>];
+    ) as [BusStopType[], BusServiceType[], HyperlapseType[], FeatureCollection<LineString>, Partial<Record<number, TimecodeType[]>>];
 
     const master: BusMasterType = {
         operator: operatorMap[services.at(0)!.Operator],
-        category: (services.at(0) !== undefined && services.at(0)!.ServiceNo >= 451 && services.at(0)!.ServiceNo <= 500)
+        category: (services.at(0) !== undefined && Number(services.at(0)!.ServiceNo) >= 451 && Number(services.at(0)!.ServiceNo) <= 500)
             ? "Limited-Stop"
             : categoryMap[services.at(0)!.Category],
         service: params.svc,
@@ -123,7 +126,7 @@ setWorkerUrl(workerUrl);
 
 function BusMap({ map: collection, route, service, timecodes, handlePlay, statuses }: {
     map: FeatureCollection<LineString>,
-    route: BusRouteType[],
+    route: BusStopType[],
     service: BusServiceType,
     timecodes: Partial<Record<number, TimecodeType[]>>,
     handlePlay: (direction: number, start: number) => void,
@@ -323,7 +326,7 @@ function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, if
 }
 
 function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
-    route: BusRouteType[],
+    route: BusStopType[],
     service: BusServiceType,
     timecodes: Partial<Record<number, TimecodeType[]>>,
     handlePlay: (direction: number, start: number) => void,
@@ -386,7 +389,7 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     );
 }
 
-function BusSequence({ currentStop, previousStop, status, activeRef, play }: { currentStop: BusRouteType, previousStop: BusRouteType, status: StatusType, activeRef?: React.Ref<HTMLTableRowElement>, play: () => void }) {
+function BusSequence({ currentStop, previousStop, status, activeRef, play }: { currentStop: BusStopType, previousStop: BusStopType, status: StatusType, activeRef?: React.Ref<HTMLTableRowElement>, play: () => void }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [arrival, setArrival] = useState<BusArrivalType | null>(null);
@@ -458,7 +461,7 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
     </>);
 }
 
-function BusAltRoutes({ stop }: { stop: BusRouteType }) {
+function BusAltRoutes({ stop }: { stop: BusStopType }) {
     return (
         <Table>
             <TableBody>
@@ -515,7 +518,7 @@ function BusAltRoutes({ stop }: { stop: BusRouteType }) {
     );
 }
 
-function BusFirstLast({ stop }: { stop: BusRouteType }) {
+function BusFirstLast({ stop }: { stop: BusStopType }) {
     return (
         <Table>
             <TableBody>
@@ -578,7 +581,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType }) {
     ))
 }
 
-function BusVolume({ route }: { route: BusRouteType[] }) {
+function BusVolume({ route }: { route: BusStopType[] }) {
     const [period, setPeriod] = useState("202609");
     const [day, setDay] = useState(false);
     const [hour, setHour] = useState(new Date().getHours());

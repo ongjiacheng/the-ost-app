@@ -1,33 +1,13 @@
-import "dotenv/config";
+import type { BusRouteType, BusStopType } from "../types";
 import type { Route } from "./+types/api.bus-service";
-import type { BusServiceType } from "../types";
 
 export async function loader({ request }: Route.LoaderArgs) {
-    const headers = {
-        AccountKey: process.env.DATAMALL_API_KEY as string,
-        accept: "application/json"
-    };
-    const serviceNo = new URL(request.url).searchParams.get("ServiceNo") as string;
-    const serviceParams = new URLSearchParams({ ServiceNo: serviceNo });
-    const serviceUrl = new URL(`https://datamall2.mytransport.sg/ltaodataservice/BusServices?${serviceParams}`);
-    const service = await fetch(serviceUrl, { headers }).then(response => response.json()).then(data => data.value) as BusServiceType[];
-
-    return await Promise.all(service.map(async direction => {
-        const originCode = direction.OriginCode;
-        const destinationCode = direction.DestinationCode;
-        const originParams = new URLSearchParams({ BusStopCode: originCode });
-        const destinationParams = new URLSearchParams({ BusStopCode: destinationCode });
-        const originUrl = new URL(`https://datamall2.mytransport.sg/ltaodataservice/BusStops?${originParams}`);
-        const destinationUrl = new URL(`https://datamall2.mytransport.sg/ltaodataservice/BusStops?${destinationParams}`);
-        const [origin, destination] = await Promise.all([
-            fetch(originUrl, { headers }).then(response => response.json()).then(data => data.value),
-            fetch(destinationUrl, { headers }).then(response => response.json()).then(data => data.value)
-        ]);
-
-        return {
-            ...direction,
-            OriginName: origin.at(0).Description,
-            DestinationName: destination.at(0).Description
-        };
-    }));
+    const serviceNo = new URL(request.url).searchParams.get("ServiceNo");
+    const response = await fetch(`https://storage.googleapis.com/the-ost-app/bus/${serviceNo}.json`);
+    if (response.status === 404) return [];
+    if (!response.ok) throw new Response("Failed to fetch bus service.", { status: 502 });
+    const data: BusRouteType | BusStopType[] = await response.json();
+    if (Array.isArray(data)) throw new Response("Bus data needs to be updated.", { status: 503 });
+    if (!Array.isArray(data?.services)) throw new Response("Invalid bus service data.", { status: 502 });
+    return data.services;
 }

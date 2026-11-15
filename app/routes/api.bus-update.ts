@@ -1,7 +1,7 @@
 import { Storage } from "@google-cloud/storage";
 import nearbyStations from "../assets/nearby_stations.json";
 import roadNames from "../assets/road_names.json";
-import type { BusRouteType, DatamallBusRouteType, DatamallBusStopType, HyperlapseType, OpenStreetMapType, YouTubeType } from "../types";
+import type { BusRouteType, BusStopType, DatamallBusRouteType, DatamallBusServiceType, DatamallBusStopType, HyperlapseType, OpenStreetMapType, YouTubeType } from "../types";
 import type { Route } from "./+types/api.bus-update";
 
 async function fetchYouTube(playlistId: string) {
@@ -122,50 +122,80 @@ async function buildBusMap(bucket: ReturnType<Storage["bucket"]>) {
 async function fetchDatamall<T>(endpoint: string) {
     const items: T[] = [];
     for (let skip = 0; ; skip += 500) {
-        const response = await fetch(`${endpoint}?$skip=${skip}`, {
+        const url = new URL(endpoint);
+        url.searchParams.set("$skip", String(skip));
+        const response = await fetch(url, {
             headers: { AccountKey: process.env.DATAMALL_API_KEY! },
         });
-        const { value } = await response.json();
-        if (!value?.length) return items;
+        if (!response.ok) throw new Error(`Failed to fetch DataMall ${url.pathname}: ${response.status}`);
+        const data: { value?: T[] } = await response.json();
+        if (!Array.isArray(data.value)) throw new Error(`Invalid DataMall response from ${url.pathname}`);
+        const { value } = data;
+        if (!value.length) return items;
         items.push(...value);
     }
 }
 
 async function buildBusRoutes(bucket: ReturnType<Storage["bucket"]>) {
-    const [routes, stops] = await Promise.all([
+    const [routes, stops, services] = await Promise.all([
         fetchDatamall<DatamallBusRouteType>(process.env.DATAMALL_BUS_ROUTES_URL!),
         fetchDatamall<DatamallBusStopType>(process.env.DATAMALL_BUS_STOPS_URL!),
+        fetchDatamall<DatamallBusServiceType>(process.env.DATAMALL_BUS_SERVICES_URL!),
     ]);
+    const stopsByCode = new Map(stops.map(stop => [stop.BusStopCode, stop]));
+    const files = new Map<string, BusRouteType>();
+    for (const service of services) {
+        if (!/^\d+[A-Za-z]?$/.test(service.ServiceNo)) continue;
+        if (!service.OriginCode && !service.DestinationCode &&
+            !routes.some(route => route.ServiceNo === service.ServiceNo && route.Direction === service.Direction)) continue;
+        const file = files.get(service.ServiceNo) ?? { services: [], stops: [] };
+        file.services.push({
+            ...service,
+            OriginName: stopsByCode.get(service.OriginCode)!.Description,
+            DestinationName: stopsByCode.get(service.DestinationCode)!.Description,
+        });
+        files.set(service.ServiceNo, file);
+    }
     const stationsByStop = new Map<string, (typeof nearbyStations)[number][]>();
     for (const station of nearbyStations) {
         const stations = stationsByStop.get(station.BusStopCode) ?? [];
         stations.push(station);
         stationsByStop.set(station.BusStopCode, stations);
     }
-    const busStops = new Map(stops.map(stop => [stop.BusStopCode, {
-        BusStopName: stop.Description,
-        Latitude: stop.Latitude,
-        Longitude: stop.Longitude,
-        RoadName: stop.RoadName.split(/\s+/).map(word => (roadNames as Record<string, string>)[word] ?? word).join(" "),
-    }]));
-
-    const busRoutes = new Map<string, Omit<BusRouteType, "AltSvc">>();
+    const busRoutes = new Map<string, { name: string; stop: BusStopType }>();
     const altRoutes = new Map<string, Map<string, [number, string]>>();
     for (const route of routes) {
         const [, no, suffix] = /^(\d+)([A-Za-z]?)$/.exec(route.ServiceNo) ?? [];
         if (!no) continue;
         const serviceNo = Number(no);
         const stations = stationsByStop.get(route.BusStopCode) ?? [];
+        const stop = stopsByCode.get(route.BusStopCode)!;
         busRoutes.set(`${route.ServiceNo}|${route.Direction}|${route.StopSequence}`, {
-            ...route,
-            ...busStops.get(route.BusStopCode)!,
-            ServiceNo: serviceNo,
-            ServiceSuffix: suffix,
-            AltSvcNo: [],
-            AltSvcSuffix: [],
-            StnCode: stations.map(s => s.StnCode),
-            StnExit: stations.map(s => s.StnExit),
-            StnName: stations.map(s => s.StnName),
+            name: route.ServiceNo,
+            stop: {
+                AltSvcNo: [],
+                AltSvcSuffix: [],
+                BusStopCode: route.BusStopCode,
+                BusStopName: stop.Description,
+                Direction: route.Direction,
+                Distance: route.Distance,
+                Latitude: stop.Latitude,
+                Longitude: stop.Longitude,
+                Operator: route.Operator,
+                RoadName: stop.RoadName.split(/\s+/).map(word => (roadNames as Record<string, string>)[word] ?? word).join(" "),
+                SAT_FirstBus: route.SAT_FirstBus,
+                SAT_LastBus: route.SAT_LastBus,
+                ServiceNo: serviceNo,
+                ServiceSuffix: suffix,
+                StnCode: stations.map(s => s.StnCode),
+                StnExit: stations.map(s => s.StnExit),
+                StnName: stations.map(s => s.StnName),
+                StopSequence: route.StopSequence,
+                SUN_FirstBus: route.SUN_FirstBus,
+                SUN_LastBus: route.SUN_LastBus,
+                WD_FirstBus: route.WD_FirstBus,
+                WD_LastBus: route.WD_LastBus,
+            },
         });
         let alt = altRoutes.get(route.BusStopCode);
         if (!alt) altRoutes.set(route.BusStopCode, alt = new Map());
@@ -176,16 +206,14 @@ async function buildBusRoutes(bucket: ReturnType<Storage["bucket"]>) {
         stopCode,
         [...altRoutes.values()].sort((a, b) => a[0] - b[0] || a[1].localeCompare(b[1])),
     ]));
-    const files = new Map<string, Omit<BusRouteType, "AltSvc">[]>();
-    for (const row of [...busRoutes.values()].sort((a, b) => a.Direction - b.Direction || a.StopSequence - b.StopSequence)) {
+    for (const { name, stop: row } of [...busRoutes.values()].sort((a, b) =>
+        a.stop.Direction - b.stop.Direction || a.stop.StopSequence - b.stop.StopSequence)) {
         const alt = sortedAltRoutes.get(row.BusStopCode)!;
         row.AltSvcNo = alt.map(a => a[0]);
         row.AltSvcSuffix = alt.map(a => a[1]);
-        const name = `${row.ServiceNo}${row.ServiceSuffix}`;
-        const file = files.get(name);
-        if (file) file.push(row);
-        else files.set(name, [row]);
+        files.get(name)!.stops.push(row);
     }
+    for (const file of files.values()) file.services.sort((a, b) => a.Direction - b.Direction);
     await Promise.all([...files].map(([name, data]) => bucket.file(`bus/${name}.json`).save(JSON.stringify(data))));
 }
 

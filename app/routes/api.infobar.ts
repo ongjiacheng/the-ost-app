@@ -1,4 +1,4 @@
-import type { BusRouteType } from "../types";
+import type { BusRouteType, BusStopType } from "../types";
 import type { Route } from "./+types/api.infobar";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -6,17 +6,20 @@ export async function loader({ request }: Route.LoaderArgs) {
     const direction = Number(new URL(request.url).searchParams.get("Direction"));
     const channel = new URL(request.url).searchParams.get("Channel");
 
-    let infobars = await fetch(
+    const response = await fetch(
         `https://storage.googleapis.com/the-ost-app/bus/${serviceNo}.json`,
         { headers: { accept: "application/json" } }
-    ).then(response => response.ok ? response.json() : null) as BusRouteType[] | null;
-    if (!infobars) return "";
-
-    infobars = infobars.filter(i =>
-        i.Direction === direction
     );
-    infobars.forEach(bar => {
-        bar.AltSvc = bar.AltSvcNo
+    if (response.status === 404) return "";
+    if (!response.ok) throw new Response("Failed to fetch bus route.", { status: 502 });
+    const data: BusRouteType | BusStopType[] = await response.json();
+    const stops = Array.isArray(data) ? data : data.stops;
+
+    const infobars = stops.filter(i =>
+        i.Direction === direction
+    ).map(bar => ({
+        ...bar,
+        AltSvc: bar.AltSvcNo
             .map((number, index) => ({ number, suffix: bar.AltSvcSuffix[index] }))
             .filter(({ number, suffix }) => channel !== "TMT" || serviceNo !== `${number}${suffix}`)
             .map(({ number, suffix }, index, services) =>
@@ -25,8 +28,8 @@ export async function loader({ request }: Route.LoaderArgs) {
                     : number !== services[index - 1].number
                         ? ` ${number}${suffix}`
                         : `/${suffix}`
-            ).join("");
-    });
+            ).join("")
+    }));
 
     switch (channel) {
         case "3449":
