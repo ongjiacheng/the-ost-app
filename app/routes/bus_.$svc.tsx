@@ -777,8 +777,8 @@ export default function Bus({
             <ToggleButtonGroup value={journey} size="small" exclusive sx={{ alignSelf: "center", mb: 1 }} onChange={(_, value) => {
                 if (typeof value === "boolean") setJourney(value);
             }}>
-                <ToggleButton value={false}>Bus Journey</ToggleButton>
-                <ToggleButton value={true}>Origin-Destination Volumes</ToggleButton>
+                <ToggleButton value={false}>Route Details</ToggleButton>
+                <ToggleButton value={true}>Passenger Volumes</ToggleButton>
             </ToggleButtonGroup>
             <Box sx={{ pb: 2, flexShrink: 0 }}>
                 {!journey && <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />}
