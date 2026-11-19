@@ -74,8 +74,15 @@ function BusInfo({ service }: { service: BusServiceType }) {
         <Table>
             <TableHead>
                 <TableRow>
-                    <TableCell>
-                        <Typography align="center" variant="body1">Frequency (minutes)</Typography>
+                    <TableCell align="center">
+                        <Typography variant="body1">
+                            {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
+                        </Typography>
+                        <Typography variant="body2">
+                            {service.LoopDesc
+                                ? `${service.OriginName} ↺ ${service.LoopDesc}`
+                                : `${service.OriginName} → ${service.DestinationName}`}
+                        </Typography>
                     </TableCell>
                     <TableCell align="center">
                         <Typography align="center" variant="body1">AM Peak</Typography>
@@ -94,14 +101,7 @@ function BusInfo({ service }: { service: BusServiceType }) {
             <TableBody>
                 <TableRow key={service.Direction}>
                     <TableCell align="center">
-                        <Typography variant="body1">
-                            {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                        </Typography>
-                        <Typography variant="body2">
-                            {service.LoopDesc
-                                ? `${service.OriginName} ↺ ${service.LoopDesc}`
-                                : `${service.OriginName} → ${service.DestinationName}`}
-                        </Typography>
+                        <Typography align="center" variant="body1">Frequency (minutes)</Typography>
                     </TableCell>
                     <TableCell align="center">
                         <Typography variant="body1">{service.AM_Peak_Freq}</Typography>
@@ -448,9 +448,11 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
             <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
                 <Collapse in={open && !loading}>
                     <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
-                        <BusAltRoutes stop={currentStop} />
-                        <BusFirstLast stop={currentStop} />
-                        {arrival?.Services[0] && <BusArrival arrival={arrival} />}
+                        <Stack direction={{ xs: "column", md: "row" }}>
+                            <BusAltRoutes stop={currentStop} />
+                            <BusFirstLast stop={currentStop} />
+                            {arrival?.Services[0] && <BusArrival arrival={arrival} />}
+                        </Stack>
                     </Container>
                 </Collapse>
             </TableCell>
