@@ -4,7 +4,6 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import SyncIcon from "@mui/icons-material/Sync";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -346,46 +345,44 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     }, [activeIndex, route]);
 
     return (
-        <Paper sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", mb: 1 }}>
-            <TableContainer ref={container} tabIndex={0} role="region" sx={{ flex: 1, overflowY: "auto", scrollBehavior: "smooth" }}>
-                <BusInfo service={service} />
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" colSpan={7}>
-                                <Typography variant="h5">
-                                    {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                                </Typography>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
-                            <TableCell align="center">km</TableCell>
-                            <TableCell align="center">Code</TableCell>
-                            <TableCell align="left" colSpan={2}>Name</TableCell>
-                            <TableCell align="left">Station</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {route.map((stop, index) => (
-                            <BusSequence
-                                key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
-                                currentStop={stop}
-                                previousStop={route[index - 1]}
-                                status={statuses[index] ?? "later"}
-                                activeRef={index === activeIndex ? activeStop : undefined}
-                                play={() => handlePlay(stop.Direction,
-                                    timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[
-                                    route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1
-                                    ] ?? 0)}
-                            />
-                        ))}
-                    </TableBody>
-                </Table>
-                <Box sx={{ height: "25vh" }} />
-            </TableContainer>
-        </Paper>
+        <TableContainer component={Paper} ref={container} tabIndex={0} role="region" sx={{ flexShrink: 0, maxHeight: "80vh", overflowY: "auto", scrollBehavior: "smooth", mb: 1 }}>
+            <BusInfo service={service} />
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="center" colSpan={7}>
+                            <Typography variant="h5">
+                                {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
+                        <TableCell align="center">km</TableCell>
+                        <TableCell align="center">Code</TableCell>
+                        <TableCell align="left" colSpan={2}>Name</TableCell>
+                        <TableCell align="left">Station</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {route.map((stop, index) => (
+                        <BusSequence
+                            key={`${stop.ServiceNo}${stop.ServiceSuffix}-${stop.Direction}-${stop.StopSequence}`}
+                            currentStop={stop}
+                            previousStop={route[index - 1]}
+                            status={statuses[index] ?? "later"}
+                            activeRef={index === activeIndex ? activeStop : undefined}
+                            play={() => handlePlay(stop.Direction,
+                                timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[
+                                route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1
+                                ] ?? 0)}
+                        />
+                    ))}
+                </TableBody>
+            </Table>
+            <Box sx={{ height: "80vh" }} />
+        </TableContainer>
     );
 }
 
@@ -608,7 +605,7 @@ function BusVolume({ route }: { route: BusStopType[] }) {
     }, [period, route, volume, loading]);
 
     return (
-        <Container sx={{ maxHeight: "80vh", flexShrink: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        <Container sx={{ maxHeight: "80vh", flexShrink: 0, display: "flex", flexDirection: "column", overflow: "hidden", mb: 1 }}>
             {loading ? "Loading" : (
                 <>
                     <Typography variant="h4">Origin-Destination Volumes</Typography>
@@ -755,7 +752,7 @@ export default function Bus({
 
     return (
         <>
-            <Stack direction="row" spacing={2} sx={{ flexShrink: 0, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
+            <Stack direction="row" spacing={2} sx={{ flexShrink: 0, alignItems: "center", flexWrap: "wrap", justifyContent: "center", mb: 1 }}>
                 <Typography variant="h4" sx={{ typography: { md: "h3" } }}>
                     {master.category} {master.service}
                 </Typography>
@@ -777,13 +774,16 @@ export default function Bus({
                 <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
-            {!journey && <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />}
-            {journey && <BusVolume key={`${master.service}-${direction}`} route={route} />}
-            <Container sx={{ py: 1, flexShrink: 0 }}>
-                <Button variant="contained" size="small" onClick={() => setJourney(previous => !previous)}>
-                    {journey ? "Bus Journey" : "Origin-Destination Volumes"}
-                </Button>
-            </Container>
+            <ToggleButtonGroup value={journey} size="small" exclusive sx={{ alignSelf: "center", mb: 1 }} onChange={(_, value) => {
+                if (typeof value === "boolean") setJourney(value);
+            }}>
+                <ToggleButton value={false}>Bus Journey</ToggleButton>
+                <ToggleButton value={true}>Origin-Destination Volumes</ToggleButton>
+            </ToggleButtonGroup>
+            <Box sx={{ pb: 2, flexShrink: 0 }}>
+                {!journey && <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />}
+                {journey && <BusVolume key={`${master.service}-${direction}`} route={route} />}
+            </Box>
         </>
     );
 }
