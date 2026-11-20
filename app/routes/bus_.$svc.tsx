@@ -326,7 +326,7 @@ function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, if
     );
 }
 
-function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
+function BusJourney({ route, timecodes, handlePlay, statuses }: {
     route: BusStopType[],
     service: BusServiceType,
     timecodes: Partial<Record<number, TimecodeType[]>>,
