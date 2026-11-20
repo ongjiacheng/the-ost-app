@@ -750,7 +750,7 @@ export default function Bus({
                 Bus Service {serviceNo}
             </Typography>
             <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", gap: 1, mb: 1 }}>
-                <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+                <Stack direction="row" sx={{ flexWrap: "wrap", justifyContent: { xs: "center", md: "flex-start" }, gap: 1 }}>
                     {[
                         { label: category, to: `/bus?view=type#${encodeURIComponent(`type-${typeName}`)}` },
                         { label: pack?.name, to: `/bus?view=package#${encodeURIComponent(`package-${pack?.name}`)}` },
