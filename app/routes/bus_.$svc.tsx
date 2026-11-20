@@ -749,7 +749,7 @@ export default function Bus({
             <Typography component="h1" variant="h3" sx={{ fontWeight: 700 }}>
                 Bus Service {serviceNo}
             </Typography>
-            <Stack direction="row" sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", gap: 1, mb: 1 }}>
+            <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", gap: 1, mb: 1 }}>
                 <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
                     {[
                         { label: category, to: `/bus?view=type#${encodeURIComponent(`type-${typeName}`)}` },
