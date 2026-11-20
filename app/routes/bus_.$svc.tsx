@@ -163,19 +163,8 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
                 id: index,
                 properties: {
                     start: timecodes[stop.Direction]?.find(s => s.code === stop.BusStopCode)?.time?.[route.slice(0, index + 1).filter(s => s.BusStopCode === stop.BusStopCode).length - 1] ?? 0,
-                    distance: stop.Distance.toFixed(1),
-                    sequence: stop.StopSequence,
                     code: stop.BusStopCode,
-                    name: stop.BusStopName,
-                    road: stop.RoadName,
-                    stations: stop.StnCode
-                        .map((codes, i) => `${codes} ${stop.StnName[i]} Exit ${stop.StnExit[i]}`)
-                        .join("\n"),
-                    services: stop.AltSvcNo
-                        .map((number, i) => [number, stop.AltSvcSuffix[i]] as const)
-                        .filter(([number, suffix], i, all) => i === 0 || number !== all[i - 1][0] || suffix !== all[i - 1][1])
-                        .map(([number, suffix], i, all) => i === 0 ? `${number}${suffix}` : number === all[i - 1][0] ? `/${suffix}` : ` ${number}${suffix}`)
-                        .join("")
+                    name: stop.BusStopName
                 },
                 geometry: { type: "Point" as const, coordinates: [stop.Longitude, stop.Latitude] }
             }));
@@ -204,11 +193,8 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
                 hoveredStop = stop.id;
                 map.setFeatureState({ source: "stops", id: hoveredStop }, { hover: true });
                 const content = document.createElement("div");
-                content.style.cssText = "max-width:280px;font-size:12px;line-height:1.4;color:#222;white-space:pre-line";
-                content.append(`#${stop.properties.sequence} ${stop.properties.distance} km ${stop.properties.code}`,
-                    Object.assign(document.createElement("strong"), { textContent: `\n${stop.properties.name}` }),
-                    Object.assign(document.createElement("em"), { textContent: `\n${stop.properties.road}` }),
-                    document.createTextNode([stop.properties.stations, stop.properties.services].filter(Boolean).map(line => `\n${line}`).join("")));
+                content.style.cssText = "max-width:200px;font-size:12px;line-height:1.2;color:#222;white-space:pre-line";
+                content.textContent = `${stop.properties.code} ${stop.properties.name}`;
                 popup.setLngLat(event.lngLat).setDOMContent(content).addTo(map);
                 map.getCanvas().style.cursor = "pointer";
             });
@@ -375,6 +361,7 @@ function BusJourney({ route, timecodes, handlePlay, statuses }: {
                     ))}
                 </TableBody>
             </Table>
+            <Box aria-hidden="true" sx={{ height: "80vh" }} />
         </TableContainer>
     );
 }
@@ -460,7 +447,7 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
     return (
         <Table sx={{ flex: 2, minWidth: 0, display: "block" }}>
             <TableBody sx={{ display: "flex", flexDirection: { xs: "column-reverse", md: "row-reverse" } }}>
-                {stop.StnCode.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 2.5 }}>
+                {stop.StnCode.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
                     <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
                         <Typography>Nearby Stations</Typography>
                     </TableCell>
@@ -478,7 +465,7 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
                         ))}
                     </TableCell>
                 </TableRow>}
-                {stop.AltSvcNo.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 2.5 }}>
+                {stop.AltSvcNo.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
                     <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
                         <Typography>Other Services</Typography>
                     </TableCell>
@@ -503,26 +490,27 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
 
 function BusFirstLast({ stop }: { stop: BusStopType }) {
     return (
-        <Box sx={{ flex: 1, minWidth: 0, p: 2.5 }}>
+        <Box sx={{ flex: 1, minWidth: 0, p: 1 }}>
             <Typography>First / Last Bus</Typography>
             <Table size="small" aria-label="First and last bus timings">
                 <TableHead>
                     <TableRow>
                         <TableCell>Day</TableCell>
-                        <TableCell align="center">First</TableCell>
-                        <TableCell align="center">Last</TableCell>
+                        <TableCell align="center" scope="col">Mon–Fri</TableCell>
+                        <TableCell align="center" scope="col">Sat</TableCell>
+                        <TableCell align="center" scope="col">Sun / PH</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {[
-                        ["Mon–Fri", stop.WD_FirstBus, stop.WD_LastBus],
-                        ["Saturday", stop.SAT_FirstBus, stop.SAT_LastBus],
-                        ["Sun / PH", stop.SUN_FirstBus, stop.SUN_LastBus]
-                    ].map(([day, first, last]) => (
-                        <TableRow key={day}>
-                            <TableCell component="th" scope="row">{day}</TableCell>
-                            <TableCell align="center">{first}</TableCell>
-                            <TableCell align="center">{last}</TableCell>
+                        ["First", stop.WD_FirstBus, stop.SAT_FirstBus, stop.SUN_FirstBus],
+                        ["Last", stop.WD_LastBus, stop.SAT_LastBus, stop.SUN_LastBus]
+                    ].map(([label, weekday, saturday, sunday]) => (
+                        <TableRow key={label}>
+                            <TableCell component="th" scope="row">{label}</TableCell>
+                            <TableCell align="center">{weekday}</TableCell>
+                            <TableCell align="center">{saturday}</TableCell>
+                            <TableCell align="center">{sunday}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -533,7 +521,7 @@ function BusFirstLast({ stop }: { stop: BusStopType }) {
 
 function BusArrival({ arrival }: { arrival: BusArrivalType | null }) {
     return (
-        <Box sx={{ flex: 1, minWidth: 0, p: 2.5 }}>
+        <Box sx={{ flex: 1, minWidth: 0, p: 1 }}>
             {arrival?.Services[0] ? <BusArrivalTimings arrival={arrival} /> : <Typography>Arrivals Unavailable</Typography>}
         </Box>
     );
