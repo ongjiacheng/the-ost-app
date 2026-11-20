@@ -749,7 +749,7 @@ export default function Bus({
             <Typography component="h1" variant="h3" sx={{ fontWeight: 700 }}>
                 Bus Service {serviceNo}
             </Typography>
-            <Stack direction="row" sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", gap: 1, mb: 2 }}>
+            <Stack direction="row" sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", gap: 1, mb: 1 }}>
                 <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
                     {[
                         { label: category, to: `/bus?view=type#${encodeURIComponent(`type-${typeName}`)}` },
@@ -779,11 +779,11 @@ export default function Bus({
                     </Stack>
                 }
             </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} sx={{ gap: 1, mb: 2 }}>
+            <Stack direction={{ xs: "column", md: "row" }} sx={{ gap: 1, mb: 1 }}>
                 <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 1, mb: 2 }}>
+            <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 1, mb: 1 }}>
                 <Typography component="h2" variant="h4" sx={{ display: { xs: "none", md: "block" }, fontWeight: 700 }}>{journey ? "Origin-Destination Volumes" : "Route Information"}</Typography>
                 <ToggleButtonGroup value={journey} size="small" exclusive onChange={(_, value) => {
                     if (typeof value === "boolean") {
