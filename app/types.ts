@@ -21,12 +21,6 @@ export type BusArrivalType = {
     }[]
 };
 
-export type BusMasterType = {
-    operator: string,
-    category: string,
-    service: string
-};
-
 export type BusRouteType = {
     services: BusServiceType[],
     stops: BusStopType[]

@@ -48,7 +48,7 @@ function LRTTable(props: { line: TrainStationType[] }) {
                                 </Typography>
                             </TableCell>
                             <TableCell>
-                                <Link component={RouterLink} to={`../train/${station.url}`} color="primary.light" underline="hover">
+                                <Link component={RouterLink} to={`../train/${station.url}`} underline="hover">
                                     {station.english} {station.malay && `\n(${station.malay})`}
                                 </Link>
                             </TableCell>

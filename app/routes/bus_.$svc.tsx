@@ -5,8 +5,8 @@ import SyncIcon from "@mui/icons-material/Sync";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Chip from "@mui/material/Chip";
 import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
@@ -29,7 +29,7 @@ import TableRow from "@mui/material/TableRow";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
-import { useTheme } from "@mui/material/styles";
+import { useColorScheme, useTheme } from "@mui/material/styles";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router";
@@ -40,11 +40,13 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 import type { Route } from "./+types/bus_.$svc";
-import type { BusArrivalType, BusStopType, BusServiceType, HyperlapseType, BusMasterType, TimecodeType, StatusType, volumeMap } from "../types";
-import { categoryMap, lineMap, occupancyMap, operatorMap, typeMap } from "../types";
+import type { BusArrivalType, BusStopType, BusServiceType, HyperlapseType, TimecodeType, StatusType, volumeMap } from "../types";
+import busPackage from "../assets/bus_package.json";
+import busType from "../assets/bus_type.json";
+import { lineMap, occupancyMap, typeMap } from "../types";
 
 export function meta({ loaderData }: Route.MetaArgs) {
-    return [{ title: `${loaderData.master.operator} ${loaderData.master.category} Bus Service ${loaderData.master.service} | One Stop Transport` }];
+    return [{ title: [loaderData.pack?.operator, loaderData.category, `Bus Service ${loaderData.serviceNo} | One Stop Transport`].filter(Boolean).join(" ") }];
 }
 
 export async function loader({ params, request }: Route.LoaderArgs) {
@@ -58,15 +60,12 @@ export async function loader({ params, request }: Route.LoaderArgs) {
         )
     ) as [BusStopType[], BusServiceType[], HyperlapseType[], FeatureCollection<LineString>, Partial<Record<number, TimecodeType[]>>];
 
-    const master: BusMasterType = {
-        operator: operatorMap[services.at(0)!.Operator],
-        category: (services.at(0) !== undefined && Number(services.at(0)!.ServiceNo) >= 451 && Number(services.at(0)!.ServiceNo) <= 500)
-            ? "Limited-Stop"
-            : categoryMap[services.at(0)!.Category],
-        service: params.svc,
-    }
-
-    return { master, routes, services, hyperlapses, maps, timecodes };
+    return {
+        serviceNo: params.svc,
+        pack: busPackage.find(pack => pack.services.flat().includes(params.svc)),
+        category: busType.find(type => type.services.flat().includes(params.svc))?.type,
+        routes, services, hyperlapses, maps, timecodes
+    };
 }
 
 function BusInfo({ service }: { service: BusServiceType }) {
@@ -75,7 +74,7 @@ function BusInfo({ service }: { service: BusServiceType }) {
             <TableHead>
                 <TableRow>
                     <TableCell align="center">
-                        <Typography variant="body1">
+                        <Typography>
                             {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
                         </Typography>
                         <Typography variant="body2">
@@ -85,35 +84,35 @@ function BusInfo({ service }: { service: BusServiceType }) {
                         </Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography align="center" variant="body1">AM Peak</Typography>
+                        <Typography>AM Peak</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography align="center" variant="body1">AM Off Peak</Typography>
+                        <Typography>AM Off Peak</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography align="center" variant="body1">PM Peak</Typography>
+                        <Typography>PM Peak</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography align="center" variant="body1">PM Off Peak</Typography>
+                        <Typography>PM Off Peak</Typography>
                     </TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow key={service.Direction}>
+                <TableRow>
                     <TableCell align="center">
-                        <Typography align="center" variant="body1">Frequency (minutes)</Typography>
+                        <Typography>Frequency (minutes)</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography variant="body1">{service.AM_Peak_Freq}</Typography>
+                        <Typography>{service.AM_Peak_Freq}</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography variant="body1">{service.AM_Offpeak_Freq}</Typography>
+                        <Typography>{service.AM_Offpeak_Freq}</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography variant="body1">{service.PM_Peak_Freq}</Typography>
+                        <Typography>{service.PM_Peak_Freq}</Typography>
                     </TableCell>
                     <TableCell align="center">
-                        <Typography variant="body1">{service.PM_Offpeak_Freq}</Typography>
+                        <Typography>{service.PM_Offpeak_Freq}</Typography>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -134,23 +133,26 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
     const container = useRef<HTMLDivElement>(null);
     const mapRef = useRef<MapLibreMap | null>(null);
     const { palette } = useTheme();
+    const { mode, systemMode } = useColorScheme();
+    const colorMode = mode === "system" ? systemMode : mode;
 
     useEffect(() => {
+        if (!colorMode) return;
         const bounds = new LngLatBounds();
         route.forEach(stop => bounds.extend([stop.Longitude, stop.Latitude]));
         collection.features.forEach(f => f.geometry.coordinates.forEach(c => bounds.extend(c as [number, number])));
         const map = new MapLibreMap({
             container: container.current!,
-            style: "https://tiles.openfreemap.org/styles/dark",
+            style: `https://tiles.openfreemap.org/styles/${colorMode === "dark" ? "dark" : "positron"}`,
             bounds,
             fitBoundsOptions: { padding: 50 },
             attributionControl: false
         });
         mapRef.current = map;
         map.addControl(new AttributionControl({ compact: true }));
-        map.addControl(new ScaleControl({ unit: "metric" }), "top-right");
+        map.addControl(new ScaleControl(), "top-right");
         map.addControl(new NavigationControl({ showZoom: false }), "top-right");
-        map.addControl(new GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true, showAccuracyCircle: true }), "top-right");
+        map.addControl(new GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true }), "top-right");
         map.addControl(new FullscreenControl({ container: container.current! }), "top-right");
 
         map.on("load", () => {
@@ -219,12 +221,12 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
             map.addSource("buses", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
             map.addLayer({
                 id: "buses", type: "circle", source: "buses",
-                paint: { "circle-color": ["get", "color"], "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 3, 11, 4, 12, 7], "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" }
+                paint: { "circle-color": ["get", "color"], "circle-radius": 7, "circle-stroke-width": 1, "circle-stroke-color": "#FFFFFF" }
             });
             map.addLayer({
-                id: "bus-types", type: "symbol", source: "buses", minzoom: 12,
-                layout: { "text-field": ["get", "type"], "text-size": 7, "text-offset": [0, 0], "text-anchor": "center" },
-                paint: { "text-color": ["match", ["get", "color"], palette.success.dark, "#FFFFFF", palette.error.dark, "#FFFFFF", "#000000"] }
+                id: "bus-types", type: "symbol", source: "buses",
+                layout: { "text-field": ["get", "type"], "text-size": 7 },
+                paint: { "text-color": ["match", ["get", "color"], palette.success.main, "#FFFFFF", palette.error.main, "#FFFFFF", "#000000"] }
             });
         });
 
@@ -254,9 +256,9 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
                     [svc?.NextBus, svc?.NextBus2, svc?.NextBus3].forEach(bus => {
                         if (!bus) return;
                         const [lng, lat] = [parseFloat(bus.Longitude), parseFloat(bus.Latitude)];
-                        const color = bus.Load === "SEA" ? palette.success.dark
-                            : bus.Load === "SDA" ? palette.warning.dark
-                                : bus.Load === "LSD" ? palette.error.dark
+                        const color = bus.Load === "SEA" ? palette.success.main
+                            : bus.Load === "SDA" ? palette.warning.main
+                                : bus.Load === "LSD" ? palette.error.main
                                     : palette.text.disabled;
                         if (!lng || !lat) return;
                         const match = unique.find(u => !u.sources.has(source) && Math.hypot(u.coordinates[0] - lng, u.coordinates[1] - lat) < 0.001);
@@ -282,7 +284,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
             mapRef.current = null;
             map.remove();
         };
-    }, [collection, route, service, timecodes, handlePlay, palette]);
+    }, [collection, route, service, timecodes, handlePlay, palette, colorMode]);
 
     useEffect(() => {
         const map = mapRef.current;
@@ -300,7 +302,7 @@ function BusMap({ map: collection, route, service, timecodes, handlePlay, status
         if (map.getLayer("next-stop")) highlight();
         else map.once("load", highlight);
         return () => { map.off("load", highlight); };
-    }, [collection, route, service, statuses, timecodes, handlePlay, palette]);
+    }, [collection, route, service, statuses, timecodes, handlePlay, palette, colorMode]);
 
     return (
         <Paper ref={container} sx={{ flex: { md: 1 }, minWidth: 0, width: "100%", aspectRatio: { xs: "16 / 9", md: "auto" } }} />
@@ -315,11 +317,11 @@ function BusHyperlapses({ hyperlapse, iframe }: { hyperlapse: HyperlapseType, if
                 ref={iframe}
                 src={`https://www.youtube.com/embed/${hyperlapse.videoId}?rel=0&playsinline=1&enablejsapi=1&mute=1`}
                 allow="autoplay; encrypted-media"
-                sx={{ width: "100%", aspectRatio: "16 / 9", border: 0 }}
+                sx={{ aspectRatio: "16 / 9", border: 0 }}
             />
-            <CardContent sx={{ display: { xs: "none", md: "block" } }}>
-                Uploaded by {hyperlapse.channelTitle} on {new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-            </CardContent>
+            <Box sx={{ bgcolor: "action.selected", color: "text.secondary", textAlign: "center", p: 0.5 }}>
+                Updated {new Date(hyperlapse.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </Box>
         </Card>
     );
 }
@@ -345,24 +347,16 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
     }, [activeIndex, route]);
 
     return (
-        <TableContainer component={Paper} ref={container} tabIndex={0} role="region" sx={{ flexShrink: 0, maxHeight: "80vh", overflowY: "auto", scrollBehavior: "smooth", mb: 1 }}>
-            <BusInfo service={service} />
+        <TableContainer component={Paper} ref={container} tabIndex={0} role="region" sx={{ maxHeight: "80vh", scrollBehavior: "smooth", mb: 1, bgcolor: "action.hover" }}>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center" colSpan={7}>
-                            <Typography variant="h5">
-                                {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                            </Typography>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell></TableCell>
                         <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
                         <TableCell align="center">km</TableCell>
                         <TableCell align="center">Code</TableCell>
-                        <TableCell align="left" colSpan={2}>Name</TableCell>
-                        <TableCell align="left">Station</TableCell>
+                        <TableCell colSpan={2}>Name</TableCell>
+                        <TableCell>Station</TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -381,7 +375,6 @@ function BusJourney({ route, service, timecodes, handlePlay, statuses }: {
                     ))}
                 </TableBody>
             </Table>
-            <Box sx={{ height: "80vh" }} />
         </TableContainer>
     );
 }
@@ -414,44 +407,43 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
         {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
             <TableRow>
                 <TableCell align="center" colSpan={7}>
-                    <Typography variant="body1">{currentStop.RoadName}</Typography>
+                    <Typography>{currentStop.RoadName}</Typography>
                 </TableCell>
             </TableRow>}
         <TableRow ref={activeRef} sx={{ backgroundColor: { current: "secondary.dark", next: "primary.dark", previous: undefined, later: undefined }[status] }}>
-            <TableCell sx={{ whiteSpace: "nowrap" }}>
-                <IconButton aria-label="Expand Dropdown" size="small" type="button" onClick={handleDropdown}>
-                    {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                </IconButton>
-                <IconButton aria-label="Play Video" size="small" type="button" onClick={play}>
-                    <PlayCircleIcon />
-                </IconButton>
-            </TableCell>
             <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>{currentStop.StopSequence}</TableCell>
             <TableCell align="center">{currentStop.Distance.toFixed(1)}</TableCell>
             <TableCell align="center">{currentStop.BusStopCode}</TableCell>
-            <TableCell align="left" colSpan={2}>{currentStop.BusStopName}</TableCell>
-            <TableCell align="left">
+            <TableCell colSpan={2}>{currentStop.BusStopName}</TableCell>
+            <TableCell>
                 {currentStop.StnCode?.map((codes, i, a) => (
                     <Box key={i}>
                         {codes.split(" ").map((code, j) =>
-                            <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
+                            <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#999999" }}>
                                 {code}{" "}
                             </Typography>
                         )}
-                        {`${currentStop.StnName[i]}`}
                         {i < a.length - 1 && "\n"}
                     </Box>
                 ))}
             </TableCell>
+            <TableCell align="right" sx={{ whiteSpace: "nowrap" }}>
+                <IconButton aria-label="Play Video" size="small" onClick={play}>
+                    <PlayCircleIcon />
+                </IconButton>
+                <IconButton aria-label="Expand Dropdown" aria-expanded={open} size="small" onClick={handleDropdown}>
+                    {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                </IconButton>
+            </TableCell>
         </TableRow >
         <TableRow>
-            <TableCell colSpan={7} sx={{ borderBottom: 0, p: 0 }}>
+            <TableCell colSpan={7} sx={{ p: 0, borderBottom: 0 }}>
                 <Collapse in={open && !loading}>
-                    <Container sx={{ p: 1, border: 1, borderColor: "primary.main" }}>
+                    <Container maxWidth={false} sx={{ border: 1, borderColor: "primary.main", p: 0, textAlign: { xs: "center", md: "left" } }}>
                         <Stack direction={{ xs: "column", md: "row" }}>
-                            <BusAltRoutes stop={currentStop} />
+                            <BusArrival arrival={arrival} />
                             <BusFirstLast stop={currentStop} />
-                            {arrival?.Services[0] && <BusArrival arrival={arrival} />}
+                            <BusAltRoutes stop={currentStop} />
                         </Stack>
                     </Container>
                 </Collapse>
@@ -461,18 +453,22 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
 }
 
 function BusAltRoutes({ stop }: { stop: BusStopType }) {
+    const services = [...new Set(stop.AltSvcNo)].map(number => ({
+        number,
+        suffixes: [...new Set(stop.AltSvcSuffix.filter((_, index) => stop.AltSvcNo[index] === number))]
+    }));
     return (
-        <Table>
-            <TableBody>
-                {stop.StnCode.length > 0 && <TableRow>
-                    <TableCell align="center">
-                        <Typography variant="body1">Nearby Stations</Typography>
+        <Table sx={{ flex: 2, minWidth: 0, display: "block" }}>
+            <TableBody sx={{ display: "flex", flexDirection: { xs: "column-reverse", md: "row-reverse" } }}>
+                {stop.StnCode.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 2.5 }}>
+                    <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
+                        <Typography>Nearby Stations</Typography>
                     </TableCell>
-                    <TableCell align="center">
+                    <TableCell sx={{ display: "block", border: 0, p: 0 }}>
                         {stop.StnCode?.map((codes, i, a) => (
                             <Box key={i}>
                                 {codes.split(" ").map((code, j) =>
-                                    <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#D7D9DC" }}>
+                                    <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#999999" }}>
                                         {code}{" "}
                                     </Typography>
                                 )}
@@ -482,34 +478,22 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
                         ))}
                     </TableCell>
                 </TableRow>}
-                {stop.AltSvcNo.length > 0 && <TableRow>
-                    <TableCell align="center">
-                        <Typography variant="body1">Bus Services</Typography>
+                {stop.AltSvcNo.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 2.5 }}>
+                    <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
+                        <Typography>Other Services</Typography>
                     </TableCell>
-                    <TableCell align="center">
-                        {stop.AltSvcNo.filter((svc, i, arr) =>
-                            i === 0 || svc !== arr[i - 1] || stop.AltSvcSuffix[i] !== stop.AltSvcSuffix[i - 1]
-                        ).flatMap((svc, i, arr) =>
-                            i === 0
-                                ? [
-                                    <Link component={RouterLink} to={`/bus/${svc}${stop.AltSvcSuffix[i]}`} color="primary.light" underline="hover">
-                                        {`${svc}${stop.AltSvcSuffix[i]}`}
-                                    </Link>
-                                ]
-                                : svc === arr[i - 1] && stop.AltSvcSuffix[i] !== stop.AltSvcSuffix[i - 1]
-                                    ? [
-                                        "/",
-                                        <Link component={RouterLink} to={`/bus/${svc}${stop.AltSvcSuffix[i]}`} color="primary.light" underline="hover">
-                                            {stop.AltSvcSuffix[i]}
+                    <TableCell sx={{ display: "block", border: 0, p: 0 }}>
+                        <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+                            {services.map(({ number, suffixes }) => (
+                                <Box key={number} sx={{ whiteSpace: "nowrap" }}>
+                                    {suffixes.map((suffix, index) => (
+                                        <Link key={suffix} component={RouterLink} to={`/bus/${number}${suffix}`} underline="hover">
+                                            {index === 0 ? `${number}${suffix}` : `/${suffix}`}
                                         </Link>
-                                    ]
-                                    : [
-                                        " ",
-                                        <Link component={RouterLink} to={`/bus/${svc}${stop.AltSvcSuffix[i]}`} color="primary.light" underline="hover">
-                                            {`${svc}${stop.AltSvcSuffix[i]}`}
-                                        </Link>
-                                    ]
-                        )}
+                                    ))}
+                                </Box>
+                            ))}
+                        </Stack>
                     </TableCell>
                 </TableRow>}
             </TableBody>
@@ -519,65 +503,71 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
 
 function BusFirstLast({ stop }: { stop: BusStopType }) {
     return (
-        <Table>
-            <TableBody>
-                <TableRow>
-                    <TableCell align="center">Mon-Fri First</TableCell>
-                    <TableCell align="center">Mon-Fri Last</TableCell>
-                    <TableCell align="center">Sat First</TableCell>
-                    <TableCell align="center">Sat Last</TableCell>
-                    <TableCell align="center">Sun First</TableCell>
-                    <TableCell align="center">Sun Last</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell align="center">{stop.WD_FirstBus}</TableCell>
-                    <TableCell align="center">{stop.WD_LastBus}</TableCell>
-                    <TableCell align="center">{stop.SAT_FirstBus}</TableCell>
-                    <TableCell align="center">{stop.SAT_LastBus}</TableCell>
-                    <TableCell align="center">{stop.SUN_FirstBus}</TableCell>
-                    <TableCell align="center">{stop.SUN_LastBus}</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
-    )
+        <Box sx={{ flex: 1, minWidth: 0, p: 2.5 }}>
+            <Typography>First / Last Bus</Typography>
+            <Table size="small" aria-label="First and last bus timings">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Day</TableCell>
+                        <TableCell align="center">First</TableCell>
+                        <TableCell align="center">Last</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {[
+                        ["Mon–Fri", stop.WD_FirstBus, stop.WD_LastBus],
+                        ["Saturday", stop.SAT_FirstBus, stop.SAT_LastBus],
+                        ["Sun / PH", stop.SUN_FirstBus, stop.SUN_LastBus]
+                    ].map(([day, first, last]) => (
+                        <TableRow key={day}>
+                            <TableCell component="th" scope="row">{day}</TableCell>
+                            <TableCell align="center">{first}</TableCell>
+                            <TableCell align="center">{last}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </Box>
+    );
 }
 
-function BusArrival({ arrival }: { arrival: BusArrivalType }) {
-    const timings = [arrival.Services[0].NextBus, arrival.Services[0].NextBus2, arrival?.Services[0].NextBus3];
-    return (arrival && (
-        <Table>
-            <TableBody>
-                <TableRow>
-                    <TableCell align="center">Next Bus Timing</TableCell>
-                    {timings.map(timing => (
-                        timing.EstimatedArrival && <TableCell align="center">{new Date(timing.EstimatedArrival).toLocaleTimeString()}</TableCell>
-                    ))}
-                </TableRow>
-                <TableRow>
-                    <TableCell align="center">Occupancy (Type)</TableCell>
-                    {timings.map(timing => (
-                        timing.EstimatedArrival &&
-                        <TableCell align="center">
-                            <Typography variant="body2" sx={{
-                                color: timing.Load === null
-                                    ? "text.disabled"
-                                    : timing.Load === "SEA"
-                                        ? "success.main"
-                                        : timing.Load === "SDA"
-                                            ? "warning.main"
-                                            : timing.Load === "LSD"
-                                                ? "error.main"
-                                                : "text.disabled"
-                            }}>
-                                {occupancyMap[timing.Load]}
-                            </Typography>
-                            {`(${typeMap[timing.Type]})`}
-                        </TableCell>
-                    ))}
-                </TableRow>
-            </TableBody>
-        </Table>
-    ))
+function BusArrival({ arrival }: { arrival: BusArrivalType | null }) {
+    return (
+        <Box sx={{ flex: 1, minWidth: 0, p: 2.5 }}>
+            {arrival?.Services[0] ? <BusArrivalTimings arrival={arrival} /> : <Typography>Arrivals Unavailable</Typography>}
+        </Box>
+    );
+}
+
+function BusArrivalTimings({ arrival }: { arrival: BusArrivalType }) {
+    const [now] = useState(Date.now);
+    const timings = [arrival.Services[0].NextBus, arrival.Services[0].NextBus2, arrival.Services[0].NextBus3];
+    return (
+        <Box>
+            <Typography sx={{ mb: 1 }}>Arrivals</Typography>
+            <Stack direction="row" sx={{ justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
+                {timings.map((timing, i) => timing.EstimatedArrival && (
+                    <Box key={i}>
+                        <Typography>{Math.max(0, Math.ceil((new Date(timing.EstimatedArrival).getTime() - now) / 60000))} <Typography component="span" variant="caption">min</Typography></Typography>
+                        <Box title={typeMap[timing.Type]} sx={{ width: 16, height: 16, my: 1, borderRadius: 1, bgcolor: "text.secondary" }} />
+                        <Stack direction="row" spacing={0.5} aria-label={occupancyMap[timing.Load]}>
+                            {["SEA", "SDA", "LSD"].map((load, index) => (
+                                <Box key={load} sx={{
+                                    width: 16, height: 12,
+                                    bgcolor: index <= ["SEA", "SDA", "LSD"].indexOf(timing.Load)
+                                        ? timing.Load === "SEA"
+                                            ? "success.light" : timing.Load === "SDA"
+                                                ? "warning.light" : timing.Load === "LSD"
+                                                    ? "error.light" : "action.disabled"
+                                        : "action.disabled"
+                                }} />
+                            ))}
+                        </Stack>
+                    </Box>
+                ))}
+            </Stack>
+        </Box>
+    );
 }
 
 function BusVolume({ route }: { route: BusStopType[] }) {
@@ -607,10 +597,9 @@ function BusVolume({ route }: { route: BusStopType[] }) {
     }, [period, route, volume, loading]);
 
     return (
-        <Container sx={{ maxHeight: "80vh", flexShrink: 0, display: "flex", flexDirection: "column", overflow: "hidden", mb: 1 }}>
+        <Container sx={{ maxHeight: "80vh", display: "flex", flexDirection: "column", overflow: "hidden", mb: 1 }}>
             {loading ? "Loading" : (
                 <>
-                    <Typography variant="h4">Origin-Destination Volumes</Typography>
                     <Stack direction="row" spacing={2} sx={{ justifyContent: "center", flexShrink: 0 }}>
                         <FormControl size="small">
                             <InputLabel>Period</InputLabel>
@@ -634,7 +623,7 @@ function BusVolume({ route }: { route: BusStopType[] }) {
                             <Typography id="hour-slider" sx={{ whiteSpace: "nowrap" }}>
                                 {`${hour.toString().padStart(2, "0")}:00 – ${hour.toString().padStart(2, "0")}:59`}
                             </Typography>
-                            <Slider aria-labelledby="hour-slider" value={hour} min={0} max={23} step={1}
+                            <Slider aria-labelledby="hour-slider" value={hour} max={23}
                                 marks valueLabelDisplay="auto" onChange={(_, value) => setHour(value as number)}
                             />
                         </Stack>
@@ -698,13 +687,16 @@ function BusVolume({ route }: { route: BusStopType[] }) {
 }
 
 export default function Bus({
-    loaderData: { master, routes, services, hyperlapses, maps, timecodes }
+    loaderData: { serviceNo, pack, category, routes, services, hyperlapses, maps, timecodes }
 }: Route.ComponentProps) {
+    const typeName = busType.find(type => type.services.flat().includes(serviceNo))?.name;
+    const { palette } = useTheme();
     const [direction, setDirection] = useState(() => {
         const time = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
         return time >= "12:00" && services.some(s => s.Direction === 2) ? 2 : 1;
     });
     const [journey, setJourney] = useState(false);
+    const [volume, setVolume] = useState<string | null>(null);
     const route = useMemo(() => routes.filter(stop => stop.Direction === direction), [routes, direction]);
     const service = services.filter(s => s.Direction === direction).at(0)!;
     const hyperlapse = hyperlapses.filter(h => h.Direction === direction).at(0);
@@ -753,39 +745,64 @@ export default function Bus({
     }, []);
 
     return (
-        <>
-            <Stack direction="row" spacing={2} sx={{ flexShrink: 0, alignItems: "center", flexWrap: "wrap", justifyContent: "center", mb: 1 }}>
-                <Typography variant="h4" sx={{ typography: { md: "h3" } }}>
-                    {master.category} {master.service}
-                </Typography>
+        <Box sx={{ pt: 2, textAlign: { xs: "center", md: "left" } }}>
+            <Typography component="h1" variant="h3" sx={{ fontWeight: 700 }}>
+                Bus Service {serviceNo}
+            </Typography>
+            <Stack direction="row" sx={{ alignItems: "center", flexWrap: "wrap", justifyContent: "space-between", gap: 1, mb: 2 }}>
+                <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
+                    {[
+                        { label: category, to: `/bus?view=type#${encodeURIComponent(`type-${typeName}`)}` },
+                        { label: pack?.name, to: `/bus?view=package#${encodeURIComponent(`package-${pack?.name}`)}` },
+                        { label: pack?.operator, to: `/bus?${new URLSearchParams({ view: "package", operator: pack?.operator ?? "" })}` }
+                    ].filter(({ label }) => Boolean(label)).map(({ label, to }) => (
+                        <Chip key={label} label={label} component={RouterLink} to={to} clickable sx={{ borderRadius: 1, fontSize: "1rem" }} />
+                    ))}
+                </Stack>
                 {
                     services.some(s => s.Direction === 2) &&
-                    <ToggleButtonGroup value={direction} size="small" exclusive onChange={(_, value) => {
-                        if (value) {
-                            setDirection(value);
-                            setJourney(false);
-                        }
-                    }}>
-                        {services.map(s => (
-                            <ToggleButton key={s.Direction} value={s.Direction}>To {s.DestinationName}</ToggleButton>
-                        ))}
-                    </ToggleButtonGroup>
+                    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                        <Typography>Direction</Typography>
+                        <ToggleButtonGroup aria-label="Direction" sx={{ border: 1, borderColor: "divider", borderRadius: 6, p: 0.5 }} value={direction} size="small" exclusive onChange={(_, value) => {
+                            if (value) {
+                                setDirection(value);
+                                setJourney(false);
+                            }
+                        }}>
+                            {services.map(s => (
+                                <ToggleButton key={s.Direction} value={s.Direction} aria-label={`Direction ${s.Direction} to ${s.DestinationName}`} style={{
+                                    border: 0, borderRadius: "50%", width: 30, height: 30, padding: 0,
+                                    backgroundColor: s.Direction === direction ? palette.primary.main : undefined
+                                }}>{s.Direction}</ToggleButton>
+                            ))}
+                        </ToggleButtonGroup>
+                    </Stack>
                 }
             </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} sx={{ flexShrink: 0, gap: 1, mb: 1 }}>
+            <Stack direction={{ xs: "column", md: "row" }} sx={{ gap: 1, mb: 2 }}>
                 <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
             </Stack>
-            <ToggleButtonGroup value={journey} size="small" exclusive sx={{ alignSelf: "center", mb: 1 }} onChange={(_, value) => {
-                if (typeof value === "boolean") setJourney(value);
-            }}>
-                <ToggleButton value={false}>Route Details</ToggleButton>
-                <ToggleButton value={true}>Passenger Volumes</ToggleButton>
-            </ToggleButtonGroup>
-            <Box sx={{ pb: 2, flexShrink: 0 }}>
+            <Stack direction={{ xs: "column", md: "row" }} sx={{ alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 1, mb: 2 }}>
+                <Typography component="h2" variant="h4" sx={{ display: { xs: "none", md: "block" }, fontWeight: 700 }}>{journey ? "Origin-Destination Volumes" : "Route Information"}</Typography>
+                <ToggleButtonGroup value={journey} size="small" exclusive onChange={(_, value) => {
+                    if (typeof value === "boolean") {
+                        setJourney(value);
+                        if (value) setVolume(`${serviceNo}-${direction}`);
+                    }
+                }}>
+                    <ToggleButton value={false}>Route Info</ToggleButton>
+                    <ToggleButton value={true}>O-D Volumes</ToggleButton>
+                </ToggleButtonGroup>
+            </Stack>
+            <Box sx={{ pb: 2 }}>
                 {!journey && <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />}
-                {journey && <BusVolume key={`${master.service}-${direction}`} route={route} />}
+                {!journey && <BusInfo service={service} />}
+                <Box hidden={!journey}>
+                    {volume === `${serviceNo}-${direction}` && <BusVolume key={volume} route={route} />}
+                </Box>
             </Box>
-        </>
+        </Box>
+
     );
 }

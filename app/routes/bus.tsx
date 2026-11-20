@@ -8,24 +8,25 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 
-import { useState } from "react";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink, useSearchParams } from "react-router";
 
 import busPackage from "../assets/bus_package.json";
 import busType from "../assets/bus_type.json";
 
 export default function Buses() {
-    const [view, setView] = useState("type");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const view = searchParams.get("view") === "package" ? "package" : "type";
+    const operator = searchParams.get("operator");
     return (
         <Container>
             <Typography variant="h2">Bus Services</Typography>
-            <ToggleButtonGroup value={view} size="small" exclusive onChange={(_, view) => setView(view)}>
+            <ToggleButtonGroup value={view} size="small" exclusive onChange={(_, view) => { if (view) setSearchParams({ view }); }}>
                 <ToggleButton value="type">By Type / Number</ToggleButton>
                 <ToggleButton value="package">By Package / Operator</ToggleButton>
             </ToggleButtonGroup>
             {view === "package" &&
-                busPackage.map(pack => (
-                    <Container>
+                busPackage.filter(pack => !operator || pack.operator === operator).map(pack => (
+                    <Container key={pack.name} id={`package-${pack.name}`}>
                         <Typography variant="h4">{pack.name} Bus Package</Typography>
                         Operated by {pack.operator} from {pack.depot} Bus Depot
                         <BusTable table={pack.services} />
@@ -34,7 +35,7 @@ export default function Buses() {
             }
             {view === "type" && (
                 busType.map(type => (
-                    <Container>
+                    <Container key={type.name} id={`type-${type.name}`}>
                         <Typography variant="h4">{type.name}</Typography>
                         <BusTable table={type.services} />
                     </Container>
@@ -55,7 +56,7 @@ function BusTable(props: { table: (string | null)[][] }) {
                                 <TableCell align="center" key={colNo} sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" } }}>
                                     {col
                                         ? (/\d/.test(col)
-                                            ? <Link component={RouterLink} to={`${col}`} color="primary.light" underline="hover">{col}</Link>
+                                            ? <Link component={RouterLink} to={`${col}`} underline="hover">{col}</Link>
                                             : col)
                                         : ""}
                                 </TableCell>

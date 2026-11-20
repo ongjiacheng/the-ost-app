@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 import { isRouteErrorResponse, Link, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router";
 
@@ -22,8 +23,31 @@ import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/700.css';
 
+const palette = {
+    primary: {
+        main: "#39887b",
+        light: "#8bcbc3",
+        dark: "#274c42"
+    },
+    secondary: {
+        main: "#b64449",
+        light: "#e6949d",
+        dark: "#682f3a"
+    },
+};
+
 const theme = createTheme({
+    cssVariables: { colorSchemeSelector: "data-mui-color-scheme" },
+    colorSchemes: { light: { palette }, dark: { palette } },
     components: {
+        MuiLink: {
+            styleOverrides: {
+                root: ({ theme }) => [
+                    { color: theme.palette.primary.dark },
+                    theme.applyStyles("dark", { color: theme.palette.primary.light })
+                ]
+            }
+        },
         MuiContainer: {
             styleOverrides: {
                 root: {
@@ -58,19 +82,6 @@ const theme = createTheme({
         }
     },
     typography: { fontFamily: '"Inter", sans-serif' },
-    palette: {
-        primary: {
-            main: "#39887b",
-            light: "#8bcbc3",
-            dark: "#274c42"
-        },
-        secondary: {
-            main: "#b64449",
-            light: "#e6949d",
-            dark: "#682f3a"
-        },
-        mode: "dark"
-    }
 });
 
 function Header() {
@@ -122,7 +133,7 @@ export function Layout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -131,6 +142,7 @@ export function Layout({
                 <Links />
             </head>
             <body>
+                <InitColorSchemeScript defaultMode="system" />
                 {children}
                 <ScrollRestoration />
                 <Scripts />
@@ -141,7 +153,7 @@ export function Layout({
 
 export default function Root() {
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} defaultMode="system">
             <CssBaseline />
             <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
                 <Header />
@@ -158,7 +170,7 @@ export function ErrorBoundary() {
     const notFound = isRouteErrorResponse(error) && error.status === 404;
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} defaultMode="system">
             <CssBaseline />
             <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
                 <Header />
