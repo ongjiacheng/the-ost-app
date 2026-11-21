@@ -452,13 +452,13 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
         suffixes: [...new Set(stop.AltSvcSuffix.filter((_, index) => stop.AltSvcNo[index] === number))]
     }));
     return (
-        <Table sx={{ minWidth: 0, display: "block" }}>
+        <Table sx={{ minWidth: 0 }}>
             <TableBody sx={{ display: "flex", flexDirection: "row-reverse" }}>
                 {stop.StnCode.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
-                    <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
+                    <TableCell sx={{ border: 0, p: 0, mb: 1 }}>
                         <Typography>Nearby Stations</Typography>
                     </TableCell>
-                    <TableCell sx={{ display: "block", border: 0, p: 0 }}>
+                    <TableCell sx={{ border: 0, p: 0 }}>
                         {stop.StnCode?.map((codes, i, a) => (
                             <Box key={i}>
                                 {codes.split(" ").map((code, j) =>
@@ -473,10 +473,10 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
                     </TableCell>
                 </TableRow>}
                 {stop.AltSvcNo.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
-                    <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
+                    <TableCell sx={{ border: 0, p: 0, mb: 1 }}>
                         <Typography>Other Services</Typography>
                     </TableCell>
-                    <TableCell sx={{ display: "block", border: 0, p: 0 }}>
+                    <TableCell sx={{ border: 0, p: 0 }}>
                         <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
                             {services.map(({ number, suffixes }) => (
                                 <Box key={number} sx={{ whiteSpace: "nowrap" }}>
