@@ -525,7 +525,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType | null }) {
         <Box sx={{ flex: 1, minWidth: 0, p: 1 }}>
             {service ? <>
                 <Typography sx={{ mb: 1 }}>Arrivals</Typography>
-                <Stack direction="row" sx={{ justifyContent: "space-between", gap: 2 }}>
+                <Stack direction="row" sx={{ justifyContent: "space-evenly", gap: 2 }}>
                     {timings.map((timing, i) => timing.EstimatedArrival && (
                         <Box key={i} sx={{ flexShrink: 0 }}>
                             <Typography>{Math.max(0, Math.ceil((new Date(timing.EstimatedArrival).getTime() - now) / 60000))}
