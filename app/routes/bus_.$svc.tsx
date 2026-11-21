@@ -427,8 +427,8 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
         <TableRow>
             <TableCell colSpan={7} sx={{ p: 0, borderBottom: 0 }}>
                 <Collapse in={open && !loading}>
-                    <Container maxWidth={false} sx={{ border: 1, borderColor: "primary.main", p: 0, textAlign: { xs: "center", md: "left" } }}>
-                        <Grid container>
+                    <Container maxWidth={false} sx={{ border: 1, borderColor: "primary.main", p: 0, textAlign: "center" }}>
+                        <Grid container alignItems="center">
                             <Grid size={{ xs: 6, md: 3 }}>
                                 <BusArrival arrival={arrival} />
                             </Grid>
@@ -522,7 +522,7 @@ function BusArrival({ arrival }: { arrival: BusArrivalType | null }) {
     const timings = service ? [service.NextBus, service.NextBus2, service.NextBus3] : [];
 
     return (
-        <Box sx={{ flex: 1, minWidth: 0, p: 2 }}>
+        <Box sx={{ flex: 1, minWidth: 0, p: 1 }}>
             {service ? <>
                 <Typography sx={{ mb: 1 }}>Arrivals</Typography>
                 <Stack direction="row" sx={{ justifyContent: "space-between", gap: 2 }}>
