@@ -428,7 +428,7 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
             <TableCell colSpan={8} sx={{ p: 0, borderBottom: 0 }}>
                 <Collapse in={open && !loading}>
                     <Container maxWidth={false} sx={{ border: 1, borderColor: "primary.main", p: 0, textAlign: "center" }}>
-                        <Grid container alignItems="center">
+                        <Grid container sx={{ alignItems: "center" }}>
                             <Grid size={{ xs: 6, md: 3 }}>
                                 <BusArrival arrival={arrival} />
                             </Grid>
