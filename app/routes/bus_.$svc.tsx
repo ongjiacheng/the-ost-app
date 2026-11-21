@@ -11,6 +11,7 @@ import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import InputLabel from "@mui/material/InputLabel";
 import Link from "@mui/material/Link";
@@ -427,11 +428,17 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
             <TableCell colSpan={7} sx={{ p: 0, borderBottom: 0 }}>
                 <Collapse in={open && !loading}>
                     <Container maxWidth={false} sx={{ border: 1, borderColor: "primary.main", p: 0, textAlign: { xs: "center", md: "left" } }}>
-                        <Stack direction={{ xs: "column", md: "row" }}>
-                            <BusArrival arrival={arrival} />
-                            <BusFirstLast stop={currentStop} />
-                            <BusAltRoutes stop={currentStop} />
-                        </Stack>
+                        <Grid container>
+                            <Grid size={{ xs: 6, md: 3 }}>
+                                <BusArrival arrival={arrival} />
+                            </Grid>
+                            <Grid size={{ xs: 6, md: 3 }}>
+                                <BusFirstLast stop={currentStop} />
+                            </Grid>
+                            <Grid size={{ xs: 12, md: 6 }}>
+                                <BusAltRoutes stop={currentStop} />
+                            </Grid>
+                        </Grid>
                     </Container>
                 </Collapse>
             </TableCell>
@@ -445,8 +452,8 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
         suffixes: [...new Set(stop.AltSvcSuffix.filter((_, index) => stop.AltSvcNo[index] === number))]
     }));
     return (
-        <Table sx={{ flex: 2, minWidth: 0, display: "block" }}>
-            <TableBody sx={{ display: "flex", flexDirection: { xs: "column-reverse", md: "row-reverse" } }}>
+        <Table sx={{ minWidth: 0, display: "block" }}>
+            <TableBody sx={{ display: "flex", flexDirection: "row-reverse" }}>
                 {stop.StnCode.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
                     <TableCell sx={{ display: "block", border: 0, p: 0, mb: 1 }}>
                         <Typography>Nearby Stations</Typography>
@@ -525,18 +532,20 @@ function BusArrival({ arrival }: { arrival: BusArrivalType | null }) {
     const timings = service ? [service.NextBus, service.NextBus2, service.NextBus3] : [];
 
     return (
-        <Box sx={{ flex: 1, minWidth: 0, p: 1 }}>
+        <Box sx={{ flex: 1, minWidth: 0, p: 2 }}>
             {service ? <>
                 <Typography sx={{ mb: 1 }}>Arrivals</Typography>
-                <Stack direction="row" sx={{ justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
+                <Stack direction="row" sx={{ justifyContent: "space-between", gap: 2 }}>
                     {timings.map((timing, i) => timing.EstimatedArrival && (
-                        <Box key={i}>
-                            <Typography>{Math.max(0, Math.ceil((new Date(timing.EstimatedArrival).getTime() - now) / 60000))} <Typography component="span" variant="caption">min</Typography></Typography>
-                            <Box title={typeMap[timing.Type]} sx={{ width: 16, height: 16, my: 1, borderRadius: 1, bgcolor: "text.secondary" }} />
-                            <Stack direction="row" spacing={0.5} aria-label={occupancyMap[timing.Load]}>
+                        <Box key={i} sx={{ flexShrink: 0 }}>
+                            <Typography>{Math.max(0, Math.ceil((new Date(timing.EstimatedArrival).getTime() - now) / 60000))}
+                                <Typography component="span" variant="caption">min</Typography>
+                            </Typography>
+                            <Box title={typeMap[timing.Type]} sx={{ width: 12, height: 12, my: 1, borderRadius: 1, bgcolor: "text.secondary" }} />
+                            <Stack direction="row" spacing={1} aria-label={occupancyMap[timing.Load]}>
                                 {["SEA", "SDA", "LSD"].map((load, index) => (
                                     <Box key={load} sx={{
-                                        width: 16, height: 12,
+                                        width: 10, height: 10,
                                         bgcolor: index <= ["SEA", "SDA", "LSD"].indexOf(timing.Load)
                                             ? timing.Load === "SEA"
                                                 ? "success.light" : timing.Load === "SDA"
