@@ -520,40 +520,36 @@ function BusFirstLast({ stop }: { stop: BusStopType }) {
 }
 
 function BusArrival({ arrival }: { arrival: BusArrivalType | null }) {
+    const service = arrival?.Services[0];
+    const now = new Date().getTime();
+    const timings = service ? [service.NextBus, service.NextBus2, service.NextBus3] : [];
+
     return (
         <Box sx={{ flex: 1, minWidth: 0, p: 1 }}>
-            {arrival?.Services[0] ? <BusArrivalTimings arrival={arrival} /> : <Typography>Arrivals Unavailable</Typography>}
-        </Box>
-    );
-}
-
-function BusArrivalTimings({ arrival }: { arrival: BusArrivalType }) {
-    const [now] = useState(Date.now);
-    const timings = [arrival.Services[0].NextBus, arrival.Services[0].NextBus2, arrival.Services[0].NextBus3];
-    return (
-        <Box>
-            <Typography sx={{ mb: 1 }}>Arrivals</Typography>
-            <Stack direction="row" sx={{ justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
-                {timings.map((timing, i) => timing.EstimatedArrival && (
-                    <Box key={i}>
-                        <Typography>{Math.max(0, Math.ceil((new Date(timing.EstimatedArrival).getTime() - now) / 60000))} <Typography component="span" variant="caption">min</Typography></Typography>
-                        <Box title={typeMap[timing.Type]} sx={{ width: 16, height: 16, my: 1, borderRadius: 1, bgcolor: "text.secondary" }} />
-                        <Stack direction="row" spacing={0.5} aria-label={occupancyMap[timing.Load]}>
-                            {["SEA", "SDA", "LSD"].map((load, index) => (
-                                <Box key={load} sx={{
-                                    width: 16, height: 12,
-                                    bgcolor: index <= ["SEA", "SDA", "LSD"].indexOf(timing.Load)
-                                        ? timing.Load === "SEA"
-                                            ? "success.light" : timing.Load === "SDA"
-                                                ? "warning.light" : timing.Load === "LSD"
-                                                    ? "error.light" : "action.disabled"
-                                        : "action.disabled"
-                                }} />
-                            ))}
-                        </Stack>
-                    </Box>
-                ))}
-            </Stack>
+            {service ? <>
+                <Typography sx={{ mb: 1 }}>Arrivals</Typography>
+                <Stack direction="row" sx={{ justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
+                    {timings.map((timing, i) => timing.EstimatedArrival && (
+                        <Box key={i}>
+                            <Typography>{Math.max(0, Math.ceil((new Date(timing.EstimatedArrival).getTime() - now) / 60000))} <Typography component="span" variant="caption">min</Typography></Typography>
+                            <Box title={typeMap[timing.Type]} sx={{ width: 16, height: 16, my: 1, borderRadius: 1, bgcolor: "text.secondary" }} />
+                            <Stack direction="row" spacing={0.5} aria-label={occupancyMap[timing.Load]}>
+                                {["SEA", "SDA", "LSD"].map((load, index) => (
+                                    <Box key={load} sx={{
+                                        width: 16, height: 12,
+                                        bgcolor: index <= ["SEA", "SDA", "LSD"].indexOf(timing.Load)
+                                            ? timing.Load === "SEA"
+                                                ? "success.light" : timing.Load === "SDA"
+                                                    ? "warning.light" : timing.Load === "LSD"
+                                                        ? "error.light" : "action.disabled"
+                                            : "action.disabled"
+                                    }} />
+                                ))}
+                            </Stack>
+                        </Box>
+                    ))}
+                </Stack>
+            </> : <Typography>Arrivals Unavailable</Typography>}
         </Box>
     );
 }
