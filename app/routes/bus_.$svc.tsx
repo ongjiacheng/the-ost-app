@@ -76,9 +76,6 @@ function BusInfo({ service }: { service: BusServiceType }) {
                 <TableRow>
                     <TableCell align="center">
                         <Typography>
-                            {service.LoopDesc ? "Loop" : `Direction ${service.Direction}`}
-                        </Typography>
-                        <Typography variant="body2">
                             {service.LoopDesc
                                 ? `${service.OriginName} ↺ ${service.LoopDesc}`
                                 : `${service.OriginName} → ${service.DestinationName}`}
@@ -338,6 +335,7 @@ function BusJourney({ route, timecodes, handlePlay, statuses }: {
             <Table>
                 <TableHead>
                     <TableRow>
+                        <TableCell></TableCell>
                         <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>#</TableCell>
                         <TableCell align="center">km</TableCell>
                         <TableCell align="center">Code</TableCell>
@@ -394,11 +392,16 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
     return (<>
         {(!previousStop || previousStop.RoadName !== currentStop.RoadName) &&
             <TableRow>
-                <TableCell align="center" colSpan={7}>
+                <TableCell align="center" colSpan={8}>
                     <Typography>{currentStop.RoadName}</Typography>
                 </TableCell>
             </TableRow>}
         <TableRow ref={activeRef} sx={{ backgroundColor: { current: "secondary.dark", next: "primary.dark", previous: undefined, later: undefined }[status] }}>
+            <TableCell align="left" sx={{ whiteSpace: "nowrap" }}>
+                <IconButton aria-label="Play video" size="small" onClick={play}>
+                    <PlayCircleIcon />
+                </IconButton>
+            </TableCell>
             <TableCell align="center" sx={{ display: { xs: "none", sm: "table-cell" } }}>{currentStop.StopSequence}</TableCell>
             <TableCell align="center">{currentStop.Distance.toFixed(1)}</TableCell>
             <TableCell align="center">{currentStop.BusStopCode}</TableCell>
@@ -416,16 +419,13 @@ function BusSequence({ currentStop, previousStop, status, activeRef, play }: { c
                 ))}
             </TableCell>
             <TableCell align="right" sx={{ whiteSpace: "nowrap" }}>
-                <IconButton aria-label="Play Video" size="small" onClick={play}>
-                    <PlayCircleIcon />
-                </IconButton>
                 <IconButton aria-label="Expand Dropdown" aria-expanded={open} size="small" onClick={handleDropdown}>
                     {loading ? <SyncIcon /> : open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
             </TableCell>
         </TableRow >
         <TableRow>
-            <TableCell colSpan={7} sx={{ p: 0, borderBottom: 0 }}>
+            <TableCell colSpan={8} sx={{ p: 0, borderBottom: 0 }}>
                 <Collapse in={open && !loading}>
                     <Container maxWidth={false} sx={{ border: 1, borderColor: "primary.main", p: 0, textAlign: { xs: "center", md: "left" } }}>
                         <Grid container>
@@ -674,10 +674,7 @@ export default function Bus({
 }: Route.ComponentProps) {
     const typeName = busType.find(type => type.services.flat().includes(serviceNo))?.name;
     const { palette } = useTheme();
-    const [direction, setDirection] = useState(() => {
-        const time = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Singapore", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
-        return time >= "12:00" && services.some(s => s.Direction === 2) ? 2 : 1;
-    });
+    const [direction, setDirection] = useState(1);
     const [journey, setJourney] = useState(false);
     const [volume, setVolume] = useState<string | null>(null);
     const route = useMemo(() => routes.filter(stop => stop.Direction === direction), [routes, direction]);
@@ -762,6 +759,9 @@ export default function Bus({
                     </Stack>
                 }
             </Stack>
+            <Box sx={{ pb: 2 }}>
+                <BusInfo service={service} />
+            </Box>
             <Stack direction={{ xs: "column", md: "row" }} sx={{ gap: 1, mb: 1 }}>
                 <BusMap map={map} route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />
                 {hyperlapse && <BusHyperlapses hyperlapse={hyperlapse} iframe={iframe} />}
@@ -780,12 +780,10 @@ export default function Bus({
             </Stack>
             <Box sx={{ pb: 2 }}>
                 {!journey && <BusJourney route={route} service={service} timecodes={timecodes} handlePlay={handlePlay} statuses={statuses} />}
-                {!journey && <BusInfo service={service} />}
                 <Box hidden={!journey}>
                     {volume === `${serviceNo}-${direction}` && <BusVolume key={volume} route={route} />}
                 </Box>
             </Box>
         </Box>
-
     );
 }

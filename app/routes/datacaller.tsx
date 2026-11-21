@@ -94,7 +94,7 @@ export default function Infobar() {
                 </Table>
             </TableContainer>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ alignItems: "stretch", mt: 4 }}>
-                <TextField label="Service" size="small" value={service} onChange={event => setService(event.target.value)} required fullWidth />
+                <TextField label="Service" size="small" value={service} onChange={event => setService(event.target.value.toUpperCase().replace(/E/g, "e"))} required fullWidth />
                 <FormControl fullWidth size="small">
                     <InputLabel id="direction">Direction</InputLabel>
                     <Select labelId="direction" label="Direction" value={direction} onChange={event => setDirection(event.target.value)}>
