@@ -452,46 +452,36 @@ function BusAltRoutes({ stop }: { stop: BusStopType }) {
         suffixes: [...new Set(stop.AltSvcSuffix.filter((_, index) => stop.AltSvcNo[index] === number))]
     }));
     return (
-        <Table sx={{ minWidth: 0 }}>
-            <TableBody sx={{ display: "flex", flexDirection: "row-reverse" }}>
-                {stop.StnCode.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
-                    <TableCell sx={{ border: 0, p: 0, mb: 1 }}>
-                        <Typography>Nearby Stations</Typography>
-                    </TableCell>
-                    <TableCell sx={{ border: 0, p: 0 }}>
-                        {stop.StnCode?.map((codes, i, a) => (
-                            <Box key={i}>
-                                {codes.split(" ").map((code, j) =>
-                                    <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#999999" }}>
-                                        {code}{" "}
-                                    </Typography>
-                                )}
-                                {`${stop.StnName[i]} Exit ${stop.StnExit[i]}`}
-                                {i < a.length - 1 && "\n"}
-                            </Box>
-                        ))}
-                    </TableCell>
-                </TableRow>}
-                {stop.AltSvcNo.length > 0 && <TableRow sx={{ display: "block", flex: 1, p: 1 }}>
-                    <TableCell sx={{ border: 0, p: 0, mb: 1 }}>
-                        <Typography>Other Services</Typography>
-                    </TableCell>
-                    <TableCell sx={{ border: 0, p: 0 }}>
-                        <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
-                            {services.map(({ number, suffixes }) => (
-                                <Box key={number} sx={{ whiteSpace: "nowrap" }}>
-                                    {suffixes.map((suffix, index) => (
-                                        <Link key={suffix} component={RouterLink} to={`/bus/${number}${suffix}`} underline="hover">
-                                            {index === 0 ? `${number}${suffix}` : `/${suffix}`}
-                                        </Link>
-                                    ))}
-                                </Box>
+        <Stack direction="row">
+            {stop.AltSvcNo.length > 0 && <Box sx={{ flex: 1, minWidth: 0, p: 1, textAlign: "center" }}>
+                <Typography sx={{ mb: 1 }}>Other Services</Typography>
+                <Stack direction="row" sx={{ justifyContent: "center", flexWrap: "wrap", gap: 1 }}>
+                    {services.map(({ number, suffixes }) => (
+                        <Box key={number} sx={{ whiteSpace: "nowrap" }}>
+                            {suffixes.map((suffix, index) => (
+                                <Link key={suffix} component={RouterLink} to={`/bus/${number}${suffix}`} underline="hover">
+                                    {index === 0 ? `${number}${suffix}` : `/${suffix}`}
+                                </Link>
                             ))}
-                        </Stack>
-                    </TableCell>
-                </TableRow>}
-            </TableBody>
-        </Table>
+                        </Box>
+                    ))}
+                </Stack>
+            </Box>}
+            {stop.StnCode.length > 0 && <Box sx={{ flex: 1, minWidth: 0, p: 1, textAlign: "center" }}>
+                <Typography sx={{ mb: 1 }}>Nearby Stations</Typography>
+                {stop.StnCode.map((codes, i, a) => (
+                    <Box key={i}>
+                        {codes.split(" ").map((code, j) =>
+                            <Typography component="span" key={j} variant="body2" sx={{ color: lineMap[code.slice(0, 2)] ?? "#999999" }}>
+                                {code}{" "}
+                            </Typography>
+                        )}
+                        {`${stop.StnName[i]} Exit ${stop.StnExit[i]}`}
+                        {i < a.length - 1 && "\n"}
+                    </Box>
+                ))}
+            </Box>}
+        </Stack>
     );
 }
 
