@@ -1530,6 +1530,18 @@
         "StnExit":"A"
     },
     {
+        "BusStopCode":"43041",
+        "StnCode":"DT4",
+        "StnName":"Hume",
+        "StnExit":"1"
+    },
+    {
+        "BusStopCode":"43049",
+        "StnCode":"DT4",
+        "StnName":"Hume",
+        "StnExit":"1"
+    },
+    {
         "BusStopCode":"43061",
         "StnCode":"DT3",
         "StnName":"Hillview",
@@ -1600,6 +1612,18 @@
         "StnCode":"NS3",
         "StnName":"Bukit Gombak",
         "StnExit":"C"
+    },
+    {
+        "BusStopCode":"43821",
+        "StnCode":"DT4",
+        "StnName":"Hume",
+        "StnExit":"2"
+    },
+    {
+        "BusStopCode":"43829",
+        "StnCode":"DT4",
+        "StnName":"Hume",
+        "StnExit":"2"
     },
     {
         "BusStopCode":"44009",
