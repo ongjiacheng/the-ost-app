@@ -12,6 +12,10 @@ import stations from "../assets/mrt_stations.json";
 import type { TrainStationType } from "../types";
 import { lineMap } from "../types";
 
+export function meta() {
+    return [{ title: "MRT Stations | One Stop Transport" }];
+}
+
 export default function MRT() {
     return (
         <Container>

@@ -21,6 +21,10 @@ export async function loader({ params }: Route.LoaderArgs) {
     return { master };
 }
 
+export function meta({ loaderData }: Route.MetaArgs) {
+    return [{ title: `${loaderData.master.codes.join(" ")} ${loaderData.master.english} Station | One Stop Transport` }];
+}
+
 export default function Train({
     loaderData: { master }
 }: Route.ComponentProps) {

@@ -31,6 +31,10 @@ const channels = [
     { value: "TE", label: "Transit Evolution" }
 ] as const;
 
+export function meta() {
+    return [{ title: "DataCaller | One Stop Transport" }];
+}
+
 export async function loader() {
     const get = async (path: string) => {
         const response = await fetch(`https://storage.googleapis.com/the-ost-app/${path}`, { cache: "no-store" });

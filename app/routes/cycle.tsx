@@ -8,6 +8,10 @@ import type { Route } from "./+types/cycle";
 import { useState } from "react";
 import type { VideoType } from "../types";
 
+export function meta() {
+    return [{ title: "Cycle | One Stop Transport" }];
+}
+
 export async function loader() {
     const bikethrough = await fetch("https://storage.googleapis.com/the-ost-app/bikethrough.json")
         .then(response => response.json()) as VideoType[];

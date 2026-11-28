@@ -12,6 +12,10 @@ import stations from "../assets/lrt_stations.json";
 import type { TrainStationType } from "../types";
 import { lineMap } from "../types";
 
+export function meta() {
+    return [{ title: "LRT Stations | One Stop Transport" }];
+}
+
 export default function LRT() {
     return (
         <Container>

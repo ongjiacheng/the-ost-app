@@ -8,6 +8,10 @@ import type { Route } from "./+types/walk";
 import { useState } from "react";
 import type { VideoType } from "../types";
 
+export function meta() {
+    return [{ title: "Walk | One Stop Transport" }];
+}
+
 export async function loader() {
     const walkingTours = await fetch("https://storage.googleapis.com/the-ost-app/walking_tours.json")
         .then(response => response.json()) as VideoType[];

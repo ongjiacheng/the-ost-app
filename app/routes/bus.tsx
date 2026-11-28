@@ -13,6 +13,10 @@ import { Link as RouterLink, useSearchParams } from "react-router";
 import busPackage from "../assets/bus_package.json";
 import busType from "../assets/bus_type.json";
 
+export function meta() {
+    return [{ title: "Bus Services | One Stop Transport" }];
+}
+
 export default function Buses() {
     const [searchParams, setSearchParams] = useSearchParams();
     const view = searchParams.get("view") === "package" ? "package" : "type";

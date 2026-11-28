@@ -8,6 +8,10 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
+export function meta() {
+    return [{ title: "About | One Stop Transport" }];
+}
+
 export default function Home() {
     return (
         <Box sx={{ py: 5, textAlign: "center" }}>
